@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Explicit opt-in: this same-family port has not been validated on hardware.
+ifeq ($(CONFIG_TOUCHSCREEN_XIAOMI_ANNIBALE),m)
+subdir-ccflags-y += -DCONFIG_TOUCHSCREEN_GOODIX_BRL_9916K=1
+subdir-ccflags-y += -DTOUCH_THP_SUPPORT -DTOUCH_FOD_SUPPORT -DTHP_V4_ENABLE
+subdir-ccflags-y += -DTOUCH_SPI_CS_CLK_DELAY
+obj-m += xiaomi/ goodix_9916k/
+endif

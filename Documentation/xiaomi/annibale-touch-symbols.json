@@ -1,0 +1,3500 @@
+{
+  "validation": "relocatable objects only, no Module.symvers CRC validation or runtime load",
+  "kernel_release": "6.6.144-4k-gedf391908e89-dirty",
+  "module_vermagic": null,
+  "source_kernel_head": "edf391908e89432fd4c92ec9c6bddb1a1481894e",
+  "source_kernel_dirty": true,
+  "kernel_config_sha256": "56629bbb15a1ad70ce55fc6390cc2a4410427c01265221e837c8310661d9060e",
+  "clang_version": "Android (11368308, +pgo, +bolt, +lto, +mlgo, based on r510928) clang version 18.0.0 (https://android.googlesource.com/toolchain/llvm-project 477610d4d0d988e69dbc3fae4fe86bff3f07f2b5)",
+  "modules": {
+    "xiaomi_touch": {
+      "object_sha256": "077ca3daa8967ace4716379e97cddb368652e5c54403f03a0cdcc4259343fb6a",
+      "undefined_symbol_count": 109,
+      "symbols": [
+        {
+          "symbol": "__alloc_skb",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/core/skbuff.c",
+                "line": 694
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__arch_copy_from_user",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/lib/copy_from_user.S",
+                "line": 73
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__arch_copy_to_user",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/lib/copy_to_user.S",
+                "line": 73
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__check_object_size",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/usercopy.c",
+                "line": 256
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__flush_workqueue",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 3368
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__init_waitqueue_head",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/wait.c",
+                "line": 16
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__kmalloc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1029
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__list_add_valid_or_report",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/list_debug.c",
+                "line": 42
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__list_del_entry_valid_or_report",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/list_debug.c",
+                "line": 72
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__mutex_init",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/mutex.c",
+                "line": 62
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__netlink_kernel_create",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/netlink/af_netlink.c",
+                "line": 2081
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__nlmsg_put",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/netlink/af_netlink.c",
+                "line": 2165
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__of_parse_phandle_with_args",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/base.c",
+                "line": 1296
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__platform_driver_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/platform.c",
+                "line": 869
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__stack_chk_fail",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/panic.c",
+                "line": 777
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__this_module",
+          "provider": {
+            "generated": "modpost module descriptor; not emitted by object-only validation"
+          }
+        },
+        {
+          "symbol": "__wake_up",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/wait.c",
+                "line": 163
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "_printk",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/printk/printk.c",
+                "line": 2409
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "_raw_spin_lock",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/spinlock.c",
+                "line": 156
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "_raw_spin_unlock",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/spinlock.c",
+                "line": 188
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "alloc_workqueue",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 4876
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "alt_cb_patch_nops",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/kernel/alternative.c",
+                "line": 300
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "cancel_delayed_work_sync",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 3726
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "cancel_work_sync",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 3621
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "class_create",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/class.c",
+                "line": 281
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "class_destroy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/class.c",
+                "line": 297
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "default_llseek",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/read_write.c",
+                "line": 284
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "delayed_work_timer_fn",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 1970
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "device_create",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/core.c",
+                "line": 4455
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "device_destroy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/core.c",
+                "line": 4516
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "finish_wait",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/wait.c",
+                "line": 424
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "fortify_panic",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string_helpers.c",
+                "line": 1048
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "init_net",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/core/net_namespace.c",
+                "line": 49
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "init_timer_key",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timer.c",
+                "line": 875
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "init_wait_entry",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/wait.c",
+                "line": 312
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_allocate_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2034
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_close_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 726
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_event",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 439
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_free_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2126
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_mt_init_slots",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input-mt.c",
+                "line": 105
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_mt_report_slot_state",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input-mt.c",
+                "line": 165
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_open_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 674
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_register_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2492
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_register_handle",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2657
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_register_handler",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2549
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_set_abs_params",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 516
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_unregister_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2518
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_unregister_handle",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2684
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_unregister_handler",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2574
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kfree",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1065
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kfree_skb_reason",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/core/skbuff.c",
+                "line": 1114
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kimage_voffset",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/mm/mmu.c",
+                "line": 59
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kmalloc_caches",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 662
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kmalloc_trace",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1113
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kstrtoint",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/kstrtox.c",
+                "line": 272
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kthread_create_on_node",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/kthread.c",
+                "line": 517
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kthread_should_stop",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/kthread.c",
+                "line": 160
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kthread_stop",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/kthread.c",
+                "line": 720
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "ktime_get",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timekeeping.c",
+                "line": 854
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "ktime_get_real_ts64",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timekeeping.c",
+                "line": 834
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kvfree",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/util.c",
+                "line": 678
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kvmalloc_node",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/util.c",
+                "line": 659
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "memcpy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 635
+              },
+              {
+                "path": "arch/sh/kernel/sh_ksyms_32.c",
+                "line": 11
+              },
+              {
+                "path": "arch/nios2/kernel/nios2_ksyms.c",
+                "line": 17
+              },
+              {
+                "path": "arch/arc/kernel/arcksyms.c",
+                "line": 49
+              },
+              {
+                "path": "arch/parisc/lib/memcpy.c",
+                "line": 65
+              },
+              {
+                "path": "arch/openrisc/lib/memcpy.c",
+                "line": 125
+              },
+              {
+                "path": "arch/um/os-Linux/user_syms.c",
+                "line": 26
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 242
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 244
+              },
+              {
+                "path": "arch/powerpc/lib/memcpy_64.S",
+                "line": 229
+              },
+              {
+                "path": "arch/powerpc/lib/memcpy_64.S",
+                "line": 230
+              },
+              {
+                "path": "arch/arm/kernel/armksyms.c",
+                "line": 88
+              },
+              {
+                "path": "arch/microblaze/lib/memcpy.c",
+                "line": 178
+              },
+              {
+                "path": "arch/microblaze/kernel/microblaze_ksyms.c",
+                "line": 32
+              },
+              {
+                "path": "arch/alpha/lib/ev6-memcpy.S",
+                "line": 246
+              },
+              {
+                "path": "arch/alpha/lib/memcpy.c",
+                "line": 163
+              },
+              {
+                "path": "arch/ia64/lib/memcpy_mck.S",
+                "line": 83
+              },
+              {
+                "path": "arch/ia64/lib/memcpy.S",
+                "line": 304
+              },
+              {
+                "path": "tools/arch/x86/lib/memcpy_64.S",
+                "line": 43
+              },
+              {
+                "path": "arch/s390/lib/mem.S",
+                "line": 151
+              },
+              {
+                "path": "arch/arm64/lib/memcpy.S",
+                "line": 246
+              },
+              {
+                "path": "arch/loongarch/lib/memcpy.S",
+                "line": 24
+              },
+              {
+                "path": "arch/csky/lib/string.c",
+                "line": 85
+              },
+              {
+                "path": "arch/csky/abiv2/strksyms.c",
+                "line": 7
+              },
+              {
+                "path": "arch/xtensa/lib/memcopy.S",
+                "line": 277
+              },
+              {
+                "path": "arch/x86/lib/memcpy_64.S",
+                "line": 44
+              },
+              {
+                "path": "arch/x86/lib/memcpy_32.c",
+                "line": 13
+              },
+              {
+                "path": "arch/mips/lib/memcpy.S",
+                "line": 661
+              },
+              {
+                "path": "arch/mips/cavium-octeon/octeon-memcpy.S",
+                "line": 150
+              },
+              {
+                "path": "arch/hexagon/kernel/hexagon_ksyms.c",
+                "line": 21
+              },
+              {
+                "path": "arch/sparc/lib/memcpy.S",
+                "line": 126
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 13
+              },
+              {
+                "path": "arch/m68k/lib/memcpy.c",
+                "line": 89
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "memset",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 547
+              },
+              {
+                "path": "arch/sh/kernel/sh_ksyms_32.c",
+                "line": 12
+              },
+              {
+                "path": "arch/nios2/kernel/nios2_ksyms.c",
+                "line": 18
+              },
+              {
+                "path": "arch/arc/kernel/arcksyms.c",
+                "line": 48
+              },
+              {
+                "path": "arch/parisc/kernel/parisc_ksyms.c",
+                "line": 20
+              },
+              {
+                "path": "arch/openrisc/kernel/or32_ksyms.c",
+                "line": 46
+              },
+              {
+                "path": "arch/um/os-Linux/user_syms.c",
+                "line": 31
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 149
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 150
+              },
+              {
+                "path": "arch/powerpc/lib/mem_64.S",
+                "line": 97
+              },
+              {
+                "path": "arch/powerpc/lib/mem_64.S",
+                "line": 98
+              },
+              {
+                "path": "arch/arm/kernel/armksyms.c",
+                "line": 85
+              },
+              {
+                "path": "arch/microblaze/lib/memset.c",
+                "line": 93
+              },
+              {
+                "path": "arch/alpha/lib/ev6-memset.S",
+                "line": 604
+              },
+              {
+                "path": "arch/alpha/lib/memset.S",
+                "line": 132
+              },
+              {
+                "path": "arch/ia64/lib/memset.S",
+                "line": 365
+              },
+              {
+                "path": "tools/arch/x86/lib/memset_64.S",
+                "line": 44
+              },
+              {
+                "path": "arch/s390/lib/mem.S",
+                "line": 119
+              },
+              {
+                "path": "arch/arm64/lib/memset.S",
+                "line": 210
+              },
+              {
+                "path": "arch/loongarch/lib/memset.S",
+                "line": 30
+              },
+              {
+                "path": "arch/csky/lib/string.c",
+                "line": 134
+              },
+              {
+                "path": "arch/csky/abiv2/strksyms.c",
+                "line": 8
+              },
+              {
+                "path": "arch/xtensa/lib/memset.S",
+                "line": 146
+              },
+              {
+                "path": "arch/x86/lib/memcpy_32.c",
+                "line": 19
+              },
+              {
+                "path": "arch/x86/lib/memset_64.S",
+                "line": 44
+              },
+              {
+                "path": "arch/mips/lib/memset.S",
+                "line": 300
+              },
+              {
+                "path": "arch/hexagon/kernel/hexagon_ksyms.c",
+                "line": 22
+              },
+              {
+                "path": "arch/sparc/lib/memset.S",
+                "line": 79
+              },
+              {
+                "path": "arch/sparc/lib/bzero.S",
+                "line": 84
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 12
+              },
+              {
+                "path": "arch/m68k/lib/memset.c",
+                "line": 74
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "memstart_addr",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/powerpc/mm/init-common.c",
+                "line": 26
+              },
+              {
+                "path": "arch/arm64/mm/init.c",
+                "line": 57
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "misc_deregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/char/misc.c",
+                "line": 291
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "misc_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/char/misc.c",
+                "line": 268
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "msleep",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timer.c",
+                "line": 2329
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "mutex_lock",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/mutex.c",
+                "line": 298
+              },
+              {
+                "path": "kernel/locking/rtmutex_api.c",
+                "line": 571
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "mutex_unlock",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/mutex.c",
+                "line": 568
+              },
+              {
+                "path": "kernel/locking/rtmutex_api.c",
+                "line": 615
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "netlink_kernel_release",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/netlink/af_netlink.c",
+                "line": 2091
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "netlink_unicast",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "net/netlink/af_netlink.c",
+                "line": 1367
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_count_phandle_with_args",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/base.c",
+                "line": 1538
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_drm_find_panel",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpu/drm/drm_panel.c",
+                "line": 337
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_find_property",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/base.c",
+                "line": 224
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_property_read_variable_u32_array",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/property.c",
+                "line": 339
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "panel_event_notifier_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/soc/qcom/panel_event_notifier.c",
+                "line": 89
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "panel_event_notifier_unregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/soc/qcom/panel_event_notifier.c",
+                "line": 110
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "platform_driver_unregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/platform.c",
+                "line": 879
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "power_supply_get_by_name",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/power/supply/power_supply_core.c",
+                "line": 479
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "power_supply_get_property",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/power/supply/power_supply_core.c",
+                "line": 1292
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "power_supply_reg_notifier",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/power/supply/power_supply_core.c",
+                "line": 1343
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "power_supply_unreg_notifier",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/power/supply/power_supply_core.c",
+                "line": 1349
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "prepare_to_wait_event",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/wait.c",
+                "line": 348
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "proc_create_data",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 594
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "proc_create_seq_private",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 644
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "proc_remove",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 815
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "proc_set_user",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 687
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "queue_delayed_work_on",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 2033
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "queue_work_on",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 1881
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "refcount_warn_saturate",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/refcount.c",
+                "line": 37
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "remap_pfn_range",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/memory.c",
+                "line": 2701
+              },
+              {
+                "path": "mm/nommu.c",
+                "line": 1619
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "rtc_time64_to_tm",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/rtc/lib.c",
+                "line": 156
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "schedule",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/core.c",
+                "line": 6950
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "seq_printf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 409
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "snprintf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/vsprintf.c",
+                "line": 2963
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sscanf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/vsprintf.c",
+                "line": 3727
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strncmp",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 322
+              },
+              {
+                "path": "arch/powerpc/lib/string.S",
+                "line": 51
+              },
+              {
+                "path": "arch/arm64/lib/strncmp.S",
+                "line": 310
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 140
+              },
+              {
+                "path": "arch/sparc/lib/strncmp_64.S",
+                "line": 33
+              },
+              {
+                "path": "arch/sparc/lib/strncmp_32.S",
+                "line": 121
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 17
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strncpy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 103
+              },
+              {
+                "path": "arch/powerpc/lib/string.S",
+                "line": 33
+              },
+              {
+                "path": "arch/alpha/lib/strncpy.S",
+                "line": 83
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 120
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 50
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strnlen",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 441
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 76
+              },
+              {
+                "path": "arch/arm64/lib/strnlen.S",
+                "line": 162
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 236
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strsep",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 527
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "synchronize_rcu",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/rcu/tiny.c",
+                "line": 160
+              },
+              {
+                "path": "kernel/rcu/tree.c",
+                "line": 3658
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_create_group",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/group.c",
+                "line": 208
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_notify",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/file.c",
+                "line": 200
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_remove_group",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/group.c",
+                "line": 325
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "system_cpucaps",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/kernel/cpufeature.c",
+                "line": 109
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "system_wq",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 436
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "time64_to_tm",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timeconv.c",
+                "line": 141
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "wake_up_process",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/core.c",
+                "line": 4615
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "goodix_core": {
+      "object_sha256": "aea6fb8a4c86a9faaf5a4664c698031a300af424ccc6bc779308433c5e5e1701",
+      "undefined_symbol_count": 147,
+      "symbols": [
+        {
+          "symbol": "__arch_copy_from_user",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/lib/copy_from_user.S",
+                "line": 73
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__arch_copy_to_user",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/lib/copy_to_user.S",
+                "line": 73
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__check_object_size",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/usercopy.c",
+                "line": 256
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__const_udelay",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/sh/kernel/sh_ksyms_32.c",
+                "line": 17
+              },
+              {
+                "path": "arch/nios2/lib/delay.c",
+                "line": 28
+              },
+              {
+                "path": "arch/openrisc/lib/delay.c",
+                "line": 47
+              },
+              {
+                "path": "arch/arm64/lib/delay.c",
+                "line": 72
+              },
+              {
+                "path": "arch/csky/lib/delay.c",
+                "line": 27
+              },
+              {
+                "path": "arch/x86/lib/delay.c",
+                "line": 219
+              },
+              {
+                "path": "arch/x86/um/delay.c",
+                "line": 45
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__init_swait_queue_head",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/swait.c",
+                "line": 13
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__init_waitqueue_head",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/wait.c",
+                "line": 16
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__kmalloc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1029
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__list_add_valid_or_report",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/list_debug.c",
+                "line": 42
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__list_del_entry_valid_or_report",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/list_debug.c",
+                "line": 72
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__mutex_init",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/mutex.c",
+                "line": 62
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__platform_driver_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/platform.c",
+                "line": 869
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__spi_register_driver",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/spi/spi.c",
+                "line": 536
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__stack_chk_fail",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/panic.c",
+                "line": 777
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "__this_module",
+          "provider": {
+            "generated": "modpost module descriptor; not emitted by object-only validation"
+          }
+        },
+        {
+          "symbol": "__warn_printk",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/panic.c",
+                "line": 732
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "_printk",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/printk/printk.c",
+                "line": 2409
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "add_common_data_to_buf",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "alt_cb_patch_nops",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/kernel/alternative.c",
+                "line": 300
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "bcmp",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 722
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "blocking_notifier_call_chain",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/notifier.c",
+                "line": 393
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "blocking_notifier_chain_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/notifier.c",
+                "line": 292
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "blocking_notifier_chain_unregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/notifier.c",
+                "line": 339
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "cancel_delayed_work_sync",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 3726
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "complete",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/completion.c",
+                "line": 49
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "cpu_latency_qos_add_request",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/power/qos.c",
+                "line": 285
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "cpu_latency_qos_remove_request",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/power/qos.c",
+                "line": 337
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "debugfs_create_dir",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/debugfs/inode.c",
+                "line": 620
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "debugfs_create_file",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/debugfs/inode.c",
+                "line": 493
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "delayed_work_timer_fn",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 1970
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "device_set_wakeup_capable",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/power/wakeup.c",
+                "line": 497
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "device_wakeup_enable",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/power/wakeup.c",
+                "line": 354
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "devm_gpio_request_one",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpio/gpiolib-devres.c",
+                "line": 391
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "devm_kmalloc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/devres.c",
+                "line": 849
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "devm_pinctrl_get",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/pinctrl/core.c",
+                "line": 1407
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "devm_pinctrl_put",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/pinctrl/core.c",
+                "line": 1429
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "devm_regulator_get",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/regulator/devres.c",
+                "line": 55
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "devm_request_threaded_irq",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/irq/devres.c",
+                "line": 80
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "disable_irq",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/irq/manage.c",
+                "line": 746
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "disable_irq_nosync",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/irq/manage.c",
+                "line": 724
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "driver_get_touch_mode",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "driver_unregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/driver.c",
+                "line": 276
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "driver_update_touch_mode",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "enable_irq",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/irq/manage.c",
+                "line": 847
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "enable_temperature_detection_func",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "fortify_panic",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string_helpers.c",
+                "line": 1048
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "get_bms_temp_common",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "get_raw_data_base",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "get_xiaomi_touch_class",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "gpio_to_desc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpio/gpiolib.c",
+                "line": 148
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "gpiod_direction_output_raw",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpio/gpiolib.c",
+                "line": 2570
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "gpiod_get_raw_value",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpio/gpiolib.c",
+                "line": 2977
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "gpiod_to_irq",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpio/gpiolib.c",
+                "line": 3441
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "i2c_del_driver",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/i2c/i2c-core-base.c",
+                "line": 2033
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "i2c_register_driver",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/i2c/i2c-core-base.c",
+                "line": 2012
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "i2c_transfer",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/i2c/i2c-core-base.c",
+                "line": 2315
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "init_timer_key",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timer.c",
+                "line": 875
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_allocate_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2034
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_event",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 439
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_free_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2126
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_mt_init_slots",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input-mt.c",
+                "line": 105
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_mt_report_slot_state",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input-mt.c",
+                "line": 165
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_mt_sync_frame",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input-mt.c",
+                "line": 356
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_register_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2492
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_set_abs_params",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 516
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_set_capability",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2233
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "input_unregister_device",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/input/input.c",
+                "line": 2518
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "irq_set_irq_wake",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/irq/manage.c",
+                "line": 938
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "irq_to_desc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/irq/irqdesc.c",
+                "line": 386
+              },
+              {
+                "path": "kernel/irq/irqdesc.c",
+                "line": 614
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kfree",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1065
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kmalloc_caches",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 662
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kmalloc_large",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1180
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kmalloc_trace",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/slab_common.c",
+                "line": 1113
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kstrtoll",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/kstrtox.c",
+                "line": 178
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "kthread_create_on_node",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/kthread.c",
+                "line": 517
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "ktime_get",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timekeeping.c",
+                "line": 854
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "ktime_get_real_ts64",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timekeeping.c",
+                "line": 834
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "memcpy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 635
+              },
+              {
+                "path": "arch/sh/kernel/sh_ksyms_32.c",
+                "line": 11
+              },
+              {
+                "path": "arch/nios2/kernel/nios2_ksyms.c",
+                "line": 17
+              },
+              {
+                "path": "arch/arc/kernel/arcksyms.c",
+                "line": 49
+              },
+              {
+                "path": "arch/parisc/lib/memcpy.c",
+                "line": 65
+              },
+              {
+                "path": "arch/openrisc/lib/memcpy.c",
+                "line": 125
+              },
+              {
+                "path": "arch/um/os-Linux/user_syms.c",
+                "line": 26
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 242
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 244
+              },
+              {
+                "path": "arch/powerpc/lib/memcpy_64.S",
+                "line": 229
+              },
+              {
+                "path": "arch/powerpc/lib/memcpy_64.S",
+                "line": 230
+              },
+              {
+                "path": "arch/arm/kernel/armksyms.c",
+                "line": 88
+              },
+              {
+                "path": "arch/microblaze/lib/memcpy.c",
+                "line": 178
+              },
+              {
+                "path": "arch/microblaze/kernel/microblaze_ksyms.c",
+                "line": 32
+              },
+              {
+                "path": "arch/alpha/lib/ev6-memcpy.S",
+                "line": 246
+              },
+              {
+                "path": "arch/alpha/lib/memcpy.c",
+                "line": 163
+              },
+              {
+                "path": "arch/ia64/lib/memcpy_mck.S",
+                "line": 83
+              },
+              {
+                "path": "arch/ia64/lib/memcpy.S",
+                "line": 304
+              },
+              {
+                "path": "tools/arch/x86/lib/memcpy_64.S",
+                "line": 43
+              },
+              {
+                "path": "arch/s390/lib/mem.S",
+                "line": 151
+              },
+              {
+                "path": "arch/arm64/lib/memcpy.S",
+                "line": 246
+              },
+              {
+                "path": "arch/loongarch/lib/memcpy.S",
+                "line": 24
+              },
+              {
+                "path": "arch/csky/lib/string.c",
+                "line": 85
+              },
+              {
+                "path": "arch/csky/abiv2/strksyms.c",
+                "line": 7
+              },
+              {
+                "path": "arch/xtensa/lib/memcopy.S",
+                "line": 277
+              },
+              {
+                "path": "arch/x86/lib/memcpy_64.S",
+                "line": 44
+              },
+              {
+                "path": "arch/x86/lib/memcpy_32.c",
+                "line": 13
+              },
+              {
+                "path": "arch/mips/lib/memcpy.S",
+                "line": 661
+              },
+              {
+                "path": "arch/mips/cavium-octeon/octeon-memcpy.S",
+                "line": 150
+              },
+              {
+                "path": "arch/hexagon/kernel/hexagon_ksyms.c",
+                "line": 21
+              },
+              {
+                "path": "arch/sparc/lib/memcpy.S",
+                "line": 126
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 13
+              },
+              {
+                "path": "arch/m68k/lib/memcpy.c",
+                "line": 89
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "memset",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 547
+              },
+              {
+                "path": "arch/sh/kernel/sh_ksyms_32.c",
+                "line": 12
+              },
+              {
+                "path": "arch/nios2/kernel/nios2_ksyms.c",
+                "line": 18
+              },
+              {
+                "path": "arch/arc/kernel/arcksyms.c",
+                "line": 48
+              },
+              {
+                "path": "arch/parisc/kernel/parisc_ksyms.c",
+                "line": 20
+              },
+              {
+                "path": "arch/openrisc/kernel/or32_ksyms.c",
+                "line": 46
+              },
+              {
+                "path": "arch/um/os-Linux/user_syms.c",
+                "line": 31
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 149
+              },
+              {
+                "path": "arch/powerpc/lib/copy_32.S",
+                "line": 150
+              },
+              {
+                "path": "arch/powerpc/lib/mem_64.S",
+                "line": 97
+              },
+              {
+                "path": "arch/powerpc/lib/mem_64.S",
+                "line": 98
+              },
+              {
+                "path": "arch/arm/kernel/armksyms.c",
+                "line": 85
+              },
+              {
+                "path": "arch/microblaze/lib/memset.c",
+                "line": 93
+              },
+              {
+                "path": "arch/alpha/lib/ev6-memset.S",
+                "line": 604
+              },
+              {
+                "path": "arch/alpha/lib/memset.S",
+                "line": 132
+              },
+              {
+                "path": "arch/ia64/lib/memset.S",
+                "line": 365
+              },
+              {
+                "path": "tools/arch/x86/lib/memset_64.S",
+                "line": 44
+              },
+              {
+                "path": "arch/s390/lib/mem.S",
+                "line": 119
+              },
+              {
+                "path": "arch/arm64/lib/memset.S",
+                "line": 210
+              },
+              {
+                "path": "arch/loongarch/lib/memset.S",
+                "line": 30
+              },
+              {
+                "path": "arch/csky/lib/string.c",
+                "line": 134
+              },
+              {
+                "path": "arch/csky/abiv2/strksyms.c",
+                "line": 8
+              },
+              {
+                "path": "arch/xtensa/lib/memset.S",
+                "line": 146
+              },
+              {
+                "path": "arch/x86/lib/memcpy_32.c",
+                "line": 19
+              },
+              {
+                "path": "arch/x86/lib/memset_64.S",
+                "line": 44
+              },
+              {
+                "path": "arch/mips/lib/memset.S",
+                "line": 300
+              },
+              {
+                "path": "arch/hexagon/kernel/hexagon_ksyms.c",
+                "line": 22
+              },
+              {
+                "path": "arch/sparc/lib/memset.S",
+                "line": 79
+              },
+              {
+                "path": "arch/sparc/lib/bzero.S",
+                "line": 84
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 12
+              },
+              {
+                "path": "arch/m68k/lib/memset.c",
+                "line": 74
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "misc_deregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/char/misc.c",
+                "line": 291
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "misc_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/char/misc.c",
+                "line": 268
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "msleep",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timer.c",
+                "line": 2329
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "mutex_lock",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/mutex.c",
+                "line": 298
+              },
+              {
+                "path": "kernel/locking/rtmutex_api.c",
+                "line": 571
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "mutex_unlock",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/locking/mutex.c",
+                "line": 568
+              },
+              {
+                "path": "kernel/locking/rtmutex_api.c",
+                "line": 615
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "notify_raw_data_update",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "of_find_property",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/base.c",
+                "line": 224
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_get_named_gpio",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/gpio/gpiolib-of.c",
+                "line": 449
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_property_count_elems_of_size",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/property.c",
+                "line": 89
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_property_read_string",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/property.c",
+                "line": 453
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "of_property_read_variable_u32_array",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/of/property.c",
+                "line": 339
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "pinctrl_lookup_state",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/pinctrl/core.c",
+                "line": 1240
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "pinctrl_select_state",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/pinctrl/core.c",
+                "line": 1375
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "platform_device_register",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/platform.c",
+                "line": 781
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "platform_device_unregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/platform.c",
+                "line": 796
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "platform_driver_unregister",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/platform.c",
+                "line": 879
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "pm_relax",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/power/wakeup.c",
+                "line": 752
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "pm_stay_awake",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/power/wakeup.c",
+                "line": 643
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "proc_create_data",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 594
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "proc_mkdir",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 544
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "queue_delayed_work_on",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 2033
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "queue_work_on",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 1881
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "register_touch_panel",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "regulator_disable",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/regulator/core.c",
+                "line": 3110
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "regulator_enable",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/regulator/core.c",
+                "line": 3000
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "release_firmware",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/firmware_loader/main.c",
+                "line": 1241
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "remove_proc_entry",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/proc/generic.c",
+                "line": 743
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "request_firmware",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/base/firmware_loader/main.c",
+                "line": 1064
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "rtc_time64_to_tm",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/rtc/lib.c",
+                "line": 156
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sched_setscheduler_nocheck",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/core.c",
+                "line": 8124
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "schedule_resume_suspend_work",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "seq_lseek",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 342
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "seq_printf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 409
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "seq_read",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 166
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "seq_write",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 841
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "set_cpus_allowed_ptr",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/core.c",
+                "line": 3316
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "single_open_size",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 609
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "single_release",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/seq_file.c",
+                "line": 618
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "snprintf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/vsprintf.c",
+                "line": 2963
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "spi_setup",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/spi/spi.c",
+                "line": 3896
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "spi_sync",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "drivers/spi/spi.c",
+                "line": 4334
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sprintf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/vsprintf.c",
+                "line": 3032
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sscanf",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/vsprintf.c",
+                "line": 3727
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strlen",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 429
+              },
+              {
+                "path": "arch/sh/kernel/sh_ksyms_32.c",
+                "line": 18
+              },
+              {
+                "path": "arch/arc/kernel/arcksyms.c",
+                "line": 54
+              },
+              {
+                "path": "arch/powerpc/lib/strlen_32.S",
+                "line": 78
+              },
+              {
+                "path": "arch/alpha/lib/strlen.S",
+                "line": 59
+              },
+              {
+                "path": "arch/alpha/lib/ev67-strlen.S",
+                "line": 51
+              },
+              {
+                "path": "arch/ia64/lib/strlen.S",
+                "line": 195
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 61
+              },
+              {
+                "path": "arch/arm64/lib/strlen.S",
+                "line": 213
+              },
+              {
+                "path": "arch/csky/abiv2/strksyms.c",
+                "line": 14
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 177
+              },
+              {
+                "path": "arch/sparc/lib/strlen.S",
+                "line": 83
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 16
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strncat",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 253
+              },
+              {
+                "path": "arch/alpha/lib/ev67-strncat.S",
+                "line": 96
+              },
+              {
+                "path": "arch/alpha/lib/strncat.S",
+                "line": 86
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 197
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 92
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strncmp",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 322
+              },
+              {
+                "path": "arch/powerpc/lib/string.S",
+                "line": 51
+              },
+              {
+                "path": "arch/arm64/lib/strncmp.S",
+                "line": 310
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 140
+              },
+              {
+                "path": "arch/sparc/lib/strncmp_64.S",
+                "line": 33
+              },
+              {
+                "path": "arch/sparc/lib/strncmp_32.S",
+                "line": 121
+              },
+              {
+                "path": "arch/riscv/kernel/riscv_ksyms.c",
+                "line": 17
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strncpy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 103
+              },
+              {
+                "path": "arch/powerpc/lib/string.S",
+                "line": 33
+              },
+              {
+                "path": "arch/alpha/lib/strncpy.S",
+                "line": 83
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 120
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 50
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strnlen",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 441
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 76
+              },
+              {
+                "path": "arch/arm64/lib/strnlen.S",
+                "line": 162
+              },
+              {
+                "path": "arch/x86/lib/string_32.c",
+                "line": 236
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strscpy",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 195
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strsep",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 527
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "strstr",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "lib/string.c",
+                "line": 772
+              },
+              {
+                "path": "arch/um/os-Linux/user_syms.c",
+                "line": 20
+              },
+              {
+                "path": "arch/s390/lib/string.c",
+                "line": 273
+              },
+              {
+                "path": "arch/x86/lib/strstr_32.c",
+                "line": 33
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_create_bin_file",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/file.c",
+                "line": 573
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_create_group",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/group.c",
+                "line": 208
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_remove_bin_file",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/file.c",
+                "line": 585
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "sysfs_remove_group",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "fs/sysfs/group.c",
+                "line": 325
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "system_cpucaps",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "arch/arm64/kernel/cpufeature.c",
+                "line": 109
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "system_wq",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/workqueue.c",
+                "line": 436
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "unregister_touch_panel",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "update_fod_press_status",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "update_palm_sensor_value",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "usleep_range_state",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/time/timer.c",
+                "line": 2371
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "vfree",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/vmalloc.c",
+                "line": 2895
+              },
+              {
+                "path": "mm/nommu.c",
+                "line": 141
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "vmalloc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/vmalloc.c",
+                "line": 3459
+              },
+              {
+                "path": "mm/nommu.c",
+                "line": 227
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "vzalloc",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "mm/vmalloc.c",
+                "line": 3499
+              },
+              {
+                "path": "mm/nommu.c",
+                "line": 247
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "wait_for_completion_timeout",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/completion.c",
+                "line": 169
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "wake_up_process",
+          "provider": {
+            "kernel_export_declarations": [
+              {
+                "path": "kernel/sched/core.c",
+                "line": 4615
+              }
+            ]
+          }
+        },
+        {
+          "symbol": "xiaomi_get_gesture_type",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "xiaomi_register_panel_notifier",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        },
+        {
+          "symbol": "xiaomi_unregister_panel_notifier",
+          "provider": {
+            "module": "xiaomi_touch"
+          }
+        }
+      ]
+    }
+  },
+  "whitespace_rebuild": {
+    "result": "passed",
+    "log": "los-work/out/annibale-touch-whitespace-rebuild.log",
+    "changed_source_header_files": 8,
+    "compiler_warnings": 0,
+    "compiler_errors": 0
+  }
+}

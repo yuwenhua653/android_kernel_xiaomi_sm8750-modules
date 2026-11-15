@@ -352,6 +352,12 @@ int32_t cam_csiphy_parse_dt_info(struct platform_device *pdev,
 		csiphy_dev->hw_version = CSIPHY_VERSION_V221;
 		csiphy_dev->is_divisor_32_comp = true;
 		csiphy_dev->clk_lane = 0;
+	} else if (of_device_is_compatible(soc_info->dev->of_node,
+		"qcom,csiphy-v2.3.0-p11")) {
+		csiphy_dev->ctrl_reg = &ctrl_reg_2_3_0_p11;
+		csiphy_dev->hw_version = CSIPHY_VERSION_V230;
+		csiphy_dev->is_divisor_32_comp = true;
+		csiphy_dev->clk_lane = 0;
 	} else if (of_device_is_compatible(soc_info->dev->of_node, "qcom,csiphy-v2.3.0")) {
 		csiphy_dev->ctrl_reg = &ctrl_reg_2_3_0;
 		csiphy_dev->hw_version = CSIPHY_VERSION_V230;

@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: GPL-2.0-only
+config TOUCHSCREEN_XIAOMI_ANNIBALE
+	tristate "Experimental Xiaomi Annibale Goodix 9916K touch modules"
+	depends on INPUT && INPUT_TOUCHSCREEN && SPI && I2C && OF
+	depends on DRM && QCOM_PANEL_EVENT_NOTIFIER
+	depends on NET && POWER_SUPPLY && PROC_FS
+	depends on GPIOLIB && REGULATOR && PINCTRL
+	default n
+	help
+	  Build xiaomi_touch and goodix_core from Xiaomi's same-family Warsaw
+	  source release. The unpublished Annibale p11 source is not included.
+	  Board-specific firmware and THP configuration must be supplied by DT.
+	  Hardware, trusted-touch and userspace ABI validation are still needed.

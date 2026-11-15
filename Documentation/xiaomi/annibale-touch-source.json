@@ -1,0 +1,160 @@
+{
+  "repository": "https://github.com/MiCode/vendor_xiaomi_proprietary_touch-driver",
+  "ref": "warsaw-w-oss",
+  "commit": "57d9a0225b031f4b444251117f3ecc9deae71128",
+  "status": "experimental same-family port, not verified on Annibale hardware",
+  "line_endings": "C/header imports normalized from CRLF to LF where applicable",
+  "files": [
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_brl_fwupdate.c",
+      "source_path": "warsaw/goodix_9916k/goodix_brl_fwupdate.c",
+      "source_sha256": "d9f6ef91d9456a24f7dc63d317fb1210b331211702a2cfbf96279f399d2ffa05",
+      "import_sha256": "ce2145a7fd20d923d5de01fb3acf1b4ef809bdae1f6e554a14bad53390e74db4"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_brl_hw.c",
+      "source_path": "warsaw/goodix_9916k/goodix_brl_hw.c",
+      "source_sha256": "321abd2fb288fd19cff1a322b192cacff972837ef68ec4d544c45cc2f8e4327f",
+      "import_sha256": "05649b5016d0484287fdaa389370404314bce0ab860aff9e185159ec6f89367c"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_brl_i2c.c",
+      "source_path": "warsaw/goodix_9916k/goodix_brl_i2c.c",
+      "source_sha256": "508b519841789c71f09b49432956b926e4c2465387c23320712850c359bedf59",
+      "import_sha256": "c9323fb2d6fb118a1b7a10650f15f28c6b785585844e655c2a703ba74eb2b870"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_brl_spi.c",
+      "source_path": "warsaw/goodix_9916k/goodix_brl_spi.c",
+      "source_sha256": "21f8663d1c3055503445de7e7d08bfc0951c28d87371897e6e19142f27de581d",
+      "import_sha256": "7e8c8b1c5c8ce12ce642f1a19755dbb548764aeef6748d66965c5bac651256be"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_cfg_bin.c",
+      "source_path": "warsaw/goodix_9916k/goodix_cfg_bin.c",
+      "source_sha256": "fca35bc7ed042ac5b275bb37c89b5a7b1a4bf16001592b75f93aa8a899afc96a",
+      "import_sha256": "be58e40833bae210c94eee3e0ba6ab9a7a27f21c5dde7c64646d8cce82d61ab9"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_ts_core.c",
+      "source_path": "warsaw/goodix_9916k/goodix_ts_core.c",
+      "source_sha256": "6c27b835d5731f36fbb528d4c71dccd21b3ac625f9ba79e0e0d415c30adc5a60",
+      "import_sha256": "a677ed6d517c1a3a7ebde30f57a307eb4accb87e5d8178c4e59cd7ff7122c0ed"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_ts_core.h",
+      "source_path": "warsaw/goodix_9916k/goodix_ts_core.h",
+      "source_sha256": "b249fd0060b75616e635f506f68b7ba6dcfd6ec7dd2498685a209350b73da929",
+      "import_sha256": "5148faa2cc859686fd91bc60bd6b5c8f76eed6777ea2cead8304f69553ed7345"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_ts_gesture.c",
+      "source_path": "warsaw/goodix_9916k/goodix_ts_gesture.c",
+      "source_sha256": "609bb5ebd7632f1591e0d2a1a093a3d51a642dd5e4be4014af420e0f2335127c",
+      "import_sha256": "3a64691c6493669929156cbba5c95a9c18f9fed6d9c998b8839063f80c0b3c05"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_ts_inspect.c",
+      "source_path": "warsaw/goodix_9916k/goodix_ts_inspect.c",
+      "source_sha256": "760ddc71278df6e4fc37111b0b73fdcff2aa4aeef137f32648b69f7d75b682a3",
+      "import_sha256": "9018208980337679fd7a6106b378c88a5fed7bcb48589423fb81961630ff1149"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_ts_tools.c",
+      "source_path": "warsaw/goodix_9916k/goodix_ts_tools.c",
+      "source_sha256": "d2d59527efeb93f4e3769364f956c57f1f6c36a35acf7fd284fb1f8d351913d4",
+      "import_sha256": "525ea350dac976924dd4480345b1b50c91fe7fa3891ed8fe8dbe98848e09626a"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/goodix_ts_utils.c",
+      "source_path": "warsaw/goodix_9916k/goodix_ts_utils.c",
+      "source_sha256": "2f76daad20720671127c1c27d78292d365da6ea1acee677bd52b5da2b5615d43",
+      "import_sha256": "f3d22a228cc3a129b2cfa8aa3745b5d7002567933e19451bda9401dc18e55451"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/goodix_9916k/touch_trace.h",
+      "source_path": "warsaw/goodix_9916k/touch_trace.h",
+      "source_sha256": "05d08586f2b271cd7b67ee0b746b9e67d612e5a83fe103c3ed82fac2d5fcd320",
+      "import_sha256": "45d6e81e56216478fd6254a00e969a6d5313a6df4a4bbb968a0ca9c39a5932b6"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch.h",
+      "source_path": "warsaw/xiaomi/xiaomi_touch.h",
+      "source_sha256": "f22cb50c81379243adafd81dff0163d55d6f26b9b8d68e5030c189c2254fe472",
+      "import_sha256": "f22cb50c81379243adafd81dff0163d55d6f26b9b8d68e5030c189c2254fe472"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_core.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_core.c",
+      "source_sha256": "19079c5fa5bf399606f0f7ccebf67de01dcf5ca99e78f783a5f0be00423b210e",
+      "import_sha256": "ce9eab75acfb9af02b07f14a0c3bcbd6eb611f51affb5ffb46be627491d06ff5"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_device.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_device.c",
+      "source_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf",
+      "import_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_evdev.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_evdev.c",
+      "source_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6",
+      "import_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_knock_data.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_knock_data.c",
+      "source_sha256": "8cdccf69e539feb3936e3b5dfd43412eae6d4399de93418300b040cc074c0333",
+      "import_sha256": "8cdccf69e539feb3936e3b5dfd43412eae6d4399de93418300b040cc074c0333"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_mode.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_mode.c",
+      "source_sha256": "7aa9e8e5812f27f9669c174c77dc9d8ff5c0039a409d9a35a5b63188e8f7a0c8",
+      "import_sha256": "266604e8a85dadca9f6e12d9d0ba04ab6d3422a8ad49734de6b73e826c53ab45"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_operations.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_operations.c",
+      "source_sha256": "f63ba08b1803452d5fb0e94ae41a408d1183f1d59d1a1c1de7eee0eeb98425bf",
+      "import_sha256": "2989443f83ed9dd005fff5dcacf730d3ef4f84b293bcb1446f683c82b41b248b"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_proc.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_proc.c",
+      "source_sha256": "8624eba544aa0c068f43e2c23d4d9489f61d805b043d08811355e103ec58ca69",
+      "import_sha256": "88ccb9c874e06811064d631e195f68819144d421452794b3f1beb450b786f85f"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_sys.c",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_sys.c",
+      "source_sha256": "00d0fa57c916f96e484820003b222f5fc2163ae583ddde55c6bf7dbed772eb2d",
+      "import_sha256": "8ab250f677e2ffbbc29ca1b0a7f389f839c66eb768fe884409cca8418c334f1b"
+    },
+    {
+      "destination": "xiaomi/touch/annibale/xiaomi/xiaomi_touch_type_common.h",
+      "source_path": "warsaw/xiaomi/xiaomi_touch_type_common.h",
+      "source_sha256": "4a42fe057eb8daeab47b510046b2beb9ccc918510ea9bd40bd4582507500c00f",
+      "import_sha256": "8ed1516aa19f09c367cebc074eb0c3eb544cf9f2237a5f923abb19133a1ffda9"
+    }
+  ],
+  "omitted": [
+    "Android.mk (vendor-specific build integration)",
+    "warsaw/config (product-specific forced config)",
+    "goodix_brl_normalize_coeffi.h",
+    "goodix_brl_normalize_coeffi_update.c",
+    "upstream Makefile/Kbuild/Kconfig (replaced by opt-in build files)"
+  ],
+  "changes": [
+    "Require DT firmware/config basenames and THP configuration filename; no Warsaw fallback",
+    "Fix trace header include path for relocatable external module builds",
+    "Omit disabled normalization-flash update code and source; no calibration files imported",
+    "Leave trusted-touch and telemetry disabled unless separately integrated",
+    "Export OF/SPI aliases for both Xiaomi touch device nodes",
+    "Bound shared-memory mmap by the actual allocation, reject wrapping offsets and invalid area selectors",
+    "Reject oversized common ioctl payload lengths before downstream copies",
+    "Use kernel MAX macro instead of conflicting vendor redefinition",
+    "Preserve raw IC ioctl byte-count ABI while bounding ordinary s32 payloads; reject underflow and oversized raw writes",
+    "Remove 15 upstream whitespace defects reported by git diff --cached --check; no token or logic changes"
+  ]
+}
