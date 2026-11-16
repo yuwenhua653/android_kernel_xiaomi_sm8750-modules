@@ -1,0 +1,345 @@
+{
+  "round": "R15",
+  "target": "Redmi K90 / annibale / SM8750",
+  "hyperos_reference": "OS4.0.6.0.XPKCNXM",
+  "kernel": {
+    "local_build_commit": "f112270e61a8787d5396ef4a4b4b653240808db4",
+    "local_build_tree": "f3bbd454ca637d72817e0f94f12d43f9111865c7",
+    "release": "6.6.144-4k-gf112270e61a8",
+    "note": "Git object identity at local compilation; published commits can have different commit metadata. Driver source and full artifact hashes are recorded separately.",
+    "sha256": {
+      "arch/arm64/boot/Image": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+      "vmlinux": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+      ".config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+      "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+      "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+      "modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183"
+    },
+    "comparison_with_r10": {
+      ".config": {
+        "r10": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+        "r14": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+        "unchanged": true
+      },
+      "Module.symvers": {
+        "r10": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+        "r14": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+        "unchanged": true
+      },
+      "include/generated/autoconf.h": {
+        "r10": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+        "r14": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+        "unchanged": true
+      },
+      "include/config/kernel.release": {
+        "r10": "d148df2ba92e07c807aa9b128bed71831febf5097fa5e5742e78984b8834f543",
+        "r14": "ee18cafba5d018b7103de3523d247d709e8bcd660320a7466d696e80a15f8e3b",
+        "unchanged": false
+      },
+      "arch/arm64/boot/Image": {
+        "r10": "478ed0852505f38f5f0e4bf143d433deb8846c9c63d608fc39474c89cd390b25",
+        "r14": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+        "unchanged": false
+      },
+      "vmlinux": {
+        "r10": "8cc4b1d0d30b9fb40fcfdbf9a7e99ea235d74ef994eec9c3f8a604bc7029e840",
+        "r14": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+        "unchanged": false
+      },
+      "modules.order": {
+        "r10": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+        "r14": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+        "unchanged": true
+      },
+      "modules.builtin": {
+        "r10": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183",
+        "r14": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183",
+        "unchanged": true
+      }
+    }
+  },
+  "external": {
+    "profile": "audio",
+    "count": 91,
+    "kernel_module_count": 411,
+    "strict_modpost": true,
+    "verification_status": "passed",
+    "source_parent_at_build": "3776af7281487ae1789260038c3b55eddbabcca9",
+    "source_dirty_at_build": true,
+    "source_snapshot_checked_against_current_checkout": 9421,
+    "generated_stage_kbuild_sha256": "9ea31fcc933ed26fb738d1c8b4ee7a9a0fe0391dec57340d3fd3a84d939f4feb",
+    "source_symlinks_checked": 13,
+    "symlink_trailing_slash_normalizations": [
+      {
+        "path": "qcom/opensource/video-driver/msm_video/driver",
+        "build": "../driver/",
+        "published": "../driver",
+        "semantic_change": false
+      },
+      {
+        "path": "qcom/opensource/video-driver/video/driver",
+        "build": "../driver/",
+        "published": "../driver",
+        "semantic_change": false
+      }
+    ],
+    "note": "Uncommitted R15 source compiled on R14 parent; build.json records every staged source hash. Git commit metadata is not the build identity.",
+    "new_modules": {
+      "tfa98xx_dlkm": {
+        "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r15-final/modules-a3a5vnkv/qcom/opensource/audio-kernel/asoc/codecs/tfa986x/tfa98xx_dlkm.ko",
+        "sha256": "d15f04bcb4dd85e57068a872804f0045303952bd2d31ad2a691f8467c314ec1d",
+        "versioned_imports": 103,
+        "depends": [],
+        "softdep": [],
+        "firmware": []
+      },
+      "sia91xx_dlkm": {
+        "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r15-final/modules-a3a5vnkv/qcom/opensource/audio-kernel/asoc/codecs/sia91xx/sia91xx_dlkm.ko",
+        "sha256": "c3c549e02c50f8db20b12793098efa2f6e1288af61c86c15351f352f66493b55",
+        "versioned_imports": 82,
+        "depends": [],
+        "softdep": [],
+        "firmware": []
+      },
+      "sia91xx_tuning_dlkm": {
+        "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r15-final/modules-a3a5vnkv/qcom/opensource/audio-kernel/asoc/codecs/sia91xx/sia91xx_tuning_dlkm.ko",
+        "sha256": "19a525b15446cdda75daf8c68eb8c2c12c027348bed6efc48b70453c2da56408",
+        "versioned_imports": 23,
+        "depends": [],
+        "softdep": [],
+        "firmware": []
+      }
+    },
+    "machine_module": {
+      "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r15-final/modules-a3a5vnkv/qcom/opensource/audio-kernel/asoc/machine_dlkm.ko",
+      "sha256": "06447bb4083ea325c2872b7fc8631ee11b9f113f8eb7df395cfc5de632874c4e",
+      "versioned_imports": 109,
+      "depends": [
+        "spf_core_dlkm",
+        "audio_prm_dlkm",
+        "wcd_core_dlkm",
+        "socinfo",
+        "snd_event_dlkm",
+        "fsa4480_i2c",
+        "wcd_usbss_i2c",
+        "wcd9378_dlkm",
+        "wcd939x_dlkm",
+        "lpass_cdc_dlkm",
+        "lpass_cdc_rx_macro_dlkm",
+        "wsa883x_dlkm",
+        "wsa884x_dlkm"
+      ],
+      "softdep": [
+        "pre: btfmcodec"
+      ],
+      "firmware": []
+    },
+    "legacy_smartpa_registry_imports": false,
+    "machine_uses_snd_soc_get_dai_name": true
+  },
+  "host_tests": {
+    "count": 57,
+    "status": "passed",
+    "includes": "Real sun-annibale.c with OF/ASoC mocks, error/defer/retry and cleanup cases"
+  },
+  "dt_validation": {
+    "status": "passed",
+    "compositions": [
+      {
+        "base": "sun",
+        "variant": "tfa",
+        "sha256": "16d1422060f44c88c725a045251f01ce67494f0c8c0907f61271cc7f7ff8262c",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sun",
+        "variant": "sia",
+        "sha256": "7da449deeb83ef73fc56b01b8e83f1104021708c532bdacd4bf7c48a0ad21553",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sun-v2",
+        "variant": "tfa",
+        "sha256": "fa2004899cbe7983cb355a01163347ee5a99c4ff5f6c32541f322afcce850404",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sun-v2",
+        "variant": "sia",
+        "sha256": "2178188cf29e2bb0d04b6cadd173eaf796c96f27420fbdc4749e97b4c7a76574",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sun-tp",
+        "variant": "tfa",
+        "sha256": "d0dcd1e1466eca45007390f340fc19b4e7acaa006d9f3e0ec000b44bedc8e33a",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sun-tp",
+        "variant": "sia",
+        "sha256": "a74896843f74a6da4f7d54c45c5eaf0c62a622cd72e4b8f16963248f57f841d9",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sun-tp-v2",
+        "variant": "tfa",
+        "sha256": "329684ae2d7c1b8eeeef22cfc3aa4c6b2950a3edddc78e68ce0bc060820d0ee5",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sun-tp-v2",
+        "variant": "sia",
+        "sha256": "afb315cfbd6156815a38d277bea195b5897b78779cc115fdcf918bb8330cdc4e",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sunp",
+        "variant": "tfa",
+        "sha256": "527546e1d387a81c15df9ed7bca80e8cddd8b087ca429561db4c805d355592d0",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sunp",
+        "variant": "sia",
+        "sha256": "9772b11ffeb93b43f0bbc0029df4e3b01e836635652f7739a58284db084cf32f",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sunp-v2",
+        "variant": "tfa",
+        "sha256": "d8f2251bebb067f7fd7419c279550e5362ac290576a2c02959ca87289457df52",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sunp-v2",
+        "variant": "sia",
+        "sha256": "31537193ff4edb7fb7c86c5c6b85684f94a4069b85451eeef09840272010ae96",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sunp-tp",
+        "variant": "tfa",
+        "sha256": "bdf55cba16bc8a044f75f97f57d0e22e022aa2efc6029fb96952b09238e36eb3",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sunp-tp",
+        "variant": "sia",
+        "sha256": "93d6d42c00c39a4fcbd558775a3c085862f4203b3d73dfcc12304e3aa0c32dc8",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      },
+      {
+        "base": "sunp-tp-v2",
+        "variant": "tfa",
+        "sha256": "a70c1b687259beb09aa7dbf9b739ccf7aaa96fc469f1b710953382e09b012420",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_1@36",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/tfa98xx_2@34"
+        ]
+      },
+      {
+        "base": "sunp-tp-v2",
+        "variant": "sia",
+        "sha256": "f262689f15b9652575bd406659f8fe7c4cb9d4e646c100d97baec8761cf017ff",
+        "codec_nodes": [
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_L@6E",
+          "/soc/qcom,qupv3_i2c_geni_se@9c0000/i2c@980000/sipa_i2c_R@6C"
+        ]
+      }
+    ],
+    "checks": [
+      "default-off and exclusive Kbuild selector in always-y",
+      "two ordered homogeneous enabled-family codec phandles",
+      "no opposite-family codec nodes",
+      "secondary TDM 2 slots, eight clock attributes 4",
+      "secondary TDM pins 121/123/122/124",
+      "WSA count zero"
+    ],
+    "scope": "SoC + common audio + one candidate overlay; syntax and selected final-tree assertions only; not full peripheral composition, bootloader DT table or hardware."
+  },
+  "dual_rom": {
+    "combined_status": "incomplete_inventory",
+    "native": "passed",
+    "stock_status": "incomplete_inventory",
+    "stock_file_count": 1015,
+    "stock_unique_binaries": 637,
+    "stock_counts": {
+      "modules_with_detected_blockers": 0
+    },
+    "ambiguous_module_names": [
+      "adsp_loader_dlkm",
+      "gpr_dlkm",
+      "q6_notifier_dlkm",
+      "q6_pdr_dlkm",
+      "snd_event_dlkm",
+      "spf_core_dlkm",
+      "zram",
+      "zsmalloc"
+    ]
+  },
+  "warnings": {
+    "compiler_warning_lines": 13,
+    "imported_upstream_indentation_warnings": 11,
+    "note": "Existing upstream space-before-tab indentation retained in 11 imported lines; no warning suppression or source normalization after compilation."
+  },
+  "boot_compatibility_verified": false,
+  "unverified": [
+    "Populated amplifier family",
+    "Firmware and calibration",
+    "HAL/AGM/mixer routes and microphone/USB board policy",
+    "Complete DT/ROM image and partition load order",
+    "Runtime signing/CFI/BTF compatibility and hardware sound/protection/suspend"
+  ],
+  "reports_sha256": {
+    "final-build.log": "a5c6588a35ad7d47d83c19a414c90590c94982d8ee1d4370bb9bb41f1c166ea7",
+    "module-tests.log": "e5aa1146870b5b916865aef24a13a2dee0bde613af0ac4d2ae1a17f53945eb6a",
+    "dual-rom-check.json": "9157cb0c6796e2a27c467217ae2ee48321e44a0347a0f881ea4985b51d0c0262",
+    "audio-abi.json": "8f1b771d6ebf794d82cff326ce7c303b306580cdc99a7e9d553053ebc5d12a91",
+    "dt-final/validation.json": "7170df58f69cc40098ad45cb50ac54101ee90beb1f40197d50f38548ccb74af0"
+  },
+  "build_record_sha256": "104628e65c08291779c6028ad99fb308d2d9ef9e8847a49d2b961fb6dd1e916e",
+  "verification_sha256": "1f899440457beca7c3247f030c60dce22839a37cf99f2118815ac861eeb4ed85"
+}

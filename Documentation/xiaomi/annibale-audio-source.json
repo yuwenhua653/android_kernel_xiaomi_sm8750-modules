@@ -1,0 +1,729 @@
+{
+  "source_repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel",
+  "source_branch": "annibale-w-oss",
+  "source_commit": "9147f89e4e5814fe172f0f5cd3b774642c27c282",
+  "normalization": "CRLF to LF, trailing whitespace and final blank lines trimmed; original copyright/license notices retained",
+  "files": [
+    {
+      "path": "tfa986x/inc/config.h",
+      "upstream_sha256": "b9c33ae1cef8f761a83cd8ccab051d73fddfc8dac8633a90ee75d463bccc230b",
+      "normalized_sha256": "402e611caf8c1aa823a7852ddf29627d52ec937b1ef5050fc54d30aee30ea31e",
+      "adapted_sha256": "402e611caf8c1aa823a7852ddf29627d52ec937b1ef5050fc54d30aee30ea31e",
+      "source_path": "asoc/codecs/tfa986x/inc/config.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/dbgprint.h",
+      "upstream_sha256": "89e3be2879ac5ce0cc3b88f02cae97f0cb4373483c0877a2ff1ef0dbd05a6e36",
+      "normalized_sha256": "8a786ca801c7b25e58258ad5fc345c52c33b371dbff1ec14f890bebe3fd03864",
+      "adapted_sha256": "8a786ca801c7b25e58258ad5fc345c52c33b371dbff1ec14f890bebe3fd03864",
+      "source_path": "asoc/codecs/tfa986x/inc/dbgprint.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa.h",
+      "upstream_sha256": "49ef7219dfff2b62fe64fe2bc41f4e07031104c6bc08049421373b1b85392b19",
+      "normalized_sha256": "3e77b289695259c6ea0cd77687b95cad00c389b60960d46f98c494196af23d6c",
+      "adapted_sha256": "3e77b289695259c6ea0cd77687b95cad00c389b60960d46f98c494196af23d6c",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa1_tfafieldnames.h",
+      "upstream_sha256": "c8e3b52dd15c3a29db5e325f81d2b4727d083f3448dae4582b9125567f837e96",
+      "normalized_sha256": "444a26cfe14aead3761a5ea593ee9cd19dcb79c20d5b18b101f28c02a1cb2c33",
+      "adapted_sha256": "444a26cfe14aead3761a5ea593ee9cd19dcb79c20d5b18b101f28c02a1cb2c33",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa1_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa2_tfafieldnames_N1C.h",
+      "upstream_sha256": "b983769797e565ad7fb69845b09804eb6b014f6e22a2ee238d332b35e2b3c58c",
+      "normalized_sha256": "857721d99fa601454cad13467c20aba9e4deb4758e580ff3270c7f7e6bdfb65f",
+      "adapted_sha256": "857721d99fa601454cad13467c20aba9e4deb4758e580ff3270c7f7e6bdfb65f",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa2_tfafieldnames_N1C.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9865_tfafieldnames.h",
+      "upstream_sha256": "e13513edb532c6f0a75d90b4130f910e302a6c052f20b50640e75a197d800bcc",
+      "normalized_sha256": "a15060e48bb0540cf976faad586a680067ddf060d76b30615a08d667805d9097",
+      "adapted_sha256": "a15060e48bb0540cf976faad586a680067ddf060d76b30615a08d667805d9097",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9865_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9865_tfafieldnames_A2.h",
+      "upstream_sha256": "450e63a135e257e11e48294c0a4ab55fe439e734aecbd81866a857160bdc9767",
+      "normalized_sha256": "407ae12ba0b8dd9727bd5b1e3090d0868affc8b82aac2b24bb226249a17a9a7a",
+      "adapted_sha256": "407ae12ba0b8dd9727bd5b1e3090d0868affc8b82aac2b24bb226249a17a9a7a",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9865_tfafieldnames_A2.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa986x_tfafieldnames.h",
+      "upstream_sha256": "7801136900771a95d558e0be4acb125b185c0cd74f074505c177ae4226948931",
+      "normalized_sha256": "bc69bef4ba2dc393b00e60a981bf83c6425b6c90123cf77df646de07f01702b9",
+      "adapted_sha256": "bc69bef4ba2dc393b00e60a981bf83c6425b6c90123cf77df646de07f01702b9",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa986x_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa986xn2_tfafieldnames.h",
+      "upstream_sha256": "ea5c47889503d5c7bd28fbca6a39008b4826118cac210f194fb33e0a6cb13fde",
+      "normalized_sha256": "5d2f680de69a2361b38e5853fa85a22400e3876ffe7f0dfb3a2d88bebe794650",
+      "adapted_sha256": "5d2f680de69a2361b38e5853fa85a22400e3876ffe7f0dfb3a2d88bebe794650",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa986xn2_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9872_device_genregs_POR.h",
+      "upstream_sha256": "c5f2f448b17a20510bb40649a70d9361866e0643f50286a4af33de79d0efc485",
+      "normalized_sha256": "1d344d22f4f90125207cc68a1a4fecb8a7af236229e16489a98db5b3d07101b0",
+      "adapted_sha256": "1d344d22f4f90125207cc68a1a4fecb8a7af236229e16489a98db5b3d07101b0",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9872_device_genregs_POR.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9872_tfafieldnames.h",
+      "upstream_sha256": "02c7bc8552ac46eb51ecf1085283ed00c788088db6b55cec524495fa6e991899",
+      "normalized_sha256": "86dfbedfecc9428f7ac106f0e15fd8c0a6b5279ee797f35dddd97fc1b460a12f",
+      "adapted_sha256": "86dfbedfecc9428f7ac106f0e15fd8c0a6b5279ee797f35dddd97fc1b460a12f",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9872_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9873_tfafieldnames.h",
+      "upstream_sha256": "176fe40f238b268399a81619066483614b1e68ac084bf8a81e9a929ae7b1805a",
+      "normalized_sha256": "b5a9276b526aafad2218500733ab77201b8cc527fa9cc0eba4d7e83e50719474",
+      "adapted_sha256": "b5a9276b526aafad2218500733ab77201b8cc527fa9cc0eba4d7e83e50719474",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9873_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9873_tfafieldnames_B0.h",
+      "upstream_sha256": "9bd8313aa3dc16ca15afbaac7f1eb04699984bb2b2760e6f94e6b3338b831817",
+      "normalized_sha256": "08dbb4d4473ad219c53aec58252c30303ae3e025022c54641289dde466a3e018",
+      "adapted_sha256": "08dbb4d4473ad219c53aec58252c30303ae3e025022c54641289dde466a3e018",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9873_tfafieldnames_B0.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9874_tfafieldnames.h",
+      "upstream_sha256": "bbf57bbb5846da48a7fce4478b443c5c3f4704d080b2992c4502a00b3fa64078",
+      "normalized_sha256": "96f2517c087a99b077db982d672e243375223afec533640f0bb274f5ea204ec9",
+      "adapted_sha256": "96f2517c087a99b077db982d672e243375223afec533640f0bb274f5ea204ec9",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9874_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9875_tfafieldnames.h",
+      "upstream_sha256": "c2cee617e129246fac85ee5e0fb14a093a88582c883abd2c333985fee0056993",
+      "normalized_sha256": "58d3ffcbbcf7db8e97d69487a1dda6e71b9ceb22c883421cd62fd6e5ac41622f",
+      "adapted_sha256": "58d3ffcbbcf7db8e97d69487a1dda6e71b9ceb22c883421cd62fd6e5ac41622f",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9875_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9875_tfafieldnames_A1.h",
+      "upstream_sha256": "02f91070ede6d9a116ee788d916b06a26a5431ff2deff6f3d823bd3ffe9c9b4b",
+      "normalized_sha256": "250ae6372960a04268643f5693e92490533a792b3b60beb51d7ea5681fc286a7",
+      "adapted_sha256": "250ae6372960a04268643f5693e92490533a792b3b60beb51d7ea5681fc286a7",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9875_tfafieldnames_A1.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9878_tfafieldnames.h",
+      "upstream_sha256": "ca8eab4f82c57b8f28441a65e7a92e718aab6452ea3963581325fd50f946a21a",
+      "normalized_sha256": "608cfed75eb20e4dc015d59c15cd6f24f7d6bd3984087beae0f1a00824d41cb4",
+      "adapted_sha256": "608cfed75eb20e4dc015d59c15cd6f24f7d6bd3984087beae0f1a00824d41cb4",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9878_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9887_tfafieldnames.h",
+      "upstream_sha256": "7a1e32f9872d52faecf57394c179dc55b751a57cfb162469b746c22112014558",
+      "normalized_sha256": "3fafebdd519d633b64bb8a92fdd19021012a659a6394a9a1eebe1f7dc65b0ab6",
+      "adapted_sha256": "3fafebdd519d633b64bb8a92fdd19021012a659a6394a9a1eebe1f7dc65b0ab6",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9887_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9890_tfafieldnames.h",
+      "upstream_sha256": "78f961b74ecec149c9c6069658328efa6b4ce3312cd8b47da83a3d0421828b1c",
+      "normalized_sha256": "d611aa773685d85cc59b59ef35932b68beaf42352b6b086aba412257f0066b57",
+      "adapted_sha256": "d611aa773685d85cc59b59ef35932b68beaf42352b6b086aba412257f0066b57",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9890_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9891_genregs.h",
+      "upstream_sha256": "73bd3e81268f102e727e41c3d0a6bae853a6ce17c2321577cc3c85605dab75bc",
+      "normalized_sha256": "f5d1eb2498e42cd18c53a80b96bf6d1bcd801ac6d183753f71f04dd96f369e6b",
+      "adapted_sha256": "f5d1eb2498e42cd18c53a80b96bf6d1bcd801ac6d183753f71f04dd96f369e6b",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9891_genregs.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9891_tfafieldnames.h",
+      "upstream_sha256": "339e77cc5c0207e4c580cf088fe53fe2ce20cc6757e5c7fa5bcab91a91e1589b",
+      "normalized_sha256": "4791e7b1deb1248df57ba05ff6b4771d238857f38e618af2790675afcfbffdf7",
+      "adapted_sha256": "4791e7b1deb1248df57ba05ff6b4771d238857f38e618af2790675afcfbffdf7",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9891_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9894_tfafieldnames.h",
+      "upstream_sha256": "8dace5e243279155a7a0bf80260673f0f6897d1246d7a85722371193dc037280",
+      "normalized_sha256": "4bdadaeac0fa1143a426283cd67ee0163f55f7bc2a7a493b87714c11844eb4b1",
+      "adapted_sha256": "4bdadaeac0fa1143a426283cd67ee0163f55f7bc2a7a493b87714c11844eb4b1",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9894_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9894_tfafieldnames_N2.h",
+      "upstream_sha256": "72a3bf526a15c7aa87d82a14b4f2c5a2fbe729e7f1c5ea72dc80502c05fad115",
+      "normalized_sha256": "34a2ee439dc813ce682f87bd5c793639bc22c514fded57918e9a426eb1d2d1e5",
+      "adapted_sha256": "34a2ee439dc813ce682f87bd5c793639bc22c514fded57918e9a426eb1d2d1e5",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9894_tfafieldnames_N2.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9896_tfafieldnames.h",
+      "upstream_sha256": "79070c0d54575515da6d70bc0bc1a3bbc953ddd55cad7f8842a01c320c4998e6",
+      "normalized_sha256": "d59f3c82f79f8d574261bde544db03435fff9119244c8e6d603601448135d6d5",
+      "adapted_sha256": "d59f3c82f79f8d574261bde544db03435fff9119244c8e6d603601448135d6d5",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9896_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa98xx.h",
+      "upstream_sha256": "620c0a22bdc9054e88db42d0da3d233c3a8bfffe225d1cd7b98ae9408313810d",
+      "normalized_sha256": "7652cf8e3a1b60a80fb3aa89ff3c232e06c6cbb7a9a996d9466e719c5beb7c34",
+      "adapted_sha256": "7652cf8e3a1b60a80fb3aa89ff3c232e06c6cbb7a9a996d9466e719c5beb7c34",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa98xx.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa98xx_genregs_N1C.h",
+      "upstream_sha256": "22de537cb1e5f34b16761994546877d47c90ce2a0b1332f710399c50fccc756a",
+      "normalized_sha256": "e0aab72872082c66eb2c8272d10c9675e572d48db79e81441f6f291024bbc335",
+      "adapted_sha256": "e0aab72872082c66eb2c8272d10c9675e572d48db79e81441f6f291024bbc335",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa98xx_genregs_N1C.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa98xx_parameters.h",
+      "upstream_sha256": "54d4103accf25f0c4ef18e1088ba5897216aa292802106089d2d531a5e286fca",
+      "normalized_sha256": "4decb085db82f2d3e7d5b625cedc105f59eddeee72fdf9120e0f88c0111b370e",
+      "adapted_sha256": "4decb085db82f2d3e7d5b625cedc105f59eddeee72fdf9120e0f88c0111b370e",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa98xx_parameters.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa98xx_tfafieldnames.h",
+      "upstream_sha256": "213e09d0aa41775915e46b88ddd80d402cddf0c383c709de2bdcc30a8ad230c9",
+      "normalized_sha256": "8e1f12580821a565529695920c2a45a956e0ddbd021bf7af6dc1369120ed9f4f",
+      "adapted_sha256": "8e1f12580821a565529695920c2a45a956e0ddbd021bf7af6dc1369120ed9f4f",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa98xx_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9912_device_genregs.h",
+      "upstream_sha256": "4c7087560167787abe0a187f12ebddff021706b73a98706511e2a060fe49a8ea",
+      "normalized_sha256": "6bb870541f3175567fdc490829acd560d9d004da5ea9b3380e821959778e23f9",
+      "adapted_sha256": "6bb870541f3175567fdc490829acd560d9d004da5ea9b3380e821959778e23f9",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9912_device_genregs.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa9912_tfafieldnames.h",
+      "upstream_sha256": "984a86c25ba0a02efa7a5b6198326545e8538ef5bffb3b5e05f145d6167cf987",
+      "normalized_sha256": "51d8b66d87608da28674b9dd723beb749b636e1a727be511470e546af8935ef1",
+      "adapted_sha256": "51d8b66d87608da28674b9dd723beb749b636e1a727be511470e546af8935ef1",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa9912_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa_container.h",
+      "upstream_sha256": "35f4d285a5e88cde04059ed28da48be6fe16c85f595066861893932f189017bd",
+      "normalized_sha256": "b2485fd3e63eddad6d7e6f13e5258b18e31cd2601539959da33bf3e0b1639adc",
+      "adapted_sha256": "b2485fd3e63eddad6d7e6f13e5258b18e31cd2601539959da33bf3e0b1639adc",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa_container.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa_device.h",
+      "upstream_sha256": "fca9b78d96c24a86c4af1b6294cd300a18b2443c8e2cc53e5000e5dcf386e122",
+      "normalized_sha256": "98bd0ef4e71c5c19d52db838f45b7a83848a891b158c67e4d5304d89355adc46",
+      "adapted_sha256": "98bd0ef4e71c5c19d52db838f45b7a83848a891b158c67e4d5304d89355adc46",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa_device.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa_dsp_fw.h",
+      "upstream_sha256": "2ca941047f54783ddef821b0cbbe9478c7f8e28079b4f4f3ff5e2226eb4a8664",
+      "normalized_sha256": "d7f9b061c8cb81df6cf47eff01e25f238ec3addc4e9a83a4ab0e9d3cbff4b645",
+      "adapted_sha256": "d7f9b061c8cb81df6cf47eff01e25f238ec3addc4e9a83a4ab0e9d3cbff4b645",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa_dsp_fw.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa_ext.h",
+      "upstream_sha256": "99924f5ecd2bc5d5e3dfcb69983cfc9a9ef45d6f7f09c3a11d9d32c134bb42c1",
+      "normalized_sha256": "7d3114cd688fa3263543c14f2469ed4a7a36f2c28734b28a30a5151a427c5592",
+      "adapted_sha256": "7d3114cd688fa3263543c14f2469ed4a7a36f2c28734b28a30a5151a427c5592",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa_ext.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/inc/tfa_service.h",
+      "upstream_sha256": "ee260fc690b6088ae8401e222ffc259b39c89271a8228b9fa30889907f3e5ce8",
+      "normalized_sha256": "ec628ec612eb6d2fd215d5838266c80d56f03673eb511ebb19bebdc4a1df2e09",
+      "adapted_sha256": "ec628ec612eb6d2fd215d5838266c80d56f03673eb511ebb19bebdc4a1df2e09",
+      "source_path": "asoc/codecs/tfa986x/inc/tfa_service.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/config.h",
+      "upstream_sha256": "b9c33ae1cef8f761a83cd8ccab051d73fddfc8dac8633a90ee75d463bccc230b",
+      "normalized_sha256": "402e611caf8c1aa823a7852ddf29627d52ec937b1ef5050fc54d30aee30ea31e",
+      "adapted_sha256": "402e611caf8c1aa823a7852ddf29627d52ec937b1ef5050fc54d30aee30ea31e",
+      "source_path": "asoc/codecs/tfa986x/src/config.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/dbgprint.h",
+      "upstream_sha256": "89e3be2879ac5ce0cc3b88f02cae97f0cb4373483c0877a2ff1ef0dbd05a6e36",
+      "normalized_sha256": "8a786ca801c7b25e58258ad5fc345c52c33b371dbff1ec14f890bebe3fd03864",
+      "adapted_sha256": "8a786ca801c7b25e58258ad5fc345c52c33b371dbff1ec14f890bebe3fd03864",
+      "source_path": "asoc/codecs/tfa986x/src/dbgprint.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa.h",
+      "upstream_sha256": "49ef7219dfff2b62fe64fe2bc41f4e07031104c6bc08049421373b1b85392b19",
+      "normalized_sha256": "3e77b289695259c6ea0cd77687b95cad00c389b60960d46f98c494196af23d6c",
+      "adapted_sha256": "3e77b289695259c6ea0cd77687b95cad00c389b60960d46f98c494196af23d6c",
+      "source_path": "asoc/codecs/tfa986x/src/tfa.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa1_tfafieldnames.h",
+      "upstream_sha256": "c8e3b52dd15c3a29db5e325f81d2b4727d083f3448dae4582b9125567f837e96",
+      "normalized_sha256": "444a26cfe14aead3761a5ea593ee9cd19dcb79c20d5b18b101f28c02a1cb2c33",
+      "adapted_sha256": "444a26cfe14aead3761a5ea593ee9cd19dcb79c20d5b18b101f28c02a1cb2c33",
+      "source_path": "asoc/codecs/tfa986x/src/tfa1_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa2_tfafieldnames_N1C.h",
+      "upstream_sha256": "b983769797e565ad7fb69845b09804eb6b014f6e22a2ee238d332b35e2b3c58c",
+      "normalized_sha256": "857721d99fa601454cad13467c20aba9e4deb4758e580ff3270c7f7e6bdfb65f",
+      "adapted_sha256": "857721d99fa601454cad13467c20aba9e4deb4758e580ff3270c7f7e6bdfb65f",
+      "source_path": "asoc/codecs/tfa986x/src/tfa2_tfafieldnames_N1C.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9865_tfafieldnames.h",
+      "upstream_sha256": "e13513edb532c6f0a75d90b4130f910e302a6c052f20b50640e75a197d800bcc",
+      "normalized_sha256": "a15060e48bb0540cf976faad586a680067ddf060d76b30615a08d667805d9097",
+      "adapted_sha256": "a15060e48bb0540cf976faad586a680067ddf060d76b30615a08d667805d9097",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9865_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9865_tfafieldnames_A2.h",
+      "upstream_sha256": "450e63a135e257e11e48294c0a4ab55fe439e734aecbd81866a857160bdc9767",
+      "normalized_sha256": "407ae12ba0b8dd9727bd5b1e3090d0868affc8b82aac2b24bb226249a17a9a7a",
+      "adapted_sha256": "407ae12ba0b8dd9727bd5b1e3090d0868affc8b82aac2b24bb226249a17a9a7a",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9865_tfafieldnames_A2.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa986x_tfafieldnames.h",
+      "upstream_sha256": "7801136900771a95d558e0be4acb125b185c0cd74f074505c177ae4226948931",
+      "normalized_sha256": "bc69bef4ba2dc393b00e60a981bf83c6425b6c90123cf77df646de07f01702b9",
+      "adapted_sha256": "bc69bef4ba2dc393b00e60a981bf83c6425b6c90123cf77df646de07f01702b9",
+      "source_path": "asoc/codecs/tfa986x/src/tfa986x_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa986xn2_tfafieldnames.h",
+      "upstream_sha256": "ea5c47889503d5c7bd28fbca6a39008b4826118cac210f194fb33e0a6cb13fde",
+      "normalized_sha256": "5d2f680de69a2361b38e5853fa85a22400e3876ffe7f0dfb3a2d88bebe794650",
+      "adapted_sha256": "5d2f680de69a2361b38e5853fa85a22400e3876ffe7f0dfb3a2d88bebe794650",
+      "source_path": "asoc/codecs/tfa986x/src/tfa986xn2_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9872_device_genregs_POR.h",
+      "upstream_sha256": "c5f2f448b17a20510bb40649a70d9361866e0643f50286a4af33de79d0efc485",
+      "normalized_sha256": "1d344d22f4f90125207cc68a1a4fecb8a7af236229e16489a98db5b3d07101b0",
+      "adapted_sha256": "1d344d22f4f90125207cc68a1a4fecb8a7af236229e16489a98db5b3d07101b0",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9872_device_genregs_POR.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9872_tfafieldnames.h",
+      "upstream_sha256": "02c7bc8552ac46eb51ecf1085283ed00c788088db6b55cec524495fa6e991899",
+      "normalized_sha256": "86dfbedfecc9428f7ac106f0e15fd8c0a6b5279ee797f35dddd97fc1b460a12f",
+      "adapted_sha256": "86dfbedfecc9428f7ac106f0e15fd8c0a6b5279ee797f35dddd97fc1b460a12f",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9872_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9873_tfafieldnames.h",
+      "upstream_sha256": "176fe40f238b268399a81619066483614b1e68ac084bf8a81e9a929ae7b1805a",
+      "normalized_sha256": "b5a9276b526aafad2218500733ab77201b8cc527fa9cc0eba4d7e83e50719474",
+      "adapted_sha256": "b5a9276b526aafad2218500733ab77201b8cc527fa9cc0eba4d7e83e50719474",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9873_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9873_tfafieldnames_B0.h",
+      "upstream_sha256": "9bd8313aa3dc16ca15afbaac7f1eb04699984bb2b2760e6f94e6b3338b831817",
+      "normalized_sha256": "08dbb4d4473ad219c53aec58252c30303ae3e025022c54641289dde466a3e018",
+      "adapted_sha256": "08dbb4d4473ad219c53aec58252c30303ae3e025022c54641289dde466a3e018",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9873_tfafieldnames_B0.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9874_tfafieldnames.h",
+      "upstream_sha256": "bbf57bbb5846da48a7fce4478b443c5c3f4704d080b2992c4502a00b3fa64078",
+      "normalized_sha256": "96f2517c087a99b077db982d672e243375223afec533640f0bb274f5ea204ec9",
+      "adapted_sha256": "96f2517c087a99b077db982d672e243375223afec533640f0bb274f5ea204ec9",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9874_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9875_tfafieldnames.h",
+      "upstream_sha256": "c2cee617e129246fac85ee5e0fb14a093a88582c883abd2c333985fee0056993",
+      "normalized_sha256": "58d3ffcbbcf7db8e97d69487a1dda6e71b9ceb22c883421cd62fd6e5ac41622f",
+      "adapted_sha256": "58d3ffcbbcf7db8e97d69487a1dda6e71b9ceb22c883421cd62fd6e5ac41622f",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9875_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9875_tfafieldnames_A1.h",
+      "upstream_sha256": "02f91070ede6d9a116ee788d916b06a26a5431ff2deff6f3d823bd3ffe9c9b4b",
+      "normalized_sha256": "250ae6372960a04268643f5693e92490533a792b3b60beb51d7ea5681fc286a7",
+      "adapted_sha256": "250ae6372960a04268643f5693e92490533a792b3b60beb51d7ea5681fc286a7",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9875_tfafieldnames_A1.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9878_tfafieldnames.h",
+      "upstream_sha256": "ca8eab4f82c57b8f28441a65e7a92e718aab6452ea3963581325fd50f946a21a",
+      "normalized_sha256": "608cfed75eb20e4dc015d59c15cd6f24f7d6bd3984087beae0f1a00824d41cb4",
+      "adapted_sha256": "608cfed75eb20e4dc015d59c15cd6f24f7d6bd3984087beae0f1a00824d41cb4",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9878_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9887_tfafieldnames.h",
+      "upstream_sha256": "7a1e32f9872d52faecf57394c179dc55b751a57cfb162469b746c22112014558",
+      "normalized_sha256": "3fafebdd519d633b64bb8a92fdd19021012a659a6394a9a1eebe1f7dc65b0ab6",
+      "adapted_sha256": "3fafebdd519d633b64bb8a92fdd19021012a659a6394a9a1eebe1f7dc65b0ab6",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9887_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9890_tfafieldnames.h",
+      "upstream_sha256": "78f961b74ecec149c9c6069658328efa6b4ce3312cd8b47da83a3d0421828b1c",
+      "normalized_sha256": "d611aa773685d85cc59b59ef35932b68beaf42352b6b086aba412257f0066b57",
+      "adapted_sha256": "d611aa773685d85cc59b59ef35932b68beaf42352b6b086aba412257f0066b57",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9890_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9891_genregs.h",
+      "upstream_sha256": "73bd3e81268f102e727e41c3d0a6bae853a6ce17c2321577cc3c85605dab75bc",
+      "normalized_sha256": "f5d1eb2498e42cd18c53a80b96bf6d1bcd801ac6d183753f71f04dd96f369e6b",
+      "adapted_sha256": "f5d1eb2498e42cd18c53a80b96bf6d1bcd801ac6d183753f71f04dd96f369e6b",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9891_genregs.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9891_tfafieldnames.h",
+      "upstream_sha256": "339e77cc5c0207e4c580cf088fe53fe2ce20cc6757e5c7fa5bcab91a91e1589b",
+      "normalized_sha256": "4791e7b1deb1248df57ba05ff6b4771d238857f38e618af2790675afcfbffdf7",
+      "adapted_sha256": "4791e7b1deb1248df57ba05ff6b4771d238857f38e618af2790675afcfbffdf7",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9891_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9894_tfafieldnames.h",
+      "upstream_sha256": "8dace5e243279155a7a0bf80260673f0f6897d1246d7a85722371193dc037280",
+      "normalized_sha256": "4bdadaeac0fa1143a426283cd67ee0163f55f7bc2a7a493b87714c11844eb4b1",
+      "adapted_sha256": "4bdadaeac0fa1143a426283cd67ee0163f55f7bc2a7a493b87714c11844eb4b1",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9894_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9894_tfafieldnames_N2.h",
+      "upstream_sha256": "72a3bf526a15c7aa87d82a14b4f2c5a2fbe729e7f1c5ea72dc80502c05fad115",
+      "normalized_sha256": "34a2ee439dc813ce682f87bd5c793639bc22c514fded57918e9a426eb1d2d1e5",
+      "adapted_sha256": "34a2ee439dc813ce682f87bd5c793639bc22c514fded57918e9a426eb1d2d1e5",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9894_tfafieldnames_N2.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9896_tfafieldnames.h",
+      "upstream_sha256": "79070c0d54575515da6d70bc0bc1a3bbc953ddd55cad7f8842a01c320c4998e6",
+      "normalized_sha256": "d59f3c82f79f8d574261bde544db03435fff9119244c8e6d603601448135d6d5",
+      "adapted_sha256": "d59f3c82f79f8d574261bde544db03435fff9119244c8e6d603601448135d6d5",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9896_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa98xx.c",
+      "upstream_sha256": "14261a05680d1eeb97efc3ff2912446e8d2406ab04c3b74f36df1759189489dd",
+      "normalized_sha256": "5c4be710503d46a1eed48a6198fe2dbcc84ec60cb449db7f0b9e9bf4640a39a6",
+      "adapted_sha256": "88b9ded50628dcaf87aa89a9942e581a431dbb5458570e3e4f9793fd99151d98",
+      "source_path": "asoc/codecs/tfa986x/src/tfa98xx.c",
+      "local_changes": true
+    },
+    {
+      "path": "tfa986x/src/tfa98xx.h",
+      "upstream_sha256": "3b0be1d3d016710f6666047fb4d33890db5735e982518802e27eca1b680b01c4",
+      "normalized_sha256": "792b34c7c882a45b6ea04cc732f723be3b81499f5c8c4329e9f2d72f3352bcc4",
+      "adapted_sha256": "792b34c7c882a45b6ea04cc732f723be3b81499f5c8c4329e9f2d72f3352bcc4",
+      "source_path": "asoc/codecs/tfa986x/src/tfa98xx.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa98xx_genregs_N1C.h",
+      "upstream_sha256": "22de537cb1e5f34b16761994546877d47c90ce2a0b1332f710399c50fccc756a",
+      "normalized_sha256": "e0aab72872082c66eb2c8272d10c9675e572d48db79e81441f6f291024bbc335",
+      "adapted_sha256": "e0aab72872082c66eb2c8272d10c9675e572d48db79e81441f6f291024bbc335",
+      "source_path": "asoc/codecs/tfa986x/src/tfa98xx_genregs_N1C.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa98xx_parameters.h",
+      "upstream_sha256": "54d4103accf25f0c4ef18e1088ba5897216aa292802106089d2d531a5e286fca",
+      "normalized_sha256": "4decb085db82f2d3e7d5b625cedc105f59eddeee72fdf9120e0f88c0111b370e",
+      "adapted_sha256": "4decb085db82f2d3e7d5b625cedc105f59eddeee72fdf9120e0f88c0111b370e",
+      "source_path": "asoc/codecs/tfa986x/src/tfa98xx_parameters.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa98xx_tfafieldnames.h",
+      "upstream_sha256": "213e09d0aa41775915e46b88ddd80d402cddf0c383c709de2bdcc30a8ad230c9",
+      "normalized_sha256": "8e1f12580821a565529695920c2a45a956e0ddbd021bf7af6dc1369120ed9f4f",
+      "adapted_sha256": "8e1f12580821a565529695920c2a45a956e0ddbd021bf7af6dc1369120ed9f4f",
+      "source_path": "asoc/codecs/tfa986x/src/tfa98xx_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9912_device_genregs.h",
+      "upstream_sha256": "4c7087560167787abe0a187f12ebddff021706b73a98706511e2a060fe49a8ea",
+      "normalized_sha256": "6bb870541f3175567fdc490829acd560d9d004da5ea9b3380e821959778e23f9",
+      "adapted_sha256": "6bb870541f3175567fdc490829acd560d9d004da5ea9b3380e821959778e23f9",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9912_device_genregs.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa9912_tfafieldnames.h",
+      "upstream_sha256": "984a86c25ba0a02efa7a5b6198326545e8538ef5bffb3b5e05f145d6167cf987",
+      "normalized_sha256": "51d8b66d87608da28674b9dd723beb749b636e1a727be511470e546af8935ef1",
+      "adapted_sha256": "51d8b66d87608da28674b9dd723beb749b636e1a727be511470e546af8935ef1",
+      "source_path": "asoc/codecs/tfa986x/src/tfa9912_tfafieldnames.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_container.c",
+      "upstream_sha256": "33f87ce6af7cfd33ca65605cfdf0c61983fd7a5aad9114090aa67eddcad91bdd",
+      "normalized_sha256": "ac5b3b2a1bfb30fac31bb02b27592cc759b021ee94031a4d02e18741c042a87a",
+      "adapted_sha256": "ac5b3b2a1bfb30fac31bb02b27592cc759b021ee94031a4d02e18741c042a87a",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_container.c",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_container.h",
+      "upstream_sha256": "35f4d285a5e88cde04059ed28da48be6fe16c85f595066861893932f189017bd",
+      "normalized_sha256": "b2485fd3e63eddad6d7e6f13e5258b18e31cd2601539959da33bf3e0b1639adc",
+      "adapted_sha256": "b2485fd3e63eddad6d7e6f13e5258b18e31cd2601539959da33bf3e0b1639adc",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_container.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_device.h",
+      "upstream_sha256": "fca9b78d96c24a86c4af1b6294cd300a18b2443c8e2cc53e5000e5dcf386e122",
+      "normalized_sha256": "98bd0ef4e71c5c19d52db838f45b7a83848a891b158c67e4d5304d89355adc46",
+      "adapted_sha256": "98bd0ef4e71c5c19d52db838f45b7a83848a891b158c67e4d5304d89355adc46",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_device.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_dsp.c",
+      "upstream_sha256": "7252e96b4991151faef0c2f39c87941c4c95fc7cbeaeb8de5d0232f1ec082d71",
+      "normalized_sha256": "04bff1f869e89b091d851bac3dba42f11c202ddfeaa56c2310c665285f095fbe",
+      "adapted_sha256": "04bff1f869e89b091d851bac3dba42f11c202ddfeaa56c2310c665285f095fbe",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_dsp.c",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_dsp_fw.h",
+      "upstream_sha256": "2ca941047f54783ddef821b0cbbe9478c7f8e28079b4f4f3ff5e2226eb4a8664",
+      "normalized_sha256": "d7f9b061c8cb81df6cf47eff01e25f238ec3addc4e9a83a4ab0e9d3cbff4b645",
+      "adapted_sha256": "d7f9b061c8cb81df6cf47eff01e25f238ec3addc4e9a83a4ab0e9d3cbff4b645",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_dsp_fw.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_ext.h",
+      "upstream_sha256": "99924f5ecd2bc5d5e3dfcb69983cfc9a9ef45d6f7f09c3a11d9d32c134bb42c1",
+      "normalized_sha256": "7d3114cd688fa3263543c14f2469ed4a7a36f2c28734b28a30a5151a427c5592",
+      "adapted_sha256": "7d3114cd688fa3263543c14f2469ed4a7a36f2c28734b28a30a5151a427c5592",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_ext.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_init.c",
+      "upstream_sha256": "dbd930a510da94d884ce8f1a4e062f50725ced2fa99e188cd6f8fffcc09bc41a",
+      "normalized_sha256": "9ec83ca383b6ee1f50369484797a0109102fec1c693381e57166de466c83fbee",
+      "adapted_sha256": "9ec83ca383b6ee1f50369484797a0109102fec1c693381e57166de466c83fbee",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_init.c",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_internal.h",
+      "upstream_sha256": "8ae9bbddaa368c0356c80089792fd056633c5a903c061136a46d853aed9ef00e",
+      "normalized_sha256": "691e002e84c21065093188f3add056a5b38a33ef0a94d1309718b7976baa5882",
+      "adapted_sha256": "691e002e84c21065093188f3add056a5b38a33ef0a94d1309718b7976baa5882",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_internal.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/tfa_service.h",
+      "upstream_sha256": "ee260fc690b6088ae8401e222ffc259b39c89271a8228b9fa30889907f3e5ce8",
+      "normalized_sha256": "ec628ec612eb6d2fd215d5838266c80d56f03673eb511ebb19bebdc4a1df2e09",
+      "adapted_sha256": "ec628ec612eb6d2fd215d5838266c80d56f03673eb511ebb19bebdc4a1df2e09",
+      "source_path": "asoc/codecs/tfa986x/src/tfa_service.h",
+      "local_changes": false
+    },
+    {
+      "path": "tfa986x/src/versions.h",
+      "upstream_sha256": "a1aab449831d366426e83c639924b21962633abd9d9e44b32ff9990df40f8c28",
+      "normalized_sha256": "f0a5c55975e83fd6726ffc8c8b0754b234bb1a2ea640088527fd91e956a1b3bb",
+      "adapted_sha256": "f0a5c55975e83fd6726ffc8c8b0754b234bb1a2ea640088527fd91e956a1b3bb",
+      "source_path": "asoc/codecs/tfa986x/src/versions.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa.c",
+      "upstream_sha256": "dcf465275f3ef75c7cca28f28be9a0fc84a45737288a5f9c41ece1f077ceaa49",
+      "normalized_sha256": "8b421981fa81dd61e81d0118d1a4e10f29a861c24772ae11ddf792b9dc1ba530",
+      "adapted_sha256": "1c1469b6e0f47d26b55bd01c26ab1a80e02ee551870ead2720b1cf4ad0f171ad",
+      "source_path": "asoc/codecs/sia91xx/sipa.c",
+      "local_changes": true
+    },
+    {
+      "path": "sia91xx/sipa_91xx.c",
+      "upstream_sha256": "29927c1d2f53dcbd62aefe430aa24a3543749607f4f73e8248a1ad4afb5bce47",
+      "normalized_sha256": "1196e666a35f428c92eb1b62eae51b3827524a8d3f27e7bd4be62545080214b9",
+      "adapted_sha256": "1196e666a35f428c92eb1b62eae51b3827524a8d3f27e7bd4be62545080214b9",
+      "source_path": "asoc/codecs/sia91xx/sipa_91xx.c",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_91xx.h",
+      "upstream_sha256": "3333691fb22fbc2bebf9cee01290747f813f81ba6ee0d95447c17b2d71203be2",
+      "normalized_sha256": "3333691fb22fbc2bebf9cee01290747f813f81ba6ee0d95447c17b2d71203be2",
+      "adapted_sha256": "3333691fb22fbc2bebf9cee01290747f813f81ba6ee0d95447c17b2d71203be2",
+      "source_path": "asoc/codecs/sia91xx/sipa_91xx.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_afe.c",
+      "upstream_sha256": "1bd28f88894c6c61deac38bc212b0f275f350fac8d6ea7c6d178f2d249169a08",
+      "normalized_sha256": "1bd28f88894c6c61deac38bc212b0f275f350fac8d6ea7c6d178f2d249169a08",
+      "adapted_sha256": "1bd28f88894c6c61deac38bc212b0f275f350fac8d6ea7c6d178f2d249169a08",
+      "source_path": "asoc/codecs/sia91xx/sipa_afe.c",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_aux_dev_if.c",
+      "upstream_sha256": "4be7cd7f2af179936d248cd2ef6987970b8f66a7a852a79a3c553a67419740df",
+      "normalized_sha256": "4be7cd7f2af179936d248cd2ef6987970b8f66a7a852a79a3c553a67419740df",
+      "adapted_sha256": "4be7cd7f2af179936d248cd2ef6987970b8f66a7a852a79a3c553a67419740df",
+      "source_path": "asoc/codecs/sia91xx/sipa_aux_dev_if.c",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_aux_dev_if.h",
+      "upstream_sha256": "d70790b8aa2f2dc9ce0e2b84d168d7014269b8cbbab6b1b3f3c68fe5f99fc897",
+      "normalized_sha256": "d70790b8aa2f2dc9ce0e2b84d168d7014269b8cbbab6b1b3f3c68fe5f99fc897",
+      "adapted_sha256": "d70790b8aa2f2dc9ce0e2b84d168d7014269b8cbbab6b1b3f3c68fe5f99fc897",
+      "source_path": "asoc/codecs/sia91xx/sipa_aux_dev_if.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_common.h",
+      "upstream_sha256": "fd249b54529c10c47bd909103b520a12decaf4bbce810d4228dcdbaa9fd97323",
+      "normalized_sha256": "cd35c48fe80d34f85a70fa54c1a55f6d6e1b1d14f1744ba71590054567b0df8e",
+      "adapted_sha256": "cd35c48fe80d34f85a70fa54c1a55f6d6e1b1d14f1744ba71590054567b0df8e",
+      "source_path": "asoc/codecs/sia91xx/sipa_common.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_parameter.c",
+      "upstream_sha256": "673901101f542e79f8d22b3eb509aac8059936d4aca6afeb4370fd36b4cd50e1",
+      "normalized_sha256": "591887d90a25c7d2392e31e419efd68077fba057c7a1b2a414d026dc7dd52f3c",
+      "adapted_sha256": "591887d90a25c7d2392e31e419efd68077fba057c7a1b2a414d026dc7dd52f3c",
+      "source_path": "asoc/codecs/sia91xx/sipa_parameter.c",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_parameter.h",
+      "upstream_sha256": "9f839226a88a3a6b8e79e23f9ac04774c155661315bf956a0ef579c04c867771",
+      "normalized_sha256": "ea48270f16cbaf150c1ccf16ce2d10217ec4dacf4c7025dc0896b6e9fede9821",
+      "adapted_sha256": "ea48270f16cbaf150c1ccf16ce2d10217ec4dacf4c7025dc0896b6e9fede9821",
+      "source_path": "asoc/codecs/sia91xx/sipa_parameter.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_regmap.c",
+      "upstream_sha256": "9516255d77eca55e66cb998fb6896555f9348cb1988e199b63b04c7e66ba7ada",
+      "normalized_sha256": "8d29a9c79b835eb29d1cb2b3d0cd191156c31aed9d0472eb3bd9c4bf0beb48b3",
+      "adapted_sha256": "8d29a9c79b835eb29d1cb2b3d0cd191156c31aed9d0472eb3bd9c4bf0beb48b3",
+      "source_path": "asoc/codecs/sia91xx/sipa_regmap.c",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_regmap.h",
+      "upstream_sha256": "230b2056134e386acfa5970cee896595b0d28723545bae42fc87d8c9067fd569",
+      "normalized_sha256": "53a72e17e7f7260bceba6b86906c0927ed4ce8834e7ef288ad86d13db1e45f9d",
+      "adapted_sha256": "53a72e17e7f7260bceba6b86906c0927ed4ce8834e7ef288ad86d13db1e45f9d",
+      "source_path": "asoc/codecs/sia91xx/sipa_regmap.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_tuning_if.c",
+      "upstream_sha256": "ba5f15642d73bc90ab60b24fc3eff7a3daad6b4e67ba9adc4343fc142f123b64",
+      "normalized_sha256": "25e562fa926b617ee325d81a76bec40f39118778f0bd383f5f27ea69b6291097",
+      "adapted_sha256": "25e562fa926b617ee325d81a76bec40f39118778f0bd383f5f27ea69b6291097",
+      "source_path": "asoc/codecs/sia91xx/sipa_tuning_if.c",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_tuning_if.h",
+      "upstream_sha256": "df378e10fdea98440d50f07a2b500b8e2dd4c7b5d8d157138784bc0e68700906",
+      "normalized_sha256": "df378e10fdea98440d50f07a2b500b8e2dd4c7b5d8d157138784bc0e68700906",
+      "adapted_sha256": "df378e10fdea98440d50f07a2b500b8e2dd4c7b5d8d157138784bc0e68700906",
+      "source_path": "asoc/codecs/sia91xx/sipa_tuning_if.h",
+      "local_changes": false
+    },
+    {
+      "path": "sia91xx/sipa_tuning_misc.c",
+      "upstream_sha256": "af783540e239d46d5261ee7ebf2519d687a06030148a9124ce94af1782b6f812",
+      "normalized_sha256": "9d65975a8d6a855419b1267a51174e2740cc88f92753f491ad368dd3ba58ff05",
+      "adapted_sha256": "9d65975a8d6a855419b1267a51174e2740cc88f92753f491ad368dd3ba58ff05",
+      "source_path": "asoc/codecs/sia91xx/sipa_tuning_misc.c",
+      "local_changes": false
+    }
+  ],
+  "integration": "New Kbuild and sun-annibale helper are local. Only tfa98xx.c and sipa.c have logic changes relative to the normalized import; see annibale-audio.md. Unused helper C/H files retained for source context, no binaries/calibration/firmware imported."
+}

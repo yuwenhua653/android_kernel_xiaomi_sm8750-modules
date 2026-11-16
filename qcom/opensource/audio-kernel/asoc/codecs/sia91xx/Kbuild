@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Annibale opt-in; source lists match MiCode audio_modules.bzl.
+ccflags-y += -I$(AUDIO_ROOT)/include -I$(AUDIO_ROOT)/include/uapi/audio
+obj-$(CONFIG_XIAOMI_ANNIBALE_AUDIO_MODULES) += sia91xx_dlkm.o sia91xx_tuning_dlkm.o
+sia91xx_dlkm-y := sipa.o sipa_91xx.o sipa_aux_dev_if.o sipa_parameter.o sipa_regmap.o
+sia91xx_tuning_dlkm-y := sipa_tuning_if.o sipa_tuning_misc.o

@@ -1,3 +1,5 @@
+Latest: [R15 opt-in smartpa source integration](annibale-audio.md).
+
 Latest: [R13 WLAN and IPA/RMNET integration](annibale-network.md).
 
 Latest source build expansion: [R12 platform modules](annibale-platform.md).

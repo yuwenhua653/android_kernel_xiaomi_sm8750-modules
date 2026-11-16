@@ -4,3 +4,9 @@ ifeq ($(CONFIG_ARCH_SUN), y)
 endif
 
 obj-y := dsp/ ipc/ soc/ asoc/ asoc/codecs/ asoc/codecs/lpass-cdc/ asoc/codecs/bolero/ asoc/codecs/wcd939x/ asoc/codecs/wsa884x/ asoc/codecs/wcd938x/ asoc/codecs/wsa883x/ asoc/codecs/wcd937x/ asoc/codecs/wcd9378/ asoc/codecs/qmp1000/
+
+# This is a qualification option; DT still must select exactly one family.
+ifeq ($(CONFIG_XIAOMI_ANNIBALE_AUDIO),y)
+subdir-ccflags-y += -DCONFIG_XIAOMI_ANNIBALE_AUDIO
+obj-y += asoc/codecs/tfa986x/ asoc/codecs/sia91xx/
+endif

@@ -47,6 +47,9 @@
 #include "msm-audio-defs.h"
 #include "msm_common.h"
 #include "msm_dailink.h"
+#ifdef CONFIG_XIAOMI_ANNIBALE_AUDIO
+#include "sun-annibale.h"
+#endif
 
 #define DRV_NAME "sun-asoc-snd"
 #define __CHIPSET__ "SUN "
@@ -2476,6 +2479,12 @@ static int msm_asoc_machine_probe(struct platform_device *pdev)
 			goto err;
 		}
 	}
+
+#ifdef CONFIG_XIAOMI_ANNIBALE_AUDIO
+	ret = annibale_bind_smartpa(card);
+	if (ret)
+		goto err;
+#endif
 
 	ret = msm_populate_dai_link_component_of_node(card);
 	if (ret) {

@@ -103,7 +103,7 @@ def build_options(kernel, stage, profile='media'):
         'CONFIG_TOUCHSCREEN_XIAOMI_ANNIBALE=m',
         'CONFIG_DISABLE_TEST_MODULES=y',
     ]
-    if profile == 'network':
+    if profile in ('network', 'audio'):
         options += [
             f'RMNET_CORE_INC_DIR={qcom / "datarmnet/core"}',
             f'WLAN_ROOT={qcom / "wlan/qcacld-3.0"}',
@@ -117,6 +117,9 @@ def build_options(kernel, stage, profile='media'):
             'WLAN_PROFILE=kiwi_v2', 'DYNAMIC_SINGLE_CHIP=kiwi_v2',
             'DEVNAME=kiwi_v2', 'CONFIG_IPA_KERNEL_TESTS_MODULE=n',
         ]
+    if profile == 'audio':
+        options += ['CONFIG_XIAOMI_ANNIBALE_AUDIO=y',
+                    'CONFIG_XIAOMI_ANNIBALE_AUDIO_MODULES=m']
     return options
 
 
@@ -129,8 +132,8 @@ def main():
                         help='AOSP kernel-build-tools/linux-x86/bin (pahole and adjacent libelf)')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--jobs', type=int, choices=range(1, 10), default=3)
-    parser.add_argument('--profile', choices=('media', 'platform', 'network'), default='media',
-                        help='platform adds GPU/video/CNSS/BT; network also adds Kiwi-v2 WLAN and IPA/RMNET')
+    parser.add_argument('--profile', choices=('media', 'platform', 'network', 'audio'), default='media',
+                        help='platform adds GPU/video/CNSS/BT; network also adds Kiwi-v2 WLAN and IPA/RMNET; audio adds opt-in Annibale smartpa')
     parser.add_argument('--objects', action='store_true',
                         help='compile directories only; no modpost or loadable modules')
     parser.add_argument('--resume-stage', type=Path,
@@ -178,11 +181,11 @@ def main():
             parser.error(f'unset {key}: qualification must use strict complete inputs')
     output.mkdir(parents=True, exist_ok=True)
     groups = GROUPS + (PLATFORM_GROUPS if args.profile != 'media' else ())
-    if args.profile == 'network':
+    if args.profile in ('network', 'audio'):
         groups += NETWORK_GROUPS
     kbuild = '# SPDX-License-Identifier: GPL-2.0-only\n' + ''.join(f'obj-m += {g}/\n' for g in groups)
     copy_groups = (*groups, 'qcom/opensource/mm-drivers/config')
-    if args.profile == 'network':
+    if args.profile in ('network', 'audio'):
         copy_groups += NETWORK_SOURCES
     sources = {str(p.relative_to(repo)): sha256(p) for group in copy_groups
                for p in sorted((repo / group).rglob('*')) if p.is_file()}
@@ -258,11 +261,13 @@ def main():
                                    'wlan_firmware_service', 'btpower',
                                    'btfmcodec', 'bt_fm_swr', 'btfm_slim_codec',
                                    'radio_i2c_rtc6226_qca'}
-            if args.profile == 'network':
+            if args.profile in ('network', 'audio'):
                 required_names |= {'qca_cld3_kiwi_v2', 'gsim', 'ipam', 'ipanetm',
                                    'rmnet_core', 'rmnet_ctl', 'rmnet_mem', 'rmnet_aps',
                                    'rmnet_offload', 'rmnet_perf', 'rmnet_perf_tether',
                                    'rmnet_sch', 'rmnet_shs', 'rmnet_wlan'}
+            if args.profile == 'audio':
+                required_names |= {'tfa98xx_dlkm', 'sia91xx_dlkm', 'sia91xx_tuning_dlkm'}
             missing = required_names - report['modules'].keys()
             if missing:
                 raise ValueError(f'missing selected modules: {sorted(missing)}')

@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Annibale opt-in; use the MiCode Bazel source list, not the obsolete 5.4 Kbuild.
+ccflags-y += -I$(src)/inc -I$(AUDIO_ROOT)/include -I$(AUDIO_ROOT)/include/uapi/audio
+obj-$(CONFIG_XIAOMI_ANNIBALE_AUDIO_MODULES) += tfa98xx_dlkm.o
+tfa98xx_dlkm-y := src/tfa_container.o src/tfa_dsp.o src/tfa_init.o src/tfa98xx.o

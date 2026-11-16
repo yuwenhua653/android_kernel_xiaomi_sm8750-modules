@@ -1,3 +1,5 @@
+Latest: [R15 opt-in smartpa source integration](annibale-audio.md).
+
 Latest: [R14 native load dependencies and partition staging](annibale-load-integration.md).
 
 Latest: [R13 WLAN and IPA/RMNET integration](annibale-network.md).
