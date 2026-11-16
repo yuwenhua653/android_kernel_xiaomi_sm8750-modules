@@ -1,0 +1,147 @@
+{
+  "round": "R20",
+  "target": "Redmi K90 / annibale / SM8750",
+  "scope": "Touch periodic temperature lifetime and charger-state replay on the 6.6 baseline",
+  "development_direction": "Keep 6.6 until real-device daily operation is established; newer kernel experiments deferred.",
+  "kernel_code_and_image_unchanged": true,
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "release": "6.6.144-4k-gf112270e61a8",
+  "modules_parent": "36d533af133b3e5609e3cb7e15eecfccae79b02e",
+  "dt_commit_unchanged": "07ca2c7efb1ea46a252243bf092a578cd4cc9476",
+  "prior_dt_evidence": {
+    "round": "R19",
+    "compositions": 32,
+    "record_sha256": "04c9226be72b0d649f8d3c0df1f03ddec9b0bbf2979275f96f084fad97bffa77",
+    "rerun_in_R20": false
+  },
+  "reference_commit": "57d9a0225b031f4b444251117f3ecc9deae71128",
+  "rebuilt_external_modules": 91,
+  "kernel_modules": 411,
+  "strict_modpost": true,
+  "verification": "passed",
+  "compiled_source_records_rechecked": 9424,
+  "source_symlinks_rechecked": 13,
+  "kernel_input_hashes": {
+    "/workspace/scratch/b72c45bd8860/sm8750/Makefile": "c64db5af15c18c1b46701fb95391e47628884810df0f92b6ed7ed506bcf9db2a",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/.config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/config/kernel.release": "ee18cafba5d018b7103de3523d247d709e8bcd660320a7466d696e80a15f8e3b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/vmlinux": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/arch/arm64/boot/Image": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183"
+  },
+  "build_record_sha256": "ee93d085c80765549810e2314043abfab7b9667aeb46c9176fba02e179a5f02a",
+  "build_log_sha256": "d01dd46119e25718643f61141bd4461fe359b9f065fc68466f1fc91987881038",
+  "compiler_warning_lines": 13,
+  "tests_passed": 87,
+  "tests_sha256": "dc537e9f5fc53a444d98ce2accfb3c320c08525a3f01ff054408ebc00f44b1be",
+  "host_temperature_testing": {
+    "pthread_interleavings": true,
+    "ubsan": true,
+    "supply_combinations": 9,
+    "signed_temperature_inputs": 1999,
+    "independent_panels": 2,
+    "additional_start_pause_stop_cycles": 16,
+    "kernel_concurrency_testing": false
+  },
+  "source_stages": {
+    "tfa": {
+      "module_count": 186,
+      "validation_sha256": "6423c1926409cbe10685d7397a29453399e23fe1c0cf73c0dc0bf46cffe63bb2",
+      "manifest_sha256": "ee605dfccf97d7c891fdabd321f89adec4c779c56ec5a1fd6a3da57b0e8c7d9c",
+      "installed_bytes": 60108824,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 66,
+          "dependency_references": 428,
+          "installed_module_count": 66,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 120,
+          "dependency_references": 805,
+          "installed_module_count": 119,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "early_ufs_chain": [
+        "qcom_ipcc.ko",
+        "msm_qmp.ko",
+        "tmecom_intf.ko",
+        "qcom_ice.ko",
+        "ufs_qcom.ko"
+      ]
+    },
+    "sia": {
+      "module_count": 187,
+      "validation_sha256": "dc4447f9e5db54748f55e3d88309572c0a5fea6bedced6db7aa4f57e3d8387f8",
+      "manifest_sha256": "c61be4b82d4c3a16c8d69ba81f092034f255f48731bef812ed35afc931cb8f17",
+      "installed_bytes": 59856384,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 66,
+          "dependency_references": 428,
+          "installed_module_count": 66,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 121,
+          "dependency_references": 805,
+          "installed_module_count": 120,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "early_ufs_chain": [
+        "qcom_ipcc.ko",
+        "msm_qmp.ko",
+        "tmecom_intf.ko",
+        "qcom_ice.ko",
+        "ufs_qcom.ko"
+      ]
+    }
+  },
+  "new_thermal_stop_export_verified": true,
+  "dual_rom_status": "incomplete_inventory",
+  "stock_counts": {
+    "modules_with_detected_blockers": 0
+  },
+  "stock_ambiguous_names": [
+    "adsp_loader_dlkm",
+    "gpr_dlkm",
+    "q6_notifier_dlkm",
+    "q6_pdr_dlkm",
+    "snd_event_dlkm",
+    "spf_core_dlkm",
+    "zram",
+    "zsmalloc"
+  ],
+  "touch_outputs": {
+    "xiaomi/touch/annibale/goodix_9916k/goodix_core.ko": "fd4c49c8c86468a465cf5238ebf4868002ac46de4968a494263fba3679fca25b",
+    "xiaomi/touch/annibale/xiaomi/xiaomi_touch.ko": "0216a4b850e0971a26a012ea94dcfc75787732c784f6f3fe6065dac85b0d9272"
+  },
+  "flashable": false,
+  "boot_verified": false,
+  "hardware_verified": false,
+  "remaining": [
+    "Xiaomi display ABI/HBM/LHBM/AOD/dimming/ESD",
+    "Exact P11 touch/THP and real suspend/resume",
+    "Complete hot-unplug lifetime beyond the periodic temperature worker",
+    "Camera extensions/HAL behavior",
+    "Complete charging policy",
+    "Complete ROM ownership/boot packaging/signatures/AVB/SELinux and daily-use validation"
+  ]
+}

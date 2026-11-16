@@ -2647,11 +2647,13 @@ out:
 
 static void goodix_reset_charge_state(struct goodix_ts_core *core_data, int state)
 {
-	//add_common_data_to_buf_common(0, SET_CUR_VALUE, THP_HAL_CHARGING_STATUS, 1, &state);
-	if (state)
-		core_data->hw_ops->charger_on(goodix_core_data, true);
-	//else
-	//	core_data->hw_ops->charger_on(goodix_core_data, false);
+	int ret;
+
+	if (state < 0 || !core_data->hw_ops->charger_on)
+		return;
+	ret = core_data->hw_ops->charger_on(core_data, state != 0);
+	if (ret)
+		ts_err("failed to restore charger state %d: %d", state, ret);
 }
 
 /**
@@ -3936,7 +3938,7 @@ static int goodix_palm_sensor_write(int value)
 
 static void goodix_set_charge_state(int state)
 {
-	if (!goodix_core_data || goodix_core_data->init_stage < CORE_INIT_STAGE2) {
+	if (state < 0 || !goodix_core_data || goodix_core_data->init_stage < CORE_INIT_STAGE2) {
 		ts_err("%s not inited", __func__);
 		return;
 	} else {
@@ -3951,13 +3953,12 @@ static void goodix_set_charge_state(int state)
 	}
 #endif
 
+	/* Serialize the cached state and firmware command with display-driven PM. */
+	mutex_lock(&goodix_core_data->core_mutex);
 	goodix_core_data->charger_status = state;
-	if (atomic_read(&goodix_core_data->suspended))
-		return;
-	if (state)
-		goodix_core_data->hw_ops->charger_on(goodix_core_data, true);
-	else
-		goodix_core_data->hw_ops->charger_on(goodix_core_data, false);
+	if (!atomic_read(&goodix_core_data->suspended))
+		goodix_reset_charge_state(goodix_core_data, state);
+	mutex_unlock(&goodix_core_data->core_mutex);
 }
 
 static int goodix_log_level_control(int value)
@@ -3980,10 +3981,10 @@ static int goodix_set_thermal_temp(int temp, bool force)
 
 	if (force) {
 		temp0 = get_bms_temp_common();
-		if (abs(temp0) >= INVAILD_TEMPERATURE)
+		if (!xiaomi_touch_temp_valid(temp0))
 			return -1;
 
-		temp = (temp0 + 5) / 10; // Rounding, in degrees Celsius
+		temp = xiaomi_touch_temp_degrees(temp0);
 		add_common_data_to_buf(0, SET_CUR_VALUE, THP_TEMPERATURE_STATUS, 1, &temp);
 	}
 	ts_info("temp: %d", temp);
@@ -4475,6 +4476,7 @@ static int goodix_ts_remove(struct platform_device *pdev)
 
 	/* Stop display-driven PM before dismantling controller resources. */
 	xiaomi_unregister_panel_notifier(core_data->bus->dev, TOUCH_ID);
+	xiaomi_stop_temperature_detection(TOUCH_ID);
 	goodix_ts_unregister_notifier(&core_data->ts_notifier);
 	goodix_tools_exit();
 
@@ -4508,6 +4510,7 @@ static void goodix_ts_shutdown(struct platform_device *pdev)
 	if (!core_data)
 		return;
 	xiaomi_unregister_panel_notifier(core_data->bus->dev, TOUCH_ID);
+	xiaomi_stop_temperature_detection(TOUCH_ID);
 	/* Stop display notifications, then IRQ, before powering off. */
 	core_data->hw_ops->irq_enable(core_data, false);
 	usleep_range(500, 510);

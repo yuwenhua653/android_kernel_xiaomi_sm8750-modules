@@ -4,6 +4,7 @@
  * Confidential and Proprietary - Xiaomi, Inc.
  */
 #include <linux/platform_device.h>
+#include <linux/kthread.h>
 #include <linux/slab.h>
 #include <linux/mm.h>
 #include <linux/of.h>
@@ -14,7 +15,10 @@
 
 #include "xiaomi_touch.h"
 static xiaomi_touch_t xiaomi_touch;
-static struct task_struct *xiaomi_touch_temp_thread;
+/* Lifecycle lock may cover kthread_stop; the worker never takes it. */
+static DEFINE_MUTEX(xiaomi_temperature_lifecycle_lock);
+/* Drain a temperature callback before suspend disables controller access. */
+static DEFINE_MUTEX(xiaomi_temperature_lock);
 #if defined(CONFIG_DRM)
 /* Serialize bind/unbind separately from work and late notifier callbacks. */
 static DEFINE_MUTEX(xiaomi_panel_lifecycle_lock);
@@ -264,6 +268,7 @@ int get_bms_temp_common(void)
 	}
 
 	ret = power_supply_get_property(battery, POWER_SUPPLY_PROP_TEMP, &prop);
+	power_supply_put(battery);
 	if (ret) {
 		LOG_INFO("can't read battery temp");
 		return -INVAILD_TEMPERATURE;
@@ -290,98 +295,117 @@ EXPORT_SYMBOL_GPL(get_bms_temp_common);
  */
 static int xiaomi_touch_temp_thread_func(void *data)
 {
-	int temp_n = 0;
-	static int last_temp = 1000;
-	int cur_temp0, cur_temp = 0;
-	common_data_t *temp_id = (common_data_t *)data;
-	s8 touch_id = temp_id->touch_id;
-	xiaomi_touch_data_t *xiaomi_touch_data = get_xiaomi_touch_data(touch_id);
-	xiaomi_touch_driver_param_t *xiaomi_touch_driver_param = get_xiaomi_touch_driver_param(touch_id);
+	xiaomi_touch_data_t *touch = data;
+	xiaomi_touch_driver_param_t *param = get_xiaomi_touch_driver_param(touch->touch_id);
+	int last_temp = INVAILD_TEMPERATURE;
+	int raw, temp, ret, delay;
 
-
-	LOG_INFO("enter, touch id %d\n", touch_id);
-	if (!xiaomi_touch_data || !xiaomi_touch_driver_param ||
-			!xiaomi_touch_driver_param->hardware_operation.set_thermal_temp)
-		return -1;
-
+	if (!param || !param->hardware_operation.set_thermal_temp)
+		return -EINVAL;
 	while (!kthread_should_stop()) {
-		wait_event_interruptible(xiaomi_touch_data->temp_detect_wait_queue,
-				atomic_read(&xiaomi_touch_data->temp_detect_ready));
-		if(atomic_read(&xiaomi_touch_data->temp_detect_ready)) {
-			cur_temp0 = get_bms_temp_common();
-			cur_temp = (cur_temp0 + 5) / 10; // Rounding, in degrees Celsius
-			if (abs(cur_temp0) < INVAILD_TEMPERATURE &&
-					xiaomi_touch_driver_param->hardware_operation.set_thermal_temp &&
-					abs(cur_temp - last_temp) >= xiaomi_touch_driver_param->hardware_param.temp_change_value) {
-				xiaomi_touch_driver_param->hardware_operation.set_thermal_temp(cur_temp, false);
-				add_common_data_to_buf(0, SET_CUR_VALUE, THP_TEMPERATURE_STATUS, 1, &cur_temp);
-				last_temp = cur_temp;
+		ret = wait_event_interruptible(touch->temp_detect_wait_queue,
+			kthread_should_stop() || atomic_read(&touch->temp_detect_ready));
+		if (kthread_should_stop())
+			break;
+		if (ret)
+			continue;
+
+		mutex_lock(&xiaomi_temperature_lock);
+		if (atomic_read(&touch->temp_detect_ready) && !kthread_should_stop()) {
+			raw = get_bms_temp_common();
+			if (xiaomi_touch_temp_valid(raw)) {
+				temp = xiaomi_touch_temp_degrees(raw);
+				if (abs(temp - last_temp) >= param->hardware_param.temp_change_value) {
+					ret = param->hardware_operation.set_thermal_temp(temp, false);
+					if (!ret) {
+						add_common_data_to_buf(touch->touch_id, SET_CUR_VALUE,
+							THP_TEMPERATURE_STATUS, 1, &temp);
+						last_temp = temp;
+					}
+				}
 			}
-
-			/*
-			 * The update rules for battery temperature are as follows:
-			 * a. updates every 5s when charging; updates every 30s when not charging
-			 * b. if the system enters sleep mode when screen-off, the temperature will not be updated until the system is awakened.
-			 */
-			if (xiaomi_touch.charging_status)
-				temp_n = 5;
-			else
-				temp_n = 10; // 30;
-
-			LOG_DEBUG("cur_temp0:%d, last_temp:%d, sleep %dms", cur_temp0, last_temp, temp_n * 1000);
-			msleep(temp_n * 1000);
 		}
-	}
-	LOG_INFO("exit");
+		mutex_unlock(&xiaomi_temperature_lock);
 
+		/* Preserve the imported 5/10-second cadence, but wake promptly on stop. */
+		delay = READ_ONCE(xiaomi_touch.charging_status) > 0 ? 5 : 10;
+		wait_event_interruptible_timeout(touch->temp_detect_wait_queue,
+			kthread_should_stop() || !atomic_read(&touch->temp_detect_ready),
+			msecs_to_jiffies(delay * 1000));
+	}
 	return 0;
+}
+
+static void xiaomi_start_temperature_detection(xiaomi_touch_data_t *touch)
+{
+	struct task_struct *task;
+
+	mutex_lock(&xiaomi_temperature_lifecycle_lock);
+	mutex_lock(&xiaomi_temperature_lock);
+	if (touch->temp_thread)
+		goto out;
+	task = kthread_create(xiaomi_touch_temp_thread_func, touch,
+		"xiaomi_touch_temp/%d", touch->touch_id);
+	if (IS_ERR(task)) {
+		atomic_set(&touch->temp_detect_ready, 0);
+		LOG_ERROR("temperature thread unavailable: %ld", PTR_ERR(task));
+		goto out;
+	}
+	touch->temp_thread = task;
+	atomic_set(&touch->temp_detect_ready, 1);
+	wake_up_process(task);
+out:
+	mutex_unlock(&xiaomi_temperature_lock);
+	mutex_unlock(&xiaomi_temperature_lifecycle_lock);
+}
+
+void xiaomi_stop_temperature_detection(s8 touch_id)
+{
+	xiaomi_touch_data_t *touch = get_xiaomi_touch_data(touch_id);
+	struct task_struct *task;
+
+	if (!touch)
+		return;
+	mutex_lock(&xiaomi_temperature_lifecycle_lock);
+	mutex_lock(&xiaomi_temperature_lock);
+	atomic_set(&touch->temp_detect_ready, 0);
+	task = touch->temp_thread;
+	touch->temp_thread = NULL;
+	mutex_unlock(&xiaomi_temperature_lock);
+	if (task) {
+		wake_up_interruptible(&touch->temp_detect_wait_queue);
+		kthread_stop(task);
+	}
+	mutex_unlock(&xiaomi_temperature_lifecycle_lock);
+}
+EXPORT_SYMBOL_GPL(xiaomi_stop_temperature_detection);
+
+static void xiaomi_set_temperature_detection(s8 touch_id, bool enable)
+{
+	xiaomi_touch_data_t *touch = get_xiaomi_touch_data(touch_id);
+
+	if (!touch)
+		return;
+	mutex_lock(&xiaomi_temperature_lock);
+	if (touch->temp_thread) {
+		atomic_set(&touch->temp_detect_ready, enable);
+		wake_up_interruptible(&touch->temp_detect_wait_queue);
+	}
+	mutex_unlock(&xiaomi_temperature_lock);
 }
 
 #if defined(FLIP_STATE)
 void enable_temperature_detection_func(bool is_resume, s8 touch_id)
 {
-	xiaomi_touch_data_t *xiaomi_touch_data = get_xiaomi_touch_data(touch_id);
-	xiaomi_touch_driver_param_t *xiaomi_touch_driver_param = get_xiaomi_touch_driver_param(touch_id);
-
-	LOG_VERBOSE("enter");
-	if (!xiaomi_touch_data || !xiaomi_touch_driver_param ||
-			!xiaomi_touch_driver_param->hardware_operation.set_thermal_temp)
-		return;
-
-	if (is_resume) {
-		atomic_set(&xiaomi_touch_data->temp_detect_ready, 1);
-		LOG_DEBUG("start detect temperature");
-	} else {
-		atomic_set(&xiaomi_touch_data->temp_detect_ready, 0);
-		LOG_DEBUG("stop detect temperature");
-	}
-
-	wake_up_interruptible(&xiaomi_touch_data->temp_detect_wait_queue);
+	xiaomi_set_temperature_detection(touch_id, is_resume);
 }
-EXPORT_SYMBOL_GPL(enable_temperature_detection_func);
 #else
 void enable_temperature_detection_func(bool is_resume)
 {
-	xiaomi_touch_data_t *xiaomi_touch_data = get_xiaomi_touch_data(0);
-	xiaomi_touch_driver_param_t *xiaomi_touch_driver_param = get_xiaomi_touch_driver_param(0);
-
-	LOG_VERBOSE("enter");
-	if (!xiaomi_touch_data || !xiaomi_touch_driver_param ||
-			!xiaomi_touch_driver_param->hardware_operation.set_thermal_temp)
-		return;
-
-	if (is_resume) {
-		atomic_set(&xiaomi_touch_data->temp_detect_ready, 1);
-		LOG_DEBUG("start detect temperature");
-	} else {
-		atomic_set(&xiaomi_touch_data->temp_detect_ready, 0);
-		LOG_DEBUG("stop detect temperature");
-	}
-
-	wake_up_interruptible(&xiaomi_touch_data->temp_detect_wait_queue);
+	xiaomi_set_temperature_detection(0, is_resume);
 }
-EXPORT_SYMBOL_GPL(enable_temperature_detection_func);
 #endif
+EXPORT_SYMBOL_GPL(enable_temperature_detection_func);
 
 
 #if defined(TOUCH_PLATFORM_XRING)
@@ -463,8 +487,9 @@ int register_touch_panel(struct device *dev, s8 touch_id, hardware_param_t *hard
 	xiaomi_touch_data->raw_data_size = hardware_param->raw_data_page_size * PAGE_SIZE;
 	xiaomi_touch_data->raw_data_buf_size = hardware_param->raw_data_buf_size;
 
-	/* The temperature detection function is enabled by default when machine startup */
-	atomic_set(&xiaomi_touch_data->temp_detect_ready, 1);
+	/* Initialize before publishing callbacks or starting a worker. */
+	init_waitqueue_head(&xiaomi_touch_data->temp_detect_wait_queue);
+	atomic_set(&xiaomi_touch_data->temp_detect_ready, 0);
 
 	/* alloc mmap memory */
 	xiaomi_touch_data->frame_data_mmap_phy_base = 0;
@@ -542,17 +567,9 @@ int register_touch_panel(struct device *dev, s8 touch_id, hardware_param_t *hard
 	xiaomi_touch.panel_register_mask |= (1 << touch_id);
 	LOG_INFO("current panel_register_mask is %d", xiaomi_touch.panel_register_mask);
 
-	/* create a thread for temp detect */
-	if (hardware_operation && hardware_operation->set_thermal_temp) {
-		LOG_INFO("startup temperature detect thread");
-		xiaomi_touch_temp_thread = kthread_create(xiaomi_touch_temp_thread_func, (void *)&xiaomi_touch_data->touch_id, "xiaomi_touch_temp_thread");
-		if (IS_ERR(xiaomi_touch_temp_thread)) {
-			LOG_ERROR("Failed to create xiaomi_touch_temp_thread");
-			goto err_out;
-		}
-		init_waitqueue_head(&xiaomi_touch_data->temp_detect_wait_queue);
-		wake_up_process(xiaomi_touch_temp_thread);
-	}
+	/* Temperature polling is optional; failure leaves it disabled. */
+	if (hardware_operation && hardware_operation->set_thermal_temp)
+		xiaomi_start_temperature_detection(xiaomi_touch_data);
 
 #if defined(TOUCH_PLATFORM_XRING)
 #ifdef TOUCH_SENSORHUB_SUPPORT
@@ -565,12 +582,6 @@ int register_touch_panel(struct device *dev, s8 touch_id, hardware_param_t *hard
 #endif
 	return 0;
 
-err_out:
-	if(!IS_ERR(xiaomi_touch_temp_thread)) {
-		kthread_stop(xiaomi_touch_temp_thread);
-	}
-
-	return 0;
 }
 EXPORT_SYMBOL_GPL(register_touch_panel);
 
@@ -578,10 +589,15 @@ void unregister_touch_panel(s8 touch_id)
 {
 	xiaomi_touch_data_t *xiaomi_touch_data = NULL;
 	xiaomi_touch_driver_param_t *xiaomi_touch_driver_param = NULL;
+	if (IS_TOUCH_ID_INVALID(touch_id))
+		return;
 	if (!(xiaomi_touch.panel_register_mask & (1 << touch_id))) {
 		LOG_ERROR("touch id %d didn't register, break unregister!", touch_id);
 		return;
 	}
+
+	/* Join before freeing notification buffers or clearing driver callbacks. */
+	xiaomi_stop_temperature_detection(touch_id);
 
 	/* free mmap memory */
 	xiaomi_touch_data = get_xiaomi_touch_data(touch_id);
@@ -613,12 +629,6 @@ void unregister_touch_panel(s8 touch_id)
 	xiaomi_touch.panel_register_mask &= ~(1 << touch_id);
 	LOG_INFO("current panel_register_mask is %d", xiaomi_touch.panel_register_mask);
 
-	/* free temp detect thread */
-	if(xiaomi_touch_temp_thread != NULL) {
-		atomic_set(&xiaomi_touch_data->temp_detect_ready, 0);
-		// kthread_stop(xiaomi_touch_temp_thread); /* Optimize restart time */
-		LOG_INFO("stop detect temperature");
-	}
 }
 EXPORT_SYMBOL_GPL(unregister_touch_panel);
 

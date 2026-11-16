@@ -66,6 +66,18 @@
  */
 #define INVAILD_TEMPERATURE			1000
 
+static inline bool xiaomi_touch_temp_valid(int temp)
+{
+	return temp > -INVAILD_TEMPERATURE && temp < INVAILD_TEMPERATURE;
+}
+
+/* Input has already passed xiaomi_touch_temp_valid(); ties round away from zero. */
+static inline int xiaomi_touch_temp_degrees(int temp)
+{
+	return (temp < 0 ? temp - 5 : temp + 5) / 10;
+}
+
+
 #define IS_TOUCH_ID_INVALID(touch_id) (touch_id < 0 || touch_id >= MAX_TOUCH_PANEL_COUNT)
 
 enum touch_doze_analysis {
@@ -273,6 +285,7 @@ typedef struct xiaomi_touch_data {
 #endif
 	wait_queue_head_t temp_detect_wait_queue;
 	atomic_t temp_detect_ready;
+	struct task_struct *temp_thread;
 } xiaomi_touch_data_t;
 
 typedef struct hardware_operation {
@@ -383,6 +396,7 @@ void notify_raw_data_update(s8 touch_id);
 void add_common_data_to_buf(s8 touch_id, enum common_data_cmd cmd, enum common_data_mode mode, int length, int *data);
 int register_touch_panel(struct device *dev, s8 touch_id, hardware_param_t *hardware_param, hardware_operation_t *hardware_operation);
 void unregister_touch_panel(s8 touch_id);
+void xiaomi_stop_temperature_detection(s8 touch_id);
 void xiaomi_register_panel_notifier(struct device *dev, s8 touch_id,
 		int panel_event_notifier_tag, int panel_event_notifier_client);
 void xiaomi_unregister_panel_notifier(struct device *dev, s8 touch_id);
