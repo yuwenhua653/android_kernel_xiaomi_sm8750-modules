@@ -1,0 +1,120 @@
+{
+  "round": "R10",
+  "device": "annibale / Redmi K90 / SM8750",
+  "date": "2026-11-16",
+  "kernel_code_commit": "18cc8fc8de3f756803df0de2bb4e5393b183195b",
+  "modules_base_commit": "24951eeccd31a4fd17602be659ccba51d54a2c6d",
+  "compiled_external_sources_sha256": "dc9f7af51ccafb8c25e31ad11def4b98733dff3d56a563a537bd25ce4501527a",
+  "source_note": "External build saw uncommitted audit-tool/test changes only; compiled source groups are recorded by exact hashes in build.json.",
+  "target_firmware": "User selected their phone firmware, but exact version has not been supplied.",
+  "reference_firmware": {
+    "version_from_commit_message": "OS3.0.8.0.WPKMIXM",
+    "repository": "xiaomi-annibale/android_device_xiaomi_annibale-kernel",
+    "commit": "df318c6b1c81e17d4fdc0fc9333c00c4d90e928a",
+    "kind": "community extraction, not verified against current user phone",
+    "kernel_sha256": "b99ee1d9b485c77b089fc8f237c0fa43dacd3feb6b509d312fe095d3a77ac988",
+    "embedded_config_sha256": "4fb30c55e3761a1bbe5f24b1dd453763a652907b9e16955156ea7ce6cc3e7afd"
+  },
+  "build": {
+    "status": "passed",
+    "release": "6.6.144-4k-g18cc8fc8de3f",
+    "vermagic": "6.6.144-4k-g18cc8fc8de3f SMP preempt mod_unload modversions aarch64",
+    "kernel_modules": 411,
+    "external_modules": 58,
+    "checks": [
+      "complete Image/vmlinux and kernel modules",
+      "strict joint external modpost",
+      "ARM64 ELF",
+      "same-build imported symbol CRCs",
+      "vermagic and hard dependency presence",
+      "nonempty BTF sections in all 469 modules"
+    ],
+    "artifacts": {
+      "arch/arm64/boot/Image": {
+        "sha256": "478ed0852505f38f5f0e4bf143d433deb8846c9c63d608fc39474c89cd390b25",
+        "size": 36805120
+      },
+      "vmlinux": {
+        "sha256": "8cc4b1d0d30b9fb40fcfdbf9a7e99ea235d74ef994eec9c3f8a604bc7029e840",
+        "size": 180591376
+      },
+      ".config": {
+        "sha256": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+        "size": 239642
+      },
+      "Module.symvers": {
+        "sha256": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+        "size": 1227596
+      },
+      "modules.order": {
+        "sha256": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+        "size": 13468
+      }
+    },
+    "external_symvers_sha256": "17f491bf05944b2aba4ffec36cb7368d63da13905ce07fa0b7caf8f0763dc815",
+    "verification_sha256": "a566d825d1441081517a7227cef6dfc620ec64a97b2935930c7212a073383f0e",
+    "module_layout_crc": "0x4e276f37",
+    "btf_config": [
+      "CONFIG_DEBUG_INFO_BTF=y",
+      "CONFIG_DEBUG_INFO_BTF_MODULES=y"
+    ]
+  },
+  "stock_audit": {
+    "status": "incomplete_inventory",
+    "scope": "All supplied modules, retaining stock providers; not a selected boot load set",
+    "files": 1000,
+    "distinct_binaries": 623,
+    "distinct_names": 621,
+    "modules_with_detected_blockers": 0,
+    "kernel_import_checks": 29072,
+    "retained_provider_import_checks": 4938,
+    "missing_load_list_entries": 0,
+    "unresolved_variants": {
+      "zram": [
+        "42dbc1cc818ab98dad22de94ba623ae4d62e8daddc93263d9332b2f295c8e925",
+        "97f5ab8e4f3af1e284137883a34bb3cac035bc601c3027bab7a821162e539993"
+      ],
+      "zsmalloc": [
+        "b14326b911ab67afe1dee6b040ba945ffaa50550c84dbf5922b7da56b32a982a",
+        "b4b013232bc7b132af439d88cd0bb9a024fffcaaf14c0a040d4b87001c19ca59"
+      ]
+    },
+    "signature_trailers": 96,
+    "signature_trust": "not checked",
+    "report_sha256": "bcd2b5c42bd5b342e67c2ba837650052f605748b089dc87a5bc704f2545e7f87",
+    "inventory_sha256": "75ea4ae05cf8113a215f6ea2e642547bc6dc231ff75fe0abdb3a137ac65578d3",
+    "unverified": [
+      "signature trust (trailer detection is not verification)",
+      "CFI/BTF validation and runtime layout beyond CRCs",
+      "namespace/license restrictions and selected module load order",
+      "duplicate providers across mutually exclusive inventory variants",
+      "boot images, DTB/DTBO, firmware, HALs and hardware behavior"
+    ]
+  },
+  "baseline_observation": {
+    "round": "R9",
+    "module_layout_crc": "0x6500052f",
+    "distinct_stock_binaries_with_crc_blockers": 623,
+    "note": "Observed before environment reset; detailed baseline JSON was lost. R9 build evidence remains in the R9 committed manifest."
+  },
+  "host_tests": {
+    "kernel_suites_passed": 15,
+    "module_tool_suites_passed": 25
+  },
+  "tools": {
+    "clang_commit": "921f6da692b1ffc96a0daa7e741373f0089d40b0",
+    "clang_directory": "clang-r510928",
+    "build_tools_commit": "81f31e087778f0b89d7af788c739192dfc4cf500",
+    "kernel_build_tools_commit": "c2c3319b5293bab98e2367a27e993773e698f886",
+    "pahole": "v1.25"
+  },
+  "files": {
+    "sm8750/scripts/xiaomi/compile-annibale-board.sh": "5a746b1bd9459385223ea0d5d12045f81026abcb42941941cbbfc540def503b9",
+    "sm8750-modules/tools/audit_annibale_stock.py": "0044ab5c8ccd34f610554c0b3122d28e8ffe87fee6a686fb8740868f19761a4d",
+    "sm8750-modules/tools/build_annibale_modules.py": "85d17a7d6d7ea93f8ec084bb3c49f624e45ccaa4443e7cec8cc3775ef0d6f2ee",
+    "sm8750-modules/tools/verify_annibale_modules.py": "e4d9e631bd9b85199546d86361f581f96d38cd052a0b642263e5971d285dd72f",
+    "sm8750-modules/tools/tests/test_audit_annibale_stock.py": "d5aaf77f2c7e1af01a4ff4567d8e03c17c3f89bfc81929508d69f52859d5cd7c",
+    "sm8750-modules/tools/tests/test_verify_annibale_modules.py": "7e407b0bed9d3c85f4874e91b33dd6126c2c8b95e4ff91d566702fee46a37d91"
+  },
+  "not_a_flashable_release": true
+}

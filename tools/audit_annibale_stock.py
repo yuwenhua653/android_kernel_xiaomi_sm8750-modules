@@ -113,7 +113,9 @@ def audit(stock_root, kernel_out):
     first = first if first.is_absolute() else kernel_out / first
     if not first.resolve().is_relative_to(kernel_out):
         raise ValueError('target modules.order escapes kernel output')
-    target_info, _ = module_info(first)
+    target_info, target_imports = module_info(first)
+    if target_imports['module_layout'] != symbols['module_layout'][0]:
+        raise ValueError('stale target module_layout CRC')
     target_magic = target_info['vermagic'][0]
     release = (kernel_out / 'include/config/kernel.release').read_text().strip()
     if target_magic.split()[0] != release:

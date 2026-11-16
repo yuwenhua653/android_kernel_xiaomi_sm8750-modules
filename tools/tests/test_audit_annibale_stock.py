@@ -121,6 +121,12 @@ class StockAuditTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.run_audit()
         with self.assertRaises(ValueError): magic_flags('invalid')
 
+    def test_stale_target_crc_rejected(self):
+        module(self.kernel / 'target.ko', 'target', release='6.6.target',
+               imports={'module_layout': 0x9876})
+        with self.assertRaisesRegex(ValueError, 'stale target module_layout'):
+            self.run_audit()
+
 
 if __name__ == '__main__':
     unittest.main()

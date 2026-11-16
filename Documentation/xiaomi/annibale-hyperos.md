@@ -1,7 +1,8 @@
 # R10: HyperOS module ABI work
 
-The current OSS build is not yet qualified as a replacement for a shipping
-HyperOS kernel. The device's exact HyperOS build number is still needed. The
+The complete BTF build now passes source-module link checks, and the reference
+stock inventory has no detected CRC/vermagic/dependency blocker. This is not
+yet a qualified replacement for a shipping HyperOS kernel. The device's exact HyperOS build number is still needed. The
 reference inventory used here is `OS3.0.8.0.WPKMIXM`, from
 `xiaomi-annibale/android_device_xiaomi_annibale-kernel` commit
 `df318c6b1c81e17d4fdc0fc9333c00c4d90e928a`. That repository's commit message
@@ -18,13 +19,27 @@ fragment requests BTF. The stock image's embedded configuration enables both.
 `struct module` includes additional fields when module BTF is enabled, so losing
 this configuration changes `module_layout` and transitively many other CRCs.
 
-Before the environment reset, the complete R9 output had `module_layout` CRC
-`0x6500052f`; all 623 distinct stock module binaries expected `0x4e276f37`.
-After restoring BTF, a real ARM64 build of `kernel/module/version.o` produced
-`#SYMVER module_layout 0x4e276f37` in its Kbuild command record. This establishes
-one corrected ABI obstacle, not complete compatibility. The initial complete
-BTF rebuild was interrupted by an environment reset; its Image/modules are not
-counted as validated. Subsequent complete results must be recorded separately.
+R9 had `module_layout` CRC `0x6500052f`; all 623 distinct reference stock
+binaries expected `0x4e276f37`. Restoring BTF produces the expected CRC without
+changing any checksum or bypassing the loader. The recovered complete build
+and subsequent stock audit are recorded in `annibale-r10-validation.json`.
+
+| Check | R10 result |
+| --- | --- |
+| ARM64 Image and kernel modules | Passed; 411 modules |
+| External touch/media/audio/NFC/DSP group | Passed; 58 modules |
+| Same-build CRCs, vermagic, dependencies, BTF presence | All 469 modules passed |
+| Reference stock module files | 1,000 files; 623 distinct binaries / 621 names |
+| Stock imports from kernel built-ins | 29,072 CRC comparisons; zero mismatches |
+| Imports from retained stock providers | 4,938 comparisons; zero mismatches |
+| Load-list names absent from supplied inventory | Zero |
+| Host logic/tool suites | 15 kernel + 25 module-tool suites passed |
+
+The stock audit intentionally returns `incomplete_inventory`, not a blanket
+compatibility pass: `zram` and `zsmalloc` each have a system_dlkm and vendor_boot
+variant. The real boot load set must select the intended files. Presence of a
+signature trailer (96 distinct binaries) does not establish certificate trust.
+No device loading, signature trust, CFI execution or HyperOS boot was tested.
 
 The kernel helper now requires pahole, checks that both BTF options survived
 configuration, and accepts an optional AOSP kernel tools directory containing
@@ -80,8 +95,8 @@ cannot replace that policy/HAL contract. The standard board profile still
 keeps experimental MCA disabled. Restoring BTF does not authorize mixing these
 source modules with stock charging/display/camera modules.
 
-Next checks are a full BTF kernel/module build and audit, the user's exact
-firmware inventory, retained versus rebuilt module ownership, trusted signatures,
+Next checks are the user's exact firmware inventory, the selected boot load set,
+retained versus rebuilt module ownership, trusted signatures,
 Android KMI/CFI/BTF runtime validation, vendor ramdisk/module load lists, DTB/DTBO,
 and display/camera/audio/fingerprint/charging HAL behavior. No boot image or
 flashable HyperOS package is produced by these changes.
