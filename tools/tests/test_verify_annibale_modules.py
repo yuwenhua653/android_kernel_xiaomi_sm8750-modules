@@ -50,6 +50,18 @@ class QualificationTests(unittest.TestCase):
         report = verify(self.kernel, self.stage)
         self.assertEqual(report['kernel_module_count'], 1)
         self.assertEqual(report['external_module_count'], 1)
+        self.assertLess(report['dependency_order'].index('provider'),
+                        report['dependency_order'].index('consumer'))
+
+    def test_cyclic_dependencies_rejected(self):
+        elf_module(self.kernel / 'provider.ko', 'provider', depends='consumer')
+        with self.assertRaisesRegex(ValueError, 'cyclic module dependencies'):
+            verify(self.kernel, self.stage)
+
+    def test_self_dependency_rejected(self):
+        elf_module(self.stage / 'consumer.ko', 'consumer', depends='consumer')
+        with self.assertRaisesRegex(ValueError, 'cyclic module dependencies'):
+            verify(self.kernel, self.stage)
 
     def test_btf_required_by_target_config(self):
         (self.kernel / '.config').write_text('CONFIG_MODVERSIONS=y\nCONFIG_DEBUG_INFO_BTF_MODULES=y\n')

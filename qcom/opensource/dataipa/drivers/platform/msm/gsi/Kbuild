@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-only
+GSI_LOCAL_PATH := $(if $(filter /%,$(src)),$(src),$(srctree)/$(src))
 
 obj-$(CONFIG_GSI) += gsim.o
 
@@ -8,4 +9,4 @@ gsim-$(CONFIG_DEBUG_FS) += gsi_dbg.o
 
 gsim-$(CONFIG_IPA_EMULATION) += gsi_emulation.o
 
-ccflags-y += -DGSI_TRACE_INCLUDE_PATH=$(srctree)/$(src)
+ccflags-y += -DGSI_TRACE_INCLUDE_PATH=$(GSI_LOCAL_PATH)

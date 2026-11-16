@@ -1,3 +1,5 @@
+Latest: [R13 WLAN and IPA/RMNET integration](annibale-network.md).
+
 # R12: GPU, video, EVA and wireless-platform source integration
 
 The Annibale `platform` profile now links **74 external modules**, adding 16 to

@@ -1,5 +1,11 @@
 # We can build either as part of a standalone Kernel build or as
 # an external module.  Determine which mechanism is being used
+# A joint external build may use MODNAME for unrelated audio/display modules.
+# Scope an optional WLAN-specific name to this Kbuild invocation only.
+ifneq ($(WLAN_MODNAME),)
+override MODNAME := $(WLAN_MODNAME)
+endif
+
 ifeq ($(MODNAME),)
 	KERNEL_BUILD := y
 else

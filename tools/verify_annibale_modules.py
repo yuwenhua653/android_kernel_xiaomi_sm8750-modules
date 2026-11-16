@@ -6,6 +6,7 @@ This verifies same-build symbol CRCs/dependencies, not Android KMI allowlists,
 stock-module compatibility, trusted signatures, driver probe or hardware.
 """
 import argparse
+from graphlib import CycleError, TopologicalSorter
 import hashlib
 import json
 from pathlib import Path
@@ -133,11 +134,19 @@ def verify(kernel_out, module_stage):
         missing = set(module['depends']) - modules.keys()
         if missing:
             raise ValueError(f'{name}: unresolved module dependencies {sorted(missing)}')
+    try:
+        dependency_order = list(TopologicalSorter(
+            {name: tuple(module['depends']) for name, module in modules.items()}
+        ).static_order())
+    except CycleError as error:
+        raise ValueError('cyclic module dependencies: ' + ' -> '.join(error.args[1])) from error
     return {'release': release, 'vermagic': next(iter(vermagics)),
             'kernel_module_count': sum(p.is_relative_to(kernel_out.resolve()) for p in paths),
             'external_module_count': sum(p.is_relative_to(module_stage.resolve()) for p in paths),
             'modules': modules,
-            'scope': 'same-build ARM64 ELF, modversions, vermagic and dependency presence only'}
+            'dependency_order': dependency_order,
+            'dependency_order_scope': 'Hard dependencies only; not a device modules.load list, softdep policy or probe ordering',
+            'scope': 'same-build ARM64 ELF, modversions, vermagic and acyclic hard dependency graph only'}
 
 
 def main():

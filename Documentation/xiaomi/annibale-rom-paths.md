@@ -1,3 +1,5 @@
+Latest: [R13 WLAN and IPA/RMNET integration](annibale-network.md).
+
 Latest source build expansion: [R12 platform modules](annibale-platform.md).
 
 # R11: HyperOS 4 and native ROM qualification

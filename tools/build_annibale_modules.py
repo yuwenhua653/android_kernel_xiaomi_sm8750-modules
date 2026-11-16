@@ -43,6 +43,19 @@ PLATFORM_GROUPS = (
     'qcom/opensource/bt-kernel',
 )
 
+NETWORK_GROUPS = (
+    'qcom/opensource/dataipa/drivers/platform/msm',
+    'qcom/opensource/datarmnet/core',
+    *(f'qcom/opensource/datarmnet-ext/{group}' for group in
+      ('mem', 'aps', 'offload', 'perf', 'perf_tether', 'sch', 'shs', 'wlan')),
+    'qcom/opensource/wlan/qcacld-3.0',
+)
+NETWORK_SOURCES = (
+    'qcom/opensource/dataipa/config',
+    'qcom/opensource/wlan/qca-wifi-host-cmn',
+    'qcom/opensource/wlan/fw-api',
+)
+
 
 def sha256(path):
     with path.open('rb') as f:
@@ -64,10 +77,10 @@ def validate_stage(stage, sources, symlinks):
             raise ValueError(f'staged source differs: {name}; use a fresh stage')
 
 
-def build_options(kernel, stage):
+def build_options(kernel, stage, profile='media'):
     qcom = stage / 'qcom/opensource'
     mm = qcom / 'mm-drivers'
-    return [
+    options = [
         f'KERNEL_SRC={kernel}', f'KERNEL_ROOT={kernel}',
         f'DISPLAY_ROOT={qcom / "display-drivers"}',
         f'AUDIO_ROOT={qcom / "audio-kernel"}',
@@ -90,6 +103,21 @@ def build_options(kernel, stage):
         'CONFIG_TOUCHSCREEN_XIAOMI_ANNIBALE=m',
         'CONFIG_DISABLE_TEST_MODULES=y',
     ]
+    if profile == 'network':
+        options += [
+            f'RMNET_CORE_INC_DIR={qcom / "datarmnet/core"}',
+            f'WLAN_ROOT={qcom / "wlan/qcacld-3.0"}',
+            f'WLAN_COMMON_INC={qcom / "wlan/qca-wifi-host-cmn"}',
+            f'WLAN_FW_API={qcom / "wlan/fw-api"}',
+            'WLAN_COMMON_ROOT=cmn',
+            'WLAN_MODNAME=qca_cld3_kiwi_v2',
+            'CONFIG_QCA_CLD_WLAN=m', 'CONFIG_QCA_WIFI_ISOC=0',
+            'CONFIG_QCA_WIFI_2_0=1', 'CONFIG_IPA_OUT_OF_TREE=y',
+            'CONFIG_QCA_CLD_WLAN_PROFILE=sun_gki_kiwi-v2',
+            'WLAN_PROFILE=kiwi_v2', 'DYNAMIC_SINGLE_CHIP=kiwi_v2',
+            'DEVNAME=kiwi_v2', 'CONFIG_IPA_KERNEL_TESTS_MODULE=n',
+        ]
+    return options
 
 
 def main():
@@ -101,8 +129,8 @@ def main():
                         help='AOSP kernel-build-tools/linux-x86/bin (pahole and adjacent libelf)')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--jobs', type=int, choices=range(1, 10), default=3)
-    parser.add_argument('--profile', choices=('media', 'platform'), default='media',
-                        help='platform also links GPU, video, EVA, CNSS, Bluetooth and SMEM mailbox')
+    parser.add_argument('--profile', choices=('media', 'platform', 'network'), default='media',
+                        help='platform adds GPU/video/CNSS/BT; network also adds Kiwi-v2 WLAN and IPA/RMNET')
     parser.add_argument('--objects', action='store_true',
                         help='compile directories only; no modpost or loadable modules')
     parser.add_argument('--resume-stage', type=Path,
@@ -148,9 +176,13 @@ def main():
         if env.get(key):
             parser.error(f'unset {key}: qualification must use strict complete inputs')
     output.mkdir(parents=True, exist_ok=True)
-    groups = GROUPS + (PLATFORM_GROUPS if args.profile == 'platform' else ())
+    groups = GROUPS + (PLATFORM_GROUPS if args.profile != 'media' else ())
+    if args.profile == 'network':
+        groups += NETWORK_GROUPS
     kbuild = '# SPDX-License-Identifier: GPL-2.0-only\n' + ''.join(f'obj-m += {g}/\n' for g in groups)
     copy_groups = (*groups, 'qcom/opensource/mm-drivers/config')
+    if args.profile == 'network':
+        copy_groups += NETWORK_SOURCES
     sources = {str(p.relative_to(repo)): sha256(p) for group in copy_groups
                for p in sorted((repo / group).rglob('*')) if p.is_file()}
     symlinks = {str(p.relative_to(repo)): os.readlink(p) for group in copy_groups
@@ -180,7 +212,7 @@ def main():
     command = ['make', '-C', str(kernel), f'O={kout}', f'M={stage}',
                'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1', 'HOSTCC=gcc', f'-j{args.jobs}']
     command += host_options
-    command += build_options(kernel, stage)
+    command += build_options(kernel, stage, args.profile)
     command += ([f'{g}/' for g in groups] if args.objects else ['modules'])
     inputs = {str(p): sha256(p) for p in required if p != clang / 'clang'}
     metadata = {'stage': str(stage), 'profile': args.profile,
@@ -218,13 +250,18 @@ def main():
             required_names = {'camera', 'msm_drm', 'machine_dlkm', 'nxp_nci',
                               'frpc_adsprpc', 'goodix_core', 'xiaomi_touch',
                               'msm_ext_display', 'msm_hw_fence', 'synx_driver'}
-            if args.profile == 'platform':
+            if args.profile != 'media':
                 required_names |= {'msm_kgsl', 'msm_video', 'msm_eva', 'smem_mailbox',
                                    'cnss2', 'icnss2', 'cnss_utils', 'cnss_prealloc',
                                    'cnss_nl', 'cnss_plat_ipc_qmi_svc',
                                    'wlan_firmware_service', 'btpower',
                                    'btfmcodec', 'bt_fm_swr', 'btfm_slim_codec',
                                    'radio_i2c_rtc6226_qca'}
+            if args.profile == 'network':
+                required_names |= {'qca_cld3_kiwi_v2', 'gsim', 'ipam', 'ipanetm',
+                                   'rmnet_core', 'rmnet_ctl', 'rmnet_mem', 'rmnet_aps',
+                                   'rmnet_offload', 'rmnet_perf', 'rmnet_perf_tether',
+                                   'rmnet_sch', 'rmnet_shs', 'rmnet_wlan'}
             missing = required_names - report['modules'].keys()
             if missing:
                 raise ValueError(f'missing selected modules: {sorted(missing)}')
