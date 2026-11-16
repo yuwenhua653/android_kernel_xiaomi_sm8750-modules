@@ -1,0 +1,86 @@
+{
+  "round": "R21",
+  "target": "Redmi K90 / annibale / SM8750",
+  "scope": "Offline first-boot qualification and read-only live evidence capture",
+  "kernel_commit_unchanged": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "modules_parent": "32a3c0c15398b07cd79d2ace69d1b24eabe1070d",
+  "dt_commit_unchanged": "07ca2c7efb1ea46a252243bf092a578cd4cc9476",
+  "release": "6.6.144-4k-gf112270e61a8",
+  "host_tests_passed": 97,
+  "drivers_rebuilt": false,
+  "dt_compositions_rerun": false,
+  "prior_build_evidence": "R20: 91 external plus 411 kernel modules; R19: 32 DT compositions",
+  "normal_boot": {
+    "status": "conditional_abi_pass",
+    "selected_names": 629,
+    "modules_with_detected_blockers": 0,
+    "early_roots": 150,
+    "early_hard_closure": 150,
+    "early_failures": [],
+    "conditional_first_stage_ownership": [
+      {
+        "name": "zram",
+        "selected_sha256": "84badd8b32f66aea10cd1eda7ff09fe96ea78ba6f5e82987d3a77f04fa044fb9",
+        "later_sha256": "fded465785cfefdfebfef56470f3fc60b97567511015faec72433fbf9be70ca0",
+        "condition": "vendor_boot first-stage load succeeds before system_dlkm"
+      },
+      {
+        "name": "zsmalloc",
+        "selected_sha256": "c3d3ea51f2f74b27bc9be353b89a7153ef2eb614e8b7413a4c51389392b8a357",
+        "later_sha256": "6d2a05dc76f9564c5b613a97ac4898446dcbb148876429cf50f86a9295c43c34",
+        "condition": "vendor_boot first-stage load succeeds before system_dlkm"
+      }
+    ],
+    "original_inventory_variants_unchanged": 8
+  },
+  "candidate": {
+    "schema_version": 1,
+    "status": "offline_unqualified",
+    "flash_ready": false,
+    "stock_boot_sha256": "37484274a4c91b2fec88e1ae4e9483631c6e96207eac6761a17aaeb6cbf1c47e",
+    "kernel_sha256": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+    "candidate_sha256": "9f1289e716a974a9329871cd1988f2acea9c1c59b549ed1f04cbeca96363f346",
+    "candidate_bytes": 36810752,
+    "partition_bytes": 100663296,
+    "header_version": 4,
+    "ramdisk_size": 0,
+    "boot_signature_size": 0,
+    "avb_footer_present": false,
+    "preserve_stock": [
+      "init_boot",
+      "vendor_boot",
+      "dtbo",
+      "recovery",
+      "vendor_dlkm",
+      "system_dlkm",
+      "vbmeta",
+      "vbmeta_system"
+    ],
+    "unverified": [
+      "Bootloader accepts unsigned candidate",
+      "Live device/build and rollback policy",
+      "Modules/signature/CFI/runtime ABI",
+      "Actual userdata filesystem",
+      "Recoverable installation method"
+    ],
+    "scope": "Tests the kernel baseline with retained OEM drivers; does not test source display/touch modules"
+  },
+  "independent_unpack_kernel_byte_compare": "passed",
+  "real_device_tested": false,
+  "windows_launcher_tested": false,
+  "flash_ready": false,
+  "reports": {
+    "normal-boot.json": "5750650832fc96be6fe895b05be7dfceafedb38d5932467674c90d49c137335f",
+    "candidate-header.txt": "eaa95b998d85fcc3f373cc9f3082af05ae3d1cd72c90e16acd0eb521cbf40768",
+    "tests.log": "4f36df362b7d61c3b1b61eafbaaaad208107580e12d7fa102415fbe731b66324",
+    "stock-partition-hashes.json": "3affcbe3da77c0bf6bafc3d03f17f48d00dc51e95d038602c0376f15a66fc5b2"
+  },
+  "capture": "Read-only ADB, no root; no flashing/reboot/unlock. Permission failures are unknown, not pass.",
+  "remaining_gates": [
+    "Live annibale identity and exact firmware",
+    "Actual /data filesystem (MIFS not supported by current candidate)",
+    "Module security/CFI/runtime ABI",
+    "Unsigned boot acceptance and recoverable installation path",
+    "Native ROM source module image assembly remains separate"
+  ]
+}

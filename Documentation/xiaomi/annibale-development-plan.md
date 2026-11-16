@@ -22,3 +22,8 @@ R20 continues on 6.6. No newer-kernel development branch is created by this
 round. Detailed per-round evidence and unresolved limitations are recorded in
 `annibale-r19-validation.json`, `annibale-r20-validation.json`,
 `annibale-display.md` and `annibale-touch-power.md`.
+
+R21 moves toward a first recoverable boot test: retained-stock normal-boot
+provider selection, an unsigned offline kernel-only candidate, and read-only
+live-device evidence. See `annibale-boot-readiness.md`. This does not supersede
+the native source-module path or qualify a flash without the remaining gates.
