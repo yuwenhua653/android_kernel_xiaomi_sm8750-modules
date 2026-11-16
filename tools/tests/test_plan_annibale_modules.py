@@ -39,6 +39,49 @@ class PartitionPlanTests(unittest.TestCase):
         self.assertFalse(r['flashable'])
         self.assertFalse(r['complete_device'])
 
+    def audio_fixture(self, variant):
+        names = ['machine_dlkm', 'tfa98xx_dlkm'] if variant == 'tfa' else [
+            'machine_dlkm', 'sia91xx_dlkm', 'sia91xx_tuning_dlkm']
+        self.v['modules'].update({n: module(n) for n in names})
+        self.p['roots'] += ['machine_dlkm']
+        self.p['audio_variant'] = variant
+        self.p['ownership'] += [self.owner(n) for n in names]
+        self.p['board_requires'] = {'machine_dlkm': {
+            'modules': names[1:], 'reason': 'OF codec providers, not ELF imports'}}
+
+    def test_audio_families_are_individually_ordered(self):
+        for variant in ('tfa', 'sia'):
+            with self.subTest(variant=variant):
+                self.setUp()
+                self.audio_fixture(variant)
+                report = self.run_plan()
+                self.assertEqual(report['audio_variant'], variant)
+                order = report['partitions']['vendor_dlkm']
+                for name in self.p['board_requires']['machine_dlkm']['modules']:
+                    self.assertLess(order.index(name), order.index('machine_dlkm'))
+
+    def test_audio_plan_rejects_implicit_or_unknown_family(self):
+        for variant in (None, '', 'auto', 'tfa sia', ['tfa']):
+            self.p['audio_variant'] = variant
+            with self.assertRaisesRegex(ValueError, 'explicitly select'):
+                self.run_plan()
+
+    def test_audio_plan_rejects_opposite_family_in_transitive_closure(self):
+        self.audio_fixture('tfa')
+        self.v['modules']['sia91xx_dlkm'] = module('sia91xx_dlkm')
+        self.v['modules']['radio']['softdep'] = ['pre: sia91xx_dlkm']
+        with self.assertRaisesRegex(ValueError, 'mixes smartpa'):
+            self.run_plan()
+
+    def test_audio_plan_requires_sia_tuning_and_runtime_order(self):
+        self.audio_fixture('sia')
+        self.p['board_requires']['machine_dlkm']['modules'].remove('sia91xx_tuning_dlkm')
+        with self.assertRaisesRegex(ValueError, 'missing the selected'):
+            self.run_plan()
+        self.p['roots'] += ['sia91xx_tuning_dlkm']
+        with self.assertRaisesRegex(ValueError, 'board dependencies'):
+            self.run_plan()
+
     def test_soft_pre_and_post_are_both_selected_and_ordered(self):
         self.v['modules']['radio']['softdep'] = ['pre: phy post: monitor']
         self.p['ownership'] += [self.owner('phy'), self.owner('monitor')]

@@ -1,3 +1,5 @@
+Latest: [R16 microphone enable, smartpa ABI and family-specific loading](annibale-audio-runtime.md).
+
 Latest: [R15 opt-in smartpa source integration](annibale-audio.md).
 
 Latest: [R13 WLAN and IPA/RMNET integration](annibale-network.md).

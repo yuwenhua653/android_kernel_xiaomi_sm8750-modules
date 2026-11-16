@@ -1,3 +1,5 @@
+Latest: [R16 microphone enable, smartpa ABI and family-specific loading](annibale-audio-runtime.md).
+
 # R15: opt-in Annibale smart amplifier source integration
 
 This round adds real Xiaomi TFA98xx/TFA986x and SIA91xx codec sources, SIA

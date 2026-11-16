@@ -2484,6 +2484,9 @@ static int msm_asoc_machine_probe(struct platform_device *pdev)
 	ret = annibale_bind_smartpa(card);
 	if (ret)
 		goto err;
+	ret = annibale_prepare_dmic(&pdev->dev);
+	if (ret)
+		goto err;
 #endif
 
 	ret = msm_populate_dai_link_component_of_node(card);
@@ -2524,6 +2527,12 @@ static int msm_asoc_machine_probe(struct platform_device *pdev)
 	}
 	dev_info(&pdev->dev, "%s: Sound card %s registered\n",
 		 __func__, card->name);
+
+#ifdef CONFIG_XIAOMI_ANNIBALE_AUDIO
+	ret = annibale_publish_smartpa(card);
+	if (ret)
+		goto err;
+#endif
 
 	pdata->dmic01_gpio_p = of_parse_phandle(pdev->dev.of_node,
 					      "qcom,cdc-dmic01-gpios",
@@ -2573,7 +2582,7 @@ static int msm_asoc_machine_probe(struct platform_device *pdev)
 
 	return 0;
 err:
-	devm_kfree(&pdev->dev, pdata);
+	/* Card cleanup must finish before its devm-managed private data is freed. */
 	return ret;
 }
 

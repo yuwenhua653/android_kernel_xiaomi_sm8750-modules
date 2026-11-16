@@ -96,6 +96,19 @@ def resolve(verification, policy, builtins):
             graph.setdefault(earlier, set())
             edges.append({'before': earlier, 'after': later, 'kind': kind})
             pending.append(other)
+    audio_variant = policy.get('audio_variant')
+    if 'audio_variant' in policy:
+        families = {'tfa': {'tfa98xx_dlkm'},
+                    'sia': {'sia91xx_dlkm', 'sia91xx_tuning_dlkm'}}
+        if not isinstance(audio_variant, str) or audio_variant not in families:
+            raise ValueError('audio_variant must explicitly select tfa or sia')
+        required = families[audio_variant] | {'machine_dlkm'}
+        forbidden = set.union(*families.values()) - families[audio_variant]
+        if not required <= selected or forbidden & selected:
+            raise ValueError('audio dependency closure is missing the selected family or mixes smartpa families')
+        # OF links are runtime dependencies and do not appear in ELF imports.
+        if not families[audio_variant] <= set(board.get('machine_dlkm', [])):
+            raise ValueError('machine board dependencies must order the selected smartpa family first')
     owners = {}
     reasons = {}
     for item in policy['ownership']:
@@ -142,6 +155,7 @@ def resolve(verification, policy, builtins):
                         'destination': relative, 'sha256': item['sha256'], 'reason': reasons[name]})
     return {'schema_version': 1, 'status': 'partition_plan_passed',
             'profile': policy['profile'], 'boot_mode': 'normal',
+            'audio_variant': audio_variant,
             'complete_device': False, 'flashable': False, 'release': verification['release'],
             'selected_module_count': len(selected), 'roots': roots,
             'partitions': {p: [n for n in order if owners[n] == p] for p in PARTITIONS},

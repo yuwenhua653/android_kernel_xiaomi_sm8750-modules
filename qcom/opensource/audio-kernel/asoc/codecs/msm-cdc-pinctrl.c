@@ -58,6 +58,7 @@ static struct msm_cdc_pinctrl_info *msm_cdc_pinctrl_get_gpiodata(
 		dev_err_ratelimited(&pdev->dev, "%s: cannot find cdc gpio info\n",
 			__func__);
 
+	put_device(&pdev->dev);
 	return gpio_data;
 }
 

@@ -1,3 +1,5 @@
+Latest: [R16 microphone enable, smartpa ABI and family-specific loading](annibale-audio-runtime.md).
+
 Latest: [R15 opt-in smartpa source integration](annibale-audio.md).
 
 Latest: [R14 native load dependencies and partition staging](annibale-load-integration.md).

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "firmware_label": "OS4.0.6.0.XPKCNXM",
+  "device": "annibale",
+  "odm_sha256": "d03f12309b7a5bb11b1e2acc5e3a30978dfe0f49374c878c4d3f901f4755702b",
+  "partition_and_payload_operation_hashes_verified": true,
+  "ota_signature_verified": false,
+  "files": [
+    {
+      "path": "etc/acdbdata/Mi/Mi_acdb_cal.acdb",
+      "variants": [
+        "tfa"
+      ],
+      "size": 3275462,
+      "sha256": "3df1f0e7333ee5697df2e36bb78fb9e99032f173c8868a234fd3beb94ad5caaa"
+    },
+    {
+      "path": "etc/acdbdata/Mi/sia91xx/Mi_acdb_cal_sia.acdb",
+      "variants": [
+        "sia"
+      ],
+      "size": 3268370,
+      "sha256": "6597df5cd7cb25a5a6297aa0ee35bdbb510f5124f715f7e46d08e9119b595c95"
+    },
+    {
+      "path": "etc/audio/sku_sun/mixer_paths_overlay_dynamic.xml",
+      "variants": [
+        "tfa",
+        "sia"
+      ],
+      "size": 2391,
+      "sha256": "e674891e7dd4bde5195620528445c36c8b0fb69daedf6a8069ed94c7c9484e03"
+    },
+    {
+      "path": "etc/audio/sku_sun/mixer_paths_overlay_static.xml",
+      "variants": [
+        "tfa",
+        "sia"
+      ],
+      "size": 12225,
+      "sha256": "e50c71eac7cded94cc02fb06829598c5693109dfc13955c447275f4d7d7d51f5"
+    },
+    {
+      "path": "etc/audio/sku_sun/mixer_paths_sun_mtp.xml",
+      "variants": [
+        "tfa",
+        "sia"
+      ],
+      "size": 62862,
+      "sha256": "eef2deb8edae9f2f0150e28c57f45e06cf6009e6025924f578721dc4b86040d8"
+    },
+    {
+      "path": "etc/audio/sku_sun/resourcemanager_sun_mtp.xml",
+      "variants": [
+        "tfa",
+        "sia"
+      ],
+      "size": 107692,
+      "sha256": "1c0b2f7bf90928e51c1461d945d35076a9b2757b2cdff3634dafb04ee27e8538"
+    },
+    {
+      "path": "etc/init/init.sia91xx.rc",
+      "variants": [
+        "sia"
+      ],
+      "size": 178,
+      "sha256": "e30030563bb93b00f9f5e0d75f8a2fd7012fe7e10336a063024761db8f9a303e"
+    },
+    {
+      "path": "etc/init/init.tfa.rc",
+      "variants": [
+        "tfa"
+      ],
+      "size": 300,
+      "sha256": "8017d4f906d6269b7f4c25128dc4c185cdd74be518adab81557629720bdfab3e"
+    },
+    {
+      "path": "firmware/sipa.bin",
+      "variants": [
+        "sia"
+      ],
+      "size": 3572,
+      "sha256": "215090f61f70a4ca94746195f2ab0e7c50df6e6437ed3116b08a204a190f05fb"
+    },
+    {
+      "path": "firmware/tfa98xx.cnt",
+      "variants": [
+        "tfa"
+      ],
+      "size": 1400,
+      "sha256": "52cf0e5c5b31d6eae1c05959f4b4a51eebdca3bb2d286acedbbf54b6bd4115db"
+    }
+  ],
+  "scope": "Exact asset identity and selected static contracts only. Blobs are not redistributed. Preserve per-device persist calibration; do not generate or copy calibration from another device."
+}

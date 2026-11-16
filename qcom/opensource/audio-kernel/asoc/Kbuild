@@ -321,5 +321,5 @@ obj-$(CONFIG_SND_SOC_GVM_AUTO_SPF) += spf_machine_dlkm.o
 spf_machine_dlkm-y := $(SPF_MACHINE_OBJS)
 
 ifeq ($(CONFIG_XIAOMI_ANNIBALE_AUDIO),y)
-machine_dlkm-y += sun-annibale.o
+machine_dlkm-y += sun-annibale.o sun-annibale-dmic.o sun-annibale-sysfs.o
 endif

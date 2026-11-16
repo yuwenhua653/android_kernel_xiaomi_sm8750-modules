@@ -1,0 +1,271 @@
+{
+  "round": "R16",
+  "target": "Redmi K90 / annibale / SM8750",
+  "kernel_unchanged_from_r14": true,
+  "release": "6.6.144-4k-gf112270e61a8",
+  "external_modules": 91,
+  "kernel_modules": 411,
+  "strict_modpost": true,
+  "same_build_verification": "passed",
+  "build_parent": "c363a3883c79fa6aa0a8d181bdd8938b7605a414",
+  "source_dirty_at_build": true,
+  "compiled_source_files_rechecked": 9423,
+  "note": "R16 compiled before publishing; source hashes in the build record, rather than commit metadata, identify the compiled code.",
+  "kernel_inputs": {
+    "/workspace/scratch/b72c45bd8860/sm8750/Makefile": "c64db5af15c18c1b46701fb95391e47628884810df0f92b6ed7ed506bcf9db2a",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/.config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/config/kernel.release": "ee18cafba5d018b7103de3523d247d709e8bcd660320a7466d696e80a15f8e3b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/vmlinux": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/arch/arm64/boot/Image": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183"
+  },
+  "selected_module_evidence": {
+    "machine_dlkm": {
+      "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r16/modules-7frdg490/qcom/opensource/audio-kernel/asoc/machine_dlkm.ko",
+      "sha256": "b692447a4db1919b18821648f11ab55391e2d1ef4156fb6371da91bb128c1b24",
+      "versioned_imports": 111,
+      "depends": [
+        "spf_core_dlkm",
+        "audio_prm_dlkm",
+        "wcd_core_dlkm",
+        "socinfo",
+        "snd_event_dlkm",
+        "fsa4480_i2c",
+        "wcd_usbss_i2c",
+        "wcd9378_dlkm",
+        "wcd939x_dlkm",
+        "lpass_cdc_dlkm",
+        "lpass_cdc_rx_macro_dlkm",
+        "wsa883x_dlkm",
+        "wsa884x_dlkm"
+      ],
+      "softdep": [
+        "pre: btfmcodec"
+      ],
+      "firmware": []
+    },
+    "wcd_core_dlkm": {
+      "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r16/modules-7frdg490/qcom/opensource/audio-kernel/asoc/codecs/wcd_core_dlkm.ko",
+      "sha256": "29022ddc2c28ab12d627d06d27490761b4f8397daec1bfe1bef77dccc86090dc",
+      "versioned_imports": 62,
+      "depends": [
+        "pinctrl_msm"
+      ],
+      "softdep": [],
+      "firmware": []
+    },
+    "tfa98xx_dlkm": {
+      "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r16/modules-7frdg490/qcom/opensource/audio-kernel/asoc/codecs/tfa986x/tfa98xx_dlkm.ko",
+      "sha256": "693a5e4e3029567d8ee3b1d2408437a9f5ad1e617dcc1642e469f259cb6f9ad2",
+      "versioned_imports": 103,
+      "depends": [],
+      "softdep": [],
+      "firmware": []
+    },
+    "sia91xx_dlkm": {
+      "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r16/modules-7frdg490/qcom/opensource/audio-kernel/asoc/codecs/sia91xx/sia91xx_dlkm.ko",
+      "sha256": "7a3407c19cd61e020538304fda61cf60d839fc126ca2bee7cd872769ea975a25",
+      "versioned_imports": 82,
+      "depends": [],
+      "softdep": [],
+      "firmware": []
+    },
+    "sia91xx_tuning_dlkm": {
+      "path": "/workspace/scratch/b72c45bd8860/out/annibale-modules-r16/modules-7frdg490/qcom/opensource/audio-kernel/asoc/codecs/sia91xx/sia91xx_tuning_dlkm.ko",
+      "sha256": "d7a1f48e879c26bcc0510d28a1ba5b4f6c68f4c15c9937fb903fc2dfc41b455f",
+      "versioned_imports": 23,
+      "depends": [],
+      "softdep": [],
+      "firmware": []
+    }
+  },
+  "host_tests": {
+    "count": 69,
+    "status": "passed"
+  },
+  "device_tree": {
+    "status": "passed",
+    "compositions": 16,
+    "includes_dmic_enable_polarity": true,
+    "full_peripheral_composition": false
+  },
+  "source_partition_plans": {
+    "tfa": {
+      "selected_module_count": 122,
+      "partitions": {
+        "vendor_boot": 32,
+        "system_dlkm": 1,
+        "vendor_dlkm": 89
+      },
+      "status": "partition_plan_passed",
+      "ordering_edges": 270,
+      "policy_sha256": "f87762b0b22778ea55f54abff59c804efe4891d61b1a9e6468168c39b22abcd0"
+    },
+    "sia": {
+      "selected_module_count": 123,
+      "partitions": {
+        "vendor_boot": 32,
+        "system_dlkm": 1,
+        "vendor_dlkm": 90
+      },
+      "status": "partition_plan_passed",
+      "ordering_edges": 271,
+      "policy_sha256": "98e00f4bcb6fa82c5f740a0bb2ad9ae2b23968078c1b32d0b4ccd9c7e9cc760d"
+    }
+  },
+  "stock_assets": {
+    "tfa": {
+      "status": "pinned_assets_and_selected_contracts_passed",
+      "firmware_header": {
+        "header_crc_checked": true,
+        "devices": 2,
+        "profile_count": 7,
+        "version": "3_01",
+        "full_descriptor_validation": false
+      },
+      "pal_backends": {
+        "PAL_DEVICE_OUT_SPEAKER": {
+          "back_end_name": "TDM-LPAIF-RX-SECONDARY",
+          "channels": "2",
+          "samplerate": "48000",
+          "bit_width": "32"
+        },
+        "PAL_DEVICE_OUT_HANDSET": {
+          "back_end_name": "TDM-LPAIF-RX-SECONDARY",
+          "channels": "1",
+          "samplerate": "48000",
+          "bit_width": "32"
+        },
+        "PAL_DEVICE_IN_VI_FEEDBACK": {
+          "back_end_name": "TDM-LPAIF-TX-SECONDARY",
+          "channels": "2",
+          "samplerate": "48000",
+          "bit_width": "32"
+        }
+      },
+      "asset_count": 7
+    },
+    "sia": {
+      "status": "pinned_assets_and_selected_contracts_passed",
+      "firmware_header": {
+        "header_crc_checked": true,
+        "version": "1.0.5",
+        "enabled_channels": [
+          0,
+          1
+        ],
+        "chip_table_bounds_checked": true,
+        "full_register_program_validation": false
+      },
+      "pal_backends": {
+        "PAL_DEVICE_OUT_SPEAKER": {
+          "back_end_name": "TDM-LPAIF-RX-SECONDARY",
+          "channels": "2",
+          "samplerate": "48000",
+          "bit_width": "32"
+        },
+        "PAL_DEVICE_OUT_HANDSET": {
+          "back_end_name": "TDM-LPAIF-RX-SECONDARY",
+          "channels": "1",
+          "samplerate": "48000",
+          "bit_width": "32"
+        },
+        "PAL_DEVICE_IN_VI_FEEDBACK": {
+          "back_end_name": "TDM-LPAIF-TX-SECONDARY",
+          "channels": "2",
+          "samplerate": "48000",
+          "bit_width": "32"
+        }
+      },
+      "asset_count": 7
+    }
+  },
+  "odm_extraction": {
+    "source_firmware_label": "OS4.0.6.0.XPKCNXM",
+    "official_url_without_query": "https://ultimateota.d.miui.com/OS4.0.6.0.XPKCNXM/annibale-ota_full-OS4.0.6.0.XPKCNXM-user-17.0-0207c91df5.zip",
+    "zip_etag": "\"53FB1A0CD09F47AB51D6924206227BF9-400\"",
+    "metadata_hash_verified": true,
+    "payload_signature_verified": false,
+    "whole_zip_or_payload_hash_verified": false,
+    "block_size": 4096,
+    "partitions": [
+      {
+        "partition": "odm",
+        "size": 3318341632,
+        "sha256": "d03f12309b7a5bb11b1e2acc5e3a30978dfe0f49374c878c4d3f901f4755702b",
+        "operations": 1583,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      }
+    ]
+  },
+  "dual_rom": {
+    "combined_status": "incomplete_inventory",
+    "native": "passed",
+    "stock": "incomplete_inventory",
+    "stock_counts": {
+      "modules_with_detected_blockers": 0
+    },
+    "stock_unique_binaries": 637,
+    "ambiguous_module_variants": {
+      "adsp_loader_dlkm": [
+        "9ca120d6ed44b4433e2b7c9be7d02f873f1364129f6fdf61c1576050f66ddbf6",
+        "3c409e5503f67f2f918d6828ef5bfa7cb50dba02d9fbfdaeecfe4628405a81ca"
+      ],
+      "gpr_dlkm": [
+        "0a6d4b849578d1500315bb6d24bcb20849e11032ca30dea8e1802104ead56624",
+        "56b5c128db92a7f7b593619bade4ec4a253e302ca43a1005a559158086c73faf"
+      ],
+      "q6_notifier_dlkm": [
+        "fb6d74a98176687f9949c0ee08d57a0db63b19a30202cde9f1b900246bfe091d",
+        "246fc726b48f22d2476eadba6a3126732cccfeb22567eff321839d79eacf364e"
+      ],
+      "q6_pdr_dlkm": [
+        "d738b481326f45636c15d15e2636e3c99a9990658720d813524f933364b12c03",
+        "23e9fc8a7d45dc2f4af06995c661e6f033fb6f5fcc74cc47e87c0787599bfe53"
+      ],
+      "snd_event_dlkm": [
+        "9b49ce26c9b948e6f0dd7ecc106dad89eca77c6e90a0bfdec403adabc403d8c2",
+        "e8492de0630babc54b70da391148f8b3e963b4307978cb47595db74425a7e69e"
+      ],
+      "spf_core_dlkm": [
+        "f6ecf321605edd51f4de30c1668728544647f04c0dde09f9dc447ee669fd94ba",
+        "4e24eac2ff0eb15f105597de03edd4ee47523d0c87b722248764114fc0347e21"
+      ],
+      "zram": [
+        "fded465785cfefdfebfef56470f3fc60b97567511015faec72433fbf9be70ca0",
+        "84badd8b32f66aea10cd1eda7ff09fe96ea78ba6f5e82987d3a77f04fa044fb9"
+      ],
+      "zsmalloc": [
+        "6d2a05dc76f9564c5b613a97ac4898446dcbb148876429cf50f86a9295c43c34",
+        "c3d3ea51f2f74b27bc9be353b89a7153ef2eb614e8b7413a4c51389392b8a357"
+      ]
+    }
+  },
+  "boot_or_audio_runtime_verified": false,
+  "warnings": {
+    "compiler_warning_lines": 13,
+    "erofs_extraction_notes": "fsck.erofs completed with timestamp-setting warnings; original partition hash verified; file timestamps are not compatibility evidence"
+  },
+  "remaining": [
+    "Actual smartpa population",
+    "Complete native module installation and boot images",
+    "Firmware runtime lookup, complete DSP/ACDB/HAL contract and SELinux",
+    "Per-device persist calibration and protection",
+    "Microphone and speaker operation, suspend/SSR/unbind and power behavior"
+  ],
+  "reports_sha256": {
+    "build.log": "df78f5f44b5b79e681f1c77f8de1d917fafadfab385e6ea19dfa37b3ed0cd255",
+    "tests.log": "8349265b84728fb7c9f13175d2300d1498d24f6eca84f9bd18b905e3d037ea6a",
+    "tfa-plan.json": "64bc21efc15a07ca54f3bcdc369763cffdb0fc62bc4e385dbce96f995e3bd036",
+    "sia-plan.json": "ec229d3b749bd03551cb1ef6f0e6d01dd85f952188f9ac7f9f9f0dc11f4c2ccf",
+    "tfa-assets.json": "910c14ccfacda3c17fdb65c33465d9131100e1420c771f9d7a49fc013701a6b7",
+    "sia-assets.json": "6c0ebed54e694648ada6832601cf3c151957172bca44e3d528ddb950963c30a7",
+    "dual-rom-check.json": "54f8d47c5f06c0a09474d3c7fe1bd59a83326ed870180c3aa20f1fa27a414a28"
+  },
+  "external_build_record_sha256": "206c29950505e933a20bbc322a47ada7a34354db41b84b473e21886c6a83f66c",
+  "external_verification_sha256": "4c6951206fff501c5ef0fd0d6cf46df884e79c4348c7de853a898e9206367197"
+}
