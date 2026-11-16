@@ -1,0 +1,332 @@
+{
+  "round": "R11",
+  "date": "2026-11-16",
+  "device": "annibale / Redmi K90 / SM8750",
+  "target_firmware": {
+    "source_firmware_label": "OS4.0.6.0.XPKCNXM",
+    "official_url_without_query": "https://ultimateota.d.miui.com/OS4.0.6.0.XPKCNXM/annibale-ota_full-OS4.0.6.0.XPKCNXM-user-17.0-0207c91df5.zip",
+    "zip_etag": "\"53FB1A0CD09F47AB51D6924206227BF9-400\"",
+    "metadata_hash_verified": true,
+    "payload_signature_verified": false,
+    "whole_zip_or_payload_hash_verified": false,
+    "block_size": 4096,
+    "partitions": [
+      {
+        "partition": "boot",
+        "size": 100663296,
+        "sha256": "37484274a4c91b2fec88e1ae4e9483631c6e96207eac6761a17aaeb6cbf1c47e",
+        "operations": 48,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "dtbo",
+        "size": 18874368,
+        "sha256": "e9582a2074d7f25af6f39204406a7c7212139f7d092e2e5010e226d3b27125c8",
+        "operations": 9,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "init_boot",
+        "size": 8388608,
+        "sha256": "9843ab332341e49cf061a0e7f261ff2412bada2bbcaa248b1c2b8a48863ff575",
+        "operations": 4,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "recovery",
+        "size": 104857600,
+        "sha256": "2ee942234acfde1bb0e6abfdc87eb34439966008052ff68f4ee65484519b926a",
+        "operations": 50,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "system_dlkm",
+        "size": 15294464,
+        "sha256": "b482d56f25c66fe622f017bf7296b2426f934e6c2c2097a16b555c642e18e168",
+        "operations": 8,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "vbmeta",
+        "size": 12288,
+        "sha256": "1632dd1a9ba05bd2ff22315dc9d62f3bc0e83d1b5e82a8415e7c2f65972d8a6c",
+        "operations": 1,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "vbmeta_system",
+        "size": 4096,
+        "sha256": "344e90cc09c4868f36fac0d56391dae13ff81202c2e7e1f69a4336753dc4c697",
+        "operations": 1,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "vendor_boot",
+        "size": 100663296,
+        "sha256": "38d4b91165578133a2c1626f343599356959d771e2ae061c47627dcdbafd962a",
+        "operations": 48,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      {
+        "partition": "vendor_dlkm",
+        "size": 55910400,
+        "sha256": "2f156bb8b714b142c6751149655bd3de90842c388b9e4d931696964f2752c6a7",
+        "operations": 27,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      }
+    ]
+  },
+  "ota_post_build": "Redmi/annibale/annibale:17/CP2A.260605.016/17OS4.0.261026.215942994.QCPECN.S:user/release-keys",
+  "ota_post_sdk_level": 37,
+  "ota_post_security_patch_level": "2026-10-01",
+  "stock_kernel": {
+    "release": "6.6.118-android15-8-g0908354dac1b-ab16143355-4k",
+    "image_sha256": "1073400e04a4cf94871b40a230b42af0078ff3f07aa6a52bff0469f0c127195b",
+    "embedded_config_sha256": "9aa0063c296300a886fe13c23b95030212c61587d790424151f1baaa9aa5de9d",
+    "page_size": 4096,
+    "modversions": true,
+    "cfi_clang": true,
+    "btf": true,
+    "btf_modules": true
+  },
+  "boot_layout": {
+    "boot_header_version": 4,
+    "boot_kernel_bytes": 36801024,
+    "boot_ramdisk_bytes": 0,
+    "init_boot_header_version": 4,
+    "vendor_boot_header_version": 4,
+    "vendor_boot_page_size": 4096,
+    "vendor_ramdisk_table_entries": [
+      {
+        "offset": 0,
+        "size": 36265107,
+        "type": 1,
+        "name": ""
+      }
+    ],
+    "vendor_boot_dtb_bytes": 4113008,
+    "vendor_boot_bootconfig_bytes": 204,
+    "vendor_dlkm_fs": "erofs LZ4_0PADDING",
+    "system_dlkm_fs": "erofs LZ4_0PADDING"
+  },
+  "native_source_modules": {
+    "status": "passed",
+    "kernel_code_commit": "18cc8fc8de3f756803df0de2bb4e5393b183195b",
+    "modules_code_base_commit": "24951eeccd31a4fd17602be659ccba51d54a2c6d",
+    "compiled_profile": "qualify (experimental, not a deployment profile)",
+    "reused_build": "R10 Image and modules; no kernel or driver code changed in R11",
+    "kernel_modules": 411,
+    "external_modules": 58,
+    "checks": "Fresh ARM64 ELF/CRCs/vermagic/dependency/BTF verification; all seven kernel input hashes match original successful external build",
+    "kernel_input_sha256": {
+      ".config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+      "include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+      "include/config/kernel.release": "d148df2ba92e07c807aa9b128bed71831febf5097fa5e5742e78984b8834f543",
+      "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+      "vmlinux": "8cc4b1d0d30b9fb40fcfdbf9a7e99ea235d74ef994eec9c3f8a604bc7029e840",
+      "arch/arm64/boot/Image": "478ed0852505f38f5f0e4bf143d433deb8846c9c63d608fc39474c89cd390b25",
+      "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757"
+    }
+  },
+  "stock_audit": {
+    "status": "incomplete_inventory",
+    "scope": "All supplied modules, retaining stock providers; not a selected boot load set",
+    "files": 1015,
+    "distinct_binaries": 637,
+    "distinct_names": 629,
+    "kernel_import_crc_checks": 29475,
+    "retained_stock_import_crc_checks": 4929,
+    "modules_with_detected_abi_blockers": 0,
+    "signed_trailers": 96,
+    "load_lists": [
+      {
+        "path": "system_dlkm/flatten/lib/modules/modules.load",
+        "entries": 78,
+        "missing_from_inventory": [],
+        "sha256": "aa93a85185742ca644cd7f03dad6b04210afffa455f83ca901b166a15dc41a5e"
+      },
+      {
+        "path": "system_dlkm/lib/modules/6.6.118-android15-8-g0908354dac1b-ab16143355-4k/modules.load",
+        "entries": 78,
+        "missing_from_inventory": [],
+        "sha256": "de94235bbdaadfa7448a9f105cf9d7ccf3b42b3443b953c5f92f3e9354587aa8"
+      },
+      {
+        "path": "vendor_boot/lib/modules/modules.load",
+        "entries": 150,
+        "missing_from_inventory": [],
+        "sha256": "5aa2631dc44beaed4b63173b0768ff01b555aff8bc1ebc6196532dc0fa1e0ade"
+      },
+      {
+        "path": "vendor_boot/lib/modules/modules.load.recovery",
+        "entries": 430,
+        "missing_from_inventory": [],
+        "sha256": "03d399668d28bc96b415aca3dd2f607d70902396c1fe93246d06bf31f439750d"
+      },
+      {
+        "path": "vendor_dlkm/lib/modules/modules.load",
+        "entries": 547,
+        "missing_from_inventory": [],
+        "sha256": "058cefcf7e22b047fda8ca08c94007bd18944296bdbf1a3de58ebb3c778fb2c8"
+      }
+    ],
+    "ambiguous_variants": {
+      "adsp_loader_dlkm": [
+        {
+          "paths": [
+            "recovery/vendor/lib/modules/adsp_loader_dlkm.ko"
+          ],
+          "sha256": "9ca120d6ed44b4433e2b7c9be7d02f873f1364129f6fdf61c1576050f66ddbf6"
+        },
+        {
+          "paths": [
+            "vendor_dlkm/lib/modules/adsp_loader_dlkm.ko"
+          ],
+          "sha256": "3c409e5503f67f2f918d6828ef5bfa7cb50dba02d9fbfdaeecfe4628405a81ca"
+        }
+      ],
+      "gpr_dlkm": [
+        {
+          "paths": [
+            "recovery/vendor/lib/modules/gpr_dlkm.ko"
+          ],
+          "sha256": "0a6d4b849578d1500315bb6d24bcb20849e11032ca30dea8e1802104ead56624"
+        },
+        {
+          "paths": [
+            "vendor_dlkm/lib/modules/gpr_dlkm.ko"
+          ],
+          "sha256": "56b5c128db92a7f7b593619bade4ec4a253e302ca43a1005a559158086c73faf"
+        }
+      ],
+      "q6_notifier_dlkm": [
+        {
+          "paths": [
+            "recovery/vendor/lib/modules/q6_notifier_dlkm.ko"
+          ],
+          "sha256": "fb6d74a98176687f9949c0ee08d57a0db63b19a30202cde9f1b900246bfe091d"
+        },
+        {
+          "paths": [
+            "vendor_dlkm/lib/modules/q6_notifier_dlkm.ko"
+          ],
+          "sha256": "246fc726b48f22d2476eadba6a3126732cccfeb22567eff321839d79eacf364e"
+        }
+      ],
+      "q6_pdr_dlkm": [
+        {
+          "paths": [
+            "recovery/vendor/lib/modules/q6_pdr_dlkm.ko"
+          ],
+          "sha256": "d738b481326f45636c15d15e2636e3c99a9990658720d813524f933364b12c03"
+        },
+        {
+          "paths": [
+            "vendor_dlkm/lib/modules/q6_pdr_dlkm.ko"
+          ],
+          "sha256": "23e9fc8a7d45dc2f4af06995c661e6f033fb6f5fcc74cc47e87c0787599bfe53"
+        }
+      ],
+      "snd_event_dlkm": [
+        {
+          "paths": [
+            "recovery/vendor/lib/modules/snd_event_dlkm.ko"
+          ],
+          "sha256": "9b49ce26c9b948e6f0dd7ecc106dad89eca77c6e90a0bfdec403adabc403d8c2"
+        },
+        {
+          "paths": [
+            "vendor_dlkm/lib/modules/snd_event_dlkm.ko"
+          ],
+          "sha256": "e8492de0630babc54b70da391148f8b3e963b4307978cb47595db74425a7e69e"
+        }
+      ],
+      "spf_core_dlkm": [
+        {
+          "paths": [
+            "recovery/vendor/lib/modules/spf_core_dlkm.ko"
+          ],
+          "sha256": "f6ecf321605edd51f4de30c1668728544647f04c0dde09f9dc447ee669fd94ba"
+        },
+        {
+          "paths": [
+            "vendor_dlkm/lib/modules/spf_core_dlkm.ko"
+          ],
+          "sha256": "4e24eac2ff0eb15f105597de03edd4ee47523d0c87b722248764114fc0347e21"
+        }
+      ],
+      "zram": [
+        {
+          "paths": [
+            "system_dlkm/flatten/lib/modules/zram.ko",
+            "system_dlkm/lib/modules/6.6.118-android15-8-g0908354dac1b-ab16143355-4k/kernel/drivers/block/zram/zram.ko"
+          ],
+          "sha256": "fded465785cfefdfebfef56470f3fc60b97567511015faec72433fbf9be70ca0"
+        },
+        {
+          "paths": [
+            "vendor_boot/lib/modules/zram.ko"
+          ],
+          "sha256": "84badd8b32f66aea10cd1eda7ff09fe96ea78ba6f5e82987d3a77f04fa044fb9"
+        }
+      ],
+      "zsmalloc": [
+        {
+          "paths": [
+            "system_dlkm/flatten/lib/modules/zsmalloc.ko",
+            "system_dlkm/lib/modules/6.6.118-android15-8-g0908354dac1b-ab16143355-4k/kernel/mm/zsmalloc.ko"
+          ],
+          "sha256": "6d2a05dc76f9564c5b613a97ac4898446dcbb148876429cf50f86a9295c43c34"
+        },
+        {
+          "paths": [
+            "vendor_boot/lib/modules/zsmalloc.ko"
+          ],
+          "sha256": "c3d3ea51f2f74b27bc9be353b89a7153ef2eb614e8b7413a4c51389392b8a357"
+        }
+      ]
+    }
+  },
+  "ownership": {
+    "names_shared_by_source_and_stock": 459,
+    "stock_names_without_same_name_built_source_module": 170,
+    "note": "Not a count of required missing drivers: stock includes optional tests/other-board variants, and source alternatives can have different names."
+  },
+  "host_tests": {
+    "kernel": 15,
+    "module_tools": 31
+  },
+  "combined_status": "incomplete_inventory",
+  "boot_compatibility_verified": false,
+  "final_gki_policy": "R10 qualification output has an empty generated gki_unprotected_symbols list. CONFIG_MODULE_SIG_PROTECT=y alone does not prove production KMI allowlist enforcement. No list/signature bypass was added by R11.",
+  "remaining": [
+    "Complete native ROM driver coverage and HAL contracts",
+    "Stock normal/recovery module selection and load order",
+    "Final GKI symbol policy, signature trust and runtime CFI/BTF",
+    "DTB/DTBO, firmware, boot image assembly and hardware behavior",
+    "Complete GPU/WLAN/Bluetooth/video/data and Xiaomi display/camera/charging integration; selected 58 external modules are not full native ROM coverage.",
+    "Actual /data filesystem and encryption compatibility: stock fstab lists both f2fs and mifs; the active device filesystem was not observed."
+  ],
+  "extraction_tools": {
+    "unpack_bootimg_repository": "LineageOS/android_system_tools_mkbootimg",
+    "unpack_bootimg_git_blob": "a3f1a508796b5af54216397b05637f1f5e692a3d",
+    "update_metadata_proto_repository": "LineageOS/android_system_update_engine",
+    "update_metadata_proto_git_blob": "8f479c75cef7a75ce0b8ec35f19425fb879da33f"
+  },
+  "evidence_sha256": {
+    "stock-audit.json": "3ae25054f5828499f04611069159a624e9d54c969318d9ce911e5c7473a739a4",
+    "dual-rom-check.json": "f362a32e8aea2e0f3ff88b88c3b1326a17189d9575b5acb2371e54c3ec5a4239",
+    "ramdisk-inventory.json": "9f02487a3b547f9e75c70776371b0c7321d41b28f715bf4f74ad8fe43d69396f",
+    "module-tests.log": "567782bd3b1cbeea012571ed7a70dd6fe667b7ce7dcd0f8f675f17e08c4b0982",
+    "kernel-tests.log": "6e681d55cbc7975fcbeb96c7205f781af6313476140c0664740367407e878843"
+  }
+}

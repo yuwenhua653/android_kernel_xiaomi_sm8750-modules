@@ -1,8 +1,10 @@
+Current target and dual-ROM checks: [R11 OS4 and native ROM qualification](annibale-rom-paths.md).
+
 # R10: HyperOS module ABI work
 
 The complete BTF build now passes source-module link checks, and the reference
 stock inventory has no detected CRC/vermagic/dependency blocker. This is not
-yet a qualified replacement for a shipping HyperOS kernel. The device's exact HyperOS build number is still needed. The
+yet a qualified replacement for a shipping HyperOS kernel. At the time of R10, the exact phone firmware was not yet supplied. The
 reference inventory used here is `OS3.0.8.0.WPKMIXM`, from
 `xiaomi-annibale/android_device_xiaomi_annibale-kernel` commit
 `df318c6b1c81e17d4fdc0fc9333c00c4d90e928a`. That repository's commit message
