@@ -18,7 +18,10 @@ Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 - [触摸移植](Documentation/xiaomi/annibale-import.md)
 - [P11 CSIPHY](qcom/opensource/camera-kernel/Documentation/annibale-csiphy.md)
 
-定向目标文件编译不等于完整模块链接；尚未完成整套外部模块、ABI 或真机验证。
+R8 已完成触摸、相机、显示、音频、NFC、DSP 及公共依赖共 58 个外部模块的
+完整链接，并与 410 个验证配置内核模块核对符号 CRC、版本和依赖。
+复现入口见 [完整构建说明](Documentation/xiaomi/annibale-full-build.md)。
+这不等于整套外部模块、Android KMI、原厂模块兼容性或真机验证。
 内部 `qcom/opensource` 路径保留。继承的 `//vendor/qcom/sm8750-modules`
 Bazel 标签尚待构建工作区接入。
 

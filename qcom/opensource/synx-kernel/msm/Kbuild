@@ -46,4 +46,6 @@ obj-m += synx/ipclite.o
 synx-driver-objs := synx/synx.o synx/synx_global.o synx/synx_util.o synx/synx_debugfs.o \
 			synx/synx_compat.o
 synx-driver-$(CONFIG_DEBUG_FS) += synx/synx_debugfs_util.o
+ifneq ($(CONFIG_DISABLE_TEST_MODULES), y)
 obj-m += synx/test/ipclite_test.o
+endif

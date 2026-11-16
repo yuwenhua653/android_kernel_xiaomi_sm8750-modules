@@ -1,5 +1,9 @@
 # Annibale module imports
 
+Update: [R8](annibale-full-build.md) adds full touch/media/NFC/DSP module links
+against a complete kernel and same-build CRC/dependency checks. The dated
+object-only results below describe the initial import; hardware remains untested.
+
 This tree contains an **experimental, opt-in** Xiaomi touch port. It has not
 been loaded or tested on a Redmi K90. Matching the DT compatible strings and
 module filenames does not establish a compatible touchscreen firmware, THP

@@ -1,0 +1,308 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-16",
+  "kernel_parent": "f4d7f7aa10199e31606f8677e342f6e5c7ef0b99",
+  "modules_parent": "17ae8807b7ca4cdff362d185764c73a784695b99",
+  "devicetrees_reference": "c6dfe046b7cb97d7e895128ef05b701e1f9a50c9",
+  "source_state": "parent revisions plus R8 build tooling and the documented external Kbuild fixes; no kernel C changes",
+  "toolchain": {
+    "clang": "r510928",
+    "clang_prebuilts_commit": "921f6da692b1ffc96a0daa7e741373f0089d40b0",
+    "build_tools_commit": "81f31e087778f0b89d7af788c739192dfc4cf500"
+  },
+  "default_kernel": {
+    "release": "6.6.144-4k-gf4d7f7aa1019",
+    "module_count": 401,
+    "artifacts": {
+      "arch/arm64/boot/Image": {
+        "sha256": "e31c5ca597397af91019419cedd1d6e2024fb0d8fd976dcac9d5c51b3cb19471",
+        "size": 30644736
+      },
+      "vmlinux": {
+        "sha256": "6a251e50037a1796867a328c03b82706e233e0cc494179d85d2ed76b80df4d35",
+        "size": 173467696
+      },
+      "Module.symvers": {
+        "sha256": "18ce07c5421894da1f19cfe2d76c0bfce4b4c817415f12fc713df888b2b027a0",
+        "size": 1215980
+      },
+      ".config": {
+        "sha256": "f2926dcbb8e55ac212e3f6c8bbb7133e0d6d69fd03e2e1f115ae333ccc18172c",
+        "size": 239327
+      },
+      "modules.order": {
+        "sha256": "e85f220fdb13b0c85a8a11bfb7cc696eac1fd348c8c2a75d9bbfc9ea00b0c00a",
+        "size": 12970
+      }
+    }
+  },
+  "qualification": {
+    "release": "6.6.144-4k-gf4d7f7aa1019-dirty",
+    "vermagic": "6.6.144-4k-gf4d7f7aa1019-dirty SMP preempt mod_unload modversions aarch64",
+    "kernel_modules": 410,
+    "external_modules": 58,
+    "artifact_checks": [
+      "strict modpost succeeds",
+      "all ordered modules exist",
+      "ELF64 little-endian AArch64",
+      "same-build imported symbol CRCs match",
+      "vermagic flags match",
+      "declared module dependencies present with Linux hyphen/underscore normalization"
+    ],
+    "artifacts": {
+      "arch/arm64/boot/Image": {
+        "sha256": "8d687f763ec8cdfaac0127491ab62f16015da60e645f113b8d4339bc8f5a5793",
+        "size": 30644736
+      },
+      "vmlinux": {
+        "sha256": "e26e4962c60906808182fb65e2bcc10ce19e150fd604d56abdad98dd87782af6",
+        "size": 173468320
+      },
+      "Module.symvers": {
+        "sha256": "89d4da09d6843044440eee737328096f6186a16bded00ac74db3b3ed62099257",
+        "size": 1227542
+      },
+      ".config": {
+        "sha256": "ba78e392f30a9b806380a41db4c5546a7cc97b6a6ff86a6e1947cd125e7f9424",
+        "size": 239399
+      },
+      "modules.order": {
+        "sha256": "06c748d57bf1841789ae5e12ba675aeb71161a654d87d3e1a71f3f793f1ce211",
+        "size": 13429
+      }
+    },
+    "external_symvers_sha256": "c7a41695ca2f0ce67d5149038e9ba2e0b8b5f9a68f309c8110ff3eca553dd09d",
+    "external_source_snapshot_sha256": "dc9f7af51ccafb8c25e31ad11def4b98733dff3d56a563a537bd25ce4501527a",
+    "experimental_config": {
+      "fingerprint": "m",
+      "mca_core": "m",
+      "mca_services": "m",
+      "mca_glink": "m",
+      "mca_bq27z561": "m",
+      "qti_battery_charger": "n"
+    },
+    "selected_modules": {
+      "mi_fp": {
+        "sha256": "adba35981cef5def91669e3bfea03296fe063592dc69d6501de9a5debcc5a5ff",
+        "versioned_imports": 126,
+        "depends": [
+          "hwid",
+          "panel_event_notifier"
+        ]
+      },
+      "mca_bq27z561": {
+        "sha256": "33a29da40c70960d50bd67bc49efbe042937be6ee969594d69e3e8ac785e51e3",
+        "versioned_imports": 19,
+        "depends": [
+          "hwid",
+          "mca_platform_fg_ic_ops"
+        ]
+      },
+      "msm_ext_display": {
+        "sha256": "712c8de4da1561fe302821c0e6d4c1208f07f6e0003b9dfbb0d8169749dbf8a0",
+        "versioned_imports": 19,
+        "depends": []
+      },
+      "msm_hw_fence": {
+        "sha256": "4a7584bf4b8e4c63282de8c7e2540332e914082e504269346789c039463bb836",
+        "versioned_imports": 108,
+        "depends": [
+          "rproc_qcom_common",
+          "gh_dbl",
+          "qcom_q6v5_pas",
+          "gh_rm_drv",
+          "qcom_scm"
+        ]
+      },
+      "synx_driver": {
+        "sha256": "08b9d59ba1f76d9b6f1d0139c984ac783317648c75088f1d03e022dbbf02f524",
+        "versioned_imports": 97,
+        "depends": [
+          "rproc_qcom_common",
+          "msm_hw_fence",
+          "ipclite"
+        ]
+      },
+      "msm_drm": {
+        "sha256": "6eaf379851f0c9af76dcdcf8d11d09ae1a84a30844053192b96d38fc014f0616",
+        "versioned_imports": 764,
+        "depends": [
+          "qcom_ipc_logging",
+          "drm_display_helper",
+          "hdcp_qseecom_dlkm",
+          "gh_rm_drv",
+          "gh_irq_lend",
+          "gh_mem_notifier",
+          "gh_msgq",
+          "altmode_glink",
+          "dwc3_msm",
+          "fsa4480_i2c",
+          "wcd_usbss_i2c",
+          "msm_ext_display",
+          "sync_fence",
+          "msm_hw_fence",
+          "llcc_qcom",
+          "panel_event_notifier",
+          "smmu_proxy_dlkm",
+          "qcom_scm",
+          "qcom_va_minidump",
+          "pinctrl_msm",
+          "spmi_pmic_arb",
+          "msm_mmrm",
+          "synx_driver",
+          "clk_qcom",
+          "crm_v2",
+          "mem_buf_dev",
+          "qcom_iommu_util",
+          "msm_dma_iommu_mapping"
+        ]
+      },
+      "machine_dlkm": {
+        "sha256": "9c709c323342741ef461bb5a81cfadfb292efdb507bba87d0ac379bee6d3c3e5",
+        "versioned_imports": 103,
+        "depends": [
+          "spf_core_dlkm",
+          "audio_prm_dlkm",
+          "wcd_core_dlkm",
+          "socinfo",
+          "snd_event_dlkm",
+          "fsa4480_i2c",
+          "wcd_usbss_i2c",
+          "wcd9378_dlkm",
+          "wcd939x_dlkm",
+          "lpass_cdc_dlkm",
+          "lpass_cdc_rx_macro_dlkm",
+          "wsa883x_dlkm",
+          "wsa884x_dlkm"
+        ]
+      },
+      "camera": {
+        "sha256": "757c2310c0353169b332e7adfb4fd0b5b5ae2328bbb0375b41463c1c9f5f83ed",
+        "versioned_imports": 407,
+        "depends": [
+          "mem_buf_dev",
+          "crm_v2",
+          "msm_mmrm",
+          "clk_qcom",
+          "qcom_va_minidump",
+          "qcom_rpmh",
+          "smmu_proxy_dlkm",
+          "qcom_scm",
+          "smcinvoke_dlkm",
+          "qcom_iommu_util",
+          "socinfo",
+          "llcc_qcom",
+          "synx_driver",
+          "mdt_loader",
+          "leds_qti_flash"
+        ]
+      },
+      "frpc_adsprpc": {
+        "sha256": "db3cc80ecc84927e6208956ac42ddf849865bd32200583c249042b582beabb2b",
+        "versioned_imports": 160,
+        "depends": [
+          "qcom_scm",
+          "mem_buf_dev",
+          "pdr_interface"
+        ]
+      },
+      "nxp_nci": {
+        "sha256": "b5e287535b9fade236745036b2dcfadbea13a8f4512e78a1ab3be0bca13aa445",
+        "versioned_imports": 72,
+        "depends": [
+          "qcom_ipc_logging",
+          "pinctrl_msm"
+        ]
+      },
+      "xiaomi_touch": {
+        "sha256": "c70bdacc542ed71c4dcafc37e2604f5571386d19c72926ab81f326d3d38663d4",
+        "versioned_imports": 109,
+        "depends": [
+          "panel_event_notifier"
+        ]
+      },
+      "goodix_core": {
+        "sha256": "4fe6fdf8b60085114558e4dddd71c527cd218c9738b9fd0fb1b17842bc9014b1",
+        "versioned_imports": 147,
+        "depends": [
+          "xiaomi_touch"
+        ]
+      }
+    },
+    "external_module_names": [
+      "adsp_loader_dlkm",
+      "audio_pkt_dlkm",
+      "audio_prm_dlkm",
+      "audpkt_ion_dlkm",
+      "camera",
+      "frpc_adsprpc",
+      "goodix_core",
+      "gpr_dlkm",
+      "hdcp_qseecom_dlkm",
+      "hdmi_dlkm",
+      "ipclite",
+      "lpass_bt_swr_dlkm",
+      "lpass_cdc_dlkm",
+      "lpass_cdc_rx_macro_dlkm",
+      "lpass_cdc_tx_macro_dlkm",
+      "lpass_cdc_va_macro_dlkm",
+      "lpass_cdc_wsa2_macro_dlkm",
+      "lpass_cdc_wsa_macro_dlkm",
+      "machine_dlkm",
+      "mbhc_dlkm",
+      "msm_drm",
+      "msm_ext_display",
+      "msm_hw_fence",
+      "msm_mmrm",
+      "nxp_nci",
+      "pinctrl_lpi_dlkm",
+      "q6_dlkm",
+      "q6_notifier_dlkm",
+      "q6_pdr_dlkm",
+      "qce50_dlkm",
+      "qcedev_mod_dlkm",
+      "qcrypto_msm_dlkm",
+      "qmp_dlkm",
+      "qrng_dlkm",
+      "qseecom_dlkm",
+      "smcinvoke_dlkm",
+      "smmu_proxy_dlkm",
+      "snd_event_dlkm",
+      "spf_core_dlkm",
+      "stub_dlkm",
+      "swr_ctrl_dlkm",
+      "swr_dlkm",
+      "swr_dmic_dlkm",
+      "swr_haptics_dlkm",
+      "sync_fence",
+      "synx_driver",
+      "tz_log_dlkm",
+      "wcd9378_dlkm",
+      "wcd9378_slave_dlkm",
+      "wcd938x_dlkm",
+      "wcd938x_slave_dlkm",
+      "wcd939x_dlkm",
+      "wcd939x_slave_dlkm",
+      "wcd9xxx_dlkm",
+      "wcd_core_dlkm",
+      "wsa883x_dlkm",
+      "wsa884x_dlkm",
+      "xiaomi_touch"
+    ]
+  },
+  "host_tests": {
+    "module_tool_suites": 14,
+    "scope": "existing touch helper checks plus ELF, CRC, version, dependency and corruption cases"
+  },
+  "not_validated": [
+    "bootloader DT selection or full DTBO image",
+    "boot/vendor_boot and module partition assembly",
+    "stock module ABI and Android KMI allowlists",
+    "module signature trust",
+    "runtime CFI",
+    "HAL, firmware and TEE integration",
+    "device loading, probe or hardware behavior",
+    "complete Xiaomi display/audio/camera extensions",
+    "battery power_supply and charging policy"
+  ]
+}
