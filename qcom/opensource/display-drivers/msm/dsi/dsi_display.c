@@ -4,6 +4,7 @@
  * Copyright (c) 2016-2021, The Linux Foundation. All rights reserved.
  */
 
+#include <video/mipi_display.h>
 #include <linux/list.h>
 #include <linux/of.h>
 #include <linux/of_gpio.h>
@@ -233,6 +234,8 @@ void dsi_rect_intersect(const struct dsi_rect *r1,
 	}
 }
 
+static void dsi_display_annibale_read_build_id(struct dsi_display *display);
+
 int dsi_display_set_backlight(struct drm_connector *connector,
 		void *display, u32 bl_lvl)
 {
@@ -279,6 +282,8 @@ int dsi_display_set_backlight(struct drm_connector *connector,
 	DSI_DEBUG("bl_scale = %u, bl_scale_sv = %u, bl_lvl = %u\n",
 		bl_scale, bl_scale_sv, (u32)bl_temp);
 
+	if (bl_temp)
+		dsi_display_annibale_read_build_id(dsi_display);
 	rc = dsi_panel_set_backlight(panel, (u32)bl_temp);
 	if (rc)
 		DSI_ERR("unable to set backlight\n");
@@ -1103,7 +1108,7 @@ static int dsi_display_ctrl_get_host_init_state(struct dsi_display *dsi_display,
 	return rc;
 }
 
-static int dsi_display_cmd_rx(struct dsi_display *display,
+static int dsi_display_cmd_rx_locked(struct dsi_display *display,
 			      struct dsi_cmd_desc *cmd)
 {
 	struct dsi_display_ctrl *m_ctrl = NULL;
@@ -1117,19 +1122,20 @@ static int dsi_display_cmd_rx(struct dsi_display *display,
 	if (!m_ctrl || !m_ctrl->ctrl)
 		return -EINVAL;
 
-	/* acquire panel_lock to make sure no commands are in progress */
-	dsi_panel_acquire_panel_lock(display->panel);
+	/* Caller holds panel_lock. */
 	if (!display->panel->panel_initialized) {
 		DSI_DEBUG("panel not initialized\n");
-		goto release_panel_lock;
+		goto out;
 	}
 
 	if (phy_pll_bypass(display))
-		goto release_panel_lock;
+		goto out;
 
 	flags = DSI_CTRL_CMD_READ;
 
-	dsi_display_clk_ctrl(display->dsi_clk_handle, DSI_CORE_CLK | DSI_LINK_CLK, DSI_CLK_ON);
+	rc = dsi_display_clk_ctrl(display->dsi_clk_handle, DSI_CORE_CLK | DSI_LINK_CLK, DSI_CLK_ON);
+	if (rc)
+		goto out;
 	dsi_display_toggle_error_interrupt_status(display, false);
 	cmd->ctrl_flags = flags;
 	dsi_display_set_cmd_tx_ctrl_flags(display, cmd);
@@ -1146,9 +1152,59 @@ static int dsi_display_cmd_rx(struct dsi_display *display,
 enable_error_interrupts:
 	dsi_display_toggle_error_interrupt_status(display, true);
 	dsi_display_clk_ctrl(display->dsi_clk_handle, DSI_CORE_CLK | DSI_LINK_CLK, DSI_CLK_OFF);
-release_panel_lock:
+out:
+	return rc;
+}
+
+
+static int dsi_display_cmd_rx(struct dsi_display *display, struct dsi_cmd_desc *cmd)
+{
+	int rc;
+
+	if (!display || !display->panel)
+		return -EINVAL;
+	dsi_panel_acquire_panel_lock(display->panel);
+	rc = dsi_display_cmd_rx_locked(display, cmd);
 	dsi_panel_release_panel_lock(display->panel);
 	return rc;
+}
+
+/* Called under panel_lock before the first nonzero backlight write per cycle. */
+static void dsi_display_annibale_read_build_id(struct dsi_display *display)
+{
+	struct dsi_panel *panel = display->panel;
+	struct dsi_cmd_desc cmd = {0};
+	u8 address = 0xda, revision = 0;
+	bool ready = false;
+	int i, rc;
+
+	if (!panel->annibale.enabled || panel->annibale.build_id_attempted ||
+		!panel->panel_initialized || display->trusted_vm_env ||
+		phy_pll_bypass(display) || atomic_read(&panel->esd_recovery_pending))
+		return;
+	for (i = 0; i < display->ctrl_count; i++)
+		if (!display->ctrl[i].ctrl || display->ctrl[i].ctrl->secure_mode)
+			return;
+	if (dsi_display_ctrl_get_host_init_state(display, &ready) || !ready)
+		return;
+
+	/* An unsuccessful read stays unknown; do not retry on every slider event. */
+	panel->annibale.build_id_attempted = true;
+	cmd.msg.type = MIPI_DSI_DCS_READ;
+	cmd.msg.channel = panel->mipi_device.channel;
+	cmd.msg.flags = MIPI_DSI_MSG_UNICAST_COMMAND | MIPI_DSI_MSG_REQ_ACK;
+	cmd.msg.tx_buf = &address;
+	cmd.msg.tx_len = 1;
+	cmd.msg.rx_buf = &revision;
+	cmd.msg.rx_len = 1;
+	rc = dsi_display_cmd_rx_locked(display, &cmd);
+	if (rc == 1) {
+		panel->annibale.build_id = revision;
+		panel->annibale.build_id_valid = true;
+		DSI_INFO("Annibale PB build id 0x%02x\n", revision);
+	} else {
+		DSI_WARN("Annibale PB build id unavailable (%d); revision quirk inactive\n", rc);
+	}
 }
 
 

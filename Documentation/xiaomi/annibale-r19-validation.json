@@ -1,0 +1,188 @@
+{
+  "round": "R19",
+  "target": "Redmi K90 / annibale / SM8750",
+  "scope": "Opt-in P11 PB power-off delay, actual revision read and low-DBV correction",
+  "kernel_code_and_image_unchanged": true,
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "release": "6.6.144-4k-gf112270e61a8",
+  "modules_parent": "582ef6f451878821c9b10a40a78a6210fc67bfa2",
+  "dt_parent": "8875e9becd0518787a8ba00abef185dc4ce38ac1",
+  "reference_commit": "4a586833e811c8ec53e6924116505b5724a90c2d",
+  "rebuilt_external_modules": 91,
+  "kernel_modules": 411,
+  "strict_modpost": true,
+  "verification": "passed",
+  "compiled_source_records_rechecked": 9424,
+  "source_symlinks_rechecked": 13,
+  "kernel_input_hashes": {
+    "/workspace/scratch/b72c45bd8860/sm8750/Makefile": "c64db5af15c18c1b46701fb95391e47628884810df0f92b6ed7ed506bcf9db2a",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/.config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/config/kernel.release": "ee18cafba5d018b7103de3523d247d709e8bcd660320a7466d696e80a15f8e3b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/vmlinux": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/arch/arm64/boot/Image": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183"
+  },
+  "build_record_sha256": "4be295eeea8ba6cde38d2f082110937d5e354b5d4da67378b88e8d1983d2d087",
+  "build_log_sha256": "a983a5ebaf2778874d544aac758a0289738e732028913dd868450965e0236409",
+  "compiler_warning_lines": 13,
+  "tests_passed": 85,
+  "tests_sha256": "2059daf98cb5b9a4f6c7720a1c2f09398387776c53e8be6937c1b16c1c1df8c3",
+  "display_revision_level_cases": 16777216,
+  "display_negative_validation": {
+    "status": "passed",
+    "kbuild": [
+      {
+        "mode": "",
+        "sun": "y",
+        "vm": "n",
+        "accepted": true
+      },
+      {
+        "mode": "native",
+        "sun": "y",
+        "vm": "n",
+        "accepted": true
+      },
+      {
+        "mode": "invalid",
+        "sun": "y",
+        "vm": "n",
+        "accepted": false
+      },
+      {
+        "mode": "native",
+        "sun": "n",
+        "vm": "n",
+        "accepted": false
+      },
+      {
+        "mode": "native",
+        "sun": "y",
+        "vm": "y",
+        "accepted": false
+      }
+    ],
+    "rejected": [
+      {
+        "case": "default_as_native",
+        "reason": "PB quirks must be opt-in and confined to the three P11 PB candidates"
+      },
+      {
+        "case": "native_as_default",
+        "reason": "PB quirks must be opt-in and confined to the three P11 PB candidates"
+      },
+      {
+        "case": "pa_gate",
+        "reason": "PB quirks must be opt-in and confined to the three P11 PB candidates"
+      },
+      {
+        "case": "wrong_id",
+        "reason": "wrong PB panel id"
+      },
+      {
+        "case": "read_length",
+        "reason": "wrong PB read length"
+      },
+      {
+        "case": "read_command",
+        "reason": "wrong PB read command"
+      },
+      {
+        "case": "read_state",
+        "reason": "wrong PB read state"
+      },
+      {
+        "case": "brightness_range",
+        "reason": "PB brightness range changed"
+      }
+    ]
+  },
+  "dt_compositions_passed": 32,
+  "dtc_warning_count": 2343,
+  "dt_validation_sha256": "c11771a82260bf66bd6c635d77dc104511923186464f4f5ffce0b74751d95710",
+  "default_dt_byte_identical_to_r18": 16,
+  "default_dt_regression_sha256": "920b5919d1b0317efa727730f5526379a5cac03af51e7116bb116c4e69180d69",
+  "source_stages": {
+    "tfa": {
+      "module_count": 186,
+      "validation_sha256": "2fae541de5c6d8c4f6a046d742ad1109b28810a56216726554d185d23aa6e560",
+      "manifest_sha256": "edc3e2404c45539a5e01be59c633065425ad8ae843b666647ae7cb824c250001",
+      "installed_bytes": 60108824,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 66,
+          "dependency_references": 428,
+          "installed_module_count": 66,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 120,
+          "dependency_references": 805,
+          "installed_module_count": 119,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      }
+    },
+    "sia": {
+      "module_count": 187,
+      "validation_sha256": "2213c362b55507e7425a132e8c9017452556b2bea8bf2c1974d58b4f5509c951",
+      "manifest_sha256": "40b26487276686e33c84f93942d04ed50a85ad0ea13a15dee367da3c1d9aa5d1",
+      "installed_bytes": 59856384,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 66,
+          "dependency_references": 428,
+          "installed_module_count": 66,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 121,
+          "dependency_references": 805,
+          "installed_module_count": 120,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      }
+    }
+  },
+  "dual_rom_status": "incomplete_inventory",
+  "stock_counts": {
+    "modules_with_detected_blockers": 0
+  },
+  "stock_ambiguous_names": [
+    "adsp_loader_dlkm",
+    "gpr_dlkm",
+    "q6_notifier_dlkm",
+    "q6_pdr_dlkm",
+    "snd_event_dlkm",
+    "spf_core_dlkm",
+    "zram",
+    "zsmalloc"
+  ],
+  "display_module_sha256": "659ca81669817fb16c53e41160980332d4f4ff8ce310fbd372eaa247c539dba1",
+  "initial_build": "Stopped after missing video/mipi_display.h was diagnosed; no artifact from that attempt is qualified.",
+  "flashable": false,
+  "boot_verified": false,
+  "hardware_verified": false,
+  "remaining": [
+    "Xiaomi display feature ABI and HBM/LHBM/AOD/dimming/ESD integration",
+    "Exact P11 touch/THP behavior",
+    "Camera extensions/HAL behavior",
+    "Complete charging policy",
+    "Complete ROM ownership, boot packaging, signatures/AVB, SELinux and real hardware validation"
+  ]
+}

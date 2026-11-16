@@ -224,7 +224,16 @@ struct dsi_panel_ops {
 	int (*trigger_esd_attack)(struct dsi_panel *panel);
 };
 
+/* Opt-in P11 PB quirks; all runtime fields are protected by panel_lock. */
+struct dsi_annibale_panel {
+	bool enabled;
+	bool build_id_attempted;
+	bool build_id_valid;
+	u8 build_id;
+};
+
 struct dsi_panel {
+	struct dsi_annibale_panel annibale;
 	const char *name;
 	const char *type;
 	struct device_node *panel_of_node;

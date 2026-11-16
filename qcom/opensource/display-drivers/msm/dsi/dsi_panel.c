@@ -41,6 +41,60 @@
 #define RSCC_MODE_THRESHOLD_TIME_US 40
 #define DCS_COMMAND_THRESHOLD_TIME_US 40
 
+/* MiCode annibale-w-oss: P11 PB only, never infer revision from a failed read. */
+static void dsi_panel_annibale_invalidate(struct dsi_panel *panel)
+{
+	panel->annibale.build_id_attempted = false;
+	panel->annibale.build_id_valid = false;
+	panel->annibale.build_id = 0;
+}
+
+static u32 dsi_panel_annibale_backlight(struct dsi_panel *panel, u32 level)
+{
+	if (panel->annibale.enabled && panel->annibale.build_id_valid &&
+		panel->annibale.build_id < 0x80 && level && level < 15)
+		return 15;
+	return level;
+}
+
+static void dsi_panel_annibale_power_off_delay(struct dsi_panel *panel)
+{
+	if (panel->annibale.enabled)
+		usleep_range(5000, 5100);
+}
+
+static int dsi_panel_parse_annibale(struct dsi_panel *panel)
+{
+	struct dsi_parser_utils *utils = &panel->utils;
+	static const u8 read_cmd[] = { 0x06, 0x01, 0x00, 0x01, 0, 0, 0x01, 0xda };
+	const void *cmd;
+	const char *state;
+	u64 id;
+	u32 len;
+	int size;
+
+	panel->annibale.enabled = false;
+	dsi_panel_annibale_invalidate(panel);
+	if (!utils->read_bool(utils->data, "xiaomi,annibale-pb-quirks"))
+		return 0;
+	if (utils->read_u64(utils->data, "mi,panel-id", &id) ||
+		id != 0x0050313150420d0aULL || panel->host_config.ext_bridge_mode ||
+		panel->bl_config.type != DSI_BACKLIGHT_DCS ||
+		panel->bl_config.bl_max_level < 15 ||
+		!utils->read_bool(utils->data, "mi,panel-build-id-read-needed") ||
+		utils->read_u32(utils->data, "mi,panel-build-id-read-length", &len) || len != 1)
+		return -EINVAL;
+	cmd = utils->get_property(utils->data,
+		"mi,mdss-dsi-panel-build-id-read-command", &size);
+	state = utils->get_property(utils->data,
+		"mi,mdss-dsi-panel-build-id-read-command-state", NULL);
+	if (!cmd || size != sizeof(read_cmd) || memcmp(cmd, read_cmd, sizeof(read_cmd)) ||
+		!state || strcmp(state, "dsi_hs_mode"))
+		return -EINVAL;
+	panel->annibale.enabled = true;
+	return 0;
+}
+
 static void dsi_dce_prepare_pps_header(char *buf, u32 pps_delay_ms)
 {
 	char *bp;
@@ -269,6 +323,8 @@ static int dsi_panel_reset(struct dsi_panel *panel)
 	struct dsi_panel_reset_config *r_config = &panel->reset_config;
 	int i;
 
+	dsi_panel_annibale_invalidate(panel);
+
 	if (!gpio_is_valid(r_config->reset_gpio))
 		goto skip_reset_gpio;
 
@@ -414,6 +470,9 @@ static int dsi_panel_power_off(struct dsi_panel *panel)
 		DSI_DEBUG("skip panel power off\n");
 		return rc;
 	}
+
+	dsi_panel_annibale_power_off_delay(panel);
+	dsi_panel_annibale_invalidate(panel);
 
 	if (gpio_is_valid(panel->reset_config.disp_en_gpio))
 		gpio_set_value(panel->reset_config.disp_en_gpio, 0);
@@ -602,6 +661,8 @@ static int dsi_panel_update_backlight(struct dsi_panel *panel,
 		DSI_ERR("invalid params\n");
 		return -EINVAL;
 	}
+
+	bl_lvl = dsi_panel_annibale_backlight(panel, bl_lvl);
 
 	dsi = &panel->mipi_device;
 	if (unlikely(panel->bl_config.lp_mode)) {
@@ -4205,6 +4266,13 @@ struct dsi_panel *dsi_panel_get(struct device *parent,
 			goto error;
 	}
 
+	/* Invalid opt-in configuration must not be silently ignored. */
+	rc = dsi_panel_parse_annibale(panel);
+	if (rc) {
+		DSI_ERR("invalid Annibale PB quirk configuration, rc=%d\n", rc);
+		goto error;
+	}
+
 	rc = dsi_panel_parse_misc_features(panel);
 	if (rc)
 		DSI_ERR("failed to parse misc features, rc=%d\n", rc);
@@ -5632,6 +5700,7 @@ int dsi_panel_disable(struct dsi_panel *panel)
 			rc = 0;
 		}
 	}
+	dsi_panel_annibale_invalidate(panel);
 	panel->panel_initialized = false;
 	panel->power_mode = SDE_MODE_DPMS_OFF;
 
