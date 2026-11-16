@@ -12583,8 +12583,18 @@ static void __exit ipa_module_exit(void)
 }
 module_exit(ipa_module_exit);
 
+/* SUN uses remoteproc PAS and the upstream-layout Qualcomm ARM SMMU. */
+#if IS_ENABLED(CONFIG_ARCH_SUN)
+#if IS_ENABLED(CONFIG_QCOM_Q6V5_PAS)
+MODULE_SOFTDEP("pre: qcom_q6v5_pas");
+#endif
+#if IS_ENABLED(CONFIG_ARM_SMMU)
+MODULE_SOFTDEP("pre: arm_smmu");
+#endif
+#else
 MODULE_SOFTDEP("pre: subsys-pil-tz");
 MODULE_SOFTDEP("pre: qcom-arm-smmu-mod");
+#endif
 MODULE_LICENSE("GPL v2");
 MODULE_DESCRIPTION("IPA HW device driver");
 

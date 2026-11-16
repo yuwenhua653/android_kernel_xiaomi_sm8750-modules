@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "round": "R14",
+  "target": "Redmi K90 / annibale / SM8750",
+  "hyperos_reference": "OS4.0.6.0.XPKCNXM",
+  "scope": "USB and IPA loader dependency corrections; explicit source-only network partition qualification. Not a complete ROM or hardware qualification.",
+  "kernel": {
+    "local_build_commit": "f112270e61a8787d5396ef4a4b4b653240808db4",
+    "local_build_tree": "f3bbd454ca637d72817e0f94f12d43f9111865c7",
+    "release": "6.6.144-4k-gf112270e61a8",
+    "note": "Git object identity at local compilation; published commits can have different commit metadata. Driver source and full artifact hashes are recorded separately.",
+    "sha256": {
+      "arch/arm64/boot/Image": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+      "vmlinux": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+      ".config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+      "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+      "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+      "modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183"
+    },
+    "comparison_with_r10": {
+      ".config": {
+        "r10": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+        "r14": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+        "unchanged": true
+      },
+      "Module.symvers": {
+        "r10": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+        "r14": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+        "unchanged": true
+      },
+      "include/generated/autoconf.h": {
+        "r10": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+        "r14": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+        "unchanged": true
+      },
+      "include/config/kernel.release": {
+        "r10": "d148df2ba92e07c807aa9b128bed71831febf5097fa5e5742e78984b8834f543",
+        "r14": "ee18cafba5d018b7103de3523d247d709e8bcd660320a7466d696e80a15f8e3b",
+        "unchanged": false
+      },
+      "arch/arm64/boot/Image": {
+        "r10": "478ed0852505f38f5f0e4bf143d433deb8846c9c63d608fc39474c89cd390b25",
+        "r14": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+        "unchanged": false
+      },
+      "vmlinux": {
+        "r10": "8cc4b1d0d30b9fb40fcfdbf9a7e99ea235d74ef994eec9c3f8a604bc7029e840",
+        "r14": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+        "unchanged": false
+      },
+      "modules.order": {
+        "r10": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+        "r14": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+        "unchanged": true
+      },
+      "modules.builtin": {
+        "r10": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183",
+        "r14": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183",
+        "unchanged": true
+      }
+    }
+  },
+  "external": {
+    "local_build_commit": "5bd4d333e082b091940baf76132c723016481f49",
+    "source_dirty_at_build": true,
+    "profile": "network",
+    "returncode": 0,
+    "source_symlink_count": 13,
+    "module_count": 88,
+    "kernel_module_count": 411,
+    "verification_status": "passed",
+    "build_record_sha256": "dab39019bfa42540fb07a24523ce21d38688a1b4a5093d803af977943a2b1dc1",
+    "verification_sha256": "1d29ce68e4158bf41f0fed8bc6caa4c7298e2f78d193b715da2adb80183d4f30"
+  },
+  "compiled_soft_dependencies": {
+    "status": "passed",
+    "source": "Fresh verified final ELF .modinfo records",
+    "modules": {
+      "dwc3_msm": [
+        "pre: phy-generic",
+        "pre: phy-msm-snps-eusb2",
+        "pre: phy-msm-m31-eusb2",
+        "pre: phy-msm-ssusb-qmp",
+        "pre: eud"
+      ],
+      "ipam": [
+        "pre: qcom_q6v5_pas",
+        "pre: arm_smmu"
+      ],
+      "smem": [
+        "pre: qcom_hwspinlock"
+      ],
+      "pinctrl_msm": [
+        "pre: qcom-pdc"
+      ]
+    },
+    "previous_elf_softdeps": {
+      "dwc3_msm": [
+        "pre: phy-generic phy-msm-snps-hs phy-msm-ssusb-qmp eud"
+      ],
+      "ipam": [
+        "pre: subsys-pil-tz",
+        "pre: qcom-arm-smmu-mod"
+      ]
+    }
+  },
+  "native_partition_plan": {
+    "status": "partition_plan_passed",
+    "scope": "Network dependency subset only",
+    "module_count": 83,
+    "partition_counts": {
+      "vendor_boot": 31,
+      "system_dlkm": 1,
+      "vendor_dlkm": 51
+    },
+    "new_dependencies_vs_r13_hard_graph": [
+      "arm_smmu",
+      "eud",
+      "iommu_logger",
+      "phy_generic",
+      "phy_msm_m31_eusb2",
+      "phy_msm_snps_eusb2",
+      "phy_msm_ssusb_qmp",
+      "qcom_hwspinlock",
+      "qcom_pdc",
+      "qcom_pil_info",
+      "qcom_q6v5",
+      "qcom_q6v5_pas",
+      "qcom_sysmon",
+      "repeater_qti_pmic_eusb2"
+    ],
+    "policy_sha256": "eb0bb4e8fbc41f26313275bb7e88bbf7090ea246284bd2540f3f9e905b0f0b45",
+    "staged_manifest_sha256": "57ac64e61d90599113a12f48dfc98d4fc88c20f58abeb7256c9ee3a7a662803f",
+    "complete_device": false,
+    "bootloader_images_created": false
+  },
+  "tests": {
+    "count": 56,
+    "status": "passed",
+    "log_sha256": "bf08808410c03b1a73282fb1609e8726f94d4ab85f2e1017865c1cf10b1c5960"
+  },
+  "dual_rom_check": {
+    "status": "incomplete_inventory",
+    "native": "passed",
+    "stock": "incomplete_inventory",
+    "stock_unique_binaries": 637,
+    "stock_blocker_counts": {
+      "modules_with_detected_blockers": 0
+    },
+    "unresolved_variant_names": [
+      "adsp_loader_dlkm",
+      "gpr_dlkm",
+      "q6_notifier_dlkm",
+      "q6_pdr_dlkm",
+      "snd_event_dlkm",
+      "spf_core_dlkm",
+      "zram",
+      "zsmalloc"
+    ]
+  },
+  "audio_followup": {
+    "source": "MiCode/vendor_qcom_opensource_audio-kernel@9147f89e4e5814fe172f0f5cd3b774642c27c282",
+    "stock_dtbo_sha256": "e9582a2074d7f25af6f39204406a7c7212139f7d092e2e5010e226d3b27125c8",
+    "observed_candidates": {
+      "si,sia91xx-i2c": [
+        "0x6e",
+        "0x6c"
+      ],
+      "tfa,tfa98xx": [
+        "0x36",
+        "0x34"
+      ]
+    },
+    "selected_populated_variant": null,
+    "annibale_audio_dt_and_machine_binding": "not integrated"
+  },
+  "boot_compatibility_verified": false,
+  "flashable": false,
+  "unverified": [
+    "Firmware files, calibration and runtime requests",
+    "Complete device driver coverage, HALs and probe order",
+    "Android init stage execution, mount visibility and depmod output",
+    "Module signing, GKI policy, runtime CFI/BTF and hardware",
+    "HyperOS stock variant selection and full native module coverage",
+    "Xiaomi audio/display/camera extensions and full charging policy"
+  ]
+}

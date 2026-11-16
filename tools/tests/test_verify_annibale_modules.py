@@ -11,9 +11,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from verify_annibale_modules import module_info, verify
 
 
-def elf_module(path, name, crc=0x12345678, release='6.6.test', depends='', machine=183):
+def elf_module(path, name, crc=0x12345678, release='6.6.test', depends='', machine=183, extra_info=''):
     names = b'\0.shstrtab\0.modinfo\0__versions\0'
-    info = f'name={name}\0vermagic={release} SMP modversions aarch64\0depends={depends}\0'.encode()
+    info = f'name={name}\0vermagic={release} SMP modversions aarch64\0depends={depends}\0{extra_info}'.encode()
     versions = struct.pack('<Q56s', crc, b'module_layout')
     payloads = [b'', names, info, versions]
     offsets = [0, 64, 64 + len(names), 64 + len(names) + len(info)]
@@ -52,6 +52,13 @@ class QualificationTests(unittest.TestCase):
         self.assertEqual(report['external_module_count'], 1)
         self.assertLess(report['dependency_order'].index('provider'),
                         report['dependency_order'].index('consumer'))
+
+    def test_multiple_softdeps_and_firmware_preserved(self):
+        elf_module(self.stage / 'consumer.ko', 'consumer', depends='provider',
+                   extra_info='softdep=pre: phy\0softdep=post: monitor\0firmware=radio.bin\0')
+        meta = verify(self.kernel, self.stage)['modules']['consumer']
+        self.assertEqual(meta['softdep'], ['pre: phy', 'post: monitor'])
+        self.assertEqual(meta['firmware'], ['radio.bin'])
 
     def test_cyclic_dependencies_rejected(self):
         elf_module(self.kernel / 'provider.ko', 'provider', depends='consumer')

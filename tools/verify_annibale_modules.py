@@ -127,7 +127,9 @@ def verify(kernel_out, module_stage):
         with p.open('rb') as f:
             digest = hashlib.file_digest(f, 'sha256').hexdigest()
         modules[name] = {'path': str(p), 'sha256': digest, 'versioned_imports': len(imports),
-                         'depends': [n.replace('-', '_') for n in info['depends'][0].split(',') if n]}
+                         'depends': [n.replace('-', '_') for n in info['depends'][0].split(',') if n],
+                         'softdep': info.get('softdep', []),
+                         'firmware': info.get('firmware', [])}
     if len(vermagics) != 1:
         raise ValueError('modules disagree on vermagic flags')
     for name, module in modules.items():

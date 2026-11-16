@@ -1,3 +1,5 @@
+Latest: [R14 native load dependencies and partition staging](annibale-load-integration.md).
+
 # R13: Kiwi-v2 WLAN and IPA/RMNET source integration
 
 The `network` profile adds **14 modules** to R12: Kiwi-v2 qcacld, three IPA/GSI

@@ -147,7 +147,8 @@ def main():
                 kout / 'include/config/kernel.release', clang / 'clang']
     if not args.objects:
         required += [kout / 'Module.symvers', kout / 'vmlinux',
-                     kout / 'arch/arm64/boot/Image', kout / 'modules.order']
+                     kout / 'arch/arm64/boot/Image', kout / 'modules.order',
+                     kout / 'modules.builtin']
     for path in required:
         if not path.is_file() or path.stat().st_size == 0:
             parser.error(f'missing/non-complete kernel input: {path}')
