@@ -1,3 +1,5 @@
+Latest source build expansion: [R12 platform modules](annibale-platform.md).
+
 # Annibale module imports
 
 Update: [R8](annibale-full-build.md) adds full touch/media/NFC/DSP module links

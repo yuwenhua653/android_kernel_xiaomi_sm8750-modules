@@ -1,1 +1,14 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Both variants export the same VIDC symbols. A device loading one provider
+# must select it explicitly; retain the upstream multi-artifact default.
+VIDEO_DRIVER_VARIANT ?= all
+
+ifeq ($(VIDEO_DRIVER_VARIANT),all)
 obj-m := msm_video/ video/
+else ifeq ($(VIDEO_DRIVER_VARIANT),msm_video)
+obj-m := msm_video/
+else ifeq ($(VIDEO_DRIVER_VARIANT),video)
+obj-m := video/
+else
+$(error Unsupported VIDEO_DRIVER_VARIANT: $(VIDEO_DRIVER_VARIANT))
+endif

@@ -1,3 +1,5 @@
+Latest source build expansion: [R12 platform modules](annibale-platform.md).
+
 Current firmware target and required checks for both ROM paths: [R11](annibale-rom-paths.md).
 
 Current BTF prerequisites and stock-module checks: [R10 HyperOS ABI work](annibale-hyperos.md).

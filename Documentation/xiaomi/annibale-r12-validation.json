@@ -1,0 +1,764 @@
+{
+  "round": "R12",
+  "date": "2026-11-16",
+  "device": "annibale / Redmi K90 / SM8750",
+  "firmware_reference": "OS4.0.6.0.XPKCNXM (exact R11 OTA extraction)",
+  "kernel_code_commit": "18cc8fc8de3f756803df0de2bb4e5393b183195b",
+  "kernel_tree_at_validation": "af74fb6fb114d91e2bf80c051ab1102818646178",
+  "modules_parent_commit": "b35c99e1218d7304e1143da4c259e993d91493a2",
+  "source_note": "Existing LOS driver groups newly integrated into joint Annibale build; no wholesale MiCode overlay or driver C changes. R12 modifies video Kbuild selection and build integration.",
+  "compiled_source_files_sha256": "144c312d283be0acf1b5eadd6498a378b387525b1996f1430de74f4d03db8440",
+  "source_symlinks": {
+    "qcom/opensource/graphics-kernel/config/parrot_perf_gpuconf": "parrot_consolidate_gpuconf",
+    "qcom/opensource/graphics-kernel/config/pineapple_perf_gpuconf": "pineapple_consolidate_gpuconf",
+    "qcom/opensource/graphics-kernel/config/pitti_gki_gpuconf": "pitti_consolidate_gpuconf",
+    "qcom/opensource/graphics-kernel/config/sun_perf_gpuconf": "sun_consolidate_gpuconf",
+    "qcom/opensource/video-driver/msm_video/driver": "../driver/",
+    "qcom/opensource/video-driver/video/driver": "../driver/"
+  },
+  "stage_snapshot_fix": "Preserve and validate six internal relative source links; reject dereferenced, modified or escaping links during fresh and resumed builds.",
+  "profile": "platform",
+  "kernel_profile": "R10 experimental qualify; not deployment-ready",
+  "kernel_inputs_unchanged": true,
+  "kernel_input_sha256": {
+    ".config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+    "include/config/kernel.release": "d148df2ba92e07c807aa9b128bed71831febf5097fa5e5742e78984b8834f543",
+    "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "vmlinux": "8cc4b1d0d30b9fb40fcfdbf9a7e99ea235d74ef994eec9c3f8a604bc7029e840",
+    "arch/arm64/boot/Image": "478ed0852505f38f5f0e4bf143d433deb8846c9c63d608fc39474c89cd390b25",
+    "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757"
+  },
+  "build": {
+    "make_returncode": 0,
+    "verification_status": "passed",
+    "kernel_modules": 411,
+    "external_modules": 74,
+    "previous_external_modules": 58,
+    "added_external_modules": 16,
+    "release": "6.6.144-4k-g18cc8fc8de3f",
+    "vermagic": "6.6.144-4k-g18cc8fc8de3f SMP preempt mod_unload modversions aarch64",
+    "checks": [
+      "strict joint modpost",
+      "single exported-symbol provider",
+      "ARM64 ELF",
+      "same-build imported CRCs",
+      "vermagic",
+      "dependency presence",
+      "nonempty required BTF"
+    ]
+  },
+  "video_fix": {
+    "initial_attempt": "Both msm_video and video compiled. Post-link verifier rejected duplicate exported msm_vidc_lossless_encode despite equal CRC.",
+    "final_selection": "VIDEO_DRIVER_VARIANT=msm_video; msm_video appears in exact stock load list and existing Android.mk.",
+    "upstream_default_preserved": "all continues to produce both upstream artifact variants; only selected provider belongs in a device module set.",
+    "selection_checks": "msm_video/video/default/invalid selector checked with GNU make"
+  },
+  "new_modules": [
+    {
+      "name": "msm_kgsl",
+      "path": "qcom/opensource/graphics-kernel/msm_kgsl.ko",
+      "sha256": "aeb7267200ae40c4a53c51386b595058dfbc0d04d76426084a05ee68f1c7a9c5",
+      "depends": [
+        "msm_sysstats",
+        "mem_buf_dev",
+        "qcom_iommu_util",
+        "qcom_q6v5_pas",
+        "clk_qcom",
+        "qcom_dcvs",
+        "secure_buffer",
+        "qcom_scm",
+        "mdt_loader",
+        "minidump",
+        "qcom_va_minidump",
+        "synx_driver",
+        "socinfo",
+        "llcc_qcom",
+        "cmd_db",
+        "msm_performance",
+        "qcom_aoss"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {
+          "synx_initialize": {
+            "required": "b3138516",
+            "available": [
+              "957d4ae7"
+            ]
+          },
+          "synx_uninitialize": {
+            "required": "06e65d2d",
+            "available": [
+              "f1196b0e"
+            ]
+          },
+          "synx_create": {
+            "required": "5f53eecf",
+            "available": [
+              "da5882ca"
+            ]
+          },
+          "synx_import": {
+            "required": "3acc0271",
+            "available": [
+              "d79173ad"
+            ]
+          },
+          "synx_release": {
+            "required": "1cd1df70",
+            "available": [
+              "e083824d"
+            ]
+          },
+          "synx_signal": {
+            "required": "567650f5",
+            "available": [
+              "a52791cf"
+            ]
+          }
+        },
+        "missing_symbols": []
+      },
+      "export_differences": [
+        {
+          "stock_path": "vendor_dlkm/lib/modules/msm_kgsl.ko",
+          "changed_export_crcs": {},
+          "stock_exports_absent_from_source": [
+            "mi_soc_gov_update_gpufreq"
+          ],
+          "additional_source_exports": []
+        }
+      ]
+    },
+    {
+      "name": "msm_video",
+      "path": "qcom/opensource/video-driver/msm_video/msm_video.ko",
+      "sha256": "21f8139f15488e89ac9404fccbdc9d4eee188843a03d9e688defae94d8257291",
+      "depends": [
+        "msm_mmrm",
+        "llcc_qcom",
+        "clk_qcom",
+        "qcom_scm",
+        "mdt_loader",
+        "mem_buf_dev"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "msm_eva",
+      "path": "qcom/opensource/eva-kernel/msm/msm-eva.ko",
+      "sha256": "06fedadf322b96ba9946d48cd126906aace3fcda7c30915ba5b1b51cf8a17368",
+      "depends": [
+        "mem_buf_dev",
+        "qcom_scm",
+        "llcc_qcom",
+        "synx_driver",
+        "msm_mmrm",
+        "frpc_adsprpc",
+        "mdt_loader",
+        "gh_rm_drv",
+        "gh_msgq"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {
+          "synx_recover": {
+            "required": "a907e44d",
+            "available": [
+              "36ef8b3f"
+            ]
+          },
+          "fastrpc_driver_invoke": {
+            "required": "f1421df7",
+            "available": [
+              "6d9642ba"
+            ]
+          },
+          "fastrpc_driver_register": {
+            "required": "78e9175d",
+            "available": [
+              "5edc8a98"
+            ]
+          },
+          "fastrpc_driver_unregister": {
+            "required": "c6cddc75",
+            "available": [
+              "2a69683c"
+            ]
+          },
+          "synx_initialize": {
+            "required": "b3138516",
+            "available": [
+              "957d4ae7"
+            ]
+          },
+          "synx_uninitialize": {
+            "required": "06e65d2d",
+            "available": [
+              "f1196b0e"
+            ]
+          },
+          "synx_release": {
+            "required": "1cd1df70",
+            "available": [
+              "e083824d"
+            ]
+          },
+          "synx_import": {
+            "required": "3acc0271",
+            "available": [
+              "d79173ad"
+            ]
+          },
+          "synx_wait": {
+            "required": "bf328f72",
+            "available": [
+              "331f5a88"
+            ]
+          },
+          "synx_get_status": {
+            "required": "1d69fded",
+            "available": [
+              "71fc65e2"
+            ]
+          },
+          "synx_signal": {
+            "required": "567650f5",
+            "available": [
+              "a52791cf"
+            ]
+          }
+        },
+        "missing_symbols": []
+      },
+      "export_differences": [
+        {
+          "stock_path": "vendor_dlkm/lib/modules/msm-eva.ko",
+          "changed_export_crcs": {
+            "msm_cvp_open": {
+              "source": "e806b246",
+              "stock": "1cac427c"
+            }
+          },
+          "stock_exports_absent_from_source": [],
+          "additional_source_exports": []
+        }
+      ]
+    },
+    {
+      "name": "smem_mailbox",
+      "path": "qcom/opensource/data-kernel/drivers/smem-mailbox/smem-mailbox.ko",
+      "sha256": "c950568568c9ea6364f2139702914822234566edf2aaece07863cab1df359446",
+      "depends": [
+        "smem"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "cnss_utils",
+      "path": "qcom/opensource/wlan/platform/cnss_utils/cnss_utils.ko",
+      "sha256": "02e6df87d6a2645abee5f63c8805e35f978eeedfc10e52f8ecca59267966ee6f",
+      "depends": [
+        "smem_mailbox"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "wlan_firmware_service",
+      "path": "qcom/opensource/wlan/platform/cnss_utils/wlan_firmware_service.ko",
+      "sha256": "17ddd6fb4d845ad9a95ccb0f37ab9d720c47e731b37535a71707402dfd9d5e6b",
+      "depends": [
+        "qmi_helpers"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": [
+        {
+          "stock_path": "vendor_dlkm/lib/modules/wlan_firmware_service.ko",
+          "changed_export_crcs": {},
+          "stock_exports_absent_from_source": [],
+          "additional_source_exports": [
+            "wlfw_ddr_file_download_req_msg_v01_ei",
+            "wlfw_ddr_file_download_resp_msg_v01_ei",
+            "wlfw_misc_req_msg_v01_ei",
+            "wlfw_misc_resp_msg_v01_ei",
+            "wlfw_partner_chip_state_info_req_msg_v01_ei",
+            "wlfw_partner_chip_state_info_resp_msg_v01_ei",
+            "wlfw_xo_trim_ind_msg_v01_ei"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cnss_plat_ipc_qmi_svc",
+      "path": "qcom/opensource/wlan/platform/cnss_utils/cnss_plat_ipc_qmi_svc.ko",
+      "sha256": "c33b92d028fc649804e29b5c0975fad84c0c12c1cad2accad861d01ab6db2f30",
+      "depends": [
+        "qmi_helpers",
+        "qcom_ipc_logging"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": [
+        {
+          "stock_path": "vendor_dlkm/lib/modules/cnss_plat_ipc_qmi_svc.ko",
+          "changed_export_crcs": {
+            "cnss_plat_ipc_qmi_file_upload": {
+              "source": "357b3a99",
+              "stock": "9546e7ec"
+            },
+            "cnss_plat_ipc_qmi_file_download": {
+              "source": "e95553fa",
+              "stock": "5657b1fe"
+            }
+          },
+          "stock_exports_absent_from_source": [],
+          "additional_source_exports": []
+        }
+      ]
+    },
+    {
+      "name": "cnss2",
+      "path": "qcom/opensource/wlan/platform/cnss2/cnss2.ko",
+      "sha256": "309c86df3bd260e030061caa67d8e1ef2b2c2108904ade81458c0f75defd371a",
+      "depends": [
+        "cnss_plat_ipc_qmi_svc",
+        "qcom_ramdump",
+        "memory_dump_v2",
+        "minidump",
+        "smem",
+        "cnss_utils",
+        "cnss_prealloc",
+        "qcom_ipc_logging",
+        "mhi",
+        "qcom_iommu_util",
+        "pinctrl_msm",
+        "cmd_db",
+        "qcom_aoss",
+        "wlan_firmware_service",
+        "qmi_helpers",
+        "pci_msm_drv"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {
+          "cnss_plat_ipc_qmi_file_upload": {
+            "required": "357b3a99",
+            "available": [
+              "9546e7ec"
+            ]
+          },
+          "cnss_plat_ipc_qmi_file_download": {
+            "required": "e95553fa",
+            "available": [
+              "5657b1fe"
+            ]
+          },
+          "mhi_controller_set_base": {
+            "required": "0186acad",
+            "available": [
+              "baa72645"
+            ]
+          },
+          "mhi_device_get_sync_atomic": {
+            "required": "497c4331",
+            "available": [
+              "8edb37bd"
+            ]
+          },
+          "mhi_host_notify_db_disable_trace": {
+            "required": "f7d63cdf",
+            "available": [
+              "9ecb4642"
+            ]
+          },
+          "mhi_device_put": {
+            "required": "3815318c",
+            "available": [
+              "60e5addf"
+            ]
+          },
+          "mhi_report_error": {
+            "required": "7fd80e79",
+            "available": [
+              "d93d1080"
+            ]
+          },
+          "mhi_set_m2_timeout_ms": {
+            "required": "1aa572a1",
+            "available": [
+              "a2738d00"
+            ]
+          },
+          "mhi_scan_rddm_cookie": {
+            "required": "f8bfe996",
+            "available": [
+              "eb32419b"
+            ]
+          },
+          "mhi_debug_reg_dump": {
+            "required": "6af73198",
+            "available": [
+              "fbf933e6"
+            ]
+          },
+          "mhi_prepare_for_power_up": {
+            "required": "3bda9fc7",
+            "available": [
+              "f795568b"
+            ]
+          },
+          "mhi_unprepare_after_power_down": {
+            "required": "d83aeb83",
+            "available": [
+              "31dad4bb"
+            ]
+          },
+          "mhi_sync_power_up": {
+            "required": "30e0cbd8",
+            "available": [
+              "88ab9a84"
+            ]
+          },
+          "mhi_power_down": {
+            "required": "ebd6dd38",
+            "available": [
+              "85f81b76"
+            ]
+          },
+          "mhi_pm_fast_suspend": {
+            "required": "eef1ee14",
+            "available": [
+              "9879de74"
+            ]
+          },
+          "mhi_pm_suspend": {
+            "required": "6df0c2f0",
+            "available": [
+              "113a6992"
+            ]
+          },
+          "mhi_force_rddm_mode": {
+            "required": "727cdb54",
+            "available": [
+              "7c799267"
+            ]
+          },
+          "mhi_pm_resume_force": {
+            "required": "3f6996d1",
+            "available": [
+              "6c709381"
+            ]
+          },
+          "mhi_pm_fast_resume": {
+            "required": "1a5a942a",
+            "available": [
+              "0907aaef"
+            ]
+          },
+          "mhi_pm_resume": {
+            "required": "fc3cd0df",
+            "available": [
+              "9ef9ae25"
+            ]
+          },
+          "mhi_device_get_sync": {
+            "required": "e8efa05a",
+            "available": [
+              "b61ce850"
+            ]
+          },
+          "mhi_get_exec_env": {
+            "required": "ae431a21",
+            "available": [
+              "01a8241c"
+            ]
+          },
+          "mhi_force_reset": {
+            "required": "7a9c00ce",
+            "available": [
+              "49b65d5d"
+            ]
+          },
+          "mhi_download_rddm_image": {
+            "required": "108ca7cf",
+            "available": [
+              "12891537"
+            ]
+          },
+          "mhi_unregister_controller": {
+            "required": "56c6b58c",
+            "available": [
+              "8ab7c775"
+            ]
+          },
+          "mhi_free_controller": {
+            "required": "a7ca1684",
+            "available": [
+              "911f429b"
+            ]
+          },
+          "mhi_alloc_controller": {
+            "required": "3bde1f5d",
+            "available": [
+              "a2561515"
+            ]
+          },
+          "mhi_register_controller": {
+            "required": "eb27aae3",
+            "available": [
+              "2f0622d8"
+            ]
+          },
+          "mhi_controller_set_bw_scale_cb": {
+            "required": "c7e49da6",
+            "available": [
+              "159e39e3"
+            ]
+          }
+        },
+        "missing_symbols": [
+          "wlfw_misc_req_msg_v01_ei",
+          "wlfw_misc_resp_msg_v01_ei",
+          "wlfw_xo_trim_ind_msg_v01_ei"
+        ]
+      },
+      "export_differences": [
+        {
+          "stock_path": "vendor_dlkm/lib/modules/cnss2.ko",
+          "changed_export_crcs": {
+            "cnss_schedule_recovery": {
+              "source": "d7344e7c",
+              "stock": "64eec0b6"
+            },
+            "cnss_wlan_unregister_driver": {
+              "source": "16debdbd",
+              "stock": "8edbb0d6"
+            },
+            "cnss_self_recovery": {
+              "source": "09f8aade",
+              "stock": "20d7e493"
+            },
+            "cnss_wlan_register_driver": {
+              "source": "526aeeb1",
+              "stock": "9a5f39a6"
+            },
+            "cnss_get_fw_cap": {
+              "source": "ec482c8e",
+              "stock": "655ea1c4"
+            }
+          },
+          "stock_exports_absent_from_source": [],
+          "additional_source_exports": [
+            "cnss_pci_get_iova_info",
+            "cnss_register_tsf_captured_handler",
+            "cnss_set_cxpc",
+            "cnss_set_host_param",
+            "cnss_set_vendor_wonder_priv_data",
+            "cnss_smmu_s1_enabled",
+            "cnss_unregister_tsf_captured_handler"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "icnss2",
+      "path": "qcom/opensource/wlan/platform/icnss2/icnss2.ko",
+      "sha256": "0971dee79d7363bcd53b56d0b93a18236873a04490c6a1cf10ec4e099559c477",
+      "depends": [
+        "qcom_ipc_logging",
+        "socinfo",
+        "pdr_interface",
+        "cnss_prealloc",
+        "qcom_iommu_util",
+        "rproc_qcom_common",
+        "qcom_ramdump",
+        "pinctrl_msm",
+        "qcom_aoss",
+        "wlan_firmware_service",
+        "qmi_helpers"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": [
+          "wlfw_misc_req_msg_v01_ei",
+          "wlfw_misc_resp_msg_v01_ei",
+          "wlfw_xo_trim_ind_msg_v01_ei"
+        ]
+      },
+      "export_differences": [
+        {
+          "stock_path": "vendor_dlkm/lib/modules/icnss2.ko",
+          "changed_export_crcs": {
+            "icnss_get_fw_cap": {
+              "source": "028192fa",
+              "stock": "998c7469"
+            }
+          },
+          "stock_exports_absent_from_source": [],
+          "additional_source_exports": [
+            "icnss_get_iova_info"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cnss_nl",
+      "path": "qcom/opensource/wlan/platform/cnss_genl/cnss_nl.ko",
+      "sha256": "c20c381ba917d348d2d333120953fad12c6000f36ece132954c7f69778f815db",
+      "depends": [],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "cnss_prealloc",
+      "path": "qcom/opensource/wlan/platform/cnss_prealloc/cnss_prealloc.ko",
+      "sha256": "78cbe446fd600f6404af10acda15792753cf4637aae4b126675a156c6d7c1444",
+      "depends": [],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "btpower",
+      "path": "qcom/opensource/bt-kernel/pwr/btpower.ko",
+      "sha256": "114523a5ed1c229621566124790cf81cce6be7d7c04d2cae1c9357c7caa385e6",
+      "depends": [
+        "cnss_utils",
+        "qcom_aoss",
+        "pinctrl_msm",
+        "rfkill"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "radio_i2c_rtc6226_qca",
+      "path": "qcom/opensource/bt-kernel/rtc6226/radio-i2c-rtc6226-qca.ko",
+      "sha256": "03b0d7462810ef9cfdaf45dc13e6e77a3fd35b3ce653851b777bf7d91fb9cb64",
+      "depends": [],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "btfmcodec",
+      "path": "qcom/opensource/bt-kernel/btfmcodec/btfmcodec.ko",
+      "sha256": "f4d47f7468dd768205310834510e452d799a030fc8bf37e80a599a0eb84c3e89",
+      "depends": [
+        "rproc_qcom_common"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "btfm_slim_codec",
+      "path": "qcom/opensource/bt-kernel/slimbus/btfm_slim_codec.ko",
+      "sha256": "0304e1a49cbab7acdf4a9d8c30aa7c5cf95a876dc7531000fd64eac6b91cc957",
+      "depends": [
+        "slimbus",
+        "btpower",
+        "btfmcodec"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    },
+    {
+      "name": "bt_fm_swr",
+      "path": "qcom/opensource/bt-kernel/soundwire/bt_fm_swr.ko",
+      "sha256": "922171442d90e6f9690a5c9bab91fe705f8fc7f87ec2007deaeae755f25a5059",
+      "depends": [
+        "btpower",
+        "swr_dlkm",
+        "btfmcodec"
+      ],
+      "source_imports_vs_stock": {
+        "kernel_crc_mismatches": {},
+        "stock_provider_crc_mismatches": {},
+        "missing_symbols": []
+      },
+      "export_differences": []
+    }
+  ],
+  "dual_path": {
+    "native": "passed",
+    "stock": "incomplete_inventory",
+    "combined": "incomplete_inventory",
+    "stock_unique_binaries": 637,
+    "stock_detected_abi_blockers": 0,
+    "mixed_module_replacement_verified": false,
+    "boot_compatibility_verified": false
+  },
+  "ownership": {
+    "shared_names": 475,
+    "stock_without_same_name_source_output": 154,
+    "note": "Inventory only; optional modules and differently named source alternatives are not hardware gaps by themselves."
+  },
+  "tests": {
+    "module_tool_tests": 36,
+    "video_selection_cases": 4
+  },
+  "remaining": [
+    "qcacld kiwi-v2 data path and IPA/RMNET source integration; CNSS success is not working Wi-Fi",
+    "Board binding, firmware, HAL/UAPI and hardware qualification for GPU/video/EVA/Bluetooth",
+    "Xiaomi display/camera/amplifier and complete charging integration",
+    "Final boot-mode module ownership, GKI/signature/CFI/BTF policy and DTB/DTBO packaging",
+    "HyperOS and native ROM boot/hardware tests"
+  ],
+  "evidence_sha256": {
+    "out/annibale-modules-r12/modules-3405aotr/build.json": "29c6a944c8e85904bc20eb1d925a4821021875a24ed2ecfa6ccac2ec0ff935a7",
+    "out/annibale-modules-r12/modules-3405aotr/build.log": "0f6c74e864fdb4cc37658630c88a214c2030efc4bf21cc3366ec48cdce9d234d",
+    "out/annibale-modules-r12/modules-3405aotr/Module.symvers": "79a4926626823938cec6117cc134b3746e3f2e9cd0e12b4082b28665dad0178a",
+    "out/annibale-modules-r12/modules-3405aotr/modules.order": "785c1043b314a64187b25769acd79b0aa783dcf7bfcd30762319e08e735cca38",
+    "out/annibale-modules-r12/modules-3405aotr/verification.json": "02deca46606ea45d7cc5961da43b7f5120b1cb66a34ffcd97f47c1e81d149b1d",
+    "out/annibale-r12/dual-rom-check.json": "b0cc2cd32b9190401c17072f8420f649205d86d3fb910080e509185db376b965",
+    "out/annibale-r12/platform-interfaces.json": "0b0da8880c369dd07757d349fc979cec8ce47a9a5003d7a54cbe84e4a632db74",
+    "out/annibale-r12/module-tests.log": "6cabac61059a1efa93b32fd085fde42551a6b0f67df6a4cfebdb7e31f678da91",
+    "out/annibale-r12/video-selection-check.json": "b815ca6e7741dafc9e6b8147d440affd43eed3fd4247de22d61037fbfada7012"
+  }
+}

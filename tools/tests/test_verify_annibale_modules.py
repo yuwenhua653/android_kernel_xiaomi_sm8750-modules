@@ -77,6 +77,14 @@ class QualificationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'unresolved module dependencies'):
             verify(self.kernel, self.stage)
 
+    def test_equal_crc_does_not_allow_two_export_providers(self):
+        # R12's msm_video and video variants linked but exported the same API.
+        # Equal CRCs do not make simultaneous providers loadable.
+        with (self.stage / 'Module.symvers').open('a') as stream:
+            stream.write('0x33333333\tprovider_api\talternative\tEXPORT_SYMBOL\n')
+        with self.assertRaisesRegex(ValueError, 'duplicate symbol provider'):
+            verify(self.kernel, self.stage)
+
     def test_wrong_architecture_rejected(self):
         elf_module(self.stage / 'consumer.ko', 'consumer', machine=62)
         with self.assertRaisesRegex(ValueError, 'ARM64'):

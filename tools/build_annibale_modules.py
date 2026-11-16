@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-only
-"""Build the Annibale touch/media/NFC/DSP group with one strict modpost.
+"""Build Annibale external module profiles with one strict modpost.
 
 Copies source into a fresh staging tree. No installation or flashing. This is
 link qualification of the LOS media baseline plus Annibale touch/PHY changes,
@@ -32,10 +32,36 @@ GROUPS = (
     'xiaomi/touch/annibale',
 )
 
+# These share real providers with the media group (SYNX, MMRM, audio and DSP).
+# Keep them in the same modpost; never import symvers from another kernel.
+PLATFORM_GROUPS = (
+    'qcom/opensource/graphics-kernel',
+    'qcom/opensource/video-driver',
+    'qcom/opensource/eva-kernel',
+    'qcom/opensource/data-kernel/drivers/smem-mailbox',
+    'qcom/opensource/wlan/platform',
+    'qcom/opensource/bt-kernel',
+)
+
 
 def sha256(path):
     with path.open('rb') as f:
         return hashlib.file_digest(f, 'sha256').hexdigest()
+
+
+def validate_stage(stage, sources, symlinks):
+    """A shared-source directory link is part of the build input, not a copy."""
+    for name, target in symlinks.items():
+        path = stage / name
+        if not path.is_symlink() or os.readlink(path) != target:
+            raise ValueError(f'staged symlink differs: {name}; use a fresh stage')
+        if not path.resolve(strict=True).is_relative_to(stage.resolve()):
+            raise ValueError(f'staged symlink escapes build: {name}')
+    for name, digest in sources.items():
+        path = stage / name
+        if (not path.is_file() or not path.resolve().is_relative_to(stage.resolve())
+                or sha256(path) != digest):
+            raise ValueError(f'staged source differs: {name}; use a fresh stage')
 
 
 def build_options(kernel, stage):
@@ -50,6 +76,13 @@ def build_options(kernel, stage):
         f'MMRM_ROOT={qcom / "mmrm-driver"}',
         f'SYNX_ROOT={qcom / "synx-kernel"}',
         f'DSP_ROOT={qcom / "dsp-kernel"}',
+        f'KGSL_PATH={qcom / "graphics-kernel"}',
+        f'VIDEO_ROOT={qcom / "video-driver"}',
+        'VIDEO_DRIVER_VARIANT=msm_video',
+        f'EVA_ROOT={qcom / "eva-kernel"}',
+        f'SMEM_MAILBOX_ROOT={qcom / "data-kernel/drivers/smem-mailbox"}',
+        f'WLAN_PLATFORM_ROOT={qcom / "wlan/platform"}',
+        f'BT_ROOT={qcom / "bt-kernel"}',
         f'NFC_ROOT={stage / "nxp/opensource/driver"}',
         f'MSM_EXT_DISPLAY_ROOT={mm}',
         f'MSM_HW_FENCE_ROOT={mm}/', f'SYNC_FENCE_ROOT={mm}/',
@@ -68,6 +101,8 @@ def main():
                         help='AOSP kernel-build-tools/linux-x86/bin (pahole and adjacent libelf)')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--jobs', type=int, choices=range(1, 10), default=3)
+    parser.add_argument('--profile', choices=('media', 'platform'), default='media',
+                        help='platform also links GPU, video, EVA, CNSS, Bluetooth and SMEM mailbox')
     parser.add_argument('--objects', action='store_true',
                         help='compile directories only; no modpost or loadable modules')
     parser.add_argument('--resume-stage', type=Path,
@@ -113,10 +148,16 @@ def main():
         if env.get(key):
             parser.error(f'unset {key}: qualification must use strict complete inputs')
     output.mkdir(parents=True, exist_ok=True)
-    kbuild = '# SPDX-License-Identifier: GPL-2.0-only\n' + ''.join(f'obj-m += {g}/\n' for g in GROUPS)
-    copy_groups = (*GROUPS, 'qcom/opensource/mm-drivers/config')
+    groups = GROUPS + (PLATFORM_GROUPS if args.profile == 'platform' else ())
+    kbuild = '# SPDX-License-Identifier: GPL-2.0-only\n' + ''.join(f'obj-m += {g}/\n' for g in groups)
+    copy_groups = (*groups, 'qcom/opensource/mm-drivers/config')
     sources = {str(p.relative_to(repo)): sha256(p) for group in copy_groups
                for p in sorted((repo / group).rglob('*')) if p.is_file()}
+    symlinks = {str(p.relative_to(repo)): os.readlink(p) for group in copy_groups
+                for p in sorted((repo / group).rglob('*')) if p.is_symlink()}
+    for name, target in symlinks.items():
+        if Path(target).is_absolute() or not (repo / name).resolve(strict=True).is_relative_to(repo):
+            parser.error(f'source symlink is not internal and relative: {name}')
     sources['Kbuild'] = hashlib.sha256(kbuild.encode()).hexdigest()
     if args.resume_stage:
         stage = args.resume_stage.resolve()
@@ -125,28 +166,31 @@ def main():
         previous = json.loads((stage / 'build.json').read_text())
         if previous['source_files'] != sources:
             parser.error('source changes require a fresh stage; existing artifacts preserved')
-        for path, digest in sources.items():
-            staged = stage / path
-            if not staged.is_file() or sha256(staged) != digest:
-                parser.error(f'staged source differs: {path}; use a fresh stage')
+        if previous.get('source_symlinks', {}) != symlinks:
+            parser.error('symlink changes require a fresh stage; existing artifacts preserved')
     else:
         stage = Path(tempfile.mkdtemp(prefix='modules-', dir=output))
         for group in copy_groups:
-            shutil.copytree(repo / group, stage / group)
+            shutil.copytree(repo / group, stage / group, symlinks=True)
         (stage / 'Kbuild').write_text(kbuild)
+    try:
+        validate_stage(stage, sources, symlinks)
+    except (OSError, ValueError, RuntimeError) as error:
+        parser.error(str(error))
     command = ['make', '-C', str(kernel), f'O={kout}', f'M={stage}',
                'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1', 'HOSTCC=gcc', f'-j{args.jobs}']
     command += host_options
     command += build_options(kernel, stage)
-    command += ([f'{g}/' for g in GROUPS] if args.objects else ['modules'])
+    command += ([f'{g}/' for g in groups] if args.objects else ['modules'])
     inputs = {str(p): sha256(p) for p in required if p != clang / 'clang'}
-    metadata = {'stage': str(stage), 'command': command, 'kernel_inputs': inputs,
+    metadata = {'stage': str(stage), 'profile': args.profile,
+                'command': command, 'kernel_inputs': inputs,
                 'objects_only': args.objects,
                 'source_commit': subprocess.check_output(
                     ['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip(),
                 'source_dirty': bool(subprocess.check_output(
                     ['git', '-C', str(repo), 'status', '--porcelain'], text=True).strip()),
-                'source_files': sources}
+                'source_files': sources, 'source_symlinks': symlinks}
     (stage / 'build.json').write_text(json.dumps(metadata, indent=2) + '\n')
     print('Staged sources:', stage, flush=True)
     print('Validation:', 'objects only' if args.objects else 'modules with strict modpost', flush=True)
@@ -174,6 +218,13 @@ def main():
             required_names = {'camera', 'msm_drm', 'machine_dlkm', 'nxp_nci',
                               'frpc_adsprpc', 'goodix_core', 'xiaomi_touch',
                               'msm_ext_display', 'msm_hw_fence', 'synx_driver'}
+            if args.profile == 'platform':
+                required_names |= {'msm_kgsl', 'msm_video', 'msm_eva', 'smem_mailbox',
+                                   'cnss2', 'icnss2', 'cnss_utils', 'cnss_prealloc',
+                                   'cnss_nl', 'cnss_plat_ipc_qmi_svc',
+                                   'wlan_firmware_service', 'btpower',
+                                   'btfmcodec', 'bt_fm_swr', 'btfm_slim_codec',
+                                   'radio_i2c_rtc6226_qca'}
             missing = required_names - report['modules'].keys()
             if missing:
                 raise ValueError(f'missing selected modules: {sorted(missing)}')
