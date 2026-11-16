@@ -1,3 +1,5 @@
+Current BTF prerequisites and stock-module checks: [R10 HyperOS ABI work](annibale-hyperos.md).
+
 # R8 external module link qualification
 
 The earlier touch/CSIPHY checks stopped at relocatable objects. R8 adds a fresh

@@ -51,6 +51,11 @@ class QualificationTests(unittest.TestCase):
         self.assertEqual(report['kernel_module_count'], 1)
         self.assertEqual(report['external_module_count'], 1)
 
+    def test_btf_required_by_target_config(self):
+        (self.kernel / '.config').write_text('CONFIG_MODVERSIONS=y\nCONFIG_DEBUG_INFO_BTF_MODULES=y\n')
+        with self.assertRaisesRegex(ValueError, 'required module BTF'):
+            verify(self.kernel, self.stage)
+
     def test_crc_mismatch_rejected(self):
         elf_module(self.stage / 'consumer.ko', 'consumer', crc=0x87654321)
         with self.assertRaisesRegex(ValueError, 'CRC'):

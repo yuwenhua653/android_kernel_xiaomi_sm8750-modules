@@ -64,6 +64,8 @@ def main():
     parser.add_argument('--kernel', type=Path, required=True)
     parser.add_argument('--kernel-out', type=Path, required=True)
     parser.add_argument('--clang-bin', type=Path, required=True)
+    parser.add_argument('--kernel-tools-bin', type=Path,
+                        help='AOSP kernel-build-tools/linux-x86/bin (pahole and adjacent libelf)')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--jobs', type=int, choices=range(1, 10), default=3)
     parser.add_argument('--objects', action='store_true',
@@ -94,6 +96,18 @@ def main():
     if not args.objects and not (kout / 'Module.symvers').read_text().strip():
         parser.error('kernel Module.symvers must not be empty')
     env = dict(os.environ, PATH=f'{clang}:{os.environ.get("PATH", "")}')
+    host_options = []
+    if args.kernel_tools_bin:
+        kernel_tools = args.kernel_tools_bin.resolve()
+        root = kernel_tools.parent
+        for path in (kernel_tools / 'pahole', root / 'include/libelf.h', root / 'lib64/libelf.so'):
+            if not path.is_file():
+                parser.error(f'missing kernel build tool input: {path}')
+        env['PATH'] = f'{kernel_tools}:{env["PATH"]}'
+        host_options = [f'HOSTCFLAGS={env.get("HOSTCFLAGS", "")} -I{root}/include',
+                        f'HOSTLDFLAGS={env.get("HOSTLDFLAGS", "")} -L{root}/lib64 -Wl,-rpath,{root}/lib64']
+    if 'CONFIG_DEBUG_INFO_BTF_MODULES=y' in config.splitlines() and not shutil.which('pahole', path=env['PATH']):
+        parser.error('BTF modules require pahole; supply --kernel-tools-bin or install host pahole')
     for key in ('KBUILD_MODPOST_WARN', 'KBUILD_MODPOST_NOFINAL', 'KBUILD_EXTRA_SYMBOLS',
                 'KBUILD_MIXED_TREE', 'KBUILD_MODPOST_ALLOW_MISSING_NAMESPACE_IMPORTS'):
         if env.get(key):
@@ -122,6 +136,7 @@ def main():
         (stage / 'Kbuild').write_text(kbuild)
     command = ['make', '-C', str(kernel), f'O={kout}', f'M={stage}',
                'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1', 'HOSTCC=gcc', f'-j{args.jobs}']
+    command += host_options
     command += build_options(kernel, stage)
     command += ([f'{g}/' for g in GROUPS] if args.objects else ['modules'])
     inputs = {str(p): sha256(p) for p in required if p != clang / 'clang'}

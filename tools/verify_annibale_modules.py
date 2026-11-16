@@ -111,6 +111,8 @@ def verify(kernel_out, module_stage):
     vermagics = set()
     for p in paths:
         info, imports = module_info(p)
+        if 'CONFIG_DEBUG_INFO_BTF_MODULES=y' in config and not sections(p).get('.BTF'):
+            raise ValueError(f'{p}: required module BTF is missing')
         # Linux module-name matching treats '-' and '_' as equivalent.
         name, vermagic = info['name'][0].replace('-', '_'), info['vermagic'][0]
         if name in modules:
