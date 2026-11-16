@@ -1,0 +1,156 @@
+{
+  "round": "R18",
+  "target": "Redmi K90 / annibale / SM8750",
+  "scope": "Touch lifecycle fixes and expanded partial native loading",
+  "kernel_code_and_image_unchanged": true,
+  "release": "6.6.144-4k-gf112270e61a8",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "modules_parent": "9b6bbcd9444e8e164232d40fbadadfe2eb06cf9b",
+  "dt_parent": "8796f6e1fc9e51b1b6a93fc749d62c9e41a3dad4",
+  "rebuilt_external_modules": 91,
+  "kernel_modules": 411,
+  "strict_modpost": true,
+  "verification": "passed",
+  "compiled_source_records_rechecked": 9424,
+  "generated_kbuild_included": true,
+  "source_symlinks_rechecked": 13,
+  "compiled_source_dirty_at_build": true,
+  "kernel_input_hashes": {
+    "/workspace/scratch/b72c45bd8860/sm8750/Makefile": "c64db5af15c18c1b46701fb95391e47628884810df0f92b6ed7ed506bcf9db2a",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/.config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/include/config/kernel.release": "ee18cafba5d018b7103de3523d247d709e8bcd660320a7466d696e80a15f8e3b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/vmlinux": "e4036f6052d1b6ca96cf9751e45806d017aec1f8ee53b18fc7a10c8b7376513b",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/arch/arm64/boot/Image": "9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+    "/workspace/scratch/b72c45bd8860/out/annibale-btf/modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183"
+  },
+  "build_record_sha256": "bbb1879899326f6c084ba45d34e9ccdcb71418041b58a98d68ba8fdca3475d0f",
+  "build_log_sha256": "842e00819e8484419031872d7fe5fee9d044bf0fde8571e5a158d13689f437df",
+  "compiler_warning_lines": 13,
+  "tests_passed": 83,
+  "tests_sha256": "d3be0677f6d5713480fdf1904da35f608e009d3b3d732db14f8e5cd83b6576bd",
+  "touch_power_supply_cases": 64,
+  "touch_selected_outputs": {
+    "xiaomi/touch/annibale/goodix_9916k/goodix_core.ko": "96d460b2435814e40ace5ab0fec4811761e9af1e64f49d7b91f8402435789dfc",
+    "xiaomi/touch/annibale/xiaomi/xiaomi_touch.ko": "f494da45154d75af73db3aa48186b7284bf3f012309c4603883e0f4151a8df4e"
+  },
+  "source_stages": {
+    "tfa": {
+      "selected_module_count": 186,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 66,
+          "dependency_references": 428,
+          "installed_module_count": 66,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 120,
+          "dependency_references": 805,
+          "installed_module_count": 119,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "installed_bytes": 60104664,
+      "source_bytes": 523727248,
+      "post_strip_metadata_crc_btf": "preserved",
+      "manifest_sha256": "f975773b0e17b86a0821f145d55b213d9c564a237d171442c6d88a71ee3c73bf",
+      "validation_sha256": "72f4e550fbe80e52dfa84a6e80c2905b0f44078bd635cdef8c70938129e1e5f7"
+    },
+    "sia": {
+      "selected_module_count": 187,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 66,
+          "dependency_references": 428,
+          "installed_module_count": 66,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 121,
+          "dependency_references": 805,
+          "installed_module_count": 120,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "installed_bytes": 59852224,
+      "source_bytes": 523953416,
+      "post_strip_metadata_crc_btf": "preserved",
+      "manifest_sha256": "8d79c4c2e20f33b8aeb4588925e7fb1d4a29f456a342b293d7712a0fdb642f80",
+      "validation_sha256": "1d819716186ddc8e09f6335adeaeca0cac4fba53fead6406a1b9db123a51e4f0"
+    }
+  },
+  "ufs_order_regression": {
+    "tfa": {
+      "negative_late_tmecom_rejected": "load-stage inversion: qcom_ice in vendor_boot needs tmecom_intf in vendor_dlkm first",
+      "early_chain": [
+        "qcom_ipcc",
+        "msm_qmp",
+        "tmecom_intf",
+        "qcom_ice",
+        "ufs_qcom"
+      ],
+      "module_count": 186
+    },
+    "sia": {
+      "negative_late_tmecom_rejected": "load-stage inversion: qcom_ice in vendor_boot needs tmecom_intf in vendor_dlkm first",
+      "early_chain": [
+        "qcom_ipcc",
+        "msm_qmp",
+        "tmecom_intf",
+        "qcom_ice",
+        "ufs_qcom"
+      ],
+      "module_count": 187
+    }
+  },
+  "dt_compositions_passed": 16,
+  "dt_validation_sha256": "f7b863f223897f33398f92fb2425b35d55789effe5cf6c1bfff08b8ad4723d60",
+  "dtc_warning_count": 2343,
+  "dt_negative_cases": [
+    {
+      "case": "wrong-audio-family",
+      "rejected": "audio family overwritten"
+    },
+    {
+      "case": "disabled-gpu",
+      "rejected": "GPU is disabled"
+    },
+    {
+      "case": "broken-touch-panels",
+      "rejected": "touch panel references changed"
+    }
+  ],
+  "dual_rom_status": "incomplete_inventory",
+  "stock_counts": {
+    "modules_with_detected_blockers": 0
+  },
+  "stock_ambiguous_names": [
+    "adsp_loader_dlkm",
+    "gpr_dlkm",
+    "q6_notifier_dlkm",
+    "q6_pdr_dlkm",
+    "snd_event_dlkm",
+    "spf_core_dlkm",
+    "zram",
+    "zsmalloc"
+  ],
+  "flashable": false,
+  "complete_device": false,
+  "boot_verified": false,
+  "runtime_touch_display_audio_verified": false
+}

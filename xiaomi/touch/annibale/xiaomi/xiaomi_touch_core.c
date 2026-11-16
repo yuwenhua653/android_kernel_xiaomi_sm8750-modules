@@ -15,6 +15,11 @@
 #include "xiaomi_touch.h"
 static xiaomi_touch_t xiaomi_touch;
 static struct task_struct *xiaomi_touch_temp_thread;
+#if defined(CONFIG_DRM)
+/* Serialize bind/unbind separately from work and late notifier callbacks. */
+static DEFINE_MUTEX(xiaomi_panel_lifecycle_lock);
+static DEFINE_MUTEX(xiaomi_panel_work_lock);
+#endif
 
 #define NETLINK_TEST 24
 #define MAX_MSGSIZE 16
@@ -842,9 +847,9 @@ static void xiaomi_drm_panel_notifier_callback(enum panel_event_notifier_tag tag
 static void xiaomi_register_panel_notifier_work(struct work_struct *work)
 {
 	xiaomi_touch_data_t *xiaomi_touch_data = container_of(work, xiaomi_touch_data_t, panel_notifier_register_work.work);
-	static int check_count = 0;
 	struct drm_panel *panel = NULL;
-	struct device_node *node;
+	struct device_node *node = NULL;
+	bool retry = false;
 	int count = 0;
 	int i = 0;
 	long touch_id = -1;
@@ -854,27 +859,35 @@ static void xiaomi_register_panel_notifier_work(struct work_struct *work)
 	char *property_name = "panel";
 #endif
 
-	LOG_INFO("Start register panel notifier");
+	mutex_lock(&xiaomi_panel_work_lock);
+	if (!xiaomi_touch_data->panel_notifier_active)
+		goto out;
+
+	LOG_DEBUG("Start register panel notifier");
 	count = of_count_phandle_with_args(xiaomi_touch_data->dev->of_node, property_name, NULL);
+	if (count <= 0) {
+		LOG_ERROR("Missing or invalid panel phandles: %d", count);
+		goto out;
+	}
 	for (i = 0; i < count; i++) {
 		node = of_parse_phandle(xiaomi_touch_data->dev->of_node, property_name, i);
+		if (!node)
+			continue;
 		panel = of_drm_find_panel(node);
 		if (!IS_ERR(panel)) {
 			break;
 		} else {
+			if (PTR_ERR(panel) == -EPROBE_DEFER)
+				retry = true;
 			panel = NULL;
 			of_node_put(node);
+			node = NULL;
 		}
 	}
 
 	if (!panel) {
-		LOG_ERROR("Failed to register panel notifier, try again");
-		if (check_count++ < 5)
-			schedule_delayed_work(&xiaomi_touch_data->panel_notifier_register_work, msecs_to_jiffies(5000));
-		else {
-			LOG_ERROR("Failed to register panel notifier, not try");
-		}
-		return;
+		/* A deferred display probe must not permanently disable touch PM. */
+		goto retry_or_out;
 	}
 
 	for (i = 0; i < MAX_TOUCH_PANEL_COUNT; i++) {
@@ -886,7 +899,7 @@ static void xiaomi_register_panel_notifier_work(struct work_struct *work)
 
 	if (touch_id < 0) {
 		LOG_ERROR("can't not find this touch id!");
-		return;
+		goto put_node;
 	}
 
 #if defined(TOUCH_PLATFORM_XRING)
@@ -900,10 +913,23 @@ static void xiaomi_register_panel_notifier_work(struct work_struct *work)
 		&xiaomi_drm_panel_notifier_callback, (void *)touch_id);
 #endif
 #endif
-	of_node_put(node);
-	if (IS_ERR(xiaomi_touch_data->notifier_cookie)) {
+	if (IS_ERR_OR_NULL(xiaomi_touch_data->notifier_cookie)) {
+		long error = PTR_ERR(xiaomi_touch_data->notifier_cookie);
+
+		retry = error == -EPROBE_DEFER || error == -EAGAIN || error == -ENOMEM;
+		xiaomi_touch_data->notifier_cookie = NULL;
 		LOG_ERROR("Failed to register for panel events");
+	} else {
+		retry = false;
 	}
+put_node:
+	of_node_put(node);
+retry_or_out:
+	if (retry)
+		schedule_delayed_work(&xiaomi_touch_data->panel_notifier_register_work,
+			msecs_to_jiffies(5000));
+out:
+	mutex_unlock(&xiaomi_panel_work_lock);
 }
 
 #endif
@@ -919,11 +945,17 @@ void schedule_resume_suspend_work(s8 touch_id, bool resume_work)
 	}
 
 	flush_workqueue(xiaomi_touch_data->event_wq);
+	mutex_lock(&xiaomi_panel_work_lock);
+	if (!xiaomi_touch_data->panel_notifier_active) {
+		mutex_unlock(&xiaomi_panel_work_lock);
+		return;
+	}
 	if (resume_work) {
 		queue_work_result = queue_work(xiaomi_touch_data->event_wq, &xiaomi_touch_data->resume_work);
 	} else {
 		queue_work_result = queue_work(xiaomi_touch_data->event_wq, &xiaomi_touch_data->suspend_work);
 	}
+	mutex_unlock(&xiaomi_panel_work_lock);
 
 	if (!queue_work_result) {
 		LOG_ERROR("queue %s work failed, retry", resume_work ? "resume" : "suspend");
@@ -941,15 +973,26 @@ void xiaomi_register_panel_notifier(struct device *dev, s8 touch_id,
 {
 #if defined(CONFIG_DRM)
 	xiaomi_touch_data_t *xiaomi_touch_data = get_xiaomi_touch_data(touch_id);
-	if (xiaomi_touch_data == NULL)
+	if (!xiaomi_touch_data || !dev || !dev->of_node || !xiaomi_touch_data->event_wq)
 		return;
+	mutex_lock(&xiaomi_panel_lifecycle_lock);
+	mutex_lock(&xiaomi_panel_work_lock);
+	if (xiaomi_touch_data->panel_notifier_active) {
+		LOG_ERROR("panel notifier is already active");
+		goto unlock;
+	}
 	xiaomi_touch_data->dev = dev;
+	xiaomi_touch_data->notifier_cookie = NULL;
 	xiaomi_touch_data->panel_event_notifier_tag = panel_event_notifier_tag;
 	xiaomi_touch_data->panel_event_notifier_client = panel_event_notifier_client;
 	INIT_DELAYED_WORK(&xiaomi_touch_data->panel_notifier_register_work, xiaomi_register_panel_notifier_work);
 	INIT_WORK(&xiaomi_touch_data->suspend_work, xiaomi_touch_suspend_work);
 	INIT_WORK(&xiaomi_touch_data->resume_work, xiaomi_touch_resume_work);
+	xiaomi_touch_data->panel_notifier_active = true;
 	schedule_delayed_work(&xiaomi_touch_data->panel_notifier_register_work, msecs_to_jiffies(0));
+unlock:
+	mutex_unlock(&xiaomi_panel_work_lock);
+	mutex_unlock(&xiaomi_panel_lifecycle_lock);
 #endif
 }
 EXPORT_SYMBOL_GPL(xiaomi_register_panel_notifier);
@@ -960,47 +1003,60 @@ void xiaomi_unregister_panel_notifier(struct device *dev, s8 touch_id)
 	xiaomi_touch_data_t *xiaomi_touch_data = get_xiaomi_touch_data(touch_id);
 	if (xiaomi_touch_data == NULL)
 		return;
+	mutex_lock(&xiaomi_panel_lifecycle_lock);
+	mutex_lock(&xiaomi_panel_work_lock);
+	if (!xiaomi_touch_data->panel_notifier_active || xiaomi_touch_data->dev != dev) {
+		mutex_unlock(&xiaomi_panel_work_lock);
+		goto out;
+	}
+	/* Qualcomm unregister does not wait for a callback already in flight. */
+	xiaomi_touch_data->panel_notifier_active = false;
+	mutex_unlock(&xiaomi_panel_work_lock);
 	cancel_delayed_work_sync(&xiaomi_touch_data->panel_notifier_register_work);
-	cancel_work_sync(&xiaomi_touch_data->suspend_work);
-	cancel_work_sync(&xiaomi_touch_data->resume_work);
 
 #if defined(TOUCH_PLATFORM_XRING)
-	if (!IS_ERR(xiaomi_touch_data->notifier_cookie))
+	if (!IS_ERR_OR_NULL(xiaomi_touch_data->notifier_cookie))
 		xring_panel_event_notifier_unregister(xiaomi_touch_data->notifier_cookie);
 #else
 #if IS_ENABLED(CONFIG_QCOM_PANEL_EVENT_NOTIFIER)
-	if (!IS_ERR(xiaomi_touch_data->notifier_cookie))
+	if (!IS_ERR_OR_NULL(xiaomi_touch_data->notifier_cookie))
 		panel_event_notifier_unregister(xiaomi_touch_data->notifier_cookie);
 #endif
 #endif
+	xiaomi_touch_data->notifier_cookie = NULL;
+	cancel_work_sync(&xiaomi_touch_data->suspend_work);
+	cancel_work_sync(&xiaomi_touch_data->resume_work);
+	xiaomi_touch_data->dev = NULL;
+out:
+	mutex_unlock(&xiaomi_panel_lifecycle_lock);
 #endif
 }
 EXPORT_SYMBOL_GPL(xiaomi_unregister_panel_notifier);
 
+static bool xiaomi_supply_online(const char *name)
+{
+	struct power_supply *psy;
+	union power_supply_propval val;
+	int rc;
+
+	psy = power_supply_get_by_name(name);
+	if (!psy)
+		return false;
+	rc = power_supply_get_property(psy, POWER_SUPPLY_PROP_ONLINE, &val);
+	power_supply_put(psy);
+	if (rc < 0) {
+		LOG_ERROR("Couldn't get %s online status, rc=%d", name, rc);
+		return false;
+	}
+	return val.intval == 1;
+}
+
 static int xiaomi_get_charging_status(void)
 {
-	struct power_supply *usb_psy;
-	struct power_supply *dc_psy;
-	union power_supply_propval val;
-	int rc = 0;
-
-	dc_psy = power_supply_get_by_name("wireless");
-	if (dc_psy) {
-		rc = power_supply_get_property(dc_psy, POWER_SUPPLY_PROP_ONLINE, &val);
-		if (rc < 0)
-			LOG_ERROR("Couldn't get DC online status, rc=%d\n", rc);
-		else if (val.intval == 1)
-			return CHARGING | WIRELESS_CHARGING;
-	}
-
-	usb_psy = power_supply_get_by_name("usb");
-	if (usb_psy) {
-		rc = power_supply_get_property(usb_psy, POWER_SUPPLY_PROP_ONLINE, &val);
-		if (rc < 0)
-			LOG_ERROR("Couldn't get usb online status, rc=%d\n", rc);
-		else if (val.intval == 1)
-			return CHARGING | WIRED_CHARGING;
-	}
+	if (xiaomi_supply_online("wireless"))
+		return CHARGING | WIRELESS_CHARGING;
+	if (xiaomi_supply_online("usb"))
+		return CHARGING | WIRED_CHARGING;
 	return NOT_CHARGING;
 }
 

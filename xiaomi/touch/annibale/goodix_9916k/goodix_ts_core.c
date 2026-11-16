@@ -4473,6 +4473,8 @@ static int goodix_ts_remove(struct platform_device *pdev)
 	struct goodix_ts_hw_ops *hw_ops = core_data->hw_ops;
 	struct goodix_ts_esd *ts_esd = &core_data->ts_esd;
 
+	/* Stop display-driven PM before dismantling controller resources. */
+	xiaomi_unregister_panel_notifier(core_data->bus->dev, TOUCH_ID);
 	goodix_ts_unregister_notifier(&core_data->ts_notifier);
 	goodix_tools_exit();
 
@@ -4503,13 +4505,15 @@ static void goodix_ts_shutdown(struct platform_device *pdev)
 {
 	struct goodix_ts_core *core_data = platform_get_drvdata(pdev);
 	ts_info("goodix_ts_shutdown enter");
-	//disable irq -> [500us] -> power off -> unregister
+	if (!core_data)
+		return;
+	xiaomi_unregister_panel_notifier(core_data->bus->dev, TOUCH_ID);
+	/* Stop display notifications, then IRQ, before powering off. */
 	core_data->hw_ops->irq_enable(core_data, false);
 	usleep_range(500, 510);
 	if (core_data) {
 		goodix_ts_power_off(core_data);
 	}
-	xiaomi_unregister_panel_notifier(core_data->bus->dev, TOUCH_ID);
 	unregister_touch_panel(TOUCH_ID);
 }
 

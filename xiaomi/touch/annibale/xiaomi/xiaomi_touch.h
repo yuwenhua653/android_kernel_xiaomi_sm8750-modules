@@ -264,6 +264,7 @@ typedef struct xiaomi_touch_data {
 	struct delayed_work panel_notifier_register_work;
 	struct device *dev;
 	void *notifier_cookie;
+	bool panel_notifier_active;
 	int panel_event_notifier_tag;
 	int panel_event_notifier_client;
 #endif

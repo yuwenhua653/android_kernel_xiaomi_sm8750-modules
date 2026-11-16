@@ -81,7 +81,7 @@ def validate_dep(text, entries, verification):
 
 def write_make_example(output, plan):
     lines = [
-        '# REVIEW ONLY: partial normal-boot audio/network qualification, not a full BoardConfig.',
+        '# REVIEW ONLY: partial normal-boot source qualification, not a full BoardConfig.',
         '# Copy/review into the device tree only after completing hardware coverage and init policy.',
         '# Set ANNIBALE_MODULE_STAGE to the generated directory, relative to the Android tree.',
         'ifeq ($(strip $(ANNIBALE_MODULE_STAGE)),)',
@@ -138,6 +138,7 @@ def stage(kout, external, policy_path, output, depmod, strip, odm_root=None):
         raise ValueError('output overlaps source/build trees')
     report = {'schema_version': 1, 'status': 'android_stage_passed', 'flashable': False,
               'complete_device': False, 'audio_variant': plan['audio_variant'],
+              'scope': policy.get('scope', 'Partial native source qualification'),
               'release': plan['release'], 'kernel_input_sha256': inputs,
               'policy_sha256': digest(policy_path), 'tools': {
                   'depmod_sha256': digest(depmod), 'strip_sha256': digest(strip),
@@ -215,7 +216,8 @@ def stage(kout, external, policy_path, output, depmod, strip, odm_root=None):
         write_make_example(temp, plan)
         (temp / 'README.txt').write_text(
             'PARTIAL NATIVE SOURCE QUALIFICATION; NOT FLASHABLE.\n'
-            'Audio and network subset only; retain no stock modules in these lists.\n'
+            + report['scope'] + '\n'
+            'Retain no stock modules in these lists.\n'
             'Do not overwrite a ROM, HyperOS, recovery, or a device partition with this stage.\n'
             'Review Documentation/xiaomi/annibale-android-staging.md before device integration.\n'
             'No proprietary firmware/config/calibration is included; asset checks are metadata only.\n')

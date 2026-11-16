@@ -1,4 +1,8 @@
-Latest: [R16 microphone enable, smartpa ABI and family-specific loading](annibale-audio-runtime.md).
+Latest: [R18 touch lifecycle and expanded interactive loading](annibale-interactive.md).
+
+Prior: [R17 real Android staging and native loaders](annibale-android-staging.md).
+
+Prior: [R16 microphone enable, smartpa ABI and family-specific loading](annibale-audio-runtime.md).
 
 Latest: [R15 opt-in smartpa source integration](annibale-audio.md).
 
