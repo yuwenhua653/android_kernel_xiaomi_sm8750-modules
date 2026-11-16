@@ -1,0 +1,38 @@
+#!/vendor/bin/sh
+# SPDX-License-Identifier: GPL-2.0-only
+# Native source qualification only; replace the existing service's script owner.
+# This is independently implemented, not derived from a proprietary loader.
+set -f
+fail() { echo "annibale module load: $*" >&2; exit 1; }
+load_list() {
+    directory=$1
+    [ -s "$directory/modules.load" ] || fail "missing/empty $directory/modules.load"
+    [ -s "$directory/modules.dep" ] || fail "missing/empty $directory/modules.dep"
+    # Validate the entire list before inserting any module from this partition.
+    while IFS= read -r module || [ -n "$module" ]; do
+        case "$module" in
+            ''|*[!A-Za-z0-9_.-]*|.*|-*|*..*) fail "invalid module name: $module" ;;
+            *.ko) ;;
+            *) fail "missing .ko suffix: $module" ;;
+        esac
+        [ -f "$directory/$module" ] || fail "missing $directory/$module"
+    done < "$directory/modules.load"
+    while IFS= read -r module || [ -n "$module" ]; do
+        /vendor/bin/modprobe -b -d "$directory" -a "$module" || fail "insertion failed: $module"
+        loaded_name=$(printf '%s' "${module%.ko}" | /vendor/bin/tr '-' '_') || fail "module name conversion failed"
+        [ -d "/sys/module/$loaded_name" ] || fail "module absent after modprobe: $module"
+    done < "$directory/modules.load"
+}
+mode='@MODE@'
+if [ "$mode" = vendor ]; then
+    /vendor/bin/setprop vendor.all.modules.ready 0 || fail "cannot clear ready property"
+fi
+[ "$(/vendor/bin/uname -r)" = '@RELEASE@' ] || fail "kernel release mismatch"
+@BOOT_CHECKS@
+# Repeat this prerequisite in the vendor service: init can continue after a failed
+# exec_start gki.modprobe. modprobe is idempotent for already inserted modules.
+load_list /system_dlkm/lib/modules
+if [ "$mode" = vendor ]; then
+    load_list /vendor_dlkm/lib/modules
+    /vendor/bin/setprop vendor.all.modules.ready 1 || fail "cannot set ready property"
+fi

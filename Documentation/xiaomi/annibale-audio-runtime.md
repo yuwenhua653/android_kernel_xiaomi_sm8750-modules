@@ -4,6 +4,8 @@ R15 compiled the two amplifier candidates and bound their real ASoC DAIs.
 R16 adds the missing discrete microphone enable control, the Xiaomi smartpa
 type read ABI, and separate source partition plans for each amplifier family.
 This remains opt-in source audio qualification, not a working-audio claim.
+R17's [Android staging follow-up](annibale-android-staging.md) adds real depmod
+output, strip checks and source-native loader integration examples.
 
 ## Driver changes
 
@@ -83,8 +85,9 @@ with channels 0/1 enabled. These checks do not interpret every register or DSP
 instruction. XML control references agree with the imported source control
 names and SIA's DT prefixes; live ALSA enumeration remains unverified. No
 inference that a specific family is fitted is made from both files being present.
-The sysfs read interface is restored from Xiaomi source; the exact OS4 userspace
-reader and SELinux access to it are not established by this asset check.
+The sysfs read interface is restored from Xiaomi source. The R17 vendor audit
+finds references in the exact OS4 `libagm.so`; actual access/control flow and
+SELinux permission remain unverified.
 
 The init files refer to per-device files under `/mnt/vendor/persist/audio`.
 Do not replace these with another device's calibration or manufacture values.

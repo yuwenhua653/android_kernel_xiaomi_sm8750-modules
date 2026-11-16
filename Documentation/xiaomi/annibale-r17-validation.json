@@ -1,0 +1,106 @@
+{
+  "round": "R17",
+  "target": "Redmi K90 / annibale / SM8750",
+  "scope": "Native Android installation qualification; audio/network subset",
+  "kernel_code_unchanged": true,
+  "driver_code_unchanged": true,
+  "device_tree_unchanged": true,
+  "external_build_reused": "R16, 91 linked external modules",
+  "compiled_source_files_rechecked": 9424,
+  "generated_kbuild_included_in_count": true,
+  "source_symlinks_rechecked": 13,
+  "release": "6.6.144-4k-gf112270e61a8",
+  "kernel_repository_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "module_parent": "fce52d8a56628c88c56ff7bf803728fba5e5e982",
+  "devicetrees_commit": "8796f6e1fc9e51b1b6a93fc749d62c9e41a3dad4",
+  "android_build_reference": "90d006387398ae6899145e6531a304500cfa0f70",
+  "android_system_core_reference": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+  "source_family_stages": {
+    "tfa": {
+      "selected_modules": 122,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 32,
+          "dependency_references": 150,
+          "installed_module_count": 32,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 90,
+          "dependency_references": 704,
+          "installed_module_count": 89,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "source_module_bytes": 447331472,
+      "installed_module_bytes": 45940352,
+      "metadata_crc_btf_preserved": true,
+      "asset_files_checked": 7,
+      "validation_sha256": "c2ce7dc640092c1d56103ddf4e19ccf4293b37383ad265e019a39b9b815d71e7",
+      "manifest_sha256": "289e615927dc348a487f02fcb541bf06b536106c5e78f52e0d1072fc4b36463d"
+    },
+    "sia": {
+      "selected_modules": 123,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 32,
+          "dependency_references": 150,
+          "installed_module_count": 32,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 91,
+          "dependency_references": 704,
+          "installed_module_count": 90,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "source_module_bytes": 447557608,
+      "installed_module_bytes": 45687912,
+      "metadata_crc_btf_preserved": true,
+      "asset_files_checked": 7,
+      "validation_sha256": "430fd1192545e7bb249db253caeb3201530ec9dc78a2b90bffde2b148d69310f",
+      "manifest_sha256": "0206d3030a70d88efae219135f4b09c71b7dde6ae1d09b0183e41d4cf3906228"
+    }
+  },
+  "unit_tests_passed": 82,
+  "tests_sha256": "8ac1765216e601623f3a83edac2ed600023b3c428fee7c70e2a6b453aa321082",
+  "exact_vendor": {
+    "label": "OS4.0.6.0.XPKCNXM",
+    "partition_sha256": "2601a8eb5879617858263ae7365dbd1bbbd8db79926ff2565ee950bbe1c676bc",
+    "references": {
+      "bin/system_dlkm_modprobe.sh": "52813239ab9d2e4a67e772747fe2b98004205433116eb02c019963b06c1d17c9",
+      "bin/vendor_modprobe.sh": "0d773f29a657de1dfabbbc8139cb04468656e6a5755f6e68d08d9815ba74b141",
+      "etc/init/hw/init.qti.kernel.rc": "77a8019f1382471bfea4753103defb2e19860b5e115e0690e95ac07b25ddf75b",
+      "etc/selinux/vendor_file_contexts": "9224316712e6ab2472c0e7554ebd1c90886c1c8c79f7d30b4a8616f734ebf343",
+      "etc/selinux/vendor_property_contexts": "25a7c1d6ad9e47edb19070533554e227c400c3162867ca9089b8934ff13cd64a",
+      "lib64/libagm.so": "dc5710dfac4fff725271e2d5a2f6cbb709438b94adde8376ad41edc68c0dfa0d"
+    },
+    "libagm_strings_present": [
+      "/sys/kernel/smartpa/smartpa_type",
+      "get_smartpa_type",
+      "tfa98xx",
+      "sia91xx",
+      "persist.vendor.audio.pa.smartpa_type"
+    ],
+    "strings_are_not_runtime_execution_proof": true,
+    "proprietary_files_redistributed": false
+  },
+  "hyperos_stock_path": "unchanged; eight unresolved normal/recovery variants",
+  "boot_compatible": false,
+  "runtime_audio_verified": false,
+  "complete_device": false,
+  "flashable": false
+}
