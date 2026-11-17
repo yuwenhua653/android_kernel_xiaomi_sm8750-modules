@@ -15,6 +15,7 @@ import shutil
 import struct
 import tempfile
 
+from annibale_power import check_plan
 from check_annibale_rom_paths import check_build_inputs, digest
 from verify_annibale_modules import verify
 
@@ -96,6 +97,7 @@ def resolve(verification, policy, builtins):
             graph.setdefault(earlier, set())
             edges.append({'before': earlier, 'after': later, 'kind': kind})
             pending.append(other)
+    check_plan(policy, selected, board, builtins)
     wireless_profile = policy.get('wireless_profile')
     if 'wireless_profile' in policy:
         if wireless_profile != 'annibale-kiwi':
@@ -172,6 +174,7 @@ def resolve(verification, policy, builtins):
     return {'schema_version': 1, 'status': 'partition_plan_passed',
             'profile': policy['profile'], 'boot_mode': 'normal',
             'audio_variant': audio_variant, 'wireless_profile': wireless_profile,
+            'power_profile': policy.get('power_profile'),
             'complete_device': False, 'flashable': False, 'release': verification['release'],
             'selected_module_count': len(selected), 'roots': roots,
             'partitions': {p: [n for n in order if owners[n] == p] for p in PARTITIONS},

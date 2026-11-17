@@ -17,6 +17,7 @@ import tempfile
 from audit_annibale_stock import exports
 from check_annibale_audio_assets import check as check_assets
 from check_annibale_rom_paths import check_build_inputs, digest
+from annibale_power import check_config
 from plan_annibale_modules import PARTITIONS, module_name, resolve
 from verify_annibale_modules import module_info, sections, verify
 
@@ -126,6 +127,7 @@ def stage(kout, external, policy_path, output, depmod, strip, odm_root=None):
         raise ValueError('stale/unrecorded modules.builtin')
     verification = verify(kout, external)
     policy = json.loads(policy_path.read_text())
+    check_config(policy, (kout / '.config').read_text())
     plan = resolve(verification, policy,
                    {module_name(Path(n).stem) for n in builtin.read_text().splitlines()})
     if plan.get('audio_variant') not in ('tfa', 'sia'):
