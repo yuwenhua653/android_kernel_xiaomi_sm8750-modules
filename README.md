@@ -2,6 +2,10 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
+当前进度：[R22 多媒体与蓝牙传输依赖接入](Documentation/xiaomi/annibale-multimedia.md)；
+[本轮验证记录](Documentation/xiaomi/annibale-r22-validation.json)。
+原生源码方案与澎湃原厂保留方案分开验证，尚未完成 OSS 真机开机验证。
+
 - 来源：`LineageOS/android_kernel_qcom_sm8750-modules`，`lineage-22.2`。
 - 初始提交：`14ab4c38ac7f07d2b807ca7851500da86d2eb56e`。
 - 开发分支：`annibale`。

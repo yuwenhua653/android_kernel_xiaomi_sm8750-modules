@@ -1027,5 +1027,13 @@ static void __exit msm_vidc_exit(void)
 module_init(msm_vidc_init);
 module_exit(msm_vidc_exit);
 
-MODULE_SOFTDEP("pre: subsys-pil-tz msm-mmrm");
+/* SUN loads/authenticates its video firmware through qcom_mdt_load() and
+ * qcom_scm_pas_auth_and_reset(). Their real ELF dependencies already order
+ * mdt_loader and qcom_scm; the legacy subsys-pil-tz module does not exist here.
+ * Keep the older-platform prerequisite until those paths are qualified.
+ */
+#if !IS_ENABLED(CONFIG_ARCH_SUN)
+MODULE_SOFTDEP("pre: subsys-pil-tz");
+#endif
+MODULE_SOFTDEP("pre: msm-mmrm");
 MODULE_LICENSE("GPL v2");

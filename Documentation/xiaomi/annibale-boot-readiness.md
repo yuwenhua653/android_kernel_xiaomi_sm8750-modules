@@ -105,3 +105,27 @@ conditionally, and independent candidate unpack/kernel comparison passed.
 Windows execution and real-device capture have not yet been tested. Driver
 builds and DT composition were not rerun because those inputs are unchanged;
 their R20/R19 records remain prior evidence, not new R21 build results.
+
+## R22 live OEM baseline update — 2026-11-17
+
+The restored working phone was captured with the four-function bundle. See
+`annibale-os406-live-baseline.json` for selected nonpersonal facts and archive
+hash. OS4.0.6.0 system and vendor are now confirmed together, Android 17 / SDK 37,
+slot B, unlocked/orange and SELinux enforcing. `/data` is F2FS and vendor/ODM/
+DLKM mounts are EROFS. This resolves the previously unknown running version
+and MIFS-vs-F2FS observation for **this captured OEM state**.
+
+The normal capture lists 605 loaded modules, versus 538 in the earlier mixed
+4.0.0.18/4.0.0.17 fault state. The actual WLAN module is
+`qca_cld3_kiwi_v2`; absence of a module literally named `wlan` is not a failure.
+The 67 additions include optional generic network/USB protocols and must not
+all be treated as required missing board drivers. Bluetooth SLIM transport is
+one relevant addition to the native source selection.
+
+The user confirms restored Wi-Fi/audio/BT/vibration. This is not an OSS 6.6.144
+boot test. The third-party Doubao debug kernel failure is not a test of our
+kernel either. Same uname text between two OEM captures does not establish
+identical kernel or partition bytes. Slot A then B does not prove automatic
+rollback. Empty `vendor.all.modules.ready` occurs on the working OEM capture;
+this property is not an OEM health gate. Runtime security/ABI, candidate
+installation/restoration and OSS hardware gates remain open.

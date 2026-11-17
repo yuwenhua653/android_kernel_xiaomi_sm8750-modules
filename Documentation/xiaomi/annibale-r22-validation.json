@@ -1,0 +1,124 @@
+{
+  "round": "R22",
+  "target": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-17",
+  "scope": "SUN video softdep correction; native camera/video/EVA/BT SLIM selection and explicit supplier order; revision-specific Annibale media DT composition",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "modules_parent": "1bcd87cbefca7d6c5f2473dbfcabfa466953dc8e",
+  "devicetrees_commit": "5a140ce2ee6684e82b3ea02970f48bd42f02d06d",
+  "kernel": {
+    "status": "passed",
+    "release": "6.6.144-4k-gc70ed7c690cc",
+    "in_tree_modules": 411,
+    "sha256": {
+      ".config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+      "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+      "vmlinux": "3debd03923f25bf908fda288fd7c7536b7fdbc16d14ae3a362c1211323671bd8",
+      "arch/arm64/boot/Image": "7dd4801021f16b047e0bdf7de2886df658067cf77d15308bd42675a6222e1c97",
+      "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757",
+      "modules.builtin": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183",
+      "qualification.log": "59c376c7ae9a3915402bb17df63818c9f761f4d74a07219bfcb16bfb212c6656"
+    }
+  },
+  "external_module_count": 91,
+  "strict_modpost": true,
+  "build_record_sha256": "d069c1ae65a8bbd37b7f7bdcf5f70d005e6805ed4db9758a8b2a2a3cc9e6d508",
+  "build_log_sha256": "b74190f26de43aa40641e0c4fdbf55d17f290e0bb7a2c7f535fcfdd9e47fbe9f",
+  "verification_sha256": "0a0d824c20b3e498e68bc8025126f8d69ec49e0ec8bcfc4c8c241f5f3734824a",
+  "source_file_hashes_rechecked": 9424,
+  "source_symlinks_rechecked": 13,
+  "changed_video_source_sha256": "75719fb1d6efc7b128c987c399b93e9b289de4dfa944a6b5684c3cad2f65b175",
+  "msm_video_elf": {
+    "depends": [
+      "msm_mmrm",
+      "llcc_qcom",
+      "clk_qcom",
+      "qcom_scm",
+      "mdt_loader",
+      "mem_buf_dev"
+    ],
+    "softdep": [
+      "pre: msm-mmrm"
+    ],
+    "sha256": "695164adfcd901dffa22518210fb7c3bcd2b7aac1401da09dcabdb452fd0478f"
+  },
+  "host_tests": {
+    "passed": 99,
+    "log_sha256": "03b3077793245cddaf943172ba1cd0f2bc06070d63023d280aa87fac5ded34c3"
+  },
+  "dt": {
+    "compositions": 32,
+    "negative_checks": 128,
+    "selector_checks": 8,
+    "report_sha256": "3e694aec484eb65224dd5efb750d257a471559628134e34bc2733f3b646ab8fb"
+  },
+  "policies": {
+    "tfa": {
+      "selected": 199,
+      "partitions": {
+        "vendor_boot": 66,
+        "system_dlkm": 1,
+        "vendor_dlkm": 132
+      },
+      "added_modules": [
+        "bam_dma",
+        "btfm_slim_codec",
+        "cambistmclkcc_sun",
+        "camcc_sun",
+        "camera",
+        "evacc_sun",
+        "frpc_adsprpc",
+        "leds_qti_flash",
+        "msm_eva",
+        "msm_video",
+        "slim_qcom_ngd_ctrl",
+        "slimbus",
+        "videocc_sun"
+      ],
+      "negative_provider_order_checks": 6,
+      "policy_sha256": "73df8b63e814e509d0647c709cb4d968720949a2cfd11963009e7f9538ffb2d4",
+      "plan_sha256": "ccc08107fa2ace895e0e5fa643e6ba9bfa4897fa71641458c0d7575d183b334f",
+      "stage_validation_sha256": "ef1719652396d03c58c9475ead1136f1058a52c91ab9b46d3001f5ae6f6e9a10"
+    },
+    "sia": {
+      "selected": 200,
+      "partitions": {
+        "vendor_boot": 66,
+        "system_dlkm": 1,
+        "vendor_dlkm": 133
+      },
+      "added_modules": [
+        "bam_dma",
+        "btfm_slim_codec",
+        "cambistmclkcc_sun",
+        "camcc_sun",
+        "camera",
+        "evacc_sun",
+        "frpc_adsprpc",
+        "leds_qti_flash",
+        "msm_eva",
+        "msm_video",
+        "slim_qcom_ngd_ctrl",
+        "slimbus",
+        "videocc_sun"
+      ],
+      "negative_provider_order_checks": 6,
+      "policy_sha256": "c1638f1429f5d60432f60be772e1402449e6fbc24a60a621a45dd678e00b4641",
+      "plan_sha256": "43ffa4fdfdaa338750c0f7462bc6eb8a4e8ddbdad79684a1b7a8b7042d9005e4",
+      "stage_validation_sha256": "77e56a02be7ba3d2ca78ac5bdc1676de1df7d930142374481b58f675e7ec39aa"
+    }
+  },
+  "flashable": false,
+  "boot_verified": false,
+  "hardware_verified": false,
+  "unverified": [
+    "Final native ROM image/bootloader/ramdisk assembly",
+    "Final WLAN/BT board power/pinctrl composition; SLIM controller is disabled in all 32 current DT candidates",
+    "Physical amplifier family (both modules are present on stock)",
+    "Firmware/calibration/HALs; ODM audio asset check not repeated this round",
+    "Camera/video/EVA probe and streaming/recording",
+    "Charging policy, Xiaomi display features, suspend/wake and standby",
+    "Retained-stock ABI audit was not repeated with stock binaries this round; config and Module.symvers match prior baseline but runtime signatures/CFI remain unqualified",
+    "Experimental qualify kernel has empty generated GKI unprotected list; not production KMI policy approval"
+  ]
+}

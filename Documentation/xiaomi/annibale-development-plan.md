@@ -27,3 +27,9 @@ R21 moves toward a first recoverable boot test: retained-stock normal-boot
 provider selection, an unsigned offline kernel-only candidate, and read-only
 live-device evidence. See `annibale-boot-readiness.md`. This does not supersede
 the native source-module path or qualify a flash without the remaining gates.
+
+R22 uses the restored OS4.0.6.0 live baseline and expands native source selection
+to camera, video, EVA and Bluetooth SLIM transport. Annibale-specific v1/v2
+multimedia overlays preserve board selectors. This is integration of already
+built drivers, not four new driver ports. See `annibale-multimedia.md` and
+`annibale-r22-validation.json` for current reproducible evidence and limits.
