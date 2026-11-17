@@ -29,6 +29,11 @@ def convert(files):
     board = board[:start] + '# Source-built kernel handoff (partial normal-boot qualification)\n' + \
         f'include {HANDOFF_PATH}/BoardConfig.mk\n\n' + board[end:]
     board = board.replace('androidboot.load_modules_parallel=true', 'androidboot.load_modules_parallel=false')
+    old_policy = 'include device/qcom/sepolicy_vndr/SEPolicy.mk'
+    require(board.splitlines().count(old_policy) == 1, 'Qualcomm policy include owner changed')
+    # The reviewed CAF branch uses SEPOLICY_PATH=.../sm8750 internally.
+    # Include it from the same standard manifest location so qva SPU labels resolve.
+    board = board.replace(old_policy, 'include device/qcom/sepolicy_vndr/sm8750/SEPolicy.mk')
     files['BoardConfig.mk'] = board
     old_copy = '$(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom'
     require(files['device.mk'].count(old_copy) == 1, 'first-stage fstab owner changed')

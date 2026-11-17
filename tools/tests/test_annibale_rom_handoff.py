@@ -7,7 +7,7 @@ from prepare_annibale_rom_handoff import convert, HANDOFF_PATH
 
 
 def reference():
-    return {'BoardConfig.mk': 'androidboot.load_modules_parallel=true\n# Kernel prebuilt\nPREBUILT_PATH := old\n# Kernel modules\nOLD_MODULES := old\n# Partitions\nBOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608\n',
+    return {'BoardConfig.mk': 'androidboot.load_modules_parallel=true\n# Kernel prebuilt\nPREBUILT_PATH := old\n# Kernel modules\nOLD_MODULES := old\n# Partitions\nBOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608\ninclude device/qcom/sepolicy_vndr/SEPolicy.mk\n',
             'device.mk': 'PRODUCT_PACKAGES += existing_service\nPRODUCT_COPY_FILES += $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom\n',
             'proprietary-files.txt': 'vendor/bin/system_dlkm_modprobe.sh\nvendor/bin/vendor_modprobe.sh\nvendor/etc/init/hw/init.qti.kernel.rc\nvendor/etc/init/hw/init.qti.kernel.target.rc\n',
             'rootdir/Android.bp': 'prebuilt_etc { name: "fstab.qcom", src: "etc/fstab.qcom", vendor: true, }\n'}
@@ -47,6 +47,15 @@ class HandoffConversionTests(unittest.TestCase):
             files = reference()
             files['BoardConfig.mk'] = files['BoardConfig.mk'].replace('androidboot.load_modules_parallel=true', setting)
             with self.assertRaisesRegex(ValueError, 'bootconfig'):
+                convert(files)
+
+    def test_platform_policy_include_matches_caf_install_path(self):
+        files, _ = convert(reference())
+        self.assertIn('include device/qcom/sepolicy_vndr/sm8750/SEPolicy.mk', files['BoardConfig.mk'])
+        for value in ('', 'include device/qcom/sepolicy_vndr/SEPolicy.mk\ninclude device/qcom/sepolicy_vndr/SEPolicy.mk'):
+            files = reference()
+            files['BoardConfig.mk'] = files['BoardConfig.mk'].replace('include device/qcom/sepolicy_vndr/SEPolicy.mk', value)
+            with self.assertRaisesRegex(ValueError, 'policy include owner'):
                 convert(files)
 
     def test_already_converted_input_is_rejected(self):

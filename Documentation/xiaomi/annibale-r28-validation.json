@@ -1,0 +1,197 @@
+{
+  "round": "R28",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "modules_parent": "ec210abd50154f9403846ddf9b4d93f6b4659108",
+  "devicetrees_commit": "efb44ba29a0a847b42519b0e87fed32d30df8904",
+  "kernel_rebuilt": false,
+  "external_modules_rebuilt": true,
+  "hardware_tested": false,
+  "flashable": false,
+  "tests_passed": 163,
+  "dtbs_checked": 32,
+  "build": {
+    "kernel_module_count": 411,
+    "external_module_count": 93,
+    "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64",
+    "source_snapshot_matches_current_files": 9440,
+    "make_returncode": 0,
+    "verification_status": "passed",
+    "kernel_inputs_unchanged": true,
+    "build_record_sha256": "754627fd5e01c3e78107f885d10789cffc2214a950494f9001e3294578ce2b80",
+    "verification_sha256": "be2436b6eb70422b69aa94214eaedfd4e6f87bff877e48d783e86ad3bee8b733"
+  },
+  "families": {
+    "tfa": {
+      "modules": 217,
+      "images": {
+        "boot": {
+          "sha256": "699363cb99b74cf8f283f379271e3f72cc3c7abad11ef8a06b4fecb3a6c8181d",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "18f198647a5b393d7d51f8018126ce020b90732b69308f762a351e876cc14cc5",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "a1a1ad33fc910f54a63f10f24991d48ce74b0f1ea068c10797be9ec25e297aee",
+          "bytes": 1230989
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "filesystems": {
+        "system_dlkm": {
+          "sha256": "5d895bd1afdf5e1b286707a76f0000fb47b43044facd6adb61a1e4c3ca71e6fc",
+          "bytes": 155648,
+          "files": 5,
+          "inodes_checked": 8,
+          "selinux": "u:object_r:system_dlkm_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        },
+        "vendor_dlkm": {
+          "sha256": "098846c679b8979c08305cb67a609affad82a9df37ef018062d38cd0c4f53a2a",
+          "bytes": 24731648,
+          "files": 142,
+          "inodes_checked": 145,
+          "selinux": "u:object_r:vendor_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        }
+      },
+      "policy_sha256": "cfb482422ba5ad6f6cf999d2fab39df74e41d5c1008d73f92c1a2fa4bb08ca07",
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "tfa",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "819c4f179380ee0a9177c543bdb37cd0e537df4c2a36973a32ce46dd7f89c7b2",
+        "image_validation_sha256": "fd8b9523bc84b1c7074f73ca49e13edc5a91f592bf3d1c110103bfec041e719d",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 217,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      }
+    },
+    "sia": {
+      "modules": 218,
+      "images": {
+        "boot": {
+          "sha256": "699363cb99b74cf8f283f379271e3f72cc3c7abad11ef8a06b4fecb3a6c8181d",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "18f198647a5b393d7d51f8018126ce020b90732b69308f762a351e876cc14cc5",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "f0293f5dcdf3240251668c2f5d120d27175d776f00eb84015075446906eb3d2f",
+          "bytes": 1231389
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "filesystems": {
+        "system_dlkm": {
+          "sha256": "5d895bd1afdf5e1b286707a76f0000fb47b43044facd6adb61a1e4c3ca71e6fc",
+          "bytes": 155648,
+          "files": 5,
+          "inodes_checked": 8,
+          "selinux": "u:object_r:system_dlkm_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        },
+        "vendor_dlkm": {
+          "sha256": "5efbfc61b9b038397701afa22cf55d5cc9e6c40befb54c484074a9938ec1d315",
+          "bytes": 24621056,
+          "files": 143,
+          "inodes_checked": 146,
+          "selinux": "u:object_r:vendor_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        }
+      },
+      "policy_sha256": "b2a567973a25b24da07e953b064284f54666de2ec1c1d0f4efbce55383084121",
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "sia",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "bac527a6f47639bf5ceca59be954fe173c9d321fb4ef7fcc6911c760224f61ef",
+        "image_validation_sha256": "1979796276151458771780cf9c325b0fb1d0ced649a3a278502cc2f674471a4f",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 218,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      }
+    }
+  },
+  "integration": {
+    "tfa": {
+      "make_variable_evaluation": "passed",
+      "module_count": 217,
+      "header_export_byte_equal": 1003,
+      "old_module_owner_rejected": true,
+      "stock_init_boot_owner_rejected": true,
+      "dtb_order_preserved": true
+    },
+    "sia": {
+      "make_variable_evaluation": "passed",
+      "module_count": 218,
+      "header_export_byte_equal": 1003,
+      "old_module_owner_rejected": true,
+      "stock_init_boot_owner_rejected": true,
+      "dtb_order_preserved": true
+    },
+    "vendor_policy_include": {
+      "path": "include device/qcom/sepolicy_vndr/sm8750/SEPolicy.mk",
+      "resolved_vendor_directories": [
+        "device/qcom/sepolicy_vndr/sm8750",
+        "device/qcom/sepolicy_vndr/sm8750/generic/vendor/common",
+        "device/qcom/sepolicy_vndr/sm8750/generic/vendor/common/attribute",
+        "device/qcom/sepolicy_vndr/sm8750/qva/vendor/common",
+        "device/qcom/sepolicy_vndr/sm8750/generic/vendor/sun",
+        "device/qcom/sepolicy_vndr/sm8750/qva/vendor/sun",
+        "device/qcom/sepolicy_vndr/sm8750/generic/vendor/test",
+        "device/qcom/sepolicy_vndr/sm8750/qva/vendor/test",
+        "device/qcom/sepolicy_vndr/sm8750/qva/vendor/test/sysmonapp"
+      ],
+      "policy_compiled": false
+    },
+    "init_boot_build_selection": "passed; does not build init_boot",
+    "patch_applied_cleanly": true,
+    "rom_built": false,
+    "full_boardconfig_evaluation": "blocked: vendor/xiaomi/annibale/BoardConfigVendor.mk is absent"
+  },
+  "spu_dt_report_sha256": "2e707ec886c51b999612d02bbbd6a534b819f586995c712e37c644e672133067"
+}

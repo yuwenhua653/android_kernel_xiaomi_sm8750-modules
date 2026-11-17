@@ -1237,12 +1237,12 @@ static int spss_probe(struct platform_device *pdev)
 		return -EPROBE_DEFER;
 
 	ret = qcom_spss_set_fw_name(rproc, firmware_name);
+	rproc_put(rproc);
 	if (ret < 0) {
 		if (ret != -EINVAL)
 			pr_err("fail to set firmware name for remoteproc (%d)\n", ret);
 		return -EPROBE_DEFER;
 	}
-	rproc_put(rproc);
 
 	spss_utils_dev = kzalloc(sizeof(*spss_utils_dev), GFP_KERNEL);
 	if (spss_utils_dev == NULL)

@@ -41,6 +41,7 @@ PLATFORM_GROUPS = (
     'qcom/opensource/data-kernel/drivers/smem-mailbox',
     'qcom/opensource/wlan/platform',
     'qcom/opensource/bt-kernel',
+    'qcom/opensource/spu-kernel',
 )
 
 NETWORK_GROUPS = (
@@ -96,6 +97,7 @@ def build_options(kernel, stage, profile='media'):
         f'SMEM_MAILBOX_ROOT={qcom / "data-kernel/drivers/smem-mailbox"}',
         f'WLAN_PLATFORM_ROOT={qcom / "wlan/platform"}',
         f'BT_ROOT={qcom / "bt-kernel"}',
+        f'SPU_ROOT={qcom / "spu-kernel"}',
         f'NFC_ROOT={stage / "nxp/opensource/driver"}',
         f'MSM_EXT_DISPLAY_ROOT={mm}',
         f'MSM_HW_FENCE_ROOT={mm}/', f'SYNC_FENCE_ROOT={mm}/',
@@ -133,7 +135,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--jobs', type=int, choices=range(1, 10), default=3)
     parser.add_argument('--profile', choices=('media', 'platform', 'network', 'audio'), default='media',
-                        help='platform adds GPU/video/CNSS/BT; network also adds Kiwi-v2 WLAN and IPA/RMNET; audio adds opt-in Annibale smartpa')
+                        help='platform adds GPU/video/CNSS/BT/SPU; network also adds Kiwi-v2 WLAN and IPA/RMNET; audio adds opt-in Annibale smartpa')
     parser.add_argument('--objects', action='store_true',
                         help='compile directories only; no modpost or loadable modules')
     parser.add_argument('--resume-stage', type=Path,
@@ -160,6 +162,10 @@ def main():
                    'CONFIG_QCOM_PANEL_EVENT_NOTIFIER=m']:
         if option not in config.splitlines():
             parser.error(f'required kernel option missing: {option}')
+    if args.profile != 'media':
+        for option in ('CONFIG_QCOM_SPSS=m', 'CONFIG_RPMSG_QCOM_GLINK_SPSS=m'):
+            if option not in config.splitlines():
+                parser.error(f'required SPU provider configuration missing: {option}')
     if not args.objects and not (kout / 'Module.symvers').read_text().strip():
         parser.error('kernel Module.symvers must not be empty')
     env = dict(os.environ, PATH=f'{clang}:{os.environ.get("PATH", "")}')
@@ -260,7 +266,7 @@ def main():
                                    'cnss_nl', 'cnss_plat_ipc_qmi_svc',
                                    'wlan_firmware_service', 'btpower',
                                    'btfmcodec', 'bt_fm_swr', 'btfm_slim_codec',
-                                   'radio_i2c_rtc6226_qca'}
+                                   'radio_i2c_rtc6226_qca', 'spcom', 'spss_utils'}
             if args.profile in ('network', 'audio'):
                 required_names |= {'qca_cld3_kiwi_v2', 'gsim', 'ipam', 'ipanetm',
                                    'rmnet_core', 'rmnet_ctl', 'rmnet_mem', 'rmnet_aps',
