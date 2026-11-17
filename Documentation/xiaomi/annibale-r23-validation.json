@@ -1,0 +1,153 @@
+{
+  "round": "R23",
+  "target": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-17",
+  "scope": "OS4.0.6.0-derived wireless board wiring and native HS UART / OF supplier integration; unchanged C drivers",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "modules_parent": "0ad30581926254340420dfb887e4cf966e59b7e6",
+  "devicetrees_parent": "5a140ce2ee6684e82b3ea02970f48bd42f02d06d",
+  "build_reuse": {
+    "fresh_c_compilation": false,
+    "source_round": "R22",
+    "release": "6.6.144-4k-gc70ed7c690cc",
+    "kernel_modules": 411,
+    "external_modules": 91,
+    "source_files_rechecked": 9424,
+    "source_files_note": "9423 checked source paths plus one generated Kbuild matching the current builder",
+    "source_symlinks_rechecked": 13,
+    "elf_hashes_rechecked": 502,
+    "kernel_inputs": {
+      ".config": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+      "include/generated/autoconf.h": "2cb93b89f1cef410f2e0dcef2714338bdc57e5b406b0933c337be6200f40f4fa",
+      "include/config/kernel.release": "47fe85a86f5a3fe94c6bccff3a30f8d6b37d41574455313d61b146c96115b190",
+      "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+      "vmlinux": "3debd03923f25bf908fda288fd7c7536b7fdbc16d14ae3a362c1211323671bd8",
+      "arch/arm64/boot/Image": "7dd4801021f16b047e0bdf7de2886df658067cf77d15308bd42675a6222e1c97",
+      "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757"
+    }
+  },
+  "stock_reference": {
+    "manifest_sha256": "b8e2f34b24b08c6c6f92fdafc8fd2618e282aeaa82671cd217c07eaf6679c39a",
+    "ota_etag": "\"53FB1A0CD09F47AB51D6924206227BF9-400\"",
+    "partitions": {
+      "vendor_boot": {
+        "size": 100663296,
+        "sha256": "38d4b91165578133a2c1626f343599356959d771e2ae061c47627dcdbafd962a",
+        "operations": 48,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      "dtbo": {
+        "size": 18874368,
+        "sha256": "e9582a2074d7f25af6f39204406a7c7212139f7d092e2e5010e226d3b27125c8",
+        "operations": 9,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      }
+    },
+    "ota_signature_verified": false
+  },
+  "host_tests": {
+    "module_tools": 103,
+    "dt_parser": 5,
+    "module_test_log_sha256": "03f187231df82eb1cbb235e781f1680039cc96287c05137d65327d3cc2898723",
+    "dt_test_log_sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6"
+  },
+  "dt": {
+    "compositions": 32,
+    "nodes_per_composition": 68,
+    "supplier_entries_per_composition": 52,
+    "negative_checks": 224,
+    "selector_checks": 7,
+    "report_sha256": "be61d203a51b864669cba5f44b59eb79f4bea9fc9b36511425f1434e8070ab1a",
+    "contract_sha256": "1283801b5e3404294c7e6ade5d7cb7cdbb10ae973142334e952bae55a471f32e",
+    "overlay_sha256": "44671aa0c9314ea5b4a38db0ca4fc4779c26a6321f50b6065e051ef671cc08d7"
+  },
+  "policies": {
+    "tfa": {
+      "selected": 200,
+      "partitions": {
+        "vendor_boot": 66,
+        "system_dlkm": 1,
+        "vendor_dlkm": 133
+      },
+      "policy_sha256": "ca510860791ccb8a587562a090e208d0e14e95bba8a5f81affccc53163a802ac",
+      "plan_sha256": "c43dc263c9f6a017795a938c66b83d5835e05b17da934a1424a6fe88507b1b0c",
+      "stage_validation_sha256": "54d3af408db4a28640128e0b31687fd289c7841e7a0a35e297c5af6330b2ac11",
+      "negative_checks": [
+        {
+          "case": "missing msm_geni_serial",
+          "rejected": "invalid board dependency rule: msm_geni_serial"
+        },
+        {
+          "case": "missing bam_dma",
+          "rejected": "slim_qcom_ngd_ctrl: missing board provider bam_dma"
+        },
+        {
+          "case": "missing pinctrl_spmi_gpio",
+          "rejected": "btpower: missing board provider pinctrl_spmi_gpio"
+        },
+        {
+          "case": "missing nvmem_qcom_spmi_sdam",
+          "rejected": "btpower: missing board provider nvmem_qcom_spmi_sdam"
+        },
+        {
+          "case": "early BT power before vendor providers",
+          "rejected": "load-stage inversion: btpower in vendor_boot needs cnss_utils in vendor_dlkm first"
+        },
+        {
+          "case": "missing BT NVMEM OF ordering",
+          "rejected": "missing reviewed wireless OF suppliers: btpower"
+        }
+      ]
+    },
+    "sia": {
+      "selected": 201,
+      "partitions": {
+        "vendor_boot": 66,
+        "system_dlkm": 1,
+        "vendor_dlkm": 134
+      },
+      "policy_sha256": "a6aaaddd4f78cc7ecf7956d58f57493c8caf4126671ba14cce896d2c2d5b38d9",
+      "plan_sha256": "2a446ce455df5fb0533c8c0879082f4d03b452bdf547a213531888310de9223b",
+      "stage_validation_sha256": "e0306b24e08fa5c96f305332ec721b73ba8cbaa1883c535b5dc87fbbdcd13582",
+      "negative_checks": [
+        {
+          "case": "missing msm_geni_serial",
+          "rejected": "invalid board dependency rule: msm_geni_serial"
+        },
+        {
+          "case": "missing bam_dma",
+          "rejected": "slim_qcom_ngd_ctrl: missing board provider bam_dma"
+        },
+        {
+          "case": "missing pinctrl_spmi_gpio",
+          "rejected": "btpower: missing board provider pinctrl_spmi_gpio"
+        },
+        {
+          "case": "missing nvmem_qcom_spmi_sdam",
+          "rejected": "btpower: missing board provider nvmem_qcom_spmi_sdam"
+        },
+        {
+          "case": "early BT power before vendor providers",
+          "rejected": "load-stage inversion: btpower in vendor_boot needs cnss_utils in vendor_dlkm first"
+        },
+        {
+          "case": "missing BT NVMEM OF ordering",
+          "rejected": "missing reviewed wireless OF suppliers: btpower"
+        }
+      ]
+    }
+  },
+  "flashable": false,
+  "boot_verified": false,
+  "hardware_verified": false,
+  "unverified": [
+    "Final native ROM images, DTBO selection, ramdisk and Android loader integration",
+    "Firmware/calibration/HAL contracts, Wi-Fi/BT probe and BT SLIM audio routing",
+    "Physical amplifier family; ODM audio assets were not rechecked",
+    "Camera streaming, charging/display features, suspend/wake and standby",
+    "GKI policy, signatures and runtime CFI; experimental qualify uses an empty generated GKI unprotected list",
+    "HyperOS retained-stock ABI/runtime checks were not repeated or changed in this round"
+  ]
+}

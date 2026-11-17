@@ -33,3 +33,9 @@ to camera, video, EVA and Bluetooth SLIM transport. Annibale-specific v1/v2
 multimedia overlays preserve board selectors. This is integration of already
 built drivers, not four new driver ports. See `annibale-multimedia.md` and
 `annibale-r22-validation.json` for current reproducible evidence and limits.
+
+R23 closes selected WLAN/BT board composition and HS UART loading gaps using
+the actual OS4.0.6.0 DT reference. It preserves existing media bindings and
+keeps native and retained-stock ownership separate. See `annibale-wireless.md`
+and `annibale-r23-validation.json`. Next: final native image/ramdisk/DTBO
+integration and remaining firmware/HAL coverage before first OSS boot.

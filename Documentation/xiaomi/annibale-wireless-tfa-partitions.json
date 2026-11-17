@@ -1,0 +1,1454 @@
+{
+  "schema_version": 1,
+  "profile": "native-source-qualification",
+  "boot_mode": "normal",
+  "complete_device": false,
+  "scope": "R23 partial native source qualification: R22 multimedia plus OTA-reviewed Annibale Kiwi WLAN/Bluetooth, SLIM and UART wiring. Not a HyperOS replacement list or complete boot package.",
+  "reference": {
+    "hyperos": "OS4.0.6.0.XPKCNXM",
+    "rom_tree": "xiaomi-annibale/android_device_xiaomi_annibale@1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+    "kernel_dts": "R23 annibale-wireless-test.dtbo after R22 multimedia; OS4.0.6.0 binding contract across 32 compositions.",
+    "stock_load_sha256": {
+      "vendor_boot": "5aa2631dc44beaed4b63173b0768ff01b555aff8bc1ebc6196532dc0fa1e0ade",
+      "system_dlkm": "aa93a85185742ca644cd7f03dad6b04210afffa455f83ca901b166a15dc41a5e",
+      "vendor_dlkm": "058cefcf7e22b047fda8ca08c94007bd18944296bdbf1a3de58ebb3c778fb2c8"
+    }
+  },
+  "roots": [
+    "gsim",
+    "ipam",
+    "ipanetm",
+    "qca_cld3_kiwi_v2",
+    "rmnet_aps",
+    "rmnet_core",
+    "rmnet_ctl",
+    "rmnet_mem",
+    "rmnet_offload",
+    "rmnet_perf",
+    "rmnet_perf_tether",
+    "rmnet_sch",
+    "rmnet_shs",
+    "rmnet_wlan",
+    "machine_dlkm",
+    "audio_pkt_dlkm",
+    "lpass_bt_swr_dlkm",
+    "msm_drm",
+    "msm_kgsl",
+    "goodix_core",
+    "nxp_nci",
+    "qcom_hv_haptics",
+    "pm8941_pwrkey",
+    "ufs_qcom",
+    "camera",
+    "msm_video",
+    "msm_eva",
+    "btfm_slim_codec",
+    "msm_geni_serial"
+  ],
+  "board_requires": {
+    "phy_msm_m31_eusb2": {
+      "modules": [
+        "repeater_qti_pmic_eusb2"
+      ],
+      "reason": "Annibale DT annibale-mtp.dtsi eusb2_phy0 usb-repeater phandle targets pmih010x_eusb2_repeater; driver devm_usb_get_repeater_by_phandle consumes this runtime dependency."
+    },
+    "machine_dlkm": {
+      "modules": [
+        "tfa98xx_dlkm",
+        "stub_dlkm",
+        "adsp_loader_dlkm",
+        "pinctrl_lpi_dlkm",
+        "swr_haptics_dlkm",
+        "swr_dmic_dlkm",
+        "lpass_cdc_tx_macro_dlkm",
+        "lpass_cdc_va_macro_dlkm",
+        "lpass_cdc_wsa_macro_dlkm",
+        "lpass_cdc_wsa2_macro_dlkm"
+      ],
+      "reason": "Reviewed source audio DT: explicit smartpa pair, asoc-codec stub/haptics, LPI DMIC pinctrl and LPASS macro providers; ADSP loader retained for DSP startup. SIA tuning is a family userspace service. These runtime links are not all represented by ELF imports."
+    },
+    "tfa98xx_dlkm": {
+      "modules": [
+        "i2c_msm_geni",
+        "pinctrl_sun"
+      ],
+      "reason": "Both candidates place the amplifier pair under qupv3_hub_i2c0 (qcom,i2c-geni) and consume SUN TLMM reset/switch pins. Reviewed bus/pinctrl suppliers, not a complete DT supplier traversal."
+    },
+    "msm_drm": {
+      "modules": [
+        "dispcc_sun",
+        "gcc_sun",
+        "clk_rpmh",
+        "qnoc_sun",
+        "pinctrl_sun",
+        "rpmh_regulator"
+      ],
+      "reason": "Annibale display + Sun MDSS: DISPCC/GCC clocks, RPMH oscillator/rails, SUN interconnect and panel reset TLMM; fixed panel VDDD regulator is built in. Xiaomi display feature ABI remains outside this provider selection."
+    },
+    "msm_kgsl": {
+      "modules": [
+        "gpucc_sun",
+        "gcc_sun",
+        "clk_rpmh",
+        "qnoc_sun"
+      ],
+      "reason": "graphics/gpu/sun-gpu.dtsi: GPUCC GDSCs and GMU clocks, GCC memory clocks, RPMH XO, GEMNOC/MC interconnect. Select the matching SUN GPU DT overlay separately."
+    },
+    "goodix_core": {
+      "modules": [
+        "spi_msm_geni",
+        "msm_gpi",
+        "pinctrl_sun",
+        "rpmh_regulator",
+        "msm_drm"
+      ],
+      "reason": "Annibale Goodix node on qupv3_se2_spi consumes GENI/GPI, SUN reset/IRQ pins, L12B and fixed AVDD rails and display panel notifications. This remains the Warsaw-family candidate, not published P11 source."
+    },
+    "nxp_nci": {
+      "modules": [
+        "i2c_msm_geni",
+        "pinctrl_sun"
+      ],
+      "reason": "Annibale qcom,sn-nci under qupv3_se0_i2c uses GENI I2C and NFC TLMM pinctrl; HAL/firmware unverified."
+    },
+    "qcom_hv_haptics": {
+      "modules": [
+        "spmi_pmic_arb",
+        "qcom_spmi_pmic",
+        "nvmem_qcom_spmi_sdam"
+      ],
+      "reason": "Annibale pmih010x_haptics uses the PMIC SPMI parent and pmk8550_sdam_46 NVMEM provider; retain existing actuator settings."
+    },
+    "pm8941_pwrkey": {
+      "modules": [
+        "spmi_pmic_arb",
+        "qcom_spmi_pmic",
+        "pinctrl_spmi_gpio"
+      ],
+      "reason": "PMIC PON key node requires SPMI parent/regmap. GPIO volume-up uses built-in gpio_keys and the PMIC GPIO provider."
+    },
+    "ufs_qcom": {
+      "modules": [
+        "phy_qcom_ufs_qmp_v4_sun",
+        "gcc_sun",
+        "clk_rpmh",
+        "tcsrcc_sun",
+        "qnoc_sun",
+        "rpmh_regulator"
+      ],
+      "reason": "Sun UFS node phys=ufsphy_mem: SUN QMP PHY, GCC/RPMH/TCSR reference clocks, SUN interconnect and UFS rails must exist before first-stage DLKM mounts."
+    },
+    "tmecom_intf": {
+      "modules": [
+        "msm_qmp"
+      ],
+      "reason": "sun.dtsi qcom,tmecom-qmp-client consumes qmp_tme mailbox; source tmecom requests the channel at probe."
+    },
+    "msm_qmp": {
+      "modules": [
+        "qcom_ipcc"
+      ],
+      "reason": "sun.dtsi qmp_tme uses IPCC_CLIENT_TME through ipcc_mproc; select the real mailbox/IRQ provider before the TME client."
+    },
+    "camera": {
+      "modules": [
+        "camcc_sun",
+        "cambistmclkcc_sun",
+        "gcc_sun",
+        "clk_rpmh",
+        "qnoc_sun",
+        "arm_smmu",
+        "pinctrl_sun",
+        "rpmh_regulator"
+      ],
+      "reason": "Annibale/sun camera clock, CCI pinctrl, RPMh supply and SMMU/interconnect OF suppliers; ELF imports alone do not establish probe order."
+    },
+    "msm_video": {
+      "modules": [
+        "videocc_sun",
+        "gcc_sun",
+        "clk_rpmh",
+        "qnoc_sun",
+        "arm_smmu"
+      ],
+      "reason": "sun-vidc/v2 clocks, power-domains, resets, interconnects and context-bank iommus."
+    },
+    "msm_eva": {
+      "modules": [
+        "evacc_sun",
+        "gcc_sun",
+        "clk_rpmh",
+        "qnoc_sun",
+        "arm_smmu"
+      ],
+      "reason": "sun-eva/v2 EVA GDSC supplies, clocks/resets, interconnects and context-bank iommus."
+    },
+    "btfm_slim_codec": {
+      "modules": [
+        "slim_qcom_ngd_ctrl",
+        "btfmcodec",
+        "btpower"
+      ],
+      "reason": "OS4.0.6.0 reviewed SLIM node is enabled by the R23 overlay. Order the NGD controller, common codec and power provider before transport."
+    },
+    "slim_qcom_ngd_ctrl": {
+      "modules": [
+        "bam_dma"
+      ],
+      "reason": "SUN slim_msm dmas references slimbam (qcom,bam-v1.7.0); dma_request_chan runtime dependency is not an ELF import."
+    },
+    "leds_qti_flash": {
+      "modules": [
+        "spmi_pmic_arb",
+        "qcom_spmi_pmic"
+      ],
+      "reason": "QTI camera flash is a PMIC SPMI child; select parent bus/device suppliers before the LED provider."
+    },
+    "cnss2": {
+      "modules": [
+        "pci_msm_drv",
+        "pinctrl_sun",
+        "pinctrl_spmi_gpio",
+        "rpmh_regulator",
+        "qnoc_sun",
+        "qcom_aoss"
+      ],
+      "reason": "OS4.0.6.0 CNSS Kiwi PCIe RC0, TLMM/PM8550VE GPIOs, RPMh rails, interconnect and direct AOSS QMP suppliers."
+    },
+    "btpower": {
+      "modules": [
+        "pinctrl_sun",
+        "pinctrl_spmi_gpio",
+        "rpmh_regulator",
+        "clk_rpmh",
+        "nvmem_qcom_spmi_sdam",
+        "qcom_aoss"
+      ],
+      "reason": "OS4.0.6.0 Kiwi Bluetooth GPIO bank 1, RF_CLK1, SDAM FMD cells, RPMh rails and direct AOSS QMP suppliers."
+    },
+    "pci_msm_drv": {
+      "modules": [
+        "gcc_sun",
+        "clk_rpmh",
+        "qnoc_sun",
+        "gdsc_regulator",
+        "arm_smmu",
+        "pinctrl_sun"
+      ],
+      "reason": "Reviewed PCIe RC0 reset, GDSC PHY supply, interconnect, IOMMU mapping and pinctrl providers."
+    },
+    "msm_geni_serial": {
+      "modules": [
+        "qcom_geni_se",
+        "gcc_sun",
+        "qnoc_sun",
+        "pinctrl_sun"
+      ],
+      "reason": "Annibale qupv3_se14_4uart is enabled for Bluetooth and binds qcom,msm-geni-serial-hs. GENI SE is built in; serial DMA is internal, not a GPI channel."
+    }
+  },
+  "ownership": [
+    {
+      "name": "adsp_loader_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "altmode_glink",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "arm_smmu",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "audio_pkt_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "audio_prm_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "audpkt_ion_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "bt_fm_swr",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "btfmcodec",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "btpower",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cfg80211",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "clk_qcom",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "clk_rpmh",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "cmd_db",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cnss2",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cnss_nl",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cnss_plat_ipc_qmi_svc",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cnss_prealloc",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cnss_utils",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "cpu_phys_log_map",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "crm_v2",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "dcvs_fp",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "debug_regulator",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "debug_symbol",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "dispcc_sun",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "drm_display_helper",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "dwc3_msm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "eud",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "fsa4480_i2c",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gcc_sun",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "gdsc_regulator",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gh_arm_drv",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gh_dbl",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gh_irq_lend",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "gh_mem_notifier",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "gh_msgq",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gh_rm_drv",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "goodix_core",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "governor_gpubw_mon",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "governor_msm_adreno_tz",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "gpr_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gpucc_sun",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "gsim",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "gunyah_loader",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "hdcp_qseecom_dlkm",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "i2c_msm_geni",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "icc_bcm_voter",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "icc_debug",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "icc_rpmh",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "iommu_logger",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "ipam",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "ipanetm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "ipclite",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "llcc_qcom",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "lpass_bt_swr_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "lpass_cdc_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "lpass_cdc_rx_macro_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "lpass_cdc_tx_macro_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "lpass_cdc_va_macro_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "lpass_cdc_wsa2_macro_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "lpass_cdc_wsa_macro_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "machine_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "mbhc_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "mdt_loader",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "mem_buf_dev",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "mem_object",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "memory_dump_v2",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "mhi",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "minidump",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "msm_dma_iommu_mapping",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "msm_drm",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_ext_display",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_gpi",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "msm_hw_fence",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_kgsl",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_mmrm",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_performance",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_qmp",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "msm_sysstats",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "nvmem_qcom_spmi_sdam",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "nvmem_qfprom",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "nxp_nci",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "panel_event_notifier",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "pci_msm_drv",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "pcie_pdc",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "pdr_interface",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "phy_generic",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "phy_msm_m31_eusb2",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "phy_msm_snps_eusb2",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "phy_msm_ssusb_qmp",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "phy_qcom_ufs",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "phy_qcom_ufs_qmp_v4_sun",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "pinctrl_lpi_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "pinctrl_msm",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "pinctrl_spmi_gpio",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "pinctrl_sun",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "pm8941_pwrkey",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "proxy_consumer",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "q6_notifier_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "q6_pdr_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qca_cld3_kiwi_v2",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_aoss",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_cpucp",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_dcvs",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_dma_heaps",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_glink",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_glink_smem",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_hv_haptics",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_hwspinlock",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_ice",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_iommu_util",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_ipc_logging",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_ipcc",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_llcc_pmu",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_pdc",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_pdr_msg",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "Source provider for pdr_interface, absent by this name in the stock load list."
+    },
+    {
+      "name": "qcom_pil_info",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_pmu_lib",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_q6v5",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_q6v5_pas",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_ramdump",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_rpmh",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_scm",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_scmi_client",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_scmi_vendor",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_smd",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_spmi_pmic",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qcom_sysmon",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qcom_va_minidump",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qmi_helpers",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qnoc_qos",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qnoc_sun",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qseecom_proxy",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "qti_pmic_glink",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "qti_regmap_debugfs",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "redriver",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "repeater",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "repeater_qti_pmic_eusb2",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rfkill",
+      "source": "source-build",
+      "partition": "system_dlkm",
+      "reason": "OS4 normal system_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_aps",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_core",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_ctl",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_mem",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_offload",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_perf",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_perf_tether",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_sch",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_shs",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rmnet_wlan",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "rpmh_regulator",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "rproc_qcom_common",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "sched_walt",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "secure_buffer",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "si_core_module",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "smcinvoke_dlkm",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "smem",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "smem_mailbox",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "smmu_proxy_dlkm",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "snd_event_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "socinfo",
+      "source": "source-build",
+      "partition": "vendor_boot",
+      "reason": "OS4 normal vendor_boot reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "spf_core_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "spi_msm_geni",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "spmi_pmic_arb",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "stub_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "swr_ctrl_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "swr_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "swr_dmic_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "swr_haptics_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "sync_fence",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "synx_driver",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "tcsrcc_sun",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "tfa98xx_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "tmecom_intf",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Explicit native-only promotion: source qcom_ice in vendor_boot imports tme_hwkm_master_broadcast_transportkey from tmecom_intf. The stock late placement cannot satisfy first-stage UFS; do not copy this move to HyperOS."
+    },
+    {
+      "name": "ucsi_qti_glink",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "ufs_qcom",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "ufshcd_crypto_qti",
+      "partition": "vendor_boot",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_boot load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "usb_f_gsi",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wcd9378_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wcd939x_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wcd939x_slave_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wcd9xxx_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wcd_core_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wcd_usbss_i2c",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wlan_firmware_service",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wsa883x_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "wsa884x_dlkm",
+      "source": "source-build",
+      "partition": "vendor_dlkm",
+      "reason": "OS4 normal vendor_dlkm reference placement; validated against selected source dependencies, not stock-provider mixing."
+    },
+    {
+      "name": "xiaomi_touch",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Exact OS4 normal vendor_dlkm load-list reference; rechecked against the source graph; no stock module bytes included."
+    },
+    {
+      "name": "camera",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "camcc_sun",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "cambistmclkcc_sun",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "msm_video",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "videocc_sun",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "msm_eva",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "evacc_sun",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "btfm_slim_codec",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "slim_qcom_ngd_ctrl",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "R22 selected multimedia/BT transport or reviewed OF supplier; final same-build dependency closure is mandatory."
+    },
+    {
+      "name": "bam_dma",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Reviewed SUN SLIM NGD controller DMA supplier; R23 enables the matching controller/endpoint in the Annibale wireless overlay."
+    },
+    {
+      "name": "frpc_adsprpc",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "EVA imports FastRPC; actual ELF dependency, staged after early providers."
+    },
+    {
+      "name": "leds_qti_flash",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Camera imports the QTI flash API; actual ELF dependency, PMIC providers are retained in early stage."
+    },
+    {
+      "name": "slimbus",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Bluetooth SLIM codec and NGD controller import the SLIMbus core."
+    },
+    {
+      "name": "msm_geni_serial",
+      "partition": "vendor_dlkm",
+      "source": "source-build",
+      "reason": "Bluetooth high-speed GENI UART14 board binding; distinct from the built-in console qcom_geni_serial."
+    }
+  ],
+  "audio_variant": "tfa",
+  "wireless_profile": "annibale-kiwi"
+}

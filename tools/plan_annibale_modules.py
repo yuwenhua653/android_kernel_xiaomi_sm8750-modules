@@ -96,6 +96,22 @@ def resolve(verification, policy, builtins):
             graph.setdefault(earlier, set())
             edges.append({'before': earlier, 'after': later, 'kind': kind})
             pending.append(other)
+    wireless_profile = policy.get('wireless_profile')
+    if 'wireless_profile' in policy:
+        if wireless_profile != 'annibale-kiwi':
+            raise ValueError('wireless_profile must explicitly select annibale-kiwi')
+        required = {'cnss2', 'btpower', 'btfm_slim_codec', 'slim_qcom_ngd_ctrl',
+                    'pci_msm_drv', 'bam_dma', 'msm_geni_serial'}
+        if not required <= selected:
+            raise ValueError('missing Annibale wireless provider: ' + ', '.join(sorted(required - selected)))
+        # The built-in console qcom_geni_serial cannot replace the HS UART module.
+        suppliers = {'msm_geni_serial': {'qcom_geni_se', 'gcc_sun', 'qnoc_sun', 'pinctrl_sun'},
+                     'btpower': {'pinctrl_spmi_gpio', 'nvmem_qcom_spmi_sdam', 'clk_rpmh',
+                                 'pinctrl_sun', 'rpmh_regulator', 'qcom_aoss'},
+                     'slim_qcom_ngd_ctrl': {'bam_dma'}}
+        for consumer, needed in suppliers.items():
+            if not needed <= set(board.get(consumer, [])):
+                raise ValueError('missing reviewed wireless OF suppliers: ' + consumer)
     audio_variant = policy.get('audio_variant')
     if 'audio_variant' in policy:
         families = {'tfa': {'tfa98xx_dlkm'},
@@ -155,7 +171,7 @@ def resolve(verification, policy, builtins):
                         'destination': relative, 'sha256': item['sha256'], 'reason': reasons[name]})
     return {'schema_version': 1, 'status': 'partition_plan_passed',
             'profile': policy['profile'], 'boot_mode': 'normal',
-            'audio_variant': audio_variant,
+            'audio_variant': audio_variant, 'wireless_profile': wireless_profile,
             'complete_device': False, 'flashable': False, 'release': verification['release'],
             'selected_module_count': len(selected), 'roots': roots,
             'partitions': {p: [n for n in order if owners[n] == p] for p in PARTITIONS},
