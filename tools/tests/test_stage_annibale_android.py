@@ -32,6 +32,9 @@ class NativeLoaderTests(unittest.TestCase):
             for name in names:
                 (directory / name).touch()
             self.dirs[partition] = directory
+            alias = self.root / partition.removesuffix('_dlkm') / 'lib/modules'
+            alias.parent.mkdir(parents=True)
+            alias.symlink_to(directory)
         self.command('uname', 'echo 6.6.test\n')
         self.command('setprop', 'echo "property $*" >> "$CALLS"\n[ "${FAIL_PROPERTY:-}" != "$2" ]\n')
         self.command('modprobe', '''for module do :; done
@@ -53,6 +56,8 @@ mkdir -p "$FAKE_SYS/$name"
         text = loader(mode, '6.6.test', ['boot_core'])
         for partition, directory in self.dirs.items():
             text = text.replace('/' + partition + '/lib/modules', str(directory))
+        for partition in ('system', 'vendor'):
+            text = text.replace('/' + partition + '/lib/modules', str(self.root / partition / 'lib/modules'))
         text = text.replace('/vendor/bin/', str(self.bin) + '/').replace('/sys/module', str(self.sys))
         script = self.root / 'loader.sh'
         script.write_text(text)
@@ -95,6 +100,32 @@ mkdir -p "$FAKE_SYS/$name"
 
     def test_missing_first_stage_provider_stops_before_insertion(self):
         (self.sys / 'boot_core').rmdir()
+        result, calls = self.run_loader()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(calls, ['property vendor.all.modules.ready 0'])
+
+    def test_missing_or_copied_alias_stops_before_insertion(self):
+        alias = self.root / 'vendor/lib/modules'
+        alias.unlink()
+        for copied in (False, True):
+            if copied:
+                alias.mkdir()
+            result, calls = self.run_loader()
+            self.assertNotEqual(result.returncode, 0)
+            self.assertNotIn('module system-base.ko', calls)
+
+    def test_wrong_partition_alias_stops_before_insertion(self):
+        alias = self.root / 'vendor/lib/modules'
+        alias.unlink()
+        alias.symlink_to(self.dirs['system_dlkm'])
+        result, calls = self.run_loader()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn('module system-base.ko', calls)
+
+    def test_broken_alias_stops_before_insertion(self):
+        alias = self.root / 'system/lib/modules'
+        alias.unlink()
+        alias.symlink_to(self.root / 'absent')
         result, calls = self.run_loader()
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(calls, ['property vendor.all.modules.ready 0'])

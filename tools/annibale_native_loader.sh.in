@@ -4,6 +4,15 @@
 # This is independently implemented, not derived from a proprietary loader.
 set -f
 fail() { echo "annibale module load: $*" >&2; exit 1; }
+check_alias() {
+    alias_path=$1
+    expected_path=$2
+    # modules.dep uses Android's /system and /vendor aliases, even though
+    # modules.load is read directly from the dedicated DLKM mount.
+    [ -L "$alias_path" ] || fail "missing module symlink: $alias_path"
+    resolved_path=$(CDPATH= cd -P "$alias_path" && pwd -P) || fail "broken module symlink: $alias_path"
+    [ "$resolved_path" = "$expected_path" ] || fail "wrong module symlink: $alias_path -> $resolved_path"
+}
 load_list() {
     directory=$1
     [ -s "$directory/modules.load" ] || fail "missing/empty $directory/modules.load"
@@ -28,6 +37,10 @@ if [ "$mode" = vendor ]; then
     /vendor/bin/setprop vendor.all.modules.ready 0 || fail "cannot clear ready property"
 fi
 [ "$(/vendor/bin/uname -r)" = '@RELEASE@' ] || fail "kernel release mismatch"
+check_alias /system/lib/modules /system_dlkm/lib/modules
+if [ "$mode" = vendor ]; then
+    check_alias /vendor/lib/modules /vendor_dlkm/lib/modules
+fi
 @BOOT_CHECKS@
 # Repeat this prerequisite in the vendor service: init can continue after a failed
 # exec_start gki.modprobe. modprobe is idempotent for already inserted modules.

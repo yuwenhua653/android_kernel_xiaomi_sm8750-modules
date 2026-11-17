@@ -1,0 +1,92 @@
+{
+  "round": "R26",
+  "target": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-17",
+  "parents": {
+    "kernel": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+    "modules": "90ffa9d2f4b59e79a33c9448a46a9a66a5ea23b7",
+    "devicetrees": "efb44ba29a0a847b42519b0e87fed32d30df8904"
+  },
+  "scope": "Source-built kernel ROM handoff and loader alias preflight; no complete ROM build",
+  "tests": {
+    "passed": 141,
+    "new_methods": 8,
+    "skipped": 0,
+    "log_sha256": "a66455dea41cba0ad5551ef252aafe4ceeedfe3e28fdd5152b9fdc599e6ba7ed"
+  },
+  "fresh_kernel_or_module_c_build": false,
+  "rom_built": false,
+  "init_boot_built": false,
+  "flashable": false,
+  "hardware_tested": false,
+  "integration": {
+    "tfa": {
+      "make_variable_evaluation": "passed",
+      "module_count": 200,
+      "header_export_byte_equal": 1003,
+      "old_module_owner_rejected": true,
+      "stock_init_boot_owner_rejected": true,
+      "dtb_order_preserved": true
+    },
+    "sia": {
+      "make_variable_evaluation": "passed",
+      "module_count": 201,
+      "header_export_byte_equal": 1003,
+      "old_module_owner_rejected": true,
+      "stock_init_boot_owner_rejected": true,
+      "dtb_order_preserved": true
+    },
+    "init_boot_build_selection": "passed; does not build init_boot",
+    "patch_applied_cleanly": true,
+    "rom_built": false,
+    "full_boardconfig_evaluation": "blocked: vendor/xiaomi/annibale/BoardConfigVendor.mk is absent"
+  },
+  "profiles": {
+    "tfa": {
+      "schema_version": 1,
+      "status": "handoff_prepared",
+      "flashable": false,
+      "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+      "family": "tfa",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "stage_validation_sha256": "54d3af408db4a28640128e0b31687fd289c7841e7a0a35e297c5af6330b2ac11",
+      "image_validation_sha256": "c97960326e395d98e35272c0920ef468c1c8636642eafb855b45ea61f7c017d0",
+      "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+      "module_count": 200,
+      "header_count": 1003,
+      "kernel_compilation_hook": false,
+      "rom_built": false,
+      "init_boot_built": false,
+      "unverified": [
+        "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+        "Re-extracted vendor tree must not retain conflicting loader owners",
+        "Actual init service graph, vendor tools and enforcing policy",
+        "Recovery/charger module lists and physical partition/AVB configuration",
+        "Device driver coverage, amplifier identity and first boot"
+      ]
+    },
+    "sia": {
+      "schema_version": 1,
+      "status": "handoff_prepared",
+      "flashable": false,
+      "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+      "family": "sia",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "stage_validation_sha256": "e0306b24e08fa5c96f305332ec721b73ba8cbaa1883c535b5dc87fbbdcd13582",
+      "image_validation_sha256": "858d05a56a16cd63e916b01709af8b41df5ab21a0346cc57baa2964e26a573c9",
+      "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+      "module_count": 201,
+      "header_count": 1003,
+      "kernel_compilation_hook": false,
+      "rom_built": false,
+      "init_boot_built": false,
+      "unverified": [
+        "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+        "Re-extracted vendor tree must not retain conflicting loader owners",
+        "Actual init service graph, vendor tools and enforcing policy",
+        "Recovery/charger module lists and physical partition/AVB configuration",
+        "Device driver coverage, amplifier identity and first boot"
+      ]
+    }
+  }
+}
