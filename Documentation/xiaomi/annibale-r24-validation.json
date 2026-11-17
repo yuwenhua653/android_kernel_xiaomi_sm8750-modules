@@ -1,0 +1,199 @@
+{
+  "round": "R24",
+  "target": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-17",
+  "scope": "Complete revision-specific native DT overlays/containers and early module ramdisk fragments; native sequential first-stage candidate",
+  "parents": {
+    "sm8750": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+    "sm8750-modules": "afd2d4b1d4172955d02fb94b2b4db8a355791917",
+    "sm8750-devicetrees": "9273ac3d38c362ca1a94641fb3f6449d68d88ef1"
+  },
+  "fresh_kernel_or_module_c_build": false,
+  "kernel_release": "6.6.144-4k-gc70ed7c690cc",
+  "dt": {
+    "report_sha256": "8d5f6deb5d688e4421f4a3eb240924d902a08c0b4e32f059437c8a7b4e6a46b7",
+    "base_count": 8,
+    "base_readback": {
+      "bases": 8,
+      "negative_checks": [
+        {
+          "case": "truncated",
+          "rejected": "invalid base DTB extent"
+        },
+        {
+          "case": "duplicate",
+          "rejected": "duplicate base selector"
+        },
+        {
+          "case": "bad magic",
+          "rejected": "invalid base DTB extent"
+        }
+      ]
+    },
+    "dtb_sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+    "profiles": {
+      "tfa-default": {
+        "dtbo_sha256": "b77db4d1b72ed9adb5bba1047ed1ab4da4aac680ae2cba844666a72c56dfc880",
+        "entries": 2,
+        "selection": {
+          "sun-tp-v2": 1,
+          "sun-tp": 0,
+          "sun-v2": 1,
+          "sun": 0,
+          "sunp-tp-v2": 1,
+          "sunp-tp": 0,
+          "sunp-v2": 1,
+          "sunp": 0
+        }
+      },
+      "tfa-native": {
+        "dtbo_sha256": "a1a1ad33fc910f54a63f10f24991d48ce74b0f1ea068c10797be9ec25e297aee",
+        "entries": 2,
+        "selection": {
+          "sun-tp-v2": 1,
+          "sun-tp": 0,
+          "sun-v2": 1,
+          "sun": 0,
+          "sunp-tp-v2": 1,
+          "sunp-tp": 0,
+          "sunp-v2": 1,
+          "sunp": 0
+        }
+      },
+      "sia-default": {
+        "dtbo_sha256": "4e9d8142f5fbdf7e100dd9f912e4f48670d3a251b5c6614b1a0f9c2a2907814f",
+        "entries": 2,
+        "selection": {
+          "sun-tp-v2": 1,
+          "sun-tp": 0,
+          "sun-v2": 1,
+          "sun": 0,
+          "sunp-tp-v2": 1,
+          "sunp-tp": 0,
+          "sunp-v2": 1,
+          "sunp": 0
+        }
+      },
+      "sia-native": {
+        "dtbo_sha256": "f0293f5dcdf3240251668c2f5d120d27175d776f00eb84015075446906eb3d2f",
+        "entries": 2,
+        "selection": {
+          "sun-tp-v2": 1,
+          "sun-tp": 0,
+          "sun-v2": 1,
+          "sun": 0,
+          "sunp-tp-v2": 1,
+          "sunp-tp": 0,
+          "sunp-v2": 1,
+          "sunp": 0
+        }
+      }
+    },
+    "compositions": 32,
+    "property_comparison_min": 24120,
+    "property_comparison_max": 24502,
+    "ambiguous_table_rejections": 8,
+    "reversed_table_checks": 4,
+    "qualification_note": "Base readback gate added after full build started; independently executed on actual output with three malformed-base cases."
+  },
+  "ramdisk_fragments": {
+    "tfa": {
+      "modules": 66,
+      "members": 72,
+      "cpio_sha256": "6b2bcbb4e8c8a02544977fb37a5810a296e05e43011ef8078e7421d2a0e94abc",
+      "lz4_sha256": "32508d47ba3d289d80256917e4b23b77e5e94e7b7c39f8623f55812734355be5",
+      "bootconfig_sha256": "d3d4e5dcc25d26e7109202b8eae6da658ba2f9f79549081656ae0cf5eb573cf6",
+      "stage_validation_sha256": "54d3af408db4a28640128e0b31687fd289c7841e7a0a35e297c5af6330b2ac11",
+      "fragment_validation_sha256": "e56d30429a13940df0aa6b5ac4061d278f827ea00f180f3f1cbc007e8f117ecf"
+    },
+    "sia": {
+      "modules": 66,
+      "members": 72,
+      "cpio_sha256": "6b2bcbb4e8c8a02544977fb37a5810a296e05e43011ef8078e7421d2a0e94abc",
+      "lz4_sha256": "32508d47ba3d289d80256917e4b23b77e5e94e7b7c39f8623f55812734355be5",
+      "bootconfig_sha256": "d3d4e5dcc25d26e7109202b8eae6da658ba2f9f79549081656ae0cf5eb573cf6",
+      "stage_validation_sha256": "e0306b24e08fa5c96f305332ec721b73ba8cbaa1883c535b5dc87fbbdcd13582",
+      "fragment_validation_sha256": "d0a6f797d90d4ea1a289ce16048190c3a7e707b2dee70de2f48005275b588dbd"
+    }
+  },
+  "stock_layout": {
+    "version": 4,
+    "page_size": 4096,
+    "ramdisk_size": 36265107,
+    "dtb_size": 4113008,
+    "table_size": 108,
+    "entry_size": 108,
+    "bootconfig_size": 204,
+    "entries": [
+      {
+        "size": 36265107,
+        "offset": 0,
+        "type": 1,
+        "name": "",
+        "board_id": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 erofs.reserved_pages=64 swinfo.fingerprint=annibale:15/OS4.0.6.0.XPKCN:user mtdoops.fingerprint=annibale:15/OS4.0.6.0.XPKCN:user bootmonitor.fingerprint=annibale:15/OS4.0.6.0.XPKCN:user bootconfig"
+  },
+  "stock_archive": {
+    "members": 442,
+    "modules": 432,
+    "normal_load_roots": 150,
+    "fstab_sha256": "e6115cc44ad0e37d6a02a4022d8c5f727f172e2277e7086e4c53cceb7dcc4c1a"
+  },
+  "actual_stock_table_negative_cases": [
+    {
+      "case": "empty actual fragment",
+      "rejected": "invalid/empty vendor ramdisk entry"
+    },
+    {
+      "case": "out of bounds fragment offset",
+      "rejected": "invalid/empty vendor ramdisk entry"
+    },
+    {
+      "case": "zero entry count",
+      "rejected": "empty/inconsistent vendor ramdisk table"
+    }
+  ],
+  "native_bootconfig_change": "androidboot.load_modules_parallel=false; no live/retained-stock configuration modified",
+  "lineage_first_stage_reference": {
+    "commit": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+    "path": "init/first_stage_init.cpp",
+    "sha256": "ddb34b37d470ad8266150865513ed25cbf29e1d404e248022765fbb1d9bc3b31"
+  },
+  "host_tests": {
+    "module_tools": 116,
+    "dt_tools": 15,
+    "module_log_sha256": "f854f44105e0ee0cd32b484a914660e2050aa7fcef249037c24bf4a096efa23f",
+    "dt_log_sha256": "b53b61335ca4d77d039dcd8ebc9b87ab52ae98f80f44b38be5fcc31929537321"
+  },
+  "flashable": false,
+  "boot_verified": false,
+  "complete_device": false,
+  "unverified": [
+    "Complete native platform ramdisk/fstab and init_boot integration",
+    "Final vendor_boot table/fragments, DTBO choice, AVB and recovery",
+    "Actual init first-stage insertion/probe and SELinux",
+    "Complete native module plan, DLKM filesystem images, firmware and HALs",
+    "Actual amplifier family and Xiaomi bootloader DTBO selection",
+    "DT electrical/schema/GPIO-conflict coverage",
+    "GKI signing, runtime CFI and experimental empty unprotected list"
+  ]
+}

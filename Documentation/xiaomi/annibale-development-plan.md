@@ -39,3 +39,9 @@ the actual OS4.0.6.0 DT reference. It preserves existing media bindings and
 keeps native and retained-stock ownership separate. See `annibale-wireless.md`
 and `annibale-r23-validation.json`. Next: final native image/ramdisk/DTBO
 integration and remaining firmware/HAL coverage before first OSS boot.
+
+R24 turns the layered DT candidates into complete revision-specific overlays
+and real DT containers, and packs the 66 early source modules as a native
+ramdisk fragment. Native first-stage parallel loading is explicitly disabled
+in the offline bootconfig candidate. See `annibale-ramdisk-integration.md`.
+Complete platform ramdisk, ROM image ownership and first OSS boot remain next.
