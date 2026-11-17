@@ -18,6 +18,7 @@ from stage_annibale_android import loader, write_make_example
 
 REFERENCE_COMMIT = '1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe'
 HANDOFF_PATH = 'device/xiaomi/annibale-oss-kernel'
+LOADER_RUNTIME_PACKAGES = ('sh_vendor', 'toolbox_vendor', 'toybox_vendor')
 
 
 def convert(files):
@@ -119,7 +120,7 @@ def main():
         'headers_install:\n\t@test -n "$(O)"\n\t@mkdir -p "$(O)/usr/include"\n'
         '\t@cp -a "$(CURDIR)/include/." "$(O)/usr/include/"\nall:\n\t@true\n')
     (handoff / 'BoardConfig.mk').write_text(f'''# SPDX-License-Identifier: GPL-2.0-only
-# R26 partial normal-boot handoff, not a full device qualification.
+# Partial normal-boot handoff, not a full device qualification.
 ANNIBALE_KERNEL_HANDOFF := {HANDOFF_PATH}
 ANNIBALE_MODULE_STAGE := $(ANNIBALE_KERNEL_HANDOFF)/modules
 TARGET_NO_KERNEL_OVERRIDE := true
@@ -139,7 +140,7 @@ endif
 ''')
     (handoff / 'Product.mk').write_text(f'''# SPDX-License-Identifier: GPL-2.0-only
 # Do not add a second init service or replace init.qti.kernel.rc here.
-PRODUCT_PACKAGES += system_dlkm_modprobe.sh vendor_modprobe.sh toolbox_vendor
+PRODUCT_PACKAGES += system_dlkm_modprobe.sh vendor_modprobe.sh {' '.join(LOADER_RUNTIME_PACKAGES)}
 PRODUCT_SOONG_NAMESPACES += {HANDOFF_PATH}
 PRODUCT_BUILD_INIT_BOOT_IMAGE := true
 ''')

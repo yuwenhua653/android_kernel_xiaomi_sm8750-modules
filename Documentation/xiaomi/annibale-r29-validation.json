@@ -1,0 +1,288 @@
+{
+  "round": "R29",
+  "modules_parent": "fa05a4a3c650518df337bce74e52f89ada0ff931",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "kernel_rebuilt": false,
+  "modules_rebuilt": false,
+  "tests_passed": 180,
+  "hardware_tested": false,
+  "flashable": false,
+  "vendor_patch": {
+    "status": "vendor_patch_prepared",
+    "vendor_reference_commit": "1e1509837ee796de4fd85719bfc66896f8bb06fc",
+    "firmware_match_verified": false,
+    "rom_built": false,
+    "removed_owners": {
+      "system_dlkm_modprobe": {
+        "name": "system_dlkm_modprobe",
+        "owner": "xiaomi",
+        "src": "proprietary/vendor/bin/system_dlkm_modprobe.sh",
+        "filename": "system_dlkm_modprobe.sh",
+        "soc_specific": true
+      },
+      "vendor_modprobe": {
+        "name": "vendor_modprobe",
+        "owner": "xiaomi",
+        "src": "proprietary/vendor/bin/vendor_modprobe.sh",
+        "filename": "vendor_modprobe.sh",
+        "soc_specific": true
+      }
+    },
+    "files": {
+      "Android.bp": {
+        "before_sha256": "3f8c5d1f3dfdc1c53d18882a48407ad667724fb385f8a418814a642f6421fd34",
+        "after_sha256": "e4fc2132d441904dfa1d995a5b55394afb9825f7bd07a9ff95db17764ec52636"
+      },
+      "annibale-vendor.mk": {
+        "before_sha256": "b45ea4375b85049d474a1a2bce2d7a39a1b853d591d4d5b0ed620f6edbf7a900",
+        "after_sha256": "5f1f1860957996237687caa07887a79edc820213b28a31e109fea18f12d917fa"
+      }
+    },
+    "patch_sha256": "9a9ce9595f56afdaabbd9df4c5fbf2a3d6449688545210866f80e07cac4b6b76",
+    "unverified": [
+      "Exact OS4 vendor provenance and binary/HAL ABI",
+      "Full Android module namespace and image ownership",
+      "Runtime init, firmware and enforcing SELinux"
+    ]
+  },
+  "vendor_metadata_check": {
+    "patch_applied_cleanly": true,
+    "before_after_hashes_match": true,
+    "vendor_package_count": 1696,
+    "source_loader_owners_unique": true,
+    "runtime_packages_present": true,
+    "init_files_changed": false,
+    "boardconfig_vendor_changed": false,
+    "soong_built": false,
+    "firmware_match_verified": false
+  },
+  "vendor_board_check": {
+    "tfa": {
+      "full_boardconfig_gnu_make": "passed",
+      "selected_packages": 1696,
+      "loader_owners_unique": true
+    },
+    "sia": {
+      "full_boardconfig_gnu_make": "passed",
+      "selected_packages": 1696,
+      "loader_owners_unique": true
+    },
+    "vendor_reference_commit": "1e1509837ee796de4fd85719bfc66896f8bb06fc",
+    "boardconfig_vendor_sha256": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec",
+    "vendor_blobs_complete": false,
+    "android_build_verified": false,
+    "optional_lineage_and_camera_includes_present": false
+  },
+  "runtime_check": {
+    "service_owners": {
+      "gki.modprobe": "hw/init.qti.kernel.rc",
+      "vendor.modprobe": "hw/init.qti.kernel.rc"
+    },
+    "start_action": "hw/init.qti.kernel.rc",
+    "ready_barriers": [
+      {
+        "file": "hw/init.qti.kernel.target.rc",
+        "trigger": [
+          "on",
+          "post-fs-data"
+        ]
+      },
+      {
+        "file": "device/init.target.rc",
+        "trigger": [
+          "on",
+          "init",
+          "&&",
+          "property:ro.boot.mode=charger"
+        ]
+      }
+    ],
+    "charger_verified": false,
+    "firmware": {
+      "search_paths": [
+        "/vendor/firmware_mnt/image/",
+        "/vendor/modem_firmware/image/"
+      ],
+      "fstab_rows": 28,
+      "firmware_bytes_verified": false
+    },
+    "status": "scoped_vendor_runtime_passed",
+    "runtime_verified": false,
+    "rom_built": false,
+    "runtime_packages": [
+      "sh_vendor",
+      "toolbox_vendor",
+      "toybox_vendor"
+    ],
+    "init_files_checked": 96
+  },
+  "stock_partitions": {
+    "manifest_sha256": "b8e2f34b24b08c6c6f92fdafc8fd2618e282aeaa82671cd217c07eaf6679c39a",
+    "ota_etag": "\"53FB1A0CD09F47AB51D6924206227BF9-400\"",
+    "partitions": {
+      "vendor": {
+        "size": 742670336,
+        "sha256": "2601a8eb5879617858263ae7365dbd1bbbd8db79926ff2565ee950bbe1c676bc",
+        "operations": 355,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      "modem": {
+        "size": 208400384,
+        "sha256": "241388c74e77dd9ed46cf8f6554505300504694fcaf60396e2d73cdae44c8a3b",
+        "operations": 100,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      },
+      "modemfirmware": {
+        "size": 136794112,
+        "sha256": "5bf0324f87c56fe2730b6b4ffda6ca6a5ad159e60fc18ed71de231df478bc78f",
+        "operations": 66,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      }
+    },
+    "ota_signature_verified": false
+  },
+  "stock_vendor_properties": {
+    "ro.vendor.build.fingerprint": "Xiaomi/mivendor/mivendor:15/AQ3A.250226.002/OS4.0.6.0.XPKCN:user/release-keys",
+    "ro.vendor.build.version.sdk": "35",
+    "ro.vendor.build.version.release": "15",
+    "ro.vendor.build.version.incremental": "OS4.0.6.0.XPKCN",
+    "ro.vendor.build.security_patch": "2026-10-01"
+  },
+  "stock_init_comparison": {
+    "etc/init/hw/init.qti.kernel.rc": {
+      "stock_sha256": "77a8019f1382471bfea4753103defb2e19860b5e115e0690e95ac07b25ddf75b",
+      "reference_sha256": "a21ab1ba2c9b64989010d36f25a2a088928bc3c78d71c1ff839615a10cd7976f"
+    },
+    "etc/init/hw/init.qti.kernel.target.rc": {
+      "stock_sha256": "c21c92a0af6bfe8a6d833276500ee3ea486999de73feab435230b843ec62b6a0",
+      "reference_sha256": "c21c92a0af6bfe8a6d833276500ee3ea486999de73feab435230b843ec62b6a0"
+    },
+    "bin/vendor_modprobe.sh": {
+      "stock_sha256": "0d773f29a657de1dfabbbc8139cb04468656e6a5755f6e68d08d9815ba74b141",
+      "reference_sha256": null
+    },
+    "bin/system_dlkm_modprobe.sh": {
+      "stock_sha256": "52813239ab9d2e4a67e772747fe2b98004205433116eb02c019963b06c1d17c9",
+      "reference_sha256": null
+    },
+    "stock_service_contract": {
+      "service_owners": {
+        "gki.modprobe": "hw/init.qti.kernel.rc",
+        "vendor.modprobe": "hw/init.qti.kernel.rc"
+      },
+      "start_action": "hw/init.qti.kernel.rc",
+      "ready_barriers": [
+        {
+          "file": "hw/init.target.rc",
+          "trigger": [
+            "on",
+            "init",
+            "&&",
+            "property:ro.boot.mode=charger"
+          ]
+        },
+        {
+          "file": "hw/init.qti.kernel.target.rc",
+          "trigger": [
+            "on",
+            "post-fs-data"
+          ]
+        }
+      ],
+      "charger_verified": false
+    }
+  },
+  "stock_gpu_firmware": {
+    "gen80000_aqe.fw": {
+      "bytes": 25340,
+      "sha256": "f04cb97e1e629b9003a26c5670b8f7e5b7bfeca95d35b2abd581fd8672efed20"
+    },
+    "gen80000_gmu.bin": {
+      "bytes": 88896,
+      "sha256": "1ad8175e6cd01ea76c64d20b83600038c52dd29844b48d57b11b769b038863a5"
+    },
+    "gen80000_sqe.fw": {
+      "bytes": 111892,
+      "sha256": "9c8f009bea112d7c06dd2ccb67e889999459e53b92f0f4859f5ea0db067ad6b5"
+    },
+    "gen80600_gmu.bin": {
+      "bytes": 88964,
+      "sha256": "75b3282a40e5411a1c154f698b923a916d1a6c8336d0ada677feabb15155a80e"
+    }
+  },
+  "spu_mdt_files_in_fat_partitions": {
+    "modem": [],
+    "modemfirmware": []
+  },
+  "spuservice_partition": {
+    "manifest_sha256": "b8e2f34b24b08c6c6f92fdafc8fd2618e282aeaa82671cd217c07eaf6679c39a",
+    "ota_etag": "\"53FB1A0CD09F47AB51D6924206227BF9-400\"",
+    "partitions": {
+      "spuservice": {
+        "size": 94208,
+        "sha256": "360fe741915f144d937bfbf2bf9b1dd41f8969481d08281539fbc9b9510cde87",
+        "operations": 1,
+        "operation_hashes_verified": true,
+        "partition_hash_verified": true
+      }
+    },
+    "ota_signature_verified": false
+  },
+  "families": {
+    "tfa": {
+      "schema_version": 1,
+      "status": "handoff_prepared",
+      "flashable": false,
+      "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+      "family": "tfa",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "stage_validation_sha256": "819c4f179380ee0a9177c543bdb37cd0e537df4c2a36973a32ce46dd7f89c7b2",
+      "image_validation_sha256": "fd8b9523bc84b1c7074f73ca49e13edc5a91f592bf3d1c110103bfec041e719d",
+      "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+      "module_count": 217,
+      "header_count": 1003,
+      "kernel_compilation_hook": false,
+      "rom_built": false,
+      "init_boot_built": false,
+      "unverified": [
+        "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+        "Re-extracted vendor tree must not retain conflicting loader owners",
+        "Actual init service graph, vendor tools and enforcing policy",
+        "Recovery/charger module lists and physical partition/AVB configuration",
+        "Device driver coverage, amplifier identity and first boot"
+      ]
+    },
+    "sia": {
+      "schema_version": 1,
+      "status": "handoff_prepared",
+      "flashable": false,
+      "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+      "family": "sia",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "stage_validation_sha256": "bac527a6f47639bf5ceca59be954fe173c9d321fb4ef7fcc6911c760224f61ef",
+      "image_validation_sha256": "1979796276151458771780cf9c325b0fb1d0ced649a3a278502cc2f674471a4f",
+      "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+      "module_count": 218,
+      "header_count": 1003,
+      "kernel_compilation_hook": false,
+      "rom_built": false,
+      "init_boot_built": false,
+      "unverified": [
+        "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+        "Re-extracted vendor tree must not retain conflicting loader owners",
+        "Actual init service graph, vendor tools and enforcing policy",
+        "Recovery/charger module lists and physical partition/AVB configuration",
+        "Device driver coverage, amplifier identity and first boot"
+      ]
+    }
+  },
+  "unverified": [
+    "Complete matched vendor+odm generated tree and HAL ABI",
+    "SPSS firmware reload/fuse/UEFI runtime path",
+    "Full Soong/Kati and combined enforcing policy build",
+    "Final ROM/init_boot/AVB/recovery/charger and device behavior"
+  ]
+}

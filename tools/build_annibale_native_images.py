@@ -66,6 +66,18 @@ def check_fstab(text):
             'metadata_encryption=aes-256-xts:wrappedkey_v0' in flags, 'userdata encryption changed')
     require(any(r[1] == '/metadata' and r[2] == 'f2fs' and 'first_stage_mount' in r[4].split(',') for r in rows),
             'missing early metadata mount')
+    for partition, mount, filesystem in (
+            ('modem', '/vendor/firmware_mnt', 'vfat'),
+            ('modemfirmware', '/vendor/modem_firmware', 'vfat'),
+            ('dsp', '/vendor/dsp', 'ext4'),
+            ('bluetooth', '/vendor/bt_firmware', 'vfat')):
+        matches = [r for r in rows if r[1] == mount]
+        require(len(matches) == 1 and matches[0][:3] ==
+                ['/dev/block/bootdevice/by-name/' + partition, mount, filesystem],
+                'missing/changed firmware mount: ' + mount)
+        require('ro' in matches[0][3].split(',') and
+                {'wait', 'slotselect'} <= set(matches[0][4].split(',')),
+                'firmware mount must retain read-only slot selection: ' + mount)
     return rows
 
 
