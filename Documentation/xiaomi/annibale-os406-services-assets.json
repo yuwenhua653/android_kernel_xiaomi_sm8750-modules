@@ -1,0 +1,148 @@
+{
+  "firmware_label": "OS4.0.6.0.XPKCNXM",
+  "incremental": "OS4.0.6.0.XPKCN",
+  "input_sha256": {
+    "proprietary-files.txt": "7daa49edd166e6493b45afbbcfb1e32fd42b6de1386b019a79fddc8bac89ca5f",
+    "vintf/manifest.xml": "2fa54e3a729ab2ab9f3bc3fbf227a662ab196195f417879921ed531049e750d4",
+    "sepolicy/vendor/file_contexts": "82884679b2bc94ad58ef5fea0de09c60cc7a87a4788fd9534270a5cd146941e2",
+    "sepolicy/vendor/service_contexts": "6ef6ec92cc7e374b1387e433bb084a75b0e4c743ac714fef194d52373a5291da",
+    "sepolicy/vendor/property_contexts": "df95400e1b5137daf66e3b3b65410195a040500785707947647f36fba760522c"
+  },
+  "relocations": {
+    "vendor/bin/hw/vendor.qti.sla.service@2.0-service": "vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service",
+    "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc": "vendor/etc/init/vendor.xiaomi.aidl.minet@1.0-service.rc",
+    "system_ext/lib64/libmmparser_lite.so": "system_ext/lib64/libwfdparserlite.so"
+  },
+  "add_after": {
+    "vendor/etc/init/slad.rc": [
+      "vendor/bin/minetd",
+      "vendor/etc/init/minetd.rc",
+      "vendor/lib64/vendor.xiaomi.aidl.minet-V1-ndk.so",
+      "vendor/lib64/vendor.xiaomi.aidl.miwill-V1-ndk.so"
+    ]
+  },
+  "retired_entries": [
+    "system_ext/lib64/libimscamera_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimscamera_jni.so"
+  ],
+  "files": {
+    "vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service": {
+      "size": 119992,
+      "sha256": "2bb627041fa887bef9f0dc04f4c34bd7bf07e607264a98c8de8b778a9a3dcdaf"
+    },
+    "vendor/etc/init/vendor.xiaomi.aidl.minet@1.0-service.rc": {
+      "size": 131,
+      "sha256": "2c5cb69044d57faa449f59599f6f622177e23163ec16e10dc29e439d64875a16"
+    },
+    "system_ext/lib64/libwfdparserlite.so": {
+      "size": 304056,
+      "sha256": "30486442e4ace862de16dd0b015a901ab77b3a49acbbf35b5bea65c88aa3ca48"
+    },
+    "vendor/bin/minetd": {
+      "size": 102320,
+      "sha256": "e124de12f5d6622ee14af05dba22abf823659127f3baf8d90aa10559279bb0cc"
+    },
+    "vendor/etc/init/minetd.rc": {
+      "size": 320,
+      "sha256": "df24af4e5322c7115b5700e932ce4cda23af7f810eb43d049316a6dba6065e1b"
+    },
+    "vendor/lib64/vendor.xiaomi.aidl.minet-V1-ndk.so": {
+      "size": 85384,
+      "sha256": "c4f6a7085d2ba327c2f459969987892e58844dc9e1fbbe07956082262b364c2a"
+    },
+    "vendor/lib64/vendor.xiaomi.aidl.miwill-V1-ndk.so": {
+      "size": 52392,
+      "sha256": "5e1b7adecaed4c9f812191fc6f8b3d697edb0e46301072a3b2dead2025d40601"
+    },
+    "vendor/bin/slad": {
+      "size": 188728,
+      "sha256": "1486b3882f6abf796d77cec5d686a59aa68464031e0d0090a795c6958f6815b6"
+    },
+    "vendor/etc/init/slad.rc": {
+      "size": 493,
+      "sha256": "e4d6cf58b3bcc5923dae800793915b8fb573b55860497e568686fd664b6637d7"
+    },
+    "vendor/lib64/vendor.qti.sla.service-V1-ndk.so": {
+      "size": 85200,
+      "sha256": "c66eb99f2f1177f6e487b184838678b88adba2cc9a833754beb9df1641173bec"
+    },
+    "system_ext/lib64/libwfdmmsink.so": {
+      "size": 249352,
+      "sha256": "77ee25b3faef4bf7e04d8e1777ced0247780c22efa8301d577bd578c619b627f"
+    },
+    "system_ext/priv-app/ims/ims.apk": {
+      "size": 914699,
+      "sha256": "14b9fa06004e54312f5f6655bbef8c1834c61cad3c724e5b5e1e71ff65199da9"
+    },
+    "system_ext/lib64/libimsmedia_jni.so": {
+      "size": 70152,
+      "sha256": "ea0f9228f9ad45af11214d68b570d4890d101b0003a1d5df3b8c38f3971875eb"
+    },
+    "vendor/etc/vintf/manifest_sun.xml": {
+      "size": 923,
+      "sha256": "f0045f343a8ad880d109b6ee7f6e52ad98e27f400df16b875050ecb2ebf288a9"
+    },
+    "vendor/etc/selinux/vendor_sepolicy.cil": {
+      "size": 1727272,
+      "sha256": "261f3a29b3daaf62847f7c1b97aa9ca731c7d59fb711fa7c319edbec8b034ca6"
+    },
+    "vendor/etc/selinux/vendor_file_contexts": {
+      "size": 148376,
+      "sha256": "9224316712e6ab2472c0e7554ebd1c90886c1c8c79f7d30b4a8616f734ebf343"
+    },
+    "vendor/etc/selinux/vendor_service_contexts": {
+      "size": 20910,
+      "sha256": "c7888ffcdc55a80e47e44e23c918cd0bda51d873204f86c511336447a8ae9cc2"
+    }
+  },
+  "required_dependencies": {
+    "vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service": [
+      "vendor.qti.sla.service-V1-ndk.so",
+      "vendor.xiaomi.aidl.minet-V1-ndk.so",
+      "vendor.xiaomi.aidl.miwill-V1-ndk.so"
+    ],
+    "system_ext/lib64/libwfdmmsink.so": [
+      "libwfdparserlite.so"
+    ]
+  },
+  "context_replacement": {
+    "file": "sepolicy/vendor/file_contexts",
+    "old": "/vendor/bin/hw/vendor\\.qti\\.sla\\.service\\@2\\.0-service u:object_r:hal_slaaidlservice_default_exec:s0",
+    "new": "/vendor/bin/hw/vendor\\.xiaomi\\.aidl\\.minet@1\\.0-service u:object_r:hal_minetaidlservice_default_exec:s0"
+  },
+  "append": {
+    "sepolicy/vendor/file_contexts": "/vendor/bin/minetd u:object_r:minetd_exec:s0\n/dev/socket/minetd u:object_r:minetd_socket:s0\n/data/vendor/minetd(/.*)? u:object_r:minetd_data_file:s0\n/data/vendor/misc/sla(/.*)? u:object_r:sla_data_file:s0\n",
+    "sepolicy/vendor/service_contexts": "vendor.xiaomi.aidl.minet.IMiNetAIDLService/default u:object_r:hal_minetaidlservice_service:s0\nvendor.xiaomi.aidl.miwill.IMiwillAIDLService/default u:object_r:hal_miwillservice_service:s0\n",
+    "sepolicy/vendor/property_contexts": "vendor.minetd.enabled u:object_r:vendor_minetd_prop:s0\n"
+  },
+  "new_files": {
+    "sepolicy/vendor/hal_minetaidlservice.te": {
+      "template": "tools/templates/os406-services/hal_minetaidlservice.te",
+      "sha256": "efe50ed6447699bb3e9e44e41b845754c3c62c28e280bacc997ad291e27fe61a"
+    },
+    "sepolicy/vendor/minetd.te": {
+      "template": "tools/templates/os406-services/minetd.te",
+      "sha256": "6bb506ba5be4eee09b0c450252591e384fda77d1e041363fbea68178762212cb"
+    }
+  },
+  "retained_entries": [
+    "system_ext/priv-app/ims/ims.apk;REQUIRED=QtiTelephonyCompat",
+    "system_ext/lib64/libimsmedia_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimsmedia_jni.so",
+    "vendor/bin/slad",
+    "vendor/etc/init/slad.rc",
+    "vendor/etc/sla/slad.conf",
+    "vendor/lib64/vendor.qti.sla.service-V1-ndk.so"
+  ],
+  "ims_dex_required_strings": [
+    "Lcom/qualcomm/ims/vt/Camera2;",
+    "Landroid/hardware/camera2/CameraManager;",
+    "imsmedia_jni"
+  ],
+  "ims_dex_forbidden_strings": [
+    "imscamera_jni"
+  ],
+  "required_aidl_instances": {
+    "vendor.qti.sla.service": "ISlaAIDLService/default",
+    "vendor.xiaomi.aidl.minet": "IMiNetAIDLService/default",
+    "vendor.xiaomi.aidl.miwill": "IMiwillAIDLService/default"
+  }
+}

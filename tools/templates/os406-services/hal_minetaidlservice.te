@@ -1,0 +1,31 @@
+# OS4 merged MiNet/SLA service. Diagnostic shell/module-loading paths are not
+# granted here; full target policy/neverallow and runtime checks are required.
+hal_attribute(minetaidlservice)
+hal_attribute(miwillservice)
+
+type hal_minetaidlservice_default, domain;
+type hal_minetaidlservice_default_exec, exec_type, vendor_file_type, file_type;
+type hal_minetaidlservice_service, hal_service_type, protected_service, service_manager_type;
+type hal_miwillservice_service, hal_service_type, protected_service, service_manager_type;
+
+init_daemon_domain(hal_minetaidlservice_default)
+hal_server_domain(hal_minetaidlservice_default, hal_minetaidlservice)
+hal_server_domain(hal_minetaidlservice_default, hal_miwillservice)
+hal_server_domain(hal_minetaidlservice_default, hal_slaaidlservice)
+hal_attribute_service(hal_minetaidlservice, hal_minetaidlservice_service)
+hal_attribute_service(hal_miwillservice, hal_miwillservice_service)
+binder_use(hal_minetaidlservice_default)
+binder_call(hal_minetaidlservice_client, hal_minetaidlservice_server)
+binder_call(hal_minetaidlservice_server, hal_minetaidlservice_client)
+binder_call(hal_miwillservice_client, hal_miwillservice_server)
+binder_call(hal_miwillservice_server, hal_miwillservice_client)
+hal_client_domain(system_app, hal_minetaidlservice)
+hal_client_domain(system_server, hal_minetaidlservice)
+hal_client_domain(system_app, hal_miwillservice)
+hal_client_domain(system_server, hal_miwillservice)
+hal_client_domain(system_app, hal_slaaidlservice)
+hal_client_domain(system_server, hal_slaaidlservice)
+set_prop(hal_minetaidlservice_default, vendor_minetd_prop)
+set_prop(hal_minetaidlservice_default, vendor_slad_prop)
+unix_socket_connect(hal_minetaidlservice_default, minetd, minetd)
+unix_socket_connect(hal_minetaidlservice_default, slad, slad)

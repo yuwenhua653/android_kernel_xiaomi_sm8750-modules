@@ -1,0 +1,341 @@
+{
+  "round": "R35",
+  "parent_commit": "08400cd030c7832031d3cdf028e9303519ed2cad",
+  "scope": "OS4 native extraction gaps",
+  "migration": {
+    "status": "pinned_service_migration_prepared",
+    "input_sha256": {
+      "proprietary-files.txt": "7daa49edd166e6493b45afbbcfb1e32fd42b6de1386b019a79fddc8bac89ca5f",
+      "vintf/manifest.xml": "2fa54e3a729ab2ab9f3bc3fbf227a662ab196195f417879921ed531049e750d4",
+      "sepolicy/vendor/file_contexts": "82884679b2bc94ad58ef5fea0de09c60cc7a87a4788fd9534270a5cd146941e2",
+      "sepolicy/vendor/service_contexts": "6ef6ec92cc7e374b1387e433bb084a75b0e4c743ac714fef194d52373a5291da",
+      "sepolicy/vendor/property_contexts": "df95400e1b5137daf66e3b3b65410195a040500785707947647f36fba760522c"
+    },
+    "output_sha256": {
+      "proprietary-files.txt": "4fbaf3cb6be66c17f278570c4e92da130bdaa6e2591961768b36ff9c88f10971",
+      "vintf/manifest.xml": "2fa54e3a729ab2ab9f3bc3fbf227a662ab196195f417879921ed531049e750d4",
+      "sepolicy/vendor/file_contexts": "6c3639febc7f7303927d42497b304d3a71901fe3cb20d227260b42f9f33c650f",
+      "sepolicy/vendor/service_contexts": "bef857c1fd664cde271154e5e7bb0cdf7699404bd8fa1707cc6490578b2a6b9b",
+      "sepolicy/vendor/property_contexts": "4d5bfb3d198a46da338231484824c6f740e47961fe4adc2e70ea713ff4e36465",
+      "sepolicy/vendor/hal_minetaidlservice.te": "efe50ed6447699bb3e9e44e41b845754c3c62c28e280bacc997ad291e27fe61a",
+      "sepolicy/vendor/minetd.te": "6bb506ba5be4eee09b0c450252591e384fda77d1e041363fbea68178762212cb"
+    },
+    "evidence": {
+      "consumer_elf": {
+        "vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service": {
+          "needed": [
+            "libcutils.so",
+            "libutils.so",
+            "liblog.so",
+            "libhwbinder.so",
+            "libhardware_legacy.so",
+            "libbase.so",
+            "libhardware.so",
+            "libhidlbase.so",
+            "libhidltransport.so",
+            "libbinder_ndk.so",
+            "vendor.xiaomi.aidl.minet-V1-ndk.so",
+            "vendor.xiaomi.aidl.miwill-V1-ndk.so",
+            "vendor.qti.sla.service-V1-ndk.so",
+            "libc++.so",
+            "libc.so",
+            "libm.so",
+            "libdl.so"
+          ],
+          "soname": []
+        },
+        "system_ext/lib64/libwfdmmsink.so": {
+          "needed": [
+            "libmmosal.so",
+            "liblog.so",
+            "libutils.so",
+            "libmedia.so",
+            "libaudioclient.so",
+            "libgui.so",
+            "libbinder.so",
+            "libwfdcommonutils.so",
+            "libwfdconfigutils.so",
+            "libui.so",
+            "libwfdparserlite.so",
+            "libmmrtpdecoder.so",
+            "libcutils.so",
+            "libwfddisplayconfig.so",
+            "libhwui.so",
+            "libwfdmminterface.so",
+            "libhidlbase.so",
+            "libhidlmemory.so",
+            "android.hidl.allocator@1.0.so",
+            "android.hidl.memory@1.0.so",
+            "libandroid.so",
+            "libmediandk.so",
+            "libaaudio.so",
+            "libc++.so",
+            "libc.so",
+            "libm.so",
+            "libdl.so"
+          ],
+          "soname": [
+            "libwfdmmsink.so"
+          ]
+        }
+      },
+      "parser_elf": {
+        "needed": [
+          "libutils.so",
+          "libcutils.so",
+          "liblog.so",
+          "libmmosal.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libwfdparserlite.so"
+        ]
+      },
+      "ims_camera2_and_media_tokens_verified": true,
+      "stock_merged_sla_policy_owner_verified": true
+    },
+    "relocations": {
+      "vendor/bin/hw/vendor.qti.sla.service@2.0-service": "vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service",
+      "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc": "vendor/etc/init/vendor.xiaomi.aidl.minet@1.0-service.rc",
+      "system_ext/lib64/libmmparser_lite.so": "system_ext/lib64/libwfdparserlite.so"
+    },
+    "retired_entries": [
+      "system_ext/lib64/libimscamera_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimscamera_jni.so"
+    ],
+    "added_entries": [
+      "vendor/bin/minetd",
+      "vendor/etc/init/minetd.rc",
+      "vendor/lib64/vendor.xiaomi.aidl.minet-V1-ndk.so",
+      "vendor/lib64/vendor.xiaomi.aidl.miwill-V1-ndk.so"
+    ],
+    "policy_compiled": false,
+    "rom_built": false,
+    "runtime_verified": false,
+    "experimental_sla_module_enabled": false
+  },
+  "generation": {
+    "status": "scoped_extract_utils_generation_passed",
+    "entries": [
+      "system_ext/lib64/libimsmedia_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimsmedia_jni.so",
+      "system_ext/priv-app/ims/ims.apk;REQUIRED=QtiTelephonyCompat",
+      "vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service",
+      "vendor/bin/slad",
+      "vendor/etc/init/slad.rc",
+      "vendor/bin/minetd",
+      "vendor/etc/init/minetd.rc",
+      "vendor/lib64/vendor.xiaomi.aidl.minet-V1-ndk.so",
+      "vendor/lib64/vendor.xiaomi.aidl.miwill-V1-ndk.so",
+      "vendor/etc/init/vendor.xiaomi.aidl.minet@1.0-service.rc",
+      "vendor/etc/sla/slad.conf",
+      "vendor/lib64/vendor.qti.sla.service-V1-ndk.so",
+      "system_ext/lib64/libwfdparserlite.so",
+      "system_ext/lib64/libwfdmmsink.so"
+    ],
+    "owner_checks": {
+      "vendor.xiaomi.aidl.minet@1.0-service": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "new_elf_checks_disabled": false
+      },
+      "minetd": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "new_elf_checks_disabled": false
+      },
+      "vendor.xiaomi.aidl.minet-V1-ndk": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "new_elf_checks_disabled": false
+      },
+      "vendor.xiaomi.aidl.miwill-V1-ndk": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "new_elf_checks_disabled": false
+      },
+      "libwfdparserlite": {
+        "one_owner": true,
+        "partition_flag": "system_ext_specific: true",
+        "new_elf_checks_disabled": false
+      }
+    },
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "generated_files": {
+      "Android.bp": "7c24b9ced144bb4d9d6d971dc0b40bb3090de023f770a4323dff433bb7a78d11",
+      "Android.mk": "7a5e9b2a048ce3b454ca66d2be7775eaf808c0cdac69b680a5deeb072ca08eb0",
+      "annibale-vendor.mk": "b5b78e16db0b246b4fc47a685372b85566d6d5801dbcce497441895c3f4ed3ac",
+      "BoardConfigVendor.mk": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec"
+    },
+    "full_vendor_generated": false,
+    "soong_compiled": false,
+    "elf_symbol_abi_verified": false,
+    "policy_compiled": false
+  },
+  "before_counts": {
+    "present": 3872,
+    "missing": 23,
+    "outside_scope": 0
+  },
+  "after_counts": {
+    "present": 3879,
+    "missing": 19,
+    "outside_scope": 0
+  },
+  "list_sha256": "4fbaf3cb6be66c17f278570c4e92da130bdaa6e2591961768b36ff9c88f10971",
+  "resolved_input_entries": [
+    "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+    "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+    "system_ext/lib64/libmmparser_lite.so",
+    "system_ext/lib64/libimscamera_jni.so"
+  ],
+  "resolution_types": {
+    "replacement_paths": 3,
+    "retired_obsolete_ims_jni_with_existing_camera2_media_path": 1,
+    "added_support_entries": 4
+  },
+  "missing_inputs": [
+    {
+      "source": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "destination": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libSEGModel.so",
+      "destination": "vendor/lib64/libSEGModel.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_core_se.so",
+      "destination": "vendor/lib64/libopencv_core_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_imgproc_se.so",
+      "destination": "vendor/lib64/libopencv_imgproc_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk",
+      "destination": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "section": "Euicc"
+    },
+    {
+      "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "destination": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "destination": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "destination": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "destination": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "destination": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "destination": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qsap_qapeservice",
+      "destination": "vendor/bin/qsap_qapeservice",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "destination": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "destination": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "section": "QSAP"
+    },
+    {
+      "source": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "destination": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "section": "RIL"
+    }
+  ],
+  "remaining_counts_by_section": {
+    "Camera": 6,
+    "Euicc": 1,
+    "QESD": 8,
+    "QSAP": 3,
+    "RIL": 1
+  },
+  "policy_context_matches": {
+    "/vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service": "u:object_r:hal_minetaidlservice_default_exec:s0",
+    "/vendor/bin/minetd": "u:object_r:minetd_exec:s0",
+    "/dev/socket/minetd": "u:object_r:minetd_socket:s0",
+    "/data/vendor/minetd": "u:object_r:minetd_data_file:s0",
+    "/data/vendor/misc/sla": "u:object_r:sla_data_file:s0"
+  },
+  "policy_compiled": false,
+  "policy_scope": "daemon/service/socket/data ownership and core binder/property/socket rules; full target neverallow/runtime and diagnostic child commands unqualified",
+  "minet_binary_static_evidence": {
+    "sha256": "2bb627041fa887bef9f0dc04f4c34bd7bf07e607264a98c8de8b778a9a3dcdaf",
+    "sla_constructor_call": "0x134cc -> BnSlaAIDLServiceC2Ev",
+    "binder_registration_call": "0x135d0 -> AServiceManager_addService",
+    "registration_error_literal": "SLA AIDL registration failed: %d (continuing)",
+    "stock_cil_sla_server_contains": "hal_minetaidlservice_default",
+    "miwill_feature_removed_literal_present": true,
+    "registered_on_device": false
+  },
+  "ims_reference_scan": {
+    "selected_elf_files": 1522,
+    "old_jni_direct_needed_consumers": [],
+    "inventory_sha256": "893847128ef3cfef9c8369e66fc4c678f23dcfdb22a5d8875af4334ad7f0ab5d",
+    "limits": "direct ELF references in retained R32 scan plus pinned IMS DEX strings; no execution/dynamic-loading proof"
+  },
+  "applied_patch_matches_output_hashes": true,
+  "patch_sha256": "18adde1a810d491d562f9563be866b8ef9194ec76ab00f4cf9deec06f3575f72",
+  "tests": {
+    "passed": 237,
+    "failed": 0,
+    "skipped": 0,
+    "log_sha256": "81d795fb7981172d66a14421d14687440d84e3e271ed87fc5d1e780bae8f554b"
+  },
+  "experimental_sla_kernel_module_enabled": false,
+  "kernel_rebuilt": false,
+  "full_vendor_generated": false,
+  "rom_built": false,
+  "hyperos_device_tested": false,
+  "native_device_tested": false,
+  "flashable": false
+}

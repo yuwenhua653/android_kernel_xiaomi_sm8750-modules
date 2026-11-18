@@ -1,0 +1,129 @@
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -3397,7 +3397,6 @@
+ system_ext/lib64/lib-imsvt.so
+ system_ext/lib64/lib-imsvtextutils.so
+ system_ext/lib64/lib-imsvtutils.so
+-system_ext/lib64/libimscamera_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimscamera_jni.so
+ system_ext/lib64/libimsmedia_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimsmedia_jni.so
+ system_ext/lib64/vendor.qti.ImsRtpService-V1-ndk.so
+ system_ext/lib64/vendor.qti.ImsRtpService-V2-ndk.so
+@@ -3799,10 +3798,14 @@
+ vendor/lib64/vendor.qti.hardware.soter-V1-ndk.so
+ 
+ # SLA
+-vendor/bin/hw/vendor.qti.sla.service@2.0-service
++vendor/bin/hw/vendor.xiaomi.aidl.minet@1.0-service
+ vendor/bin/slad
+ vendor/etc/init/slad.rc
+-vendor/etc/init/vendor.qti.sla.service@2.0-service.rc
++vendor/bin/minetd
++vendor/etc/init/minetd.rc
++vendor/lib64/vendor.xiaomi.aidl.minet-V1-ndk.so
++vendor/lib64/vendor.xiaomi.aidl.miwill-V1-ndk.so
++vendor/etc/init/vendor.xiaomi.aidl.minet@1.0-service.rc
+ vendor/etc/sla/slad.conf
+ vendor/lib64/vendor.qti.sla.service-V1-ndk.so
+ 
+@@ -4015,7 +4018,7 @@
+ system_ext/etc/seccomp_policy/wfdservice64.policy
+ system_ext/etc/wfdconfigsink.xml
+ system_ext/lib64/libmmosal.so
+-system_ext/lib64/libmmparser_lite.so
++system_ext/lib64/libwfdparserlite.so
+ system_ext/lib64/libmmrtpdecoder.so
+ system_ext/lib64/libmmrtpencoder.so
+ system_ext/lib64/libwfdavenhancements.so
+--- a/sepolicy/vendor/file_contexts
++++ b/sepolicy/vendor/file_contexts
+@@ -110,7 +110,7 @@
+ /vendor/bin/hw/android\.hardware\.sensors-service\.xiaomi-multihal                                                   u:object_r:hal_sensors_default_exec:s0
+ 
+ # SLA
+-/vendor/bin/hw/vendor\.qti\.sla\.service\@2\.0-service u:object_r:hal_slaaidlservice_default_exec:s0
++/vendor/bin/hw/vendor\.xiaomi\.aidl\.minet@1\.0-service u:object_r:hal_minetaidlservice_default_exec:s0
+ /data/vendor/sla(/.*)? u:object_r:sla_data_file:s0
+ /dev/socket/slad u:object_r:slad_socket:s0
+ /vendor/bin/slad u:object_r:slad_exec:s0
+@@ -162,3 +162,9 @@
+ /vendor/bin/nv_mac u:object_r:vendor_wcnss_service_exec:s0
+ /data/vendor/mac_addr(/.*)? u:object_r:vendor_mac_vendor_data_file:s0
+ /data/vendor/mbnconfig(/.*)? u:object_r:vendor_firmware_data_file:s0
++
++# OS4 merged MiNet/SLA service
++/vendor/bin/minetd u:object_r:minetd_exec:s0
++/dev/socket/minetd u:object_r:minetd_socket:s0
++/data/vendor/minetd(/.*)? u:object_r:minetd_data_file:s0
++/data/vendor/misc/sla(/.*)? u:object_r:sla_data_file:s0
+--- a/sepolicy/vendor/service_contexts
++++ b/sepolicy/vendor/service_contexts
+@@ -36,3 +36,7 @@
+ 
+ # Touchfeature
+ vendor.xiaomi.hw.touchfeature.ITouchFeature/default u:object_r:hal_touchfeature_xiaomi_service:s0
++
++# OS4 merged MiNet/SLA service
++vendor.xiaomi.aidl.minet.IMiNetAIDLService/default u:object_r:hal_minetaidlservice_service:s0
++vendor.xiaomi.aidl.miwill.IMiwillAIDLService/default u:object_r:hal_miwillservice_service:s0
+--- a/sepolicy/vendor/property_contexts
++++ b/sepolicy/vendor/property_contexts
+@@ -228,3 +228,6 @@
+ ro.vendor.touch.touchscheduler.enable u:object_r:vendor_touchfeature_prop:s0
+ ro.vendor.touchfeature.type u:object_r:vendor_touchfeature_prop:s0
+ vendor.touchfeature. u:object_r:vendor_touchfeature_prop:s0
++
++# OS4 merged MiNet/SLA service
++vendor.minetd.enabled u:object_r:vendor_minetd_prop:s0
+--- /dev/null
++++ b/sepolicy/vendor/hal_minetaidlservice.te
+@@ -0,0 +1,31 @@
++# OS4 merged MiNet/SLA service. Diagnostic shell/module-loading paths are not
++# granted here; full target policy/neverallow and runtime checks are required.
++hal_attribute(minetaidlservice)
++hal_attribute(miwillservice)
++
++type hal_minetaidlservice_default, domain;
++type hal_minetaidlservice_default_exec, exec_type, vendor_file_type, file_type;
++type hal_minetaidlservice_service, hal_service_type, protected_service, service_manager_type;
++type hal_miwillservice_service, hal_service_type, protected_service, service_manager_type;
++
++init_daemon_domain(hal_minetaidlservice_default)
++hal_server_domain(hal_minetaidlservice_default, hal_minetaidlservice)
++hal_server_domain(hal_minetaidlservice_default, hal_miwillservice)
++hal_server_domain(hal_minetaidlservice_default, hal_slaaidlservice)
++hal_attribute_service(hal_minetaidlservice, hal_minetaidlservice_service)
++hal_attribute_service(hal_miwillservice, hal_miwillservice_service)
++binder_use(hal_minetaidlservice_default)
++binder_call(hal_minetaidlservice_client, hal_minetaidlservice_server)
++binder_call(hal_minetaidlservice_server, hal_minetaidlservice_client)
++binder_call(hal_miwillservice_client, hal_miwillservice_server)
++binder_call(hal_miwillservice_server, hal_miwillservice_client)
++hal_client_domain(system_app, hal_minetaidlservice)
++hal_client_domain(system_server, hal_minetaidlservice)
++hal_client_domain(system_app, hal_miwillservice)
++hal_client_domain(system_server, hal_miwillservice)
++hal_client_domain(system_app, hal_slaaidlservice)
++hal_client_domain(system_server, hal_slaaidlservice)
++set_prop(hal_minetaidlservice_default, vendor_minetd_prop)
++set_prop(hal_minetaidlservice_default, vendor_slad_prop)
++unix_socket_connect(hal_minetaidlservice_default, minetd, minetd)
++unix_socket_connect(hal_minetaidlservice_default, slad, slad)
+--- /dev/null
++++ b/sepolicy/vendor/minetd.te
+@@ -0,0 +1,16 @@
++# Minimal stock-derived daemon ownership; no blanket vendor execution grant.
++type minetd, domain;
++type minetd_exec, exec_type, vendor_file_type, file_type;
++type minetd_socket, file_type;
++type minetd_data_file, file_type, data_file_type;
++vendor_internal_prop(vendor_minetd_prop)
++init_daemon_domain(minetd)
++net_domain(minetd)
++set_prop(minetd, vendor_minetd_prop)
++allow minetd self:capability { net_admin net_raw };
++allow minetd self:netlink_generic_socket { read write create getattr bind setopt };
++allow minetd self:netlink_route_socket nlmsg_write;
++allow minetd self:packet_socket { read create bind setopt shutdown };
++allow minetd minetd_socket:sock_file { getattr read write unlink };
++allow minetd minetd_data_file:dir create_dir_perms;
++allow minetd minetd_data_file:file create_file_perms;

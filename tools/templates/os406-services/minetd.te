@@ -1,0 +1,16 @@
+# Minimal stock-derived daemon ownership; no blanket vendor execution grant.
+type minetd, domain;
+type minetd_exec, exec_type, vendor_file_type, file_type;
+type minetd_socket, file_type;
+type minetd_data_file, file_type, data_file_type;
+vendor_internal_prop(vendor_minetd_prop)
+init_daemon_domain(minetd)
+net_domain(minetd)
+set_prop(minetd, vendor_minetd_prop)
+allow minetd self:capability { net_admin net_raw };
+allow minetd self:netlink_generic_socket { read write create getattr bind setopt };
+allow minetd self:netlink_route_socket nlmsg_write;
+allow minetd self:packet_socket { read create bind setopt shutdown };
+allow minetd minetd_socket:sock_file { getattr read write unlink };
+allow minetd minetd_data_file:dir create_dir_perms;
+allow minetd minetd_data_file:file create_file_perms;
