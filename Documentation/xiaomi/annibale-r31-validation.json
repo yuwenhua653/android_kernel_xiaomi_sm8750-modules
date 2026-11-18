@@ -1,0 +1,811 @@
+{
+  "round": "R31",
+  "parent_commit": "10a3d0c36d33371daa1d56f40162d30bccdef856",
+  "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+  "tests_passed": 219,
+  "tests_skipped": 0,
+  "stock_partitions": {
+    "vendor_dlkm": {
+      "size": 55910400,
+      "sha256": "2f156bb8b714b142c6751149655bd3de90842c388b9e4d931696964f2752c6a7",
+      "operations": 27,
+      "operation_hashes_verified": true,
+      "partition_hash_verified": true
+    },
+    "system_ext": {
+      "size": 816459776,
+      "sha256": "20d095f4b46e58b6416c80ac4698df31d9e7e85f21d9ea50310c2d1777519bb8",
+      "operations": 390,
+      "operation_hashes_verified": true,
+      "partition_hash_verified": true
+    }
+  },
+  "payload_manifest_sha256": "b8e2f34b24b08c6c6f92fdafc8fd2618e282aeaa82671cd217c07eaf6679c39a",
+  "ota_signature_verified": false,
+  "media_migration": {
+    "status": "exact_stock_media_inputs_prepared",
+    "firmware_label": "OS4.0.6.0.XPKCNXM",
+    "before_sha256": "080b84aaa4a20b410bbf584c24ae36ef151485db913ae963f3d8fc0303e44b03",
+    "after_sha256": "f4f47a9c3e65af1b9e57cc85b1a8c299d1dd9c9d55ad57d472e5c3a509528480",
+    "relocations": {
+      "vendor/etc/display/sm8750_sr_1x_y1280x720.dlc": "odm/etc/display/sm8750_sr_1x_y1280x720.dlc",
+      "vendor/etc/display/sm8750_sr_1x_y544x960.dlc": "odm/etc/display/sm8750_sr_1x_y544x960.dlc",
+      "vendor/etc/display/sm8750_sr_1x_y720x1280.dlc": "odm/etc/display/sm8750_sr_1x_y720x1280.dlc",
+      "vendor/etc/display/sm8750_sr_1x_y960x544.dlc": "odm/etc/display/sm8750_sr_1x_y960x544.dlc",
+      "vendor/etc/display/sm8750_sr_2x_y1280x720.dlc": "odm/etc/display/sm8750_sr_2x_y1280x720.dlc",
+      "vendor/etc/display/sm8750_sr_2x_y544x960.dlc": "odm/etc/display/sm8750_sr_2x_y544x960.dlc",
+      "vendor/etc/display/sm8750_sr_2x_y720x1280.dlc": "odm/etc/display/sm8750_sr_2x_y720x1280.dlc",
+      "vendor/etc/display/sm8750_sr_2x_y960x544.dlc": "odm/etc/display/sm8750_sr_2x_y960x544.dlc",
+      "vendor/etc/display/sm8750_sr_3x_y384x640.dlc": "odm/etc/display/sm8750_sr_3x_y384x640.dlc",
+      "vendor/etc/display/sm8750_sr_3x_y640x384.dlc": "odm/etc/display/sm8750_sr_3x_y640x384.dlc"
+    },
+    "removed_absent_other_platform_firmware": [
+      "odm/firmware/vpu33_4v.mbn",
+      "odm/firmware/vpu33_4v_unsigned.mbn"
+    ],
+    "retained_sun_firmware": [
+      "odm/firmware/vpu35_4v.mbn",
+      "odm/firmware/vpu35_4v_unsigned.mbn"
+    ],
+    "verified_files": {
+      "odm/etc/display/sm8750_sr_1x_y1280x720.dlc": {
+        "size": 278571,
+        "sha256": "0e35a423b40d10b0909681ea22319bf1807db14daa0e0a7b857054f8f752ad52"
+      },
+      "odm/etc/display/sm8750_sr_1x_y544x960.dlc": {
+        "size": 155702,
+        "sha256": "afedfc4351a9bbd5b88bc7ba9bb9b96130a6cbfba402abd7a2dfd2b1a3e1c6f2"
+      },
+      "odm/etc/display/sm8750_sr_1x_y720x1280.dlc": {
+        "size": 184363,
+        "sha256": "fc7e62203b355412dde54bc953a733e2b8e48aa4a59969b0e52c909a06b765d0"
+      },
+      "odm/etc/display/sm8750_sr_1x_y960x544.dlc": {
+        "size": 221238,
+        "sha256": "7b1307ad78b55b73c7644ef4884ac908b6b40029d38b3c667a5f098e1a782e9a"
+      },
+      "odm/etc/display/sm8750_sr_2x_y1280x720.dlc": {
+        "size": 208123,
+        "sha256": "13eeffc26bd8404c2c1d95db2d940a4195c7d277e48e26a4bb2ff544f8fe16a0"
+      },
+      "odm/etc/display/sm8750_sr_2x_y544x960.dlc": {
+        "size": 608450,
+        "sha256": "c4e16415b97ee83290355a25fb2585b7515a026f03697389fa0ffc68bdd6b7be"
+      },
+      "odm/etc/display/sm8750_sr_2x_y720x1280.dlc": {
+        "size": 322811,
+        "sha256": "575e626e0cf601ef35b8ac0c8324e5b339748c670ea28f11f8ea4d20baba4815"
+      },
+      "odm/etc/display/sm8750_sr_2x_y960x544.dlc": {
+        "size": 665794,
+        "sha256": "545960d7885e0abe59957d6fa32fe4d695a6242b71b6415ff92527fa21c62741"
+      },
+      "odm/etc/display/sm8750_sr_3x_y384x640.dlc": {
+        "size": 190722,
+        "sha256": "ae8312402b3ed82fa9d11846c98c6b0ca7196d8499a72a8fe34784dfbc8c1522"
+      },
+      "odm/etc/display/sm8750_sr_3x_y640x384.dlc": {
+        "size": 248066,
+        "sha256": "ef602fb5f7b1cdc71a111fe40d8771062265d3706d45fb2595fbfb4a0936250c"
+      },
+      "odm/firmware/vpu35_4v.mbn": {
+        "size": 2413256,
+        "sha256": "eaa43bb1e4039202fa84996294e56e9e2ac97906665ac6b01082e72265c771cb"
+      },
+      "odm/firmware/vpu35_4v_unsigned.mbn": {
+        "size": 2406776,
+        "sha256": "5e13d104c7d07cde79463364de1fc56ff957458483a8afd98e0facbfac4faf3d"
+      }
+    },
+    "rom_built": false,
+    "display_video_runtime_verified": false,
+    "unverified": [
+      "Complete matching blob set, generated owners and linker/policy checks",
+      "Display SR behavior and video codec/protected playback on hardware"
+    ]
+  },
+  "vendor_odm_counts": {
+    "present": 3772,
+    "missing": 18,
+    "outside_scope": 103
+  },
+  "three_partition_counts": {
+    "present": 3856,
+    "missing": 24,
+    "outside_scope": 13
+  },
+  "three_partition_scope": [
+    "odm",
+    "system_ext",
+    "vendor"
+  ],
+  "missing_inputs": [
+    {
+      "source": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "destination": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libSEGModel.so",
+      "destination": "vendor/lib64/libSEGModel.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_core_se.so",
+      "destination": "vendor/lib64/libopencv_core_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_imgproc_se.so",
+      "destination": "vendor/lib64/libopencv_imgproc_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "destination": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "destination": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "destination": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "destination": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "destination": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "destination": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qsap_qapeservice",
+      "destination": "vendor/bin/qsap_qapeservice",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "destination": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "destination": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "section": "QSAP"
+    },
+    {
+      "source": "system_ext/app/AtFwd2/AtFwd2.apk",
+      "destination": "system_ext/app/AtFwd2/AtFwd2.apk",
+      "section": "RIL"
+    },
+    {
+      "source": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "destination": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "section": "RIL"
+    },
+    {
+      "source": "system_ext/lib64/libimscamera_jni.so",
+      "destination": "system_ext/lib64/libimscamera_jni.so",
+      "section": "RIL"
+    },
+    {
+      "source": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "destination": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "section": "SLA"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "destination": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "section": "SLA"
+    },
+    {
+      "source": "system_ext/lib64/libmmparser_lite.so",
+      "destination": "system_ext/lib64/libmmparser_lite.so",
+      "section": "WiFi Display"
+    },
+    {
+      "source": "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so",
+      "destination": "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so",
+      "section": "WiFi Display"
+    }
+  ],
+  "outside_scope_inputs": [
+    "system/lib64/vendor.qti.diaghal-V1-ndk.so",
+    "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk",
+    "product/app/uimgbaservice/uimgbaservice.apk",
+    "product/etc/permissions/UimGba.xml",
+    "product/etc/permissions/UimGbaManager.xml",
+    "product/etc/permissions/UimService.xml",
+    "product/etc/permissions/lpa.xml",
+    "product/framework/uimgbalibrary.jar",
+    "product/framework/uimgbamanagerlibrary.jar",
+    "product/framework/uimlpalibrary.jar",
+    "product/framework/uimservicelibrary.jar",
+    "system/etc/sysconfig/qti_whitelist.xml",
+    "system/framework/WfdCommon.jar"
+  ],
+  "rmnet": {
+    "tfa": {
+      "status": "metadata_equal",
+      "modules": {
+        "rmnet_perf": {
+          "stock": {
+            "sha256": "14d55d7744969d46e2973ff55db178a9df7cc3bb0090c2d5e39c5e6642bd51e8",
+            "parameters": [
+              "rmnet_perf_knob0:bool",
+              "rmnet_perf_knob1:bool",
+              "rmnet_perf_tcp_knob0:uint",
+              "rmnet_perf_tcp_stat:array of ullong",
+              "rmnet_perf_udp_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.57-android15-8-4k SMP preempt mod_unload modversions aarch64"
+          },
+          "native": {
+            "sha256": "cc13e53754495d9aec2c119084c465099bc472afa66c746d68f7cb57714dfacc",
+            "parameters": [
+              "rmnet_perf_knob0:bool",
+              "rmnet_perf_knob1:bool",
+              "rmnet_perf_tcp_knob0:uint",
+              "rmnet_perf_tcp_stat:array of ullong",
+              "rmnet_perf_udp_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64"
+          },
+          "comparison": {
+            "stock_only_parameters": [],
+            "native_only_parameters": [],
+            "dependencies_equal": true,
+            "parameter_types_equal": true
+          }
+        },
+        "rmnet_shs": {
+          "stock": {
+            "sha256": "7e5348d9f01b2ac1b9e1668691dcd93d024f32621512d039ee39ef25c6c942fb",
+            "parameters": [
+              "DATARMNET064fbe9e3a:uint",
+              "DATARMNET0fec241216:array of ulong",
+              "DATARMNET121c8bc82a:uint",
+              "DATARMNET12565c8f98:uint",
+              "DATARMNET14ed771dfb:array of ulong",
+              "DATARMNET18f2ba4444:array of uint",
+              "DATARMNET1ad396a890:uint",
+              "DATARMNET1fc3ad67fd:uint",
+              "DATARMNET227d2ff866:uint",
+              "DATARMNET229d52b629:array of ullong",
+              "DATARMNET25c61a512c:uint",
+              "DATARMNET2be16c76ac:uint",
+              "DATARMNET2d482e7d9f:array of uint",
+              "DATARMNET338c8e7a2b:array of ullong",
+              "DATARMNET365ddeca1c:uint",
+              "DATARMNET377ecf13ca:array of ullong",
+              "DATARMNET3874292c18:uint",
+              "DATARMNET443cf5aaaf:array of uint",
+              "DATARMNET4793ed48af:array of ullong",
+              "DATARMNET47956cbb0f:array of ullong",
+              "DATARMNET4ac8af832c:uint",
+              "DATARMNET4b1ae621cd:array of ullong",
+              "DATARMNET566e381630:uint",
+              "DATARMNET58b009b16b:uint",
+              "DATARMNET65393dea13:array of uint",
+              "DATARMNET666c9ff35e:uint",
+              "DATARMNET673cf85e28:uint",
+              "DATARMNET68d84e7b98:array of ulong",
+              "DATARMNET68dc14b50d:uint",
+              "DATARMNET6d75219ffb:array of ullong",
+              "DATARMNET713717107f:array of ullong",
+              "DATARMNET756bdd424a:uint",
+              "DATARMNET75ae82094a:uint",
+              "DATARMNET77189ab85c:array of ullong",
+              "DATARMNET77240d48ee:array of ullong",
+              "DATARMNET79263b1183:array of ullong",
+              "DATARMNET7d18c0bcf8:uint",
+              "DATARMNET7e039054c6:uint",
+              "DATARMNET84413d1257:array of uint",
+              "DATARMNET930a441406:array of ulong",
+              "DATARMNET952c960091:uint",
+              "DATARMNET99a934c43a:array of int",
+              "DATARMNET9e5e8e4048:array of ullong",
+              "DATARMNETa1ac2608b5:uint",
+              "DATARMNETa7909611da:uint",
+              "DATARMNETa804c0b904:ulong",
+              "DATARMNETaf95716235:uint",
+              "DATARMNETaf998640fd:uint",
+              "DATARMNETb7ddf3c5dd:array of ulong",
+              "DATARMNETbb1a9dff8b:uint",
+              "DATARMNETbc049ffc4c:array of uint",
+              "DATARMNETbc8418e817:array of charp",
+              "DATARMNETbf3b6fdfc8:array of ulong",
+              "DATARMNETc5d73c43e6:array of ullong",
+              "DATARMNETcab56af6d5:uint",
+              "DATARMNETcb9ef310a4:uint",
+              "DATARMNETd27ed7efea:array of ullong",
+              "DATARMNETd619186789:uint",
+              "DATARMNETd75e474598:array of uint",
+              "DATARMNETdba344c809:array of int",
+              "DATARMNETe4a6d22824:uint",
+              "DATARMNETea75c7b6f6:uint",
+              "DATARMNETefe3dcad0a:uint",
+              "DATARMNETf4aa8ec23f:array of ullong",
+              "DATARMNETf4cacbb5dc:uint",
+              "DATARMNETf5133a99c6:array of ullong",
+              "DATARMNETf55430ea0a:uint",
+              "rmnet_shs_no_sync_off:uint",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core",
+              "sched-walt"
+            ],
+            "vermagic": "6.6.57-android15-8-4k SMP preempt mod_unload modversions aarch64"
+          },
+          "native": {
+            "sha256": "876db73c99b2edc71fdbb406938c6d07e000e1fe9e8034ce100e939bca30e849",
+            "parameters": [
+              "DATARMNET064fbe9e3a:uint",
+              "DATARMNET0fec241216:array of ulong",
+              "DATARMNET121c8bc82a:uint",
+              "DATARMNET12565c8f98:uint",
+              "DATARMNET14ed771dfb:array of ulong",
+              "DATARMNET18f2ba4444:array of uint",
+              "DATARMNET1ad396a890:uint",
+              "DATARMNET1fc3ad67fd:uint",
+              "DATARMNET227d2ff866:uint",
+              "DATARMNET229d52b629:array of ullong",
+              "DATARMNET25c61a512c:uint",
+              "DATARMNET2be16c76ac:uint",
+              "DATARMNET2d482e7d9f:array of uint",
+              "DATARMNET338c8e7a2b:array of ullong",
+              "DATARMNET365ddeca1c:uint",
+              "DATARMNET377ecf13ca:array of ullong",
+              "DATARMNET3874292c18:uint",
+              "DATARMNET443cf5aaaf:array of uint",
+              "DATARMNET4793ed48af:array of ullong",
+              "DATARMNET47956cbb0f:array of ullong",
+              "DATARMNET4ac8af832c:uint",
+              "DATARMNET4b1ae621cd:array of ullong",
+              "DATARMNET566e381630:uint",
+              "DATARMNET58b009b16b:uint",
+              "DATARMNET65393dea13:array of uint",
+              "DATARMNET666c9ff35e:uint",
+              "DATARMNET673cf85e28:uint",
+              "DATARMNET68d84e7b98:array of ulong",
+              "DATARMNET68dc14b50d:uint",
+              "DATARMNET6d75219ffb:array of ullong",
+              "DATARMNET713717107f:array of ullong",
+              "DATARMNET756bdd424a:uint",
+              "DATARMNET75ae82094a:uint",
+              "DATARMNET77189ab85c:array of ullong",
+              "DATARMNET77240d48ee:array of ullong",
+              "DATARMNET79263b1183:array of ullong",
+              "DATARMNET7d18c0bcf8:uint",
+              "DATARMNET7e039054c6:uint",
+              "DATARMNET84413d1257:array of uint",
+              "DATARMNET930a441406:array of ulong",
+              "DATARMNET952c960091:uint",
+              "DATARMNET99a934c43a:array of int",
+              "DATARMNET9e5e8e4048:array of ullong",
+              "DATARMNETa1ac2608b5:uint",
+              "DATARMNETa7909611da:uint",
+              "DATARMNETa804c0b904:ulong",
+              "DATARMNETaf95716235:uint",
+              "DATARMNETaf998640fd:uint",
+              "DATARMNETb7ddf3c5dd:array of ulong",
+              "DATARMNETbb1a9dff8b:uint",
+              "DATARMNETbc049ffc4c:array of uint",
+              "DATARMNETbc8418e817:array of charp",
+              "DATARMNETbf3b6fdfc8:array of ulong",
+              "DATARMNETc5d73c43e6:array of ullong",
+              "DATARMNETcab56af6d5:uint",
+              "DATARMNETcb9ef310a4:uint",
+              "DATARMNETd27ed7efea:array of ullong",
+              "DATARMNETd619186789:uint",
+              "DATARMNETd75e474598:array of uint",
+              "DATARMNETdba344c809:array of int",
+              "DATARMNETe4a6d22824:uint",
+              "DATARMNETea75c7b6f6:uint",
+              "DATARMNETefe3dcad0a:uint",
+              "DATARMNETf4aa8ec23f:array of ullong",
+              "DATARMNETf4cacbb5dc:uint",
+              "DATARMNETf5133a99c6:array of ullong",
+              "DATARMNETf55430ea0a:uint",
+              "rmnet_shs_no_sync_off:uint",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core",
+              "sched-walt"
+            ],
+            "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64"
+          },
+          "comparison": {
+            "stock_only_parameters": [],
+            "native_only_parameters": [],
+            "dependencies_equal": true,
+            "parameter_types_equal": true
+          }
+        },
+        "rmnet_offload": {
+          "stock": {
+            "sha256": "ce18c7fc1f209c014a525a0e4d3dfe3e8138fb08984f0464aac2ee9f7892b7ed",
+            "parameters": [
+              "rmnet_offload_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.57-android15-8-4k SMP preempt mod_unload modversions aarch64"
+          },
+          "native": {
+            "sha256": "0a6b3d0b3adb8297cef22ea52097b800b72c96b3cc2aaa530bcc26f370d15f28",
+            "parameters": [
+              "rmnet_offload_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64"
+          },
+          "comparison": {
+            "stock_only_parameters": [],
+            "native_only_parameters": [],
+            "dependencies_equal": true,
+            "parameter_types_equal": true
+          }
+        }
+      },
+      "legacy_init_parameters_exported": {
+        "rmnet_perf_ingress_deag": {
+          "stock": false,
+          "native": false
+        },
+        "rmnet_perf_opt_mode": {
+          "stock": false,
+          "native": false
+        }
+      },
+      "runtime_qualified": false,
+      "kmi_qualified": false,
+      "init_gate_overridden": false,
+      "limitations": [
+        "Metadata equality does not establish parameter semantics or live tuning",
+        "RMNET unload/reload lifecycle and traffic behavior require testing",
+        "Stock modules must not be substituted into the OSS handoff based on this check"
+      ]
+    },
+    "sia": {
+      "status": "metadata_equal",
+      "modules": {
+        "rmnet_perf": {
+          "stock": {
+            "sha256": "14d55d7744969d46e2973ff55db178a9df7cc3bb0090c2d5e39c5e6642bd51e8",
+            "parameters": [
+              "rmnet_perf_knob0:bool",
+              "rmnet_perf_knob1:bool",
+              "rmnet_perf_tcp_knob0:uint",
+              "rmnet_perf_tcp_stat:array of ullong",
+              "rmnet_perf_udp_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.57-android15-8-4k SMP preempt mod_unload modversions aarch64"
+          },
+          "native": {
+            "sha256": "cc13e53754495d9aec2c119084c465099bc472afa66c746d68f7cb57714dfacc",
+            "parameters": [
+              "rmnet_perf_knob0:bool",
+              "rmnet_perf_knob1:bool",
+              "rmnet_perf_tcp_knob0:uint",
+              "rmnet_perf_tcp_stat:array of ullong",
+              "rmnet_perf_udp_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64"
+          },
+          "comparison": {
+            "stock_only_parameters": [],
+            "native_only_parameters": [],
+            "dependencies_equal": true,
+            "parameter_types_equal": true
+          }
+        },
+        "rmnet_shs": {
+          "stock": {
+            "sha256": "7e5348d9f01b2ac1b9e1668691dcd93d024f32621512d039ee39ef25c6c942fb",
+            "parameters": [
+              "DATARMNET064fbe9e3a:uint",
+              "DATARMNET0fec241216:array of ulong",
+              "DATARMNET121c8bc82a:uint",
+              "DATARMNET12565c8f98:uint",
+              "DATARMNET14ed771dfb:array of ulong",
+              "DATARMNET18f2ba4444:array of uint",
+              "DATARMNET1ad396a890:uint",
+              "DATARMNET1fc3ad67fd:uint",
+              "DATARMNET227d2ff866:uint",
+              "DATARMNET229d52b629:array of ullong",
+              "DATARMNET25c61a512c:uint",
+              "DATARMNET2be16c76ac:uint",
+              "DATARMNET2d482e7d9f:array of uint",
+              "DATARMNET338c8e7a2b:array of ullong",
+              "DATARMNET365ddeca1c:uint",
+              "DATARMNET377ecf13ca:array of ullong",
+              "DATARMNET3874292c18:uint",
+              "DATARMNET443cf5aaaf:array of uint",
+              "DATARMNET4793ed48af:array of ullong",
+              "DATARMNET47956cbb0f:array of ullong",
+              "DATARMNET4ac8af832c:uint",
+              "DATARMNET4b1ae621cd:array of ullong",
+              "DATARMNET566e381630:uint",
+              "DATARMNET58b009b16b:uint",
+              "DATARMNET65393dea13:array of uint",
+              "DATARMNET666c9ff35e:uint",
+              "DATARMNET673cf85e28:uint",
+              "DATARMNET68d84e7b98:array of ulong",
+              "DATARMNET68dc14b50d:uint",
+              "DATARMNET6d75219ffb:array of ullong",
+              "DATARMNET713717107f:array of ullong",
+              "DATARMNET756bdd424a:uint",
+              "DATARMNET75ae82094a:uint",
+              "DATARMNET77189ab85c:array of ullong",
+              "DATARMNET77240d48ee:array of ullong",
+              "DATARMNET79263b1183:array of ullong",
+              "DATARMNET7d18c0bcf8:uint",
+              "DATARMNET7e039054c6:uint",
+              "DATARMNET84413d1257:array of uint",
+              "DATARMNET930a441406:array of ulong",
+              "DATARMNET952c960091:uint",
+              "DATARMNET99a934c43a:array of int",
+              "DATARMNET9e5e8e4048:array of ullong",
+              "DATARMNETa1ac2608b5:uint",
+              "DATARMNETa7909611da:uint",
+              "DATARMNETa804c0b904:ulong",
+              "DATARMNETaf95716235:uint",
+              "DATARMNETaf998640fd:uint",
+              "DATARMNETb7ddf3c5dd:array of ulong",
+              "DATARMNETbb1a9dff8b:uint",
+              "DATARMNETbc049ffc4c:array of uint",
+              "DATARMNETbc8418e817:array of charp",
+              "DATARMNETbf3b6fdfc8:array of ulong",
+              "DATARMNETc5d73c43e6:array of ullong",
+              "DATARMNETcab56af6d5:uint",
+              "DATARMNETcb9ef310a4:uint",
+              "DATARMNETd27ed7efea:array of ullong",
+              "DATARMNETd619186789:uint",
+              "DATARMNETd75e474598:array of uint",
+              "DATARMNETdba344c809:array of int",
+              "DATARMNETe4a6d22824:uint",
+              "DATARMNETea75c7b6f6:uint",
+              "DATARMNETefe3dcad0a:uint",
+              "DATARMNETf4aa8ec23f:array of ullong",
+              "DATARMNETf4cacbb5dc:uint",
+              "DATARMNETf5133a99c6:array of ullong",
+              "DATARMNETf55430ea0a:uint",
+              "rmnet_shs_no_sync_off:uint",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core",
+              "sched-walt"
+            ],
+            "vermagic": "6.6.57-android15-8-4k SMP preempt mod_unload modversions aarch64"
+          },
+          "native": {
+            "sha256": "876db73c99b2edc71fdbb406938c6d07e000e1fe9e8034ce100e939bca30e849",
+            "parameters": [
+              "DATARMNET064fbe9e3a:uint",
+              "DATARMNET0fec241216:array of ulong",
+              "DATARMNET121c8bc82a:uint",
+              "DATARMNET12565c8f98:uint",
+              "DATARMNET14ed771dfb:array of ulong",
+              "DATARMNET18f2ba4444:array of uint",
+              "DATARMNET1ad396a890:uint",
+              "DATARMNET1fc3ad67fd:uint",
+              "DATARMNET227d2ff866:uint",
+              "DATARMNET229d52b629:array of ullong",
+              "DATARMNET25c61a512c:uint",
+              "DATARMNET2be16c76ac:uint",
+              "DATARMNET2d482e7d9f:array of uint",
+              "DATARMNET338c8e7a2b:array of ullong",
+              "DATARMNET365ddeca1c:uint",
+              "DATARMNET377ecf13ca:array of ullong",
+              "DATARMNET3874292c18:uint",
+              "DATARMNET443cf5aaaf:array of uint",
+              "DATARMNET4793ed48af:array of ullong",
+              "DATARMNET47956cbb0f:array of ullong",
+              "DATARMNET4ac8af832c:uint",
+              "DATARMNET4b1ae621cd:array of ullong",
+              "DATARMNET566e381630:uint",
+              "DATARMNET58b009b16b:uint",
+              "DATARMNET65393dea13:array of uint",
+              "DATARMNET666c9ff35e:uint",
+              "DATARMNET673cf85e28:uint",
+              "DATARMNET68d84e7b98:array of ulong",
+              "DATARMNET68dc14b50d:uint",
+              "DATARMNET6d75219ffb:array of ullong",
+              "DATARMNET713717107f:array of ullong",
+              "DATARMNET756bdd424a:uint",
+              "DATARMNET75ae82094a:uint",
+              "DATARMNET77189ab85c:array of ullong",
+              "DATARMNET77240d48ee:array of ullong",
+              "DATARMNET79263b1183:array of ullong",
+              "DATARMNET7d18c0bcf8:uint",
+              "DATARMNET7e039054c6:uint",
+              "DATARMNET84413d1257:array of uint",
+              "DATARMNET930a441406:array of ulong",
+              "DATARMNET952c960091:uint",
+              "DATARMNET99a934c43a:array of int",
+              "DATARMNET9e5e8e4048:array of ullong",
+              "DATARMNETa1ac2608b5:uint",
+              "DATARMNETa7909611da:uint",
+              "DATARMNETa804c0b904:ulong",
+              "DATARMNETaf95716235:uint",
+              "DATARMNETaf998640fd:uint",
+              "DATARMNETb7ddf3c5dd:array of ulong",
+              "DATARMNETbb1a9dff8b:uint",
+              "DATARMNETbc049ffc4c:array of uint",
+              "DATARMNETbc8418e817:array of charp",
+              "DATARMNETbf3b6fdfc8:array of ulong",
+              "DATARMNETc5d73c43e6:array of ullong",
+              "DATARMNETcab56af6d5:uint",
+              "DATARMNETcb9ef310a4:uint",
+              "DATARMNETd27ed7efea:array of ullong",
+              "DATARMNETd619186789:uint",
+              "DATARMNETd75e474598:array of uint",
+              "DATARMNETdba344c809:array of int",
+              "DATARMNETe4a6d22824:uint",
+              "DATARMNETea75c7b6f6:uint",
+              "DATARMNETefe3dcad0a:uint",
+              "DATARMNETf4aa8ec23f:array of ullong",
+              "DATARMNETf4cacbb5dc:uint",
+              "DATARMNETf5133a99c6:array of ullong",
+              "DATARMNETf55430ea0a:uint",
+              "rmnet_shs_no_sync_off:uint",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core",
+              "sched-walt"
+            ],
+            "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64"
+          },
+          "comparison": {
+            "stock_only_parameters": [],
+            "native_only_parameters": [],
+            "dependencies_equal": true,
+            "parameter_types_equal": true
+          }
+        },
+        "rmnet_offload": {
+          "stock": {
+            "sha256": "ce18c7fc1f209c014a525a0e4d3dfe3e8138fb08984f0464aac2ee9f7892b7ed",
+            "parameters": [
+              "rmnet_offload_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.57-android15-8-4k SMP preempt mod_unload modversions aarch64"
+          },
+          "native": {
+            "sha256": "0a6b3d0b3adb8297cef22ea52097b800b72c96b3cc2aaa530bcc26f370d15f28",
+            "parameters": [
+              "rmnet_offload_stat:array of ullong",
+              "verinfo:array of charp"
+            ],
+            "depends": [
+              "rmnet_core"
+            ],
+            "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64"
+          },
+          "comparison": {
+            "stock_only_parameters": [],
+            "native_only_parameters": [],
+            "dependencies_equal": true,
+            "parameter_types_equal": true
+          }
+        }
+      },
+      "legacy_init_parameters_exported": {
+        "rmnet_perf_ingress_deag": {
+          "stock": false,
+          "native": false
+        },
+        "rmnet_perf_opt_mode": {
+          "stock": false,
+          "native": false
+        }
+      },
+      "runtime_qualified": false,
+      "kmi_qualified": false,
+      "init_gate_overridden": false,
+      "limitations": [
+        "Metadata equality does not establish parameter semantics or live tuning",
+        "RMNET unload/reload lifecycle and traffic behavior require testing",
+        "Stock modules must not be substituted into the OSS handoff based on this check"
+      ]
+    }
+  },
+  "sla": {
+    "stock_size": 106920,
+    "stock_sha256": "2ca5a720de3f5dd6c1dfe60ce4c7e35035a38cdeb0d230fe01f179d241d53d03",
+    "stock_modinfo": {
+      "license": [
+        "GPL v2"
+      ],
+      "vermagic": [
+        "6.6.57-4k-g34b7c5063ce7 SMP preempt mod_unload modversions aarch64"
+      ],
+      "name": [
+        "sla"
+      ],
+      "depends": [
+        ""
+      ]
+    },
+    "native_packaged": false,
+    "source_integrated": false
+  },
+  "clean_reference_patch_chain_applied": true,
+  "final_list_equal_to_generated": true,
+  "final_list_sha256": "f4f47a9c3e65af1b9e57cc85b1a8c299d1dd9c9d55ad57d472e5c3a509528480",
+  "kernel_rebuilt": false,
+  "modules_rebuilt": false,
+  "rom_built": false,
+  "flashable": false,
+  "hardware_tested": false,
+  "unverified": [
+    "24 missing scoped inputs and 13 unselected-partition entries",
+    "Generated vendor/odm owners, blob fixups, ELF/VINTF/SELinux",
+    "SLA source/module and userspace provider",
+    "RMNET init tuning and unload/reload lifecycle",
+    "Factory Pronto property path and SPSS UEFI attach/reload",
+    "Display/video runtime, full native ROM assembly and hardware"
+  ]
+}

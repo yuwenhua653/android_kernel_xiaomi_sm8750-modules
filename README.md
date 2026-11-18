@@ -2,8 +2,8 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R30 OS4 vendor/odm 清单与初始化依赖](Documentation/xiaomi/annibale-vendor-os406.md)；
-[本轮验证记录](Documentation/xiaomi/annibale-r30-validation.json)。
+当前进度：[R31 OS4 显示/视频清单修正与网络模块对比](Documentation/xiaomi/annibale-os406-media-network.md)；
+[本轮验证记录](Documentation/xiaomi/annibale-r31-validation.json)。
 原生源码方案与澎湃原厂保留方案分开验证，尚未完成 OSS 真机开机验证。
 
 - 来源：`LineageOS/android_kernel_qcom_sm8750-modules`，`lineage-22.2`。

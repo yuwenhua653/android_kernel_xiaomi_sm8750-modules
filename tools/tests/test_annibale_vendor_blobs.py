@@ -48,6 +48,30 @@ class VendorBlobTests(unittest.TestCase):
         self.assertEqual(report['counts'], {'present': 1})
         self.assertEqual(report['entries'][0]['symlinks'], ['vendor/lib64/link.so'])
 
+    def test_explicit_extra_partition_scope(self):
+        (self.root/'system_ext/lib64').mkdir(parents=True)
+        (self.root/'system_ext/lib64/libtest.so').write_bytes(b'extension')
+        text = 'system_ext/lib64/libtest.so\nproduct/etc/unselected.xml'
+        self.assertEqual(audit(self.root,text)['counts'], {'outside_scope':2})
+        result = audit(self.root,text,{'vendor','odm','system_ext'})
+        self.assertEqual(result['counts'], {'present':1,'outside_scope':1})
+        self.assertEqual(result['scope'], ['odm','system_ext','vendor'])
+
+    def test_selected_partition_required_and_safe(self):
+        for scope in (set(), {'../vendor'}, {'system_ext'}):
+            with self.subTest(scope=scope), self.assertRaises(ValueError):
+                audit(self.root,'vendor/a',scope)
+        (self.root/'system_ext').symlink_to(self.root/'vendor',target_is_directory=True)
+        with self.assertRaises(ValueError):audit(self.root,'vendor/a',{'system_ext'})
+
+    def test_selected_cross_partition_link_and_missing(self):
+        (self.root/'system_ext').mkdir()
+        (self.root/'system_ext/a').write_bytes(b'a')
+        (self.root/'vendor/a').symlink_to('/system_ext/a')
+        result = audit(self.root,'vendor/a\nsystem_ext/b',{'vendor','odm','system_ext'})
+        self.assertEqual(result['counts'], {'present':1,'missing':1})
+        self.assertEqual(result['status'], 'incomplete_selected_partition_inputs')
+
     def test_duplicate_generated_owner_rejected(self):
         with self.assertRaisesRegex(ValueError, 'duplicate destination'):
             parse_list('odm/lib64/libreal.so;SYMLINK=vendor/lib64/link.so\nvendor/lib64/link.so')

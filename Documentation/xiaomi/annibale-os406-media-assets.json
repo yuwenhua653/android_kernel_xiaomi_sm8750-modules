@@ -1,0 +1,79 @@
+{
+  "firmware_label": "OS4.0.6.0.XPKCNXM",
+  "incremental": "OS4.0.6.0.XPKCN",
+  "relocations": {
+    "vendor/etc/display/sm8750_sr_1x_y1280x720.dlc": "odm/etc/display/sm8750_sr_1x_y1280x720.dlc",
+    "vendor/etc/display/sm8750_sr_1x_y544x960.dlc": "odm/etc/display/sm8750_sr_1x_y544x960.dlc",
+    "vendor/etc/display/sm8750_sr_1x_y720x1280.dlc": "odm/etc/display/sm8750_sr_1x_y720x1280.dlc",
+    "vendor/etc/display/sm8750_sr_1x_y960x544.dlc": "odm/etc/display/sm8750_sr_1x_y960x544.dlc",
+    "vendor/etc/display/sm8750_sr_2x_y1280x720.dlc": "odm/etc/display/sm8750_sr_2x_y1280x720.dlc",
+    "vendor/etc/display/sm8750_sr_2x_y544x960.dlc": "odm/etc/display/sm8750_sr_2x_y544x960.dlc",
+    "vendor/etc/display/sm8750_sr_2x_y720x1280.dlc": "odm/etc/display/sm8750_sr_2x_y720x1280.dlc",
+    "vendor/etc/display/sm8750_sr_2x_y960x544.dlc": "odm/etc/display/sm8750_sr_2x_y960x544.dlc",
+    "vendor/etc/display/sm8750_sr_3x_y384x640.dlc": "odm/etc/display/sm8750_sr_3x_y384x640.dlc",
+    "vendor/etc/display/sm8750_sr_3x_y640x384.dlc": "odm/etc/display/sm8750_sr_3x_y640x384.dlc"
+  },
+  "absent_other_platform_firmware": [
+    "odm/firmware/vpu33_4v.mbn",
+    "odm/firmware/vpu33_4v_unsigned.mbn"
+  ],
+  "retained_sun_firmware": [
+    "odm/firmware/vpu35_4v.mbn",
+    "odm/firmware/vpu35_4v_unsigned.mbn"
+  ],
+  "files": {
+    "odm/etc/display/sm8750_sr_1x_y1280x720.dlc": {
+      "size": 278571,
+      "sha256": "0e35a423b40d10b0909681ea22319bf1807db14daa0e0a7b857054f8f752ad52"
+    },
+    "odm/etc/display/sm8750_sr_1x_y544x960.dlc": {
+      "size": 155702,
+      "sha256": "afedfc4351a9bbd5b88bc7ba9bb9b96130a6cbfba402abd7a2dfd2b1a3e1c6f2"
+    },
+    "odm/etc/display/sm8750_sr_1x_y720x1280.dlc": {
+      "size": 184363,
+      "sha256": "fc7e62203b355412dde54bc953a733e2b8e48aa4a59969b0e52c909a06b765d0"
+    },
+    "odm/etc/display/sm8750_sr_1x_y960x544.dlc": {
+      "size": 221238,
+      "sha256": "7b1307ad78b55b73c7644ef4884ac908b6b40029d38b3c667a5f098e1a782e9a"
+    },
+    "odm/etc/display/sm8750_sr_2x_y1280x720.dlc": {
+      "size": 208123,
+      "sha256": "13eeffc26bd8404c2c1d95db2d940a4195c7d277e48e26a4bb2ff544f8fe16a0"
+    },
+    "odm/etc/display/sm8750_sr_2x_y544x960.dlc": {
+      "size": 608450,
+      "sha256": "c4e16415b97ee83290355a25fb2585b7515a026f03697389fa0ffc68bdd6b7be"
+    },
+    "odm/etc/display/sm8750_sr_2x_y720x1280.dlc": {
+      "size": 322811,
+      "sha256": "575e626e0cf601ef35b8ac0c8324e5b339748c670ea28f11f8ea4d20baba4815"
+    },
+    "odm/etc/display/sm8750_sr_2x_y960x544.dlc": {
+      "size": 665794,
+      "sha256": "545960d7885e0abe59957d6fa32fe4d695a6242b71b6415ff92527fa21c62741"
+    },
+    "odm/etc/display/sm8750_sr_3x_y384x640.dlc": {
+      "size": 190722,
+      "sha256": "ae8312402b3ed82fa9d11846c98c6b0ca7196d8499a72a8fe34784dfbc8c1522"
+    },
+    "odm/etc/display/sm8750_sr_3x_y640x384.dlc": {
+      "size": 248066,
+      "sha256": "ef602fb5f7b1cdc71a111fe40d8771062265d3706d45fb2595fbfb4a0936250c"
+    },
+    "odm/firmware/vpu35_4v.mbn": {
+      "size": 2413256,
+      "sha256": "eaa43bb1e4039202fa84996294e56e9e2ac97906665ac6b01082e72265c771cb"
+    },
+    "odm/firmware/vpu35_4v_unsigned.mbn": {
+      "size": 2406776,
+      "sha256": "5e13d104c7d07cde79463364de1fc56ff957458483a8afd98e0facbfac4faf3d"
+    }
+  },
+  "video_source": {
+    "path": "qcom/opensource/video-driver/driver/platform/sun/src/msm_vidc_sun.c",
+    "sha256": "70a36497e07a6bfea489bcafe2ef3316705d5692107d25e2005d8b720a8944d0",
+    "fwname": "vpu35_4v"
+  }
+}

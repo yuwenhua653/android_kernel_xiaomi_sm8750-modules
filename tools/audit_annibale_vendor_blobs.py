@@ -3,7 +3,8 @@
 """Audit a proprietary extraction list against an unpacked stock dump, read-only.
 
 Source paths, destination paths and generated SYMLINK owners are distinct. Only
-vendor and odm are qualified here. A complete path inventory is not HAL/ELF ABI,
+vendor and odm are inspected by default; other extracted partitions require an
+explicit selection. A complete path inventory is not HAL/ELF ABI,
 VINTF, firmware authenticity, generated-vendor correctness or boot qualification.
 """
 import argparse
@@ -16,6 +17,7 @@ import re
 import stat
 
 PARTITIONS = {'vendor', 'odm'}
+SUPPORTED_PARTITIONS = PARTITIONS | {'system', 'system_ext', 'product', 'mi_ext'}
 
 
 def deduplicate_entries(text):
@@ -118,22 +120,25 @@ def file_hashes(path):
     return {'size': path.stat().st_size, 'sha1': sha1.hexdigest(), 'sha256': sha256.hexdigest()}
 
 
-def audit(root, text):
+def audit(root, text, partitions=None):
     root = root.resolve()
-    for part in PARTITIONS:
+    partitions = PARTITIONS if partitions is None else set(partitions)
+    if not partitions or not partitions <= SUPPORTED_PARTITIONS:
+        raise ValueError('empty or unsupported partition selection')
+    for part in partitions:
         if not (root / part).is_dir() or (root / part).is_symlink():
             raise ValueError('supply real extracted partition directory: ' + part)
     result, hashes = [], {}
     for entry in parse_list(text):
         item = dict(entry)
-        if entry['source'].split('/')[0] not in PARTITIONS:
+        if entry['source'].split('/')[0] not in partitions:
             item['status'] = 'outside_scope'
             result.append(item)
             continue
         resolved, links = resolve_android(root, entry['source'])
         item.update(resolved_source=resolved, source_links=links)
         path = root / resolved
-        if resolved.split('/')[0] not in PARTITIONS:
+        if resolved.split('/')[0] not in partitions:
             item['status'] = 'external_symlink_unverified'
         elif not path.exists():
             item['status'] = 'missing'
@@ -148,10 +153,11 @@ def audit(root, text):
         result.append(item)
     counts = dict(Counter(e['status'] for e in result))
     blocked = any(counts.get(s, 0) for s in ('missing', 'source_pin_mismatch', 'external_symlink_unverified'))
+    scope_name = 'vendor_odm' if partitions == PARTITIONS else 'selected_partition'
     return {'schema_version': 1,
-            'status': 'incomplete_vendor_odm_inputs' if blocked else 'vendor_odm_paths_present',
+            'status': 'incomplete_'+scope_name+'_inputs' if blocked else scope_name+'_paths_present',
             'list_sha256': hashlib.sha256(text.encode()).hexdigest(),
-            'scope': sorted(PARTITIONS), 'counts': counts, 'entries': result,
+            'scope': sorted(partitions), 'counts': counts, 'entries': result,
             'generated_vendor_built': False, 'hal_abi_verified': False, 'hardware_tested': False,
             'unverified': ['Unselected partitions and source-provided components',
                            'Blob fixups, ELF dependency namespaces and HAL/VINTF ABI',
@@ -163,11 +169,13 @@ def main():
     ap.add_argument('--dump', type=Path, required=True)
     ap.add_argument('--proprietary-files', type=Path, required=True)
     ap.add_argument('--report', type=Path, required=True)
+    ap.add_argument('--partitions', nargs='+', choices=sorted(SUPPORTED_PARTITIONS),
+                    default=sorted(PARTITIONS), help='explicit extracted partition scope')
     args = ap.parse_args()
-    result = audit(args.dump, args.proprietary_files.read_text())
+    result = audit(args.dump, args.proprietary_files.read_text(), args.partitions)
     args.report.write_text(json.dumps(result, indent=2) + '\n')
     print(result['status'] + ': ' + json.dumps(result['counts'], sort_keys=True))
-    return 0 if result['status'] == 'vendor_odm_paths_present' else 1
+    return 0 if result['status'].endswith('_paths_present') else 1
 
 
 if __name__ == '__main__':
