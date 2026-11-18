@@ -1,0 +1,247 @@
+{
+  "round": "R36",
+  "resolution": "retire six unused OS4 camera inputs and three legacy standalone QAPE inputs; preserve current stock providers",
+  "before_counts": {
+    "present": 3879,
+    "missing": 19
+  },
+  "after_counts": {
+    "present": 3879,
+    "missing": 10
+  },
+  "input_sha256": "4fbaf3cb6be66c17f278570c4e92da130bdaa6e2591961768b36ff9c88f10971",
+  "output_sha256": "2f6066842f5f4023225f503211469b64f896117282a24dfef36c56759e49e08c",
+  "retired_entries": [
+    "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+    "vendor/etc/decoder.serialized.8750.O3.bin",
+    "vendor/etc/encoder.serialized.8750.O3.bin",
+    "vendor/lib64/libSEGModel.so",
+    "vendor/lib64/libopencv_core_se.so",
+    "vendor/lib64/libopencv_imgproc_se.so",
+    "vendor/bin/qsap_qapeservice",
+    "vendor/etc/init/vendor.qsap.qapeservice.rc",
+    "vendor/etc/seccomp_policy/qsap_qapeservice.policy"
+  ],
+  "evidence": {
+    "camera_files_scanned": 1945,
+    "camera_bytes_scanned": 3990049972,
+    "camera_inventory_sha256": "b2dcfcd677440866787008a04416db3c63d0e7d564699a3cb9b4667fe046c88d",
+    "old_camera_reference_hits": [],
+    "perf2_dynamic": {
+      "needed": [
+        "vendor.qti.snapdragonServices-V1-ndk.so",
+        "vendor.qti.snapdragonServices.qape-V1-ndk.so",
+        "liblog.so",
+        "libq-perflog.so",
+        "libcutils.so",
+        "libbase.so",
+        "libutils.so",
+        "libbinder_ndk.so",
+        "vendor.qti.hardware.perf2-V1-ndk.so",
+        "libqti-scenariod.so",
+        "libperfconfig.so",
+        "libqti-perfd.so",
+        "libqti-util.so",
+        "libavservices_minijail.so",
+        "libqti-perfd-client.so",
+        "android.hardware.thermal-V1-ndk.so",
+        "libqti-s3tf.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "soname": []
+    },
+    "qape_provider_and_stock_policy_verified": true,
+    "provider_manifests_verified": true
+  },
+  "remaining": [
+    {
+      "source": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk",
+      "section": "Euicc"
+    },
+    {
+      "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    },
+    {
+      "source": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "section": "RIL"
+    }
+  ],
+  "policy_changed": false,
+  "policy_compiled": false,
+  "runtime_verified": false,
+  "rom_built": false,
+  "flashable": false,
+  "parent_commit": "b3646a91af0afc60e9cba15e6450f9f7e7165c61",
+  "generation": {
+    "status": "scoped_extract_utils_generation_passed",
+    "entries": [
+      "odm/lib64/camera/components/com.qti.node.seg.so",
+      "odm/lib64/libqsegnet.so",
+      "odm/lib64/qsn1nrt430.bin;SYMLINK=vendor/lib64/qsn1nrt430.bin",
+      "odm/lib64/qsn1nrt43180.bin",
+      "odm/lib64/qsn1nrt43270.bin;SYMLINK=vendor/lib64/qsn1nrt43270.bin",
+      "odm/lib64/qsn1nrt4390.bin",
+      "odm/lib64/qsn1rt1690.bin",
+      "odm/lib64/qsn1rt169180.bin",
+      "odm/lib64/qsn1rt169270.bin",
+      "odm/lib64/qsn1rt16990.bin",
+      "odm/lib64/qsn1rt430.bin",
+      "odm/lib64/qsn1rt43180.bin",
+      "odm/lib64/qsn1rt43270.bin",
+      "odm/lib64/qsn1rt4390.bin",
+      "odm/lib64/qsn1rtlp1690.bin",
+      "odm/lib64/qsn1rtlp169270.bin",
+      "odm/lib64/qsn1rtlp430.bin",
+      "odm/lib64/qsn1rtlp43270.bin",
+      "odm/lib64/qsn2all.bin;SYMLINK=vendor/lib64/qsn2all.bin",
+      "odm/lib64/qsn3all.bin;SYMLINK=vendor/lib64/qsn3all.bin",
+      "vendor/lib64/libopencv_core.so",
+      "vendor/lib64/libopencv_imgproc.so",
+      "odm/lib64/rfs/dsp/libqsegnetengine_dsp_skel.so;SYMLINK=vendor/lib64/rfs/dsp/libqsegnetengine_dsp_skel.so",
+      "vendor/bin/hw/vendor.qti.hardware.perf2-hal-service",
+      "vendor/bin/snapdragon_services",
+      "vendor/etc/init/snapdragon_services.rc",
+      "vendor/etc/init/vendor.qti.hardware.perf2-hal-service.rc",
+      "vendor/etc/perf/qapegameconfig.txt",
+      "vendor/etc/vintf/manifest/snapdragon_services.xml",
+      "vendor/etc/vintf/manifest/vendor.qti.hardware.perf2.xml",
+      "vendor/lib64/vendor.qti.snapdragonServices-V1-ndk.so",
+      "vendor/lib64/vendor.qti.snapdragonServices.qape-V1-ndk.so",
+      "vendor/lib64/libqape_oem_ext.so"
+    ],
+    "owner_checks": {
+      "vendor.qti.hardware.perf2-hal-service": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "elf_checks_disabled": false
+      },
+      "snapdragon_services": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "elf_checks_disabled": false
+      },
+      "libqsegnet": {
+        "one_owner": true,
+        "partition_flag": "device_specific: true",
+        "elf_checks_disabled": false
+      },
+      "libopencv_core": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "elf_checks_disabled": false
+      },
+      "libopencv_imgproc": {
+        "one_owner": true,
+        "partition_flag": "soc_specific: true",
+        "elf_checks_disabled": false
+      }
+    },
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "generated_files": {
+      "Android.bp": "d797e6124beab78330ef864e481869482f7af487c47d97eb12d05a301b08dcd3",
+      "Android.mk": "7a5e9b2a048ce3b454ca66d2be7775eaf808c0cdac69b680a5deeb072ca08eb0",
+      "annibale-vendor.mk": "3534f6950ac279579c81c90a17970d7914632ccbf59bbf33b084a814ed64b687",
+      "BoardConfigVendor.mk": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec"
+    },
+    "full_vendor_generated": false,
+    "soong_compiled": false,
+    "elf_symbol_abi_verified": false,
+    "policy_compiled": false
+  },
+  "tests": {
+    "passed": 246,
+    "failed": 0,
+    "skipped": 0,
+    "log_sha256": "d39d95db49375cfc8695cd427616a202bf2f17810f2dbe8d79f65930ff72d926"
+  },
+  "patch_applied_and_output_matched": true,
+  "patch_sha256": "c31eb01b1f80e2c247e31645b93a8832202073e88e8b5769f69cb1c2ca0eff79",
+  "unresolved_reference_evidence": {
+    "vendor/bin/qms": {
+      "sha256": "99e7356564e07435f45871400f8adf329be4e5442e641e287e571715da1763af",
+      "size": 6294888,
+      "reference_tokens": [
+        "qesdk-manager"
+      ]
+    },
+    "vendor/lib64/libqms.so": {
+      "sha256": "e8005a416b1e2dcd648f33cd052d2afe28503540c5cab4cc16630c1d5eedff41",
+      "size": 518136,
+      "reference_tokens": [
+        "qesdk-manager",
+        "qesdk-secmanager"
+      ]
+    },
+    "vendor/lib64/libqesdk_manager.so": {
+      "sha256": "f8ddb3d5f0d126f61f7a9f58313a23b55822c5414f7499bfbe99a630048a323f",
+      "size": 436272,
+      "reference_tokens": [
+        "qesdk-secmanager",
+        "Qesdk System Service is not available"
+      ]
+    },
+    "system_ext/bin/frameworks_utils_service.sh": {
+      "sha256": "b8053e81fd802f595b42efff64d8cdde65d1094aeda6869df6c042df3832dd03",
+      "size": 426,
+      "reference_tokens": [
+        "vendor.qti.frameworks.utils/.FrameworksUtilsService"
+      ]
+    },
+    "vendor/lib64/libqcrilNr.so": {
+      "sha256": "b393b24b5bc756d7f3c29ef997db931cec3519e56254fc91b6a7e04dd9b4126c",
+      "size": 4633712,
+      "reference_tokens": [
+        "QtiTelephonyService"
+      ]
+    },
+    "vendor/etc/telephony_packages.xml": {
+      "sha256": "ac770e1f29b8c51f3b52ae01a9a5eb6dc85c4334084433a54bf82c2ab1080f59",
+      "size": 5150,
+      "reference_tokens": [
+        "QtiTelephonyService"
+      ]
+    }
+  },
+  "full_rom_built": false,
+  "kernel_rebuilt": false,
+  "hyperos_device_tested": false,
+  "native_device_tested": false,
+  "limits": [
+    "Static strings and dependency evidence are not runtime proof; dynamically constructed names can escape literal searches.",
+    "Existing QSegNet models are retained, not renamed as equivalents of the retired models.",
+    "Perf2 integrated QAPE is retained; performance behavior and Binder registration on hardware remain unverified.",
+    "Remaining 10 entries are kept in the extraction list and still fail complete-input qualification."
+  ]
+}

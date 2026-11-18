@@ -1,0 +1,88 @@
+{
+  "firmware": "OS4.0.6.0.XPKCNXM",
+  "input_sha256": "4fbaf3cb6be66c17f278570c4e92da130bdaa6e2591961768b36ff9c88f10971",
+  "retired_entries": [
+    "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+    "vendor/etc/decoder.serialized.8750.O3.bin",
+    "vendor/etc/encoder.serialized.8750.O3.bin",
+    "vendor/lib64/libSEGModel.so",
+    "vendor/lib64/libopencv_core_se.so",
+    "vendor/lib64/libopencv_imgproc_se.so",
+    "vendor/bin/qsap_qapeservice",
+    "vendor/etc/init/vendor.qsap.qapeservice.rc",
+    "vendor/etc/seccomp_policy/qsap_qapeservice.policy"
+  ],
+  "camera_inventory_count": 1945,
+  "camera_inventory_sha256": "b2dcfcd677440866787008a04416db3c63d0e7d564699a3cb9b4667fe046c88d",
+  "forbidden_camera_tokens": [
+    "SEGModel",
+    "opencv_core_se",
+    "opencv_imgproc_se",
+    "seg_quantized.serialized",
+    "decoder.serialized.8750",
+    "encoder.serialized.8750"
+  ],
+  "assets": {
+    "vendor/bin/hw/vendor.qti.hardware.perf2-hal-service": {
+      "sha256": "654315db6871ddcdd7b656c1be2333747935a670733c050ba01df5ce318d0412",
+      "size": 153048
+    },
+    "vendor/bin/snapdragon_services": {
+      "sha256": "b58183dd4d6e9b6a48d838dc7042eb49209088c3d2ad889fa9490320d0b8f540",
+      "size": 52704
+    },
+    "vendor/etc/init/vendor.qti.hardware.perf2-hal-service.rc": {
+      "sha256": "aeebc7e101a93aadd998704f3a916b43e5309152952222c74dd4f9119a5d8248",
+      "size": 1519
+    },
+    "vendor/etc/init/snapdragon_services.rc": {
+      "sha256": "bb76182befc1603fdd6cf2a3a2eb6608fec714f51b2860e47c7161894464df0d",
+      "size": 507
+    },
+    "vendor/etc/vintf/manifest/vendor.qti.hardware.perf2.xml": {
+      "sha256": "75cc630c5d4988827de28d3445acf6aa060320d4ce59fefff3c83f9ecb797df3",
+      "size": 283
+    },
+    "vendor/etc/vintf/manifest/snapdragon_services.xml": {
+      "sha256": "a9aa6be536d7da97fa71774d2cfce33cde3c7720be4087ccf395a4d2443f4470",
+      "size": 298
+    },
+    "vendor/lib64/vendor.qti.snapdragonServices-V1-ndk.so": {
+      "sha256": "a87ce6ce430e8d435d448ab83c4fdd8671836949d4f64cd79d7f5d9fdd67324a",
+      "size": 85640
+    },
+    "vendor/lib64/vendor.qti.snapdragonServices.qape-V1-ndk.so": {
+      "sha256": "e5f793b42a8474bc1420fa8c20c0ffd769704004ef520594aca4f0e038a43f32",
+      "size": 151832
+    },
+    "vendor/lib64/libqape_oem_ext.so": {
+      "sha256": "8f30a6cb9ad3bb0df3930e61bcfaa057256bee3c0b8851b40fcdce4e8d4f2a32",
+      "size": 35376
+    },
+    "vendor/etc/perf/qapegameconfig.txt": {
+      "sha256": "9c562ceb32c9756c1079cf57eb37113696e7c1d10e430238fe5efbfdc549c7ee",
+      "size": 1639
+    },
+    "vendor/etc/selinux/vendor_sepolicy.cil": {
+      "sha256": "261f3a29b3daaf62847f7c1b97aa9ca731c7d59fb711fa7c319edbec8b034ca6",
+      "size": 1727272
+    }
+  },
+  "retained_sources": [
+    "vendor/bin/hw/vendor.qti.hardware.perf2-hal-service",
+    "vendor/bin/snapdragon_services",
+    "vendor/etc/init/vendor.qti.hardware.perf2-hal-service.rc",
+    "vendor/etc/init/snapdragon_services.rc",
+    "vendor/etc/vintf/manifest/vendor.qti.hardware.perf2.xml",
+    "vendor/etc/vintf/manifest/snapdragon_services.xml",
+    "vendor/lib64/vendor.qti.snapdragonServices-V1-ndk.so",
+    "vendor/lib64/vendor.qti.snapdragonServices.qape-V1-ndk.so",
+    "vendor/lib64/libqape_oem_ext.so",
+    "vendor/etc/perf/qapegameconfig.txt",
+    "odm/lib64/camera/components/com.qti.node.seg.so",
+    "odm/lib64/libqsegnet.so",
+    "odm/lib64/rfs/dsp/libqsegnetengine_dsp_skel.so",
+    "vendor/lib64/libopencv_core.so",
+    "vendor/lib64/libopencv_imgproc.so"
+  ]
+}

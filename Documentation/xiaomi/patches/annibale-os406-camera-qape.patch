@@ -1,0 +1,45 @@
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -939,16 +939,12 @@
+ odm/lib64/vendor.xiaomi.hardware.bgservice@1.0.so
+ odm/lib64/vendor.xiaomi.hardware.postprocservice-V1-impl.so
+ odm/lib64/vendor.xiaomi.hardware.postprocservice-V1-ndk.so
+-vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin
+ vendor/etc/ASR_binary/Whisper/libQnnHtpV79Skel.so
+ vendor/etc/ASR_binary/Whisper/speech_float.eai
+ vendor/etc/permissions/camera_extensions.xml
+ vendor/etc/vintf/manifest/vendor.xiaomi.hardware.quickcamera.xml
+-vendor/etc/decoder.serialized.8750.O3.bin
+-vendor/etc/encoder.serialized.8750.O3.bin
+ vendor/framework/androidx.camera.extensions.impl.jar
+ vendor/lib64/libAIHDIcon.so
+-vendor/lib64/libSEGModel.so
+ vendor/lib64/libSNPESample.so
+ vendor/lib64/libcameraobserver.so
+ vendor/lib64/libcameraopt.so
+@@ -959,9 +955,7 @@
+ vendor/lib64/libnova.so
+ vendor/lib64/liboemaids_vendor.so
+ vendor/lib64/libopencv_core.so
+-vendor/lib64/libopencv_core_se.so
+ vendor/lib64/libopencv_imgproc.so
+-vendor/lib64/libopencv_imgproc_se.so
+ vendor/lib64/libos.so
+ vendor/lib64/libreffeature.so
+ vendor/lib64/libstreamprocessor.so
+@@ -3328,15 +3322,12 @@
+ 
+ # QSAP
+ vendor/bin/qsap_dcfd
+-vendor/bin/qsap_qapeservice
+ vendor/bin/qsap_sensors
+ vendor/bin/qsap_voiceui
+ vendor/etc/init/dcfd.rc
+ vendor/etc/init/vendor.qsap.location.rc
+-vendor/etc/init/vendor.qsap.qapeservice.rc
+ vendor/etc/init/vendor.qsap.sensors.rc
+ vendor/etc/seccomp_policy/qsap_dcfd.policy
+-vendor/etc/seccomp_policy/qsap_qapeservice.policy
+ vendor/etc/seccomp_policy/qsap_sensors.policy
+ vendor/etc/seccomp_policy/qsap_voiceui.policy
+ vendor/lib64/libDcfHalFramework.so
