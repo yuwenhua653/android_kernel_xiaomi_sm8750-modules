@@ -13,6 +13,8 @@
 #ifndef __NET_SLA_STATS_H__
 #define __NET_SLA_STATS_H__
 
+#include <linux/kref.h>
+
 /* config */
 #define CMD_ENABLE          "enable="
 #define CMD_RATE_ON         "rate_on="
@@ -71,6 +73,7 @@ struct sla_interface_stats //16 bytes + circular buffer
 
 struct sla_interface
 {
+    struct kref ref;
     struct list_head interface_list_hook;
     struct proc_dir_entry *mmap_file;
     struct proc_dir_entry *total_stats_file;

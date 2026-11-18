@@ -1,0 +1,88 @@
+{
+  "round": "R34",
+  "parent_commit": "0e5a620aa127ae9acdbda6bd78f6015cf2f27972",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "status": "sla_lifetime_source_hardened_objects_and_host_tests_passed",
+  "source_sha256": {
+    "xiaomi/sla/annibale/stats.c": "2534f011a9b7d23f2d126173a3ec57e5899d0c6177726861cfaf26358f8acb01",
+    "xiaomi/sla/annibale/sla_stats.h": "5c973c101012affb1690a80313ff0748f3292eb96c3553cd98263a3ad9693093",
+    "xiaomi/sla/annibale/Kconfig": "4ffebc7a880e211a0d4c8e46b168c4e952dfea60bb3a276c1eb9a7d715f7fb6e",
+    "tools/tests/test_annibale_sla_runtime.py": "2fd0210469adc8009cc5dac871b7177e2faa865a79eb5e796c9ca31303665853",
+    "tools/tests/sla_lifetime.c": "248a37c86ef7b3f5b118a402ab45e3e32d3fcd5568454ebb61ced246079e1c08",
+    "tools/tests/sla_packet.c": "0b5329a0f0fa5029945ddfc24eebf4dbd2e49a5b969aca616581ac1393f2afd6",
+    "tools/tests/sla_voip.c": "178262ea480cc8ba5e2707585be296e6b5b5d147970d38a1fc0bbd471d2cd8c9"
+  },
+  "compiler": "Debian Clang/LLD 19.1.7",
+  "kernel_config_sha256": "768f883701d3e3e39959e078e3f58f76608bca9fe4d060b06cb88d304795722c",
+  "object_build": {
+    "target": "sla.o",
+    "format": "ELF64 AArch64 REL",
+    "flags": [
+      "ARCH=arm64",
+      "LLVM=1",
+      "HOSTCC=gcc",
+      "CONFIG_XIAOMI_ANNIBALE_SLA=m",
+      "KCFLAGS=-Werror"
+    ],
+    "objects": {
+      "stats.o": "d2d6b519d10afba3050e921fabb1729d6e77267cf9dc0a00c7ef8a0b453e022f",
+      "sla.o": "e691be2465c52c04b935dbc720b49e1007ed8efe898858f28cc58c0012f9caa6"
+    },
+    "log_sha256": "21d1c3688d6b59280fa36eed90d45059ffc40b81efe630077ba4c34f28264f57",
+    "lto": false,
+    "cfi": false,
+    "btf": false,
+    "modpost": false,
+    "ko_linked": false
+  },
+  "tests": {
+    "total": 229,
+    "passed": 229,
+    "skipped": 0,
+    "new_sla_fixtures": 3,
+    "host_sanitizer": "undefined, no recover",
+    "uses_actual_selected_driver_functions": true,
+    "kernel_primitives_mocked": true,
+    "real_kernel_concurrency_tested": false,
+    "log_sha256": "7a79b5aa8db43ee8bdad46d7ceed7b2d5c74ad9390d19f5a22ba14cc060881e6"
+  },
+  "data_object_sizes": {
+    "config_data": 268,
+    "voip_state": 8
+  },
+  "source_fixes": [
+    "vmalloc_user mapping with file/VMA krefs and VMA module references",
+    "detach under stats lock; proc removal and owner release outside spinlock",
+    "cleanup also before enable and after partial publication",
+    "control mutex plus one stats lock for config, interface, counters, VoIP and hash",
+    "skb_header_pointer, header/fragment/length/full-socket validation",
+    "per-open VoIP text snapshot"
+  ],
+  "behavior_changes_to_verify": [
+    "MAP_SHARED required",
+    "interface control errors propagated",
+    "stopped mappings retained until final close",
+    "VoIP snapshot per open, repeated same-fd pread behavior needs consumer verification",
+    "fragmented packets excluded from classification"
+  ],
+  "inventory": {
+    "source_report": "annibale-r33-validation.json",
+    "reaudited_this_round": false,
+    "present": 3872,
+    "missing": 23,
+    "outside_scope": 0
+  },
+  "production_enabled": false,
+  "packaged": false,
+  "kernel_image_rebuilt": false,
+  "full_vendor_generated": false,
+  "rom_built": false,
+  "device_tested": false,
+  "flashable": false,
+  "remaining": [
+    "target kernel KASAN/lockdep/KCSAN lifetime/concurrency/failure stress",
+    "production compiler/config and Module.symvers, full module link/CRC/KCFI/signing",
+    "HyperOS and native userspace contract checks",
+    "23 userspace extraction gaps, full vendor/ROM and hardware qualification"
+  ]
+}

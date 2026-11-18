@@ -1,9 +1,10 @@
 config XIAOMI_ANNIBALE_SLA
 	tristate "Annibale SLA source candidate (development only)"
 	depends on EXPERT && INET && NETFILTER && PROC_FS
+	depends on ARM64 && ARM64_4K_PAGES
 	default n
 	help
 	  Same-family MiCode SLA source being qualified for Linux 6.6.
-	  Mapping lifetime, packet synchronization and Annibale userspace
-	  compatibility remain unqualified. Do not enable for device use.
+	  Lifetime and packet hardening have only host-test/object-build coverage.
+	  Kernel runtime and Annibale userspace remain unqualified; do not ship.
 	  This Kconfig is deliberately not sourced by production configurations.

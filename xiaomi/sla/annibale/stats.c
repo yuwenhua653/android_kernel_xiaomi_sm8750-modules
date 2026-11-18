@@ -28,11 +28,13 @@
 #include <linux/spinlock.h>
 #include <linux/netfilter_ipv4/ip_tables.h>
 #include <linux/hash.h>
-#include <linux/rculist.h>
-#include <linux/debugfs.h>
 #include <linux/proc_fs.h>
 #include <linux/list.h>
 #include <linux/ktime.h>
+#include <linux/mutex.h>
+#include <linux/vmalloc.h>
+#include <net/sock.h>
+#include <net/ip.h>
 
 #include "sla_stats.h"
 
@@ -65,6 +67,21 @@ static struct sla_voip_state voip_state;
 static u64 pkt_alloc_num = 0;
 static u64 pkt_free_num = 0;
 
+/* Lock order: control_mutex -> stats_spin_lock. Proc removal holds neither
+ * stats_spin_lock nor a callback's own lock. Packet callbacks never take the
+ * control mutex. All config, interface and packet-table data use stats lock.
+ */
+static DEFINE_MUTEX(control_mutex);
+static DEFINE_SPINLOCK(stats_spin_lock);
+
+static void sla_iface_release(struct kref *ref)
+{
+    struct sla_interface *iface = container_of(ref, struct sla_interface, ref);
+
+    vfree(iface->mmap_struct);
+    kfree(iface);
+}
+
 
 LIST_HEAD(sla_iface_list) ;
 
@@ -75,8 +92,6 @@ LIST_HEAD(sla_iface_list) ;
 #define MAX_SIZE_DEFAULT    (4*1024)
 #define LIMIT_TIME_DEFAULT  (5)
 
-#define STATS_LOCK_IRQ spin_lock_irqsave
-#define STATS_UNLOCK_IRQ spin_unlock_irqrestore
 
 struct uplink_pkt
 {
@@ -89,45 +104,65 @@ struct hlist_head   pkt_list[PORT_HASH_SIZE];
 
 /* about fs */
 
-static int procfs_u64_set(void *data, u64 val)
+static int total_stats_show(struct seq_file *seq, void *unused)
 {
-    *(u64 *)data = val;
+    struct sla_interface *iface = seq->private;
+    unsigned long flags;
+    u64 value;
+
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    value = iface->total_trfc;
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
+    seq_printf(seq, "%llu\n", value);
     return 0;
 }
 
-static int procfs_u64_get(void *data, u64 *val)
+static int total_stats_open(struct inode *inode, struct file *file)
 {
-    *val = *(u64 *)data;
-    return 0;
+    struct sla_interface *iface = pde_data(inode);
+    int ret;
+
+    kref_get(&iface->ref);
+    ret = single_open(file, total_stats_show, iface);
+    if (ret)
+        kref_put(&iface->ref, sla_iface_release);
+    return ret;
 }
 
-static int fops_u64_open(struct inode *inode, struct file *filp)
+static int total_stats_release(struct inode *inode, struct file *file)
 {
-    inode->i_private = pde_data(inode);
-    return simple_attr_open(inode, filp, procfs_u64_get, procfs_u64_set, "%llu\n");
+    struct seq_file *seq = file->private_data;
+    struct sla_interface *iface = seq->private;
+    int ret = single_release(inode, file);
+
+    kref_put(&iface->ref, sla_iface_release);
+    return ret;
 }
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
-static const struct proc_ops fops_u64 =
+static ssize_t total_stats_write(struct file *file, const char __user *buf,
+                                size_t count, loff_t *pos)
 {
-    .proc_open    = fops_u64_open,
-    .proc_release = simple_attr_release,
-    .proc_read    = simple_attr_read,
-    .proc_write   = simple_attr_write,
-    .proc_lseek  = generic_file_llseek,
-};
-#else
-static const struct file_operations fops_u64 =
-{
-    .owner   = THIS_MODULE,
-    .open    = fops_u64_open,
-    .release = simple_attr_release,
-    .read    = simple_attr_read,
-    .write   = simple_attr_write,
-    .llseek  = generic_file_llseek,
-};
-#endif
+    struct seq_file *seq = file->private_data;
+    struct sla_interface *iface = seq->private;
+    unsigned long flags;
+    u64 value;
+    int ret = kstrtoull_from_user(buf, count, 0, &value);
 
+    if (ret)
+        return ret;
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    iface->total_trfc = value;
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
+    return count;
+}
+
+static const struct proc_ops fops_u64 = {
+    .proc_open = total_stats_open,
+    .proc_release = total_stats_release,
+    .proc_read = seq_read,
+    .proc_write = total_stats_write,
+    .proc_lseek = seq_lseek,
+};
 
 /* dir */
 static struct proc_dir_entry *sla_dir;
@@ -138,37 +173,7 @@ static struct sla_interface * sla_find_interface(const char *interface_name);
 /* sla voip file */
 static struct proc_dir_entry *sla_voip_file;
 
-/* about lock */
-static spinlock_t stats_spin_lock;
-
-static inline void stats_lock_init(void)
-{
-    spin_lock_init(&stats_spin_lock);
-}
-
-static inline void stats_lock(void)
-{
-    spin_lock(&stats_spin_lock);
-}
-
-static inline void stats_unlock(void)
-{
-    spin_unlock(&stats_spin_lock);
-}
-
-static spinlock_t pkt_spin_lock;
-
-static inline void pkt_lock_init(void)
-{
-    spin_lock_init(&pkt_spin_lock);
-}
-
-static spinlock_t list_spin_lock;
-
-static inline void list_lock_init(void)
-{
-    spin_lock_init(&list_spin_lock);
-}
+/* Packet hash helpers require stats_spin_lock; there are no RCU readers. */
 
 static inline struct hlist_head *pkt_hlist_head(u16 port)
 {
@@ -179,7 +184,8 @@ static struct uplink_pkt *pkt_find(u16 port)
 {
     struct uplink_pkt *pkt;
 
-    hlist_for_each_entry_rcu(pkt, pkt_hlist_head(port), hlist)
+    lockdep_assert_held(&stats_spin_lock);
+    hlist_for_each_entry(pkt, pkt_hlist_head(port), hlist)
     {
         if (pkt->local_port == port)
             return pkt;
@@ -200,18 +206,15 @@ static void pkt_add(u16 port)
         return;
 
     pkt->local_port = port;
-    spin_lock(&list_spin_lock);
     ++ pkt_alloc_num;
-    hlist_add_head_rcu(&pkt->hlist, pkt_hlist_head(port));
-    spin_unlock(&list_spin_lock);
+    hlist_add_head(&pkt->hlist, pkt_hlist_head(port));
 }
 
 static void pkt_release(struct uplink_pkt *pkt)
 {
-    spin_lock(&list_spin_lock);
+    lockdep_assert_held(&stats_spin_lock);
     ++ pkt_free_num;
-    hlist_del_rcu(&pkt->hlist);
-    spin_unlock(&list_spin_lock);
+    hlist_del(&pkt->hlist);
     kfree(pkt);
 }
 
@@ -227,23 +230,13 @@ static void pkt_hlist_init(void)
 static void pkt_hlist_deinit(void)
 {
     struct uplink_pkt *pkt;
-    struct uplink_pkt *del;
+    struct hlist_node *next;
     unsigned int h;
 
+    lockdep_assert_held(&stats_spin_lock);
     for (h = 0; h < PORT_HASH_SIZE; h++)
-    {
-        del = NULL;
-        hlist_for_each_entry_rcu(pkt, &pkt_list[h], hlist)
-        {
-            if(del)
-                pkt_release(del);
-
-            del = pkt;
-        }
-
-        if(del)
-            pkt_release(del);
-    }
+        hlist_for_each_entry_safe(pkt, next, &pkt_list[h], hlist)
+            pkt_release(pkt);
 }
 
 static void pkt_hlist_print(void)
@@ -253,64 +246,92 @@ static void pkt_hlist_print(void)
 
     for (h = 0; h < PORT_HASH_SIZE; h++)
     {
-        hlist_for_each_entry_rcu(pkt, &pkt_list[h], hlist)
+        hlist_for_each_entry(pkt, &pkt_list[h], hlist)
             printk("%s() pkt_list[%d] local_port=%d\n", __func__, h, pkt->local_port);
     }
 }
 
-static bool sla_pkt_valid(struct sk_buff *skb, u8 link_type)
+/* Read headers through skb_header_pointer: transport offsets need not be set
+ * at PRE_ROUTING and the skb may be non-linear. Fragments are not classified.
+ */
+struct sla_packet {
+    u8 protocol;
+    __be16 source, dest;
+    __be32 daddr;
+    u16 payload_len;
+    bool closing;
+};
+
+static bool sla_parse_packet(const struct sk_buff *skb, struct sla_packet *pkt)
 {
-    // int i;
-    u16 local_port;
-    u16 ext_port;
-    u16 len;
-    struct tcphdr *tcph;
-    struct uplink_pkt *pkt;
-    unsigned long flags;
+    struct iphdr ipbuf;
+    struct tcphdr tcpbuf;
+    struct udphdr udpbuf;
+    const struct iphdr *ip;
+    const struct tcphdr *tcp;
+    const struct udphdr *udp;
+    unsigned int iplen, total, translen;
+    int offset = skb_network_offset(skb);
 
-    if(IPPROTO_TCP != ip_hdr(skb)->protocol)
+    if (offset < 0 || offset > skb->len)
         return false;
-
-    if(LT_UPLINK == link_type)
-    {
-        local_port = ntohs(tcp_hdr(skb)->source);
-        ext_port = ntohs(tcp_hdr(skb)->dest);
-    }
-    else
-    {
-        local_port = ntohs(tcp_hdr(skb)->dest);
-        ext_port = ntohs(tcp_hdr(skb)->source);
-    }
-
-    // for(i=0; (i<PORTS_MAX) && (0!=config_data.ports[i]); i++)
-    // {
-    //     if(ext_port == config_data.ports[i])
-    //         break;
-    // }
-
-    // if((i == PORTS_MAX) || ext_port != config_data.ports[i])
-    // {
-    //     return false;
-    // }
-
-    len = ntohs(ip_hdr(skb)->tot_len) - (ip_hdr(skb)->ihl*4 + tcp_hdrlen(skb));
-    if(0 == len)
-    {
-        tcph = tcp_hdr(skb);
-        if(tcph->fin || tcph->rst)
-        {
-            spin_lock_irqsave(&pkt_spin_lock, flags);
-            pkt = pkt_find(local_port);
-            if(pkt)
-            {
-                pkt_release(pkt);
-            }
-            spin_unlock_irqrestore(&pkt_spin_lock, flags);
-        }
+    ip = skb_header_pointer(skb, offset, sizeof(ipbuf), &ipbuf);
+    if (!ip || ip->version != 4 || ip->ihl < 5 ||
+        (ntohs(ip->frag_off) & (IP_MF | IP_OFFSET)))
+        return false;
+    iplen = ip->ihl * 4;
+    total = ntohs(ip->tot_len);
+    if (total < iplen || total > skb->len - offset)
+        return false;
+    pkt->protocol = ip->protocol;
+    pkt->daddr = ip->daddr;
+    pkt->closing = false;
+    if (pkt->protocol == IPPROTO_TCP) {
+        if (total - iplen < sizeof(tcpbuf))
+            return false;
+        tcp = skb_header_pointer(skb, offset + iplen, sizeof(tcpbuf), &tcpbuf);
+        if (!tcp || tcp->doff < 5)
+            return false;
+        translen = tcp->doff * 4;
+        if (translen > total - iplen)
+            return false;
+        pkt->source = tcp->source;
+        pkt->dest = tcp->dest;
+        pkt->closing = tcp->fin || tcp->rst;
+    } else if (pkt->protocol == IPPROTO_UDP) {
+        if (total - iplen < sizeof(udpbuf))
+            return false;
+        udp = skb_header_pointer(skb, offset + iplen, sizeof(udpbuf), &udpbuf);
+        if (!udp || ntohs(udp->len) < sizeof(udpbuf) ||
+            ntohs(udp->len) > total - iplen)
+            return false;
+        translen = sizeof(udpbuf);
+        pkt->source = udp->source;
+        pkt->dest = udp->dest;
+    } else {
         return false;
     }
-
+    pkt->payload_len = total - iplen - translen;
     return true;
+}
+
+static bool sla_pkt_valid(const struct sla_packet *packet, u8 link_type)
+{
+    struct uplink_pkt *pkt;
+    u16 port;
+
+    lockdep_assert_held(&stats_spin_lock);
+    if (packet->protocol != IPPROTO_TCP)
+        return false;
+    if (packet->payload_len)
+        return true;
+    port = ntohs(link_type == LT_UPLINK ? packet->source : packet->dest);
+    if (packet->closing) {
+        pkt = pkt_find(port);
+        if (pkt)
+            pkt_release(pkt);
+    }
+    return false;
 }
 
 static bool sla_pkt_consolidate(struct sla_interface_stats *stats, u32 index)
@@ -340,146 +361,96 @@ static bool sla_pkt_consolidate(struct sla_interface_stats *stats, u32 index)
     return true;
 }
 
-static inline bool sla_voip_pack_filter(struct sk_buff *skb)
-{
-    if (ip_hdr(skb)->protocol == IPPROTO_UDP && !IS_ERR_OR_NULL(skb->sk)) {
-        uid_t voip_uid = __kuid_val(skb->sk->sk_uid);
-        if (config_data.voip_uid == voip_uid && voip_state.address == 0) {
-            __be16 port = udp_hdr(skb)->dest;
-            // Exclude port 53 of udp
-            if (port != 13568) {
-                voip_state.address = ip_hdr(skb)->daddr;
-                voip_state.port = port;
-            }
-        }
-            return true;
-    }
-    return false;
-}
-
-static unsigned int sla_ipv4_in(void *priv,
-                                struct sk_buff *skb,
+static unsigned int sla_ipv4_in(void *priv, struct sk_buff *skb,
                                 const struct nf_hook_state *state)
 {
+    struct sla_packet packet;
+    struct sla_interface *iface;
     struct sla_interface_stats *p;
     struct sla_stats_entry *entry;
-    struct timespec64 tm;
     struct uplink_pkt *pkt;
+    struct timespec64 tm;
     bool consolidated = false;
-    struct sla_interface* iface = NULL;
     unsigned long flags;
-    unsigned long pkt_flags;
 
-    if(config_data.enable && config_data.rate_on)
-    {
-        if(!sla_pkt_valid(skb, LT_DOWNLINK))
-            return NF_ACCEPT;
-
-        //printk("#### SLA sla_ipv4_in ");
-        //printk("#### %s devname=[%s] mac len=%d skb->len=%d ifaceid = ((%d)) \n", __func__, state->in->name, skb->mac_len, skb->len, state->in->ifindex);
-
-        STATS_LOCK_IRQ(&stats_spin_lock,flags);
-        iface =  sla_find_interface(state->in->name);
-
-        if(iface == NULL)
-        {
-            STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
-            return NF_ACCEPT;
-        }
-        p = iface->mmap_struct;
-
-        iface->total_trfc += skb->len;
-
-        ktime_get_real_ts64(&tm);
-        entry = &p->entries[iface->write_idx];
-        entry->link_type = LT_DOWNLINK;
-        entry->timestamp = tm.tv_sec*1000 + tm.tv_nsec/1000000;
-        entry->size = skb->len + 14; //14 is mac len
-        entry->port = ntohs(tcp_hdr(skb)->dest);
-
-        spin_lock_irqsave(&pkt_spin_lock, pkt_flags);
-        pkt = pkt_find(entry->port);
-        if(pkt)
-        {
-            pkt_release(pkt);
-
-            entry->discard = 1;
-        }
-        else
-        {
-            entry->discard = 0;
-            consolidated = sla_pkt_consolidate(p, iface->write_idx);
-        }
-        spin_unlock_irqrestore(&pkt_spin_lock, pkt_flags);
-
-        if(!consolidated)
-        {
-            iface->write_idx++;
-            if (iface->write_idx >= ENTRY_TOTAL)
-                iface->write_idx = 0;
-            WRITE_ONCE(p->cur_idx, iface->write_idx);
-        }
-        else
-            memset(entry, 0, sizeof(*entry));
-
-        STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
+    if (!state->in || !sla_parse_packet(skb, &packet))
+        return NF_ACCEPT;
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    if (!config_data.enable || !config_data.rate_on ||
+        !sla_pkt_valid(&packet, LT_DOWNLINK))
+        goto out;
+    iface = sla_find_interface(state->in->name);
+    if (!iface)
+        goto out;
+    p = iface->mmap_struct;
+    iface->total_trfc += skb->len;
+    ktime_get_real_ts64(&tm);
+    entry = &p->entries[iface->write_idx];
+    entry->link_type = LT_DOWNLINK;
+    entry->timestamp = tm.tv_sec * 1000 + tm.tv_nsec / 1000000;
+    entry->size = skb->len + 14;
+    entry->port = ntohs(packet.dest);
+    pkt = pkt_find(entry->port);
+    if (pkt) {
+        pkt_release(pkt);
+        entry->discard = 1;
+    } else {
+        entry->discard = 0;
+        consolidated = sla_pkt_consolidate(p, iface->write_idx);
     }
-
+    if (!consolidated) {
+        iface->write_idx = (iface->write_idx + 1) % ENTRY_TOTAL;
+        WRITE_ONCE(p->cur_idx, iface->write_idx);
+    } else {
+        memset(entry, 0, sizeof(*entry));
+    }
+out:
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
     return NF_ACCEPT;
 }
 
-static unsigned int sla_ipv4_out(void *priv,
-                                 struct sk_buff *skb,
+static unsigned int sla_ipv4_out(void *priv, struct sk_buff *skb,
                                  const struct nf_hook_state *state)
 {
+    struct sla_packet packet;
+    struct sla_interface *iface;
     struct sla_interface_stats *p;
     struct sla_stats_entry *entry;
     struct timespec64 tm;
-    struct sla_interface* iface = NULL;
     unsigned long flags;
 
-    if (config_data.enable && config_data.voip_enable && config_data.voip_uid != 0)
-    {
-        if (sla_voip_pack_filter(skb))
-            return NF_ACCEPT;
-    }
-
-    if(config_data.enable && config_data.rate_on)
-    {
-        if(!sla_pkt_valid(skb, LT_UPLINK))
-            return NF_ACCEPT;
-
-        //printk("#### SLA sla_ipv4_out ");
-        //printk("#### %s devname=[%s] mac-len=%d skb->len=%d ifaceid = ((%d)) \n", __func__, state->out->name, skb->mac_len, skb->len, state->out->ifindex);
-        STATS_LOCK_IRQ(&stats_spin_lock,flags);
-        iface =  sla_find_interface(state->out->name);
-
-        if(iface == NULL)
-        {
-            STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
-            return NF_ACCEPT;
+    if (!state->out || !sla_parse_packet(skb, &packet))
+        return NF_ACCEPT;
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    if (!config_data.enable)
+        goto out;
+    if (config_data.voip_enable && config_data.voip_uid &&
+        packet.protocol == IPPROTO_UDP && skb->sk && sk_fullsock(skb->sk)) {
+        if (config_data.voip_uid == __kuid_val(skb->sk->sk_uid) &&
+            !voip_state.address && packet.dest != htons(53)) {
+            voip_state.address = packet.daddr;
+            voip_state.port = packet.dest;
         }
-        p = iface->mmap_struct;
-
-        ktime_get_real_ts64(&tm);
-        pkt_add(ntohs(tcp_hdr(skb)->source));
-
-        entry = &p->entries[iface->write_idx];
-        entry->link_type = LT_UPLINK;
-
-        entry->timestamp = tm.tv_sec*1000 + tm.tv_nsec/1000000;
-        entry->size = skb->len + 14; //14 is mac len
-        entry->port = ntohs(tcp_hdr(skb)->source);
-        entry->discard = 1;
-
-        iface->write_idx++;
-        if (iface->write_idx >= ENTRY_TOTAL)
-            iface->write_idx = 0;
-        WRITE_ONCE(p->cur_idx, iface->write_idx);
-
-        STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
+        goto out;
     }
-
+    if (!config_data.rate_on || !sla_pkt_valid(&packet, LT_UPLINK))
+        goto out;
+    iface = sla_find_interface(state->out->name);
+    if (!iface)
+        goto out;
+    p = iface->mmap_struct;
+    ktime_get_real_ts64(&tm);
+    pkt_add(ntohs(packet.source));
+    entry = &p->entries[iface->write_idx];
+    entry->link_type = LT_UPLINK;
+    entry->timestamp = tm.tv_sec * 1000 + tm.tv_nsec / 1000000;
+    entry->size = skb->len + 14;
+    entry->port = ntohs(packet.source);
+    entry->discard = 1;
+    iface->write_idx = (iface->write_idx + 1) % ENTRY_TOTAL;
+    WRITE_ONCE(p->cur_idx, iface->write_idx);
+out:
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
     return NF_ACCEPT;
 }
 
@@ -502,102 +473,147 @@ static struct nf_hook_ops sla_ipv4_ops[] __read_mostly =
 static ssize_t stats_read(struct file *file, char __user *user_buf,
                           size_t count, loff_t *ppos)
 {
-    struct sla_interface_stats *stats = file->private_data;
+    struct sla_interface *iface = file->private_data;
 
-    return simple_read_from_buffer(user_buf, count, ppos, stats, STATS_BUF_SIZE);
+    return simple_read_from_buffer(user_buf, count, ppos,
+                                   iface->mmap_struct, STATS_BUF_SIZE);
 }
 
-static int stats_map(struct file *filp, struct vm_area_struct *vma)
+static void stats_vma_open(struct vm_area_struct *vma)
 {
-    unsigned long page;
-    unsigned long start = (unsigned long)vma->vm_start;
-    unsigned long size = (unsigned long)(vma->vm_end - vma->vm_start);
+    struct sla_interface *iface = vma->vm_private_data;
 
-    if (!filp->private_data)
+    /* The parent VMA already holds a module reference during fork/split. */
+    __module_get(THIS_MODULE);
+    kref_get(&iface->ref);
+}
+
+static void stats_vma_close(struct vm_area_struct *vma)
+{
+    struct sla_interface *iface = vma->vm_private_data;
+
+    kref_put(&iface->ref, sla_iface_release);
+    module_put(THIS_MODULE);
+}
+
+static const struct vm_operations_struct stats_vm_ops = {
+    .open = stats_vma_open,
+    .close = stats_vma_close,
+};
+
+static int stats_map(struct file *file, struct vm_area_struct *vma)
+{
+    struct sla_interface *iface = file->private_data;
+    unsigned long size = vma->vm_end - vma->vm_start;
+    int ret;
+
+    if (!iface)
         return -ENODEV;
-
-    /* Never expose adjacent allocations or honor an offset into them. */
-    if (vma->vm_pgoff || !size || size > STATS_BUF_SIZE)
+    if (vma->vm_pgoff || !size || size > STATS_BUF_SIZE ||
+        !(vma->vm_flags & VM_SHARED))
         return -EINVAL;
     if (vma->vm_flags & VM_EXEC)
         return -EPERM;
+    if (!try_module_get(THIS_MODULE))
+        return -ENODEV;
     vm_flags_clear(vma, VM_MAYEXEC);
     vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
-
-    page = virt_to_phys(filp->private_data); //get phys addr
-
-    //Maps a vma virtual memory space in user space to a continuous physical page beginning with page
-    //The third parameter is the page frame number, obtained by shifting the PAGE_SHIFT to the right of the physical address
-    return remap_pfn_range(vma, start, page >> PAGE_SHIFT, size,
-                          vma->vm_page_prot);
+    ret = remap_vmalloc_range(vma, iface->mmap_struct, 0);
+    if (ret) {
+        module_put(THIS_MODULE);
+        return ret;
+    }
+    /* proc_remove can release the file before the VMA is closed. */
+    kref_get(&iface->ref);
+    vma->vm_private_data = iface;
+    vma->vm_ops = &stats_vm_ops;
+    return 0;
 }
 
-int stats_open(struct inode *inode, struct file *file)
+static int stats_open(struct inode *inode, struct file *file)
 {
-    inode->i_private = pde_data(inode);
+    struct sla_interface *iface = pde_data(inode);
 
-    return simple_open(inode, file);
+    kref_get(&iface->ref);
+    file->private_data = iface;
+    return 0;
 }
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
-static const struct proc_ops stats_fops =
+static int stats_release(struct inode *inode, struct file *file)
 {
+    struct sla_interface *iface = file->private_data;
+
+    file->private_data = NULL;
+    kref_put(&iface->ref, sla_iface_release);
+    return 0;
+}
+
+static const struct proc_ops stats_fops = {
     .proc_open = stats_open,
+    .proc_release = stats_release,
     .proc_read = stats_read,
     .proc_lseek = default_llseek,
     .proc_mmap = stats_map,
 };
-#else
-static const struct file_operations stats_fops =
-{
-    .owner = THIS_MODULE,
-    .open = stats_open,
-    .read = stats_read,
-    .llseek = default_llseek,
-    .mmap = stats_map,
-};
-#endif
 
-/*sla voip state file operations start*/
-static int sla_voip_file_show(struct seq_file *s, void *data)
+/* Per-open text snapshot makes partial reads stable and consumes state once. */
+struct sla_voip_reader {
+    struct mutex lock;
+    bool captured;
+    char text[VOIP_STATE_MAX];
+    size_t length;
+};
+
+static int sla_voip_file_open(struct inode *inode, struct file *file)
 {
-    seq_printf(s, "address=%u\n", voip_state.address);
-    seq_printf(s, "port=%d\n", voip_state.port);
+    struct sla_voip_reader *reader = kzalloc(sizeof(*reader), GFP_KERNEL);
+
+    if (!reader)
+        return -ENOMEM;
+    mutex_init(&reader->lock);
+    file->private_data = reader;
     return 0;
 }
 
-static int sla_voip_file_open(struct inode *inode, struct file *filp)
+static int sla_voip_file_release(struct inode *inode, struct file *file)
 {
-    return single_open(filp, sla_voip_file_show, pde_data(inode));
+    kfree(file->private_data);
+    file->private_data = NULL;
+    return 0;
 }
 
-static ssize_t sla_voip_file_read(struct file *filp, char __user *buffer, size_t size, loff_t *poss)
+static ssize_t sla_voip_file_read(struct file *file, char __user *buffer,
+                                size_t size, loff_t *pos)
 {
-    int ret=0;
-    char buf[VOIP_STATE_MAX];
-    ret = sprintf(buf, "%u,%d", voip_state.address, voip_state.port);
-    printk("sla voip file read is %s", buf);
-    memset(&voip_state, 0, sizeof(voip_state));
-    return simple_read_from_buffer(buffer, size, poss, buf, strlen(buf));
+    struct sla_voip_reader *reader = file->private_data;
+    struct sla_voip_state snapshot;
+    unsigned long flags;
+    ssize_t ret;
+
+    if (!size)
+        return 0;
+    ret = mutex_lock_interruptible(&reader->lock);
+    if (ret)
+        return ret;
+    if (!reader->captured) {
+        spin_lock_irqsave(&stats_spin_lock, flags);
+        snapshot = voip_state;
+        memset(&voip_state, 0, sizeof(voip_state));
+        spin_unlock_irqrestore(&stats_spin_lock, flags);
+        reader->length = scnprintf(reader->text, sizeof(reader->text),
+                                   "%u,%d", snapshot.address, snapshot.port);
+        reader->captured = true;
+    }
+    ret = simple_read_from_buffer(buffer, size, pos, reader->text, reader->length);
+    mutex_unlock(&reader->lock);
+    return ret;
 }
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
-static const struct proc_ops sla_voip_fops =
-{
+static const struct proc_ops sla_voip_fops = {
     .proc_open = sla_voip_file_open,
     .proc_read = sla_voip_file_read,
-    .proc_release = single_release,
+    .proc_release = sla_voip_file_release,
 };
-#else
-static const struct file_operations sla_voip_fops =
-{
-    .owner = THIS_MODULE,
-    .open = sla_voip_file_open,
-    .read = sla_voip_file_read,
-    .release = single_release,
-};
-#endif
-/*sla voip state file operations end*/
 
 static void sla_stats_data_init(struct sla_interface_stats *p)
 {
@@ -629,6 +645,7 @@ static struct sla_interface * sla_find_interface(const char *interface_name)
 {
     struct sla_interface * iface = NULL;
 
+    lockdep_assert_held(&stats_spin_lock);
     list_for_each_entry (iface , &sla_iface_list, interface_list_hook)
     {
          if(strcmp(interface_name,iface->interface_name ) == 0)
@@ -640,174 +657,100 @@ static struct sla_interface * sla_find_interface(const char *interface_name)
     return NULL;
 }
 
-static int sla_interface_start(const char *interface_name)
+static int sla_interface_start(const char *name)
 {
-    u32 offset;
+    struct sla_interface *iface;
     unsigned long flags;
-    char mmap_file_name[IF_NAME_LEN + 5];
-    char total_stats_file_name[IF_NAME_LEN + 6];
-    struct sla_interface *new_interface;
+    char mmap_name[IF_NAME_LEN + sizeof(MMAP_FILE_SUFFIX)];
+    char total_name[IF_NAME_LEN + sizeof(TOTAL_STATS_FILE_SUFFIX)];
+    int ret = -ENOMEM;
 
-    if(NULL == interface_name)
-    {
-      printk(KERN_CRIT "### %s Cannot create iface struct when iface name is NULL \n", __func__);
-      return -1;
+    lockdep_assert_held(&control_mutex);
+    if (!name || !*name || strlen(name) >= IF_NAME_LEN ||
+        strchr(name, '/') || strchr(name, '\n'))
+        return -EINVAL;
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    iface = sla_find_interface(name);
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
+    if (iface)
+        return -EEXIST;
+    iface = kzalloc(sizeof(*iface), GFP_KERNEL);
+    if (!iface)
+        return -ENOMEM;
+    kref_init(&iface->ref); /* owner reference, retained through proc removal */
+    strscpy(iface->interface_name, name, sizeof(iface->interface_name));
+    iface->mmap_struct = vmalloc_user(PAGE_ALIGN(STATS_BUF_SIZE));
+    if (!iface->mmap_struct)
+        goto put_iface;
+    sla_stats_data_init(iface->mmap_struct);
+    snprintf(mmap_name, sizeof(mmap_name), "%s%s", name, MMAP_FILE_SUFFIX);
+    snprintf(total_name, sizeof(total_name), "%s%s", name, TOTAL_STATS_FILE_SUFFIX);
+    iface->mmap_file = proc_create_data(mmap_name, 0644, sla_dir,
+                                         &stats_fops, iface);
+    if (!iface->mmap_file)
+        goto put_iface;
+    iface->total_stats_file = proc_create_data(total_name, 0644, sla_dir,
+                                                &fops_u64, iface);
+    if (!iface->total_stats_file) {
+        proc_remove(iface->mmap_file);
+        goto put_iface;
     }
-    STATS_LOCK_IRQ(&stats_spin_lock,flags);
-    if(sla_find_interface(interface_name) != NULL)
-    {
-        STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
-        printk(KERN_CRIT "### %s Interface %s already being tracked in SLA ", __func__, interface_name);
-        return -1;
-    }
-    STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
-
-    new_interface = (struct sla_interface *)kmalloc(sizeof(struct sla_interface), GFP_ATOMIC);
-
-    if(NULL == new_interface)
-    {
-        printk(KERN_CRIT "### %s kmalloc Failed for %s", __func__, interface_name);
-        return -1;
-    }
-
-    if (strscpy(new_interface->interface_name, interface_name,
-                sizeof(new_interface->interface_name)) < 0)
-    {
-        // the interface_name passed to the function was longer than the MAX interface length.
-        printk(KERN_CRIT "### %s invalid interface name %s", __func__, interface_name);
-        kfree(new_interface);
-        return -1;
-    }
-    printk(KERN_CRIT "### %s copy the iface name into struct %s \n", __func__, interface_name);
-
-    strscpy(mmap_file_name,new_interface->interface_name, sizeof(mmap_file_name));
-    strlcat(mmap_file_name,MMAP_FILE_SUFFIX,sizeof(mmap_file_name));
-    strscpy(total_stats_file_name,new_interface->interface_name, sizeof(total_stats_file_name));
-    strlcat(total_stats_file_name,TOTAL_STATS_FILE_SUFFIX,sizeof(total_stats_file_name));
-
-    new_interface->mmap_struct = (struct sla_interface_stats *)kmalloc(STATS_BUF_SIZE, GFP_ATOMIC);
-
-    if(NULL == new_interface->mmap_struct)
-    {
-        printk(KERN_CRIT "### %s kmalloc wlan_stats Fail\n", __func__);
-        kfree(new_interface);
-        return -1;
-    }
-
-    sla_stats_data_init(new_interface->mmap_struct);
-    new_interface->write_idx = 0;
-
-    for(offset=0; offset<STATS_BUF_SIZE; offset+=PAGE_SIZE)
-        SetPageReserved(virt_to_page(((u8 *)new_interface->mmap_struct)+offset)); //Set the segment memory to reserved
-
-    new_interface->mmap_file = proc_create_data(mmap_file_name, 0644, sla_dir, &stats_fops, new_interface->mmap_struct);
-
-    if (!new_interface->mmap_file)
-    {
-        printk(KERN_ERR "#### %s Fail to create file: mmap_file for interface= %s \n", __func__, interface_name);
-        kfree(new_interface->mmap_struct);
-        kfree(new_interface);
-        return -1;
-    }
-
-    new_interface->total_trfc = 0;
-    new_interface->total_stats_file = proc_create_data(total_stats_file_name, 0644, sla_dir, &fops_u64, &new_interface->total_trfc);
-
-    if (!new_interface->total_stats_file)
-    {
-        printk(KERN_ERR "#### %s Fail to create total_stats_fils for interface = %s \n", __func__, interface_name);
-        proc_remove(new_interface->mmap_file);
-        kfree(new_interface->mmap_struct);
-        kfree(new_interface);
-        return 1;
-    }
-
-    STATS_LOCK_IRQ(&stats_spin_lock,flags);
-    list_add(&new_interface->interface_list_hook, &sla_iface_list);
-    STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
-
-    printk(KERN_CRIT "### %s was able to add  %s  %p \n", __func__, interface_name, new_interface);
-
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    list_add(&iface->interface_list_hook, &sla_iface_list);
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
     return 0;
+put_iface:
+    kref_put(&iface->ref, sla_iface_release);
+    return ret;
 }
 
 static void sla_stats_disable(void)
 {
-    u32 offset = 0;
-    struct sla_interface * iface = NULL;
-    struct sla_interface * next = NULL;
+    struct sla_interface *iface, *next;
     unsigned long flags;
+    LIST_HEAD(retired);
 
-    if(!config_data.enable)
-    {
-        printk("### %s disable already\n", __func__);
-        return;
-    }
-
+    lockdep_assert_held(&control_mutex);
+    spin_lock_irqsave(&stats_spin_lock, flags);
     config_data.enable = 0;
     config_data.rate_on = 0;
-
-    STATS_LOCK_IRQ(&stats_spin_lock,flags);
-
-    list_for_each_entry_safe (iface,next,&sla_iface_list, interface_list_hook)
-    {
-       printk(KERN_CRIT "### %s trying to disable %s\n", __func__, iface->interface_name);
-       iface->total_trfc = 0;
-       if(iface->mmap_struct)
-       {
-          memset(iface->mmap_struct, 0, STATS_BUF_SIZE);
-
-          for(offset=0; offset<STATS_BUF_SIZE; offset+=PAGE_SIZE)
-               ClearPageReserved(virt_to_page(((u8 *)iface->mmap_struct)+offset));
-
-          kfree(iface->mmap_struct);
-          iface->mmap_struct = NULL;
-       }
-
-       if(iface->mmap_file)
-       {
-         proc_remove(iface->mmap_file);
-       }
-
-       if(iface->total_stats_file)
-       {
-         proc_remove(iface->total_stats_file);
-       }
-
-       printk(KERN_CRIT "### %s removing form list %s\n", __func__, iface->interface_name);
-
-       list_del(&iface->interface_list_hook);
-       printk(KERN_ERR "### %s removed form list %s %p \n", __func__, iface->interface_name, iface );
-
-       kfree(iface);
-    }
-    STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
-
-    printk(KERN_CRIT "### %s out of disable funk \n", __func__);
-
+    /* Also drain interfaces created before enable=1. */
+    list_splice_init(&sla_iface_list, &retired);
     pkt_hlist_deinit();
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
+
+    list_for_each_entry_safe(iface, next, &retired, interface_list_hook) {
+        list_del(&iface->interface_list_hook);
+        proc_remove(iface->mmap_file);
+        proc_remove(iface->total_stats_file);
+        kref_put(&iface->ref, sla_iface_release);
+    }
+    /* Existing mappings retain their stopped buffer until their last close. */
 }
 
 static void sla_stats_enable(void)
 {
-    if(config_data.enable)
-    {
-        printk("### %s enable already\n", __func__);
-        return;
+    unsigned long flags;
+
+    lockdep_assert_held(&control_mutex);
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    if (!config_data.enable) {
+        config_data.enable = 1;
+        config_data.rate_on = 1;
     }
-
-    //sla_stats_disable();
-    //sla_stats_remove_file();
-
-    pkt_hlist_init();
-    config_data.enable = 1;
-    config_data.rate_on = 1;
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
 }
 
 static int config_file_show(struct seq_file *s, void *data)
 {
-    struct sla_config *config = (struct sla_config *)s->private;
+    struct sla_config snapshot;
+    struct sla_config *config = &snapshot;
+    unsigned long flags;
     int i;
+
+    spin_lock_irqsave(&stats_spin_lock, flags);
+    snapshot = config_data;
+    spin_unlock_irqrestore(&stats_spin_lock, flags);
 
     seq_printf(s, CMD_ENABLE"%d\n", config->enable);
     seq_printf(s, CMD_RATE_ON"%d\n", config->rate_on);
@@ -835,56 +778,13 @@ static int config_file_open(struct inode *inode, struct file *filp)
     return single_open(filp, config_file_show, pde_data(inode));
 }
 
-static ssize_t config_file_write(struct file *filp, const char __user *buffer,  size_t count, loff_t *ppos)
+static int sla_stats_command(char *cmd)
 {
-    char cmd[CONFIG_CMD_MAX + 1] = { 0 };
-    unsigned long num = 0;
-    int len = 0;
-    int i = 0;
-    char *p = NULL;
-    char *buf = NULL;
+    unsigned long num;
+    int len, i;
+    char *p, *buf;
 
-    if (!count)
-        return 0;
-    if (count > CONFIG_CMD_MAX)
-        return -E2BIG;
-
-    if(copy_from_user(cmd, buffer, count))
-        return -EFAULT;
-
-    /* Accept writes both with and without the shell's trailing newline. */
-    if (cmd[count - 1] == '\n')
-        cmd[count - 1] = '\0';
-
-    len = strlen(CMD_IFACE_ADD);
-    if(0 == strncmp(cmd, CMD_IFACE_ADD, len))
-    {
-        printk("#### %s CMD_IFACE_ADD=[%s]\n", __func__, cmd+len);
-        buf = cmd+len;
-        if(strlen(buf) < IF_NAME_LEN)
-            sla_interface_start((const char*)buf);
-        else
-            printk(KERN_ERR "#### %s ifname=[%s] is invaild\n", __func__, buf);
-
-        return count;
-    }
-
-    len = strlen(CMD_ENABLE);
-    if(0 == strncmp(cmd, CMD_ENABLE, len))
-    {
-        printk("#### %s enable=%c\n", __func__, cmd[len]);
-        if('1' == cmd[len] && 0 == cmd[len+1])
-        {
-            sla_stats_enable();
-        }
-        else if('0' == cmd[len] && 0 == cmd[len+1])
-        {
-            sla_stats_disable();
-        }
-
-        return count;
-    }
-
+    lockdep_assert_held(&stats_spin_lock);
     len = strlen(CMD_RATE_ON);
     if(0 == strncmp(cmd, CMD_RATE_ON, len))
     {
@@ -894,7 +794,7 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
         else if('0' == cmd[len] && 0 == cmd[len+1])
             config_data.rate_on = 0;
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_PORTS);
@@ -917,7 +817,7 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
             }
         }
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_RESET_TRAFFIC);
@@ -926,18 +826,15 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
         if('1' == cmd[len] && 0 == cmd[len+1])
         {
             struct sla_interface * iface = NULL;
-            unsigned long flags;
-            STATS_LOCK_IRQ(&stats_spin_lock,flags);
             list_for_each_entry (iface , &sla_iface_list, interface_list_hook)
             {
                 iface->total_trfc = 0;
             }
-            STATS_UNLOCK_IRQ(&stats_spin_lock,flags);
             printk("#### %s reset_traffic=%c\n", __func__, cmd[len]);
 
         }
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_HASH_PRINT);
@@ -946,7 +843,7 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
         printk("#### %s hash print %llu, %llu\n", __func__, pkt_alloc_num, pkt_free_num);
         pkt_hlist_print();
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_HASH_CLEAR);
@@ -955,14 +852,14 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
         printk("#### %s hash clear\n", __func__);
         pkt_hlist_deinit();
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_MAX_SIZE);
     if(0 == strncmp(cmd, CMD_MAX_SIZE, len))
     {
         num = simple_strtoul(&cmd[len], NULL, 10);
-        if(num < MAX_SIZE_DEFAULT)
+        if(num < MAX_SIZE_DEFAULT || num > U16_MAX)
         {
             printk(KERN_ERR "#### %s max_size=%lu is invaild, need greater than %d\n", __func__, num, MAX_SIZE_DEFAULT);
         }
@@ -972,14 +869,14 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
             printk("#### %s max_size=%d\n", __func__, config_data.max_size);
         }
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_LIMIT_TIME);
     if(0 == strncmp(cmd, CMD_LIMIT_TIME, len))
     {
         num = simple_strtoul(&cmd[len], NULL, 10);
-        if(num < LIMIT_TIME_DEFAULT)
+        if(num < LIMIT_TIME_DEFAULT || num > U16_MAX)
         {
             printk(KERN_ERR "#### %s limit_time=%lu is invaild, need longer than %d\n", __func__, num, LIMIT_TIME_DEFAULT);
         }
@@ -989,7 +886,7 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
             printk("#### %s limit_time=%d\n", __func__, config_data.limit_time);
         }
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_VOIP_ENABLE);
@@ -999,25 +896,62 @@ static ssize_t config_file_write(struct file *filp, const char __user *buffer,  
             memset(&voip_state, 0, sizeof(voip_state));
             if (!sla_voip_file) {
                 printk(KERN_ERR "#### %s Fail to open file: sla_voip_file\n", __func__);
-                return 1;
+                return -ENODEV;
             }
             config_data.voip_enable = 1;
         } else if('0' == cmd[len] && 0 == cmd[len+1]) {
             config_data.voip_enable = 0;
         }
 
-        return count;
+        return 0;
     }
 
     len = strlen(CMD_VOIP_UID);
     if(0 == strncmp(cmd, CMD_VOIP_UID, len)) {
         printk("#### %s voip_uid=%s\n", __func__, cmd+len);
         config_data.voip_uid = simple_strtoul(cmd+len, NULL, 10);
-        return count;
+        return 0;
     }
 
-    return count;
+    return 0;
 }
+
+
+static ssize_t config_file_write(struct file *file, const char __user *buffer,
+                                 size_t count, loff_t *ppos)
+{
+    char cmd[CONFIG_CMD_MAX + 1] = { 0 };
+    unsigned long flags;
+    int ret;
+
+    if (!count)
+        return 0;
+    if (count > CONFIG_CMD_MAX)
+        return -E2BIG;
+    if (copy_from_user(cmd, buffer, count))
+        return -EFAULT;
+    if (cmd[count - 1] == '\n')
+        cmd[count - 1] = '\0';
+    ret = mutex_lock_interruptible(&control_mutex);
+    if (ret)
+        return ret;
+    if (!strncmp(cmd, CMD_IFACE_ADD, strlen(CMD_IFACE_ADD))) {
+        ret = sla_interface_start(cmd + strlen(CMD_IFACE_ADD));
+    } else if (!strcmp(cmd, CMD_ENABLE "1")) {
+        sla_stats_enable();
+        ret = 0;
+    } else if (!strcmp(cmd, CMD_ENABLE "0")) {
+        sla_stats_disable();
+        ret = 0;
+    } else {
+        spin_lock_irqsave(&stats_spin_lock, flags);
+        ret = sla_stats_command(cmd);
+        spin_unlock_irqrestore(&stats_spin_lock, flags);
+    }
+    mutex_unlock(&control_mutex);
+    return ret < 0 ? ret : count;
+}
+
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
 static const struct proc_ops config_fops =
@@ -1045,10 +979,17 @@ static int __init sla_static_collector_init(void)
     int err = 0;
     printk("#### %s in version V 3.0 \n", __func__);
 
-    list_lock_init();
-    stats_lock_init();
-    pkt_lock_init();
     pkt_hlist_init();
+
+    //creat config
+    memset(&config_data, 0, sizeof(config_data));
+    config_data.ports[0] = 80; //default
+    config_data.ports[1] = 443;
+    config_data.max_size = MAX_SIZE_DEFAULT;
+    config_data.limit_time = LIMIT_TIME_DEFAULT;
+
+    // init voip_state struct
+    memset(&voip_state, 0, sizeof(voip_state));
 
     err = nf_register_net_hooks(&init_net, sla_ipv4_ops, ARRAY_SIZE(sla_ipv4_ops));
     if (err < 0)
@@ -1063,15 +1004,6 @@ static int __init sla_static_collector_init(void)
         goto unregister_hooks;
     }
 
-    //creat config
-    memset(&config_data, 0, sizeof(config_data));
-    config_data.ports[0] = 80; //default
-    config_data.ports[1] = 443;
-    config_data.max_size = MAX_SIZE_DEFAULT;
-    config_data.limit_time = LIMIT_TIME_DEFAULT;
-
-    // init voip_state struct
-    memset(&voip_state, 0, sizeof(voip_state));
     sla_voip_file = proc_create_data(VOIP_STATS_FILE, 0644, sla_dir, &sla_voip_fops, &voip_state);
     if (!sla_voip_file)
     {
@@ -1100,9 +1032,13 @@ unregister_hooks:
 static void __exit sla_static_collector_deinit(void)
 {
     printk("#### sla_static_collector_deinit in\n");
+    /* Drain control callbacks before acquiring their mutex during teardown. */
+    proc_remove(config_file);
     nf_unregister_net_hooks(&init_net, sla_ipv4_ops, ARRAY_SIZE(sla_ipv4_ops));
 
+    mutex_lock(&control_mutex);
     sla_stats_disable();
+    mutex_unlock(&control_mutex);
     proc_remove(sla_dir);
 }
 
