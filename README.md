@@ -2,8 +2,9 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R32 相机/显示依赖与投屏/AT 转发迁移](Documentation/xiaomi/annibale-os406-userspace.md)；
-[本轮验证记录](Documentation/xiaomi/annibale-r32-validation.json)。
+当前进度：[R33 SLA 候选源码与 product 输入验证](Documentation/xiaomi/annibale-r33-sla-product.md)；
+[本轮验证记录](Documentation/xiaomi/annibale-r33-validation.json)。
+SLA 仅通过 ARM64 对象编译，默认关闭，尚未处理完运行时生命周期问题。
 原生源码方案与澎湃原厂保留方案分开验证，尚未完成 OSS 真机开机验证。
 
 - 来源：`LineageOS/android_kernel_qcom_sm8750-modules`，`lineage-22.2`。

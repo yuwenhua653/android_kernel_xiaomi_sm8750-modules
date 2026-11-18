@@ -1,0 +1,390 @@
+{
+  "round": "R33",
+  "base_commit": "f66faed4941901ee4859e151b97a6df1cbe4b57a",
+  "kernel_commit": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+  "sla": {
+    "status": "experimental_arm64_objects_compiled",
+    "official_source": {
+      "repository": "MiCode/Xiaomi_Kernel_OpenSource",
+      "commit": "0b426219a9a24b56c1593ebc84edb8a3f3b897b0",
+      "path": "xiaomi-modules/mi_net/slm",
+      "files": {
+        "Kbuild": "d3df085178cad82c271a572a289f8496b034a89f047135fc98a8be291543ff62",
+        "stats.c": "16b91771094f06be39ca9467333326330090a45d4232bd48e4d364504e6a3969",
+        "sla_stats.h": "608a058a4e92ddbef8268a71beda3830fb43368a5c8d29da0c0b3835278d18bb"
+      }
+    },
+    "source_sha256": {
+      "stats.c": "53b173c8eb412c54d82da671d8ccf36fd8421b54fdd39b1ecf74d5502db950bf",
+      "sla_stats.h": "f7ef59fba72c8094900f11097b518fb34b19a8e35c6a9e317b1171aa23b6c770",
+      "Kbuild": "8cd8b35735df6483f5e04fdbd203a23383e21056c4e024cd7635b4b40bad00c2",
+      "Kconfig": "c44f683cc5d95537fe6a27271be0617769ce917cdeb4b85e0a40cf5a1ce48cc6"
+    },
+    "object_sha256": {
+      "stats.o": "1b8ecfae8cc26b627a75805210bcef1e8540571ddad8cf65b2894671a6e0a2df",
+      "sla.o": "d66166b8f5d3542466c9c428a768d5503fc55f3ad501c3a16cb4ccfa39be5ce4"
+    },
+    "object_format": "ELF64 AArch64 REL",
+    "compile_flags": [
+      "ARCH=arm64",
+      "LLVM=1",
+      "HOSTCC=gcc",
+      "CONFIG_XIAOMI_ANNIBALE_SLA=m",
+      "KCFLAGS=-Werror",
+      "sla.o"
+    ],
+    "toolchain": "Debian clang 19.1.7 / LLD 19.1.7",
+    "kernel_version": "6.6.144-4k-gc70ed7c690cc",
+    "config_sha256": "768f883701d3e3e39959e078e3f58f76608bca9fe4d060b06cb88d304795722c",
+    "config_base": "gki_defconfig; isolated object validation output, not native/R29 config",
+    "lto": false,
+    "cfi": false,
+    "btf": false,
+    "layout_assertions": {
+      "sla_config": 268,
+      "sla_voip_state": 8,
+      "sla_stats_entry": 16,
+      "sla_interface_stats": 20480
+    },
+    "production_build_enabled": false,
+    "modpost_run": false,
+    "ko_linked": false,
+    "kmi_crc_verified": false,
+    "packaged": false,
+    "hardware_tested": false,
+    "remaining": [
+      "mmap lifetime across disable/unload and slab/PageReserved ownership",
+      "proc_remove under stats spinlock",
+      "packet hash/config concurrency and packet header validation",
+      "matching production toolchain/config, module ABI/KCFI/signing",
+      "Annibale userspace behavior and HyperOS/native runtime"
+    ],
+    "compile_log_sha256": "21d1c3688d6b59280fa36eed90d45059ffc40b81efe630077ba4c34f28264f57"
+  },
+  "host_tools": {
+    "bc": {
+      "Version": "1.07.1-4",
+      "Filename": "pool/main/b/bc/bc_1.07.1-4_amd64.deb",
+      "SHA256": "d055a11f0f9c5f8fe78b31d502c01dfe46ddf9c24f753aaddadaaff95fcc75ad"
+    },
+    "bison": {
+      "Version": "2:3.8.2+dfsg-1+b2",
+      "Filename": "pool/main/b/bison/bison_3.8.2+dfsg-1+b2_amd64.deb",
+      "SHA256": "ce6eb1f7aad18850e32d223a68f54bcbe756d74f138c8ec5460ad9d220f4d335"
+    },
+    "flex": {
+      "Version": "2.6.4-8.2+b4",
+      "Filename": "pool/main/f/flex/flex_2.6.4-8.2+b4_amd64.deb",
+      "SHA256": "75f963765232c356d0a2fb70e780dfa9de2425aca036ec60eefb7fc98a2c905b"
+    },
+    "clang-19": {
+      "Version": "1:19.1.7-3+b1",
+      "Filename": "pool/main/l/llvm-toolchain-19/clang-19_19.1.7-3+b1_amd64.deb",
+      "SHA256": "bbb74458d782b7792b61b0eed92746df5e6d033778c045cf8c2b3835b7c4efc4"
+    },
+    "libclang-common-19-dev": {
+      "Version": "1:19.1.7-3+b1",
+      "Filename": "pool/main/l/llvm-toolchain-19/libclang-common-19-dev_19.1.7-3+b1_amd64.deb",
+      "SHA256": "4018e40e2d4144fe38c45822e68cca63c1bf6c7872c3073ebb262ad4b2f9b8bc"
+    },
+    "libclang-cpp19": {
+      "Version": "1:19.1.7-3+b1",
+      "Filename": "pool/main/l/llvm-toolchain-19/libclang-cpp19_19.1.7-3+b1_amd64.deb",
+      "SHA256": "a7d2b6df51050834f6ea5c0d5e34869c2298b0bcdaa91eff17ba3db2cd545c47"
+    },
+    "lld-19": {
+      "Version": "1:19.1.7-3+b1",
+      "Filename": "pool/main/l/llvm-toolchain-19/lld-19_19.1.7-3+b1_amd64.deb",
+      "SHA256": "756a805e8811d527dd2b5417f016c9342b8631fa9c1ddcd56265c13ae33bf3a4"
+    },
+    "llvm-19": {
+      "Version": "1:19.1.7-3+b1",
+      "Filename": "pool/main/l/llvm-toolchain-19/llvm-19_19.1.7-3+b1_amd64.deb",
+      "SHA256": "0b1b7263f4f45e261099240fdbf00fc14b42b88410fd829e041bf83ea45866cb"
+    },
+    "llvm-19-runtime": {
+      "Version": "1:19.1.7-3+b1",
+      "Filename": "pool/main/l/llvm-toolchain-19/llvm-19-runtime_19.1.7-3+b1_amd64.deb",
+      "SHA256": "84a9dfc277f0914cb84e6cb3d139d3eb3dfe19f06670bbdea4241e8e3d921a4e"
+    },
+    "m4": {
+      "Version": "1.4.19-8",
+      "Filename": "pool/main/m/m4/m4_1.4.19-8_amd64.deb",
+      "SHA256": "221b3e224708c1da2a1a88b6824380593579b2254ae7d914afa14cbd5d343334"
+    }
+  },
+  "product_partition": {
+    "size": 5493166080,
+    "sha256": "dcbbb1a95022d1bb9e87de1ed0d9b0e39d40b9231f07bd1bc009506741008e96",
+    "operations": 2620,
+    "operation_hashes_verified": true,
+    "partition_hash_verified": true
+  },
+  "product_assets": {
+    "product/app/uimgbaservice/uimgbaservice.apk": {
+      "size": 24990,
+      "sha256": "8ebe6868c145023101d780a6ea837d5f0dcec0c6cac175ee1ea0ee8abfc91784",
+      "sha1": "bad3baaeddcafd4fbe53b6e5a59cea70358e9503",
+      "status": "present",
+      "dex_entries": [
+        "classes.dex"
+      ]
+    },
+    "product/etc/permissions/UimGba.xml": {
+      "size": 327,
+      "sha256": "137a7d3bbf496f19b63571517329edc8c5575a5238c272a55c5f04720102c31c",
+      "sha1": "03eb0916550720f168c4f66acdc3fc4abf9993ef",
+      "status": "present",
+      "libraries": [
+        {
+          "name": "com.qualcomm.qti.uimGba.uimgbalibrary",
+          "file": "/product/framework/uimgbalibrary.jar"
+        }
+      ]
+    },
+    "product/etc/permissions/UimGbaManager.xml": {
+      "size": 403,
+      "sha256": "5bb9e15ddd1462e19f80f95025137b8141227dd1e09ceb53ce4c06c7d7819508",
+      "sha1": "b57f4d048d860d27367df0f0feee6cc78991dfe3",
+      "status": "present",
+      "libraries": [
+        {
+          "name": "com.qualcomm.qti.uimGbaManager.uimgbamanagerlibrary",
+          "file": "/product/framework/uimgbamanagerlibrary.jar",
+          "dependency": "com.qualcomm.qti.uimGba.uimgbalibrary"
+        }
+      ]
+    },
+    "product/etc/permissions/UimService.xml": {
+      "size": 387,
+      "sha256": "a58cd0fa2cf73fe082bd62987fe5a94377d2ec54db6600a253f818da121a3edc",
+      "sha1": "cb32679d345f98d5b8ec175c5c3429a2e3718882",
+      "status": "present",
+      "libraries": [
+        {
+          "name": "com.qualcomm.qti.uim.uimservicelibrary",
+          "file": "/product/framework/uimservicelibrary.jar",
+          "dependency": "qti-telephony-hidl-wrapper-prd"
+        }
+      ]
+    },
+    "product/etc/permissions/lpa.xml": {
+      "size": 325,
+      "sha256": "ba92e2bba470ce8ed0dd38c23edce525c3fc7ea7451ab75adda1255dba7c976c",
+      "sha1": "cd9d14c6022ca046cd1de1157b06fe64b6e4c524",
+      "status": "present",
+      "libraries": [
+        {
+          "name": "com.qualcomm.qti.lpa.uimlpalibrary",
+          "file": "/product/framework/uimlpalibrary.jar"
+        }
+      ]
+    },
+    "product/framework/uimgbalibrary.jar": {
+      "size": 8394,
+      "sha256": "45112ce07c1cc3921258a80d9d19055bc64cf6af13124dcc247f4fce618cc33b",
+      "sha1": "439cfdad0b5965c9accf8cda91d36a816bcd55f4",
+      "status": "present",
+      "dex_entries": [
+        "classes.dex"
+      ]
+    },
+    "product/framework/uimgbamanagerlibrary.jar": {
+      "size": 7142,
+      "sha256": "7097f1e0c837e35957d71ee93ce2d9f3f4c4b1de2219a7a55d9c29fd1724fc34",
+      "sha1": "031978c0175282a75caed76aa1f8c919aa10c35d",
+      "status": "present",
+      "dex_entries": [
+        "classes.dex"
+      ]
+    },
+    "product/framework/uimlpalibrary.jar": {
+      "size": 28266,
+      "sha256": "0ce1d8c792b2912ee1078abb4b079be5c7df23ee7dc7b4cf3bdac8b763110746",
+      "sha1": "131c0d7d28f7e9a27a3e50f2b26e0ec44ee3f38b",
+      "status": "present",
+      "dex_entries": [
+        "classes.dex"
+      ]
+    },
+    "product/framework/uimservicelibrary.jar": {
+      "size": 104898,
+      "sha256": "728d58f8ff45916092fba0d54823cf293b262951ab7fd67c711833a318010971",
+      "sha1": "82212cdec2ca4273b1d631140dfea2af3a425db9",
+      "status": "present",
+      "dex_entries": [
+        "classes.dex"
+      ]
+    }
+  },
+  "scoped_generation": {
+    "status": "scoped_extract_utils_generation_passed",
+    "scope_entries": [
+      "product/app/uimgbaservice/uimgbaservice.apk",
+      "product/etc/permissions/UimGba.xml",
+      "product/etc/permissions/UimGbaManager.xml",
+      "product/etc/permissions/UimService.xml",
+      "product/etc/permissions/lpa.xml",
+      "product/framework/uimgbalibrary.jar",
+      "product/framework/uimgbamanagerlibrary.jar",
+      "product/framework/uimlpalibrary.jar",
+      "product/framework/uimservicelibrary.jar"
+    ],
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "patchelf_version": "patchelf 0.17.2",
+    "generated_files": {
+      "Android.bp": "0698137a5522dc68353db00dcf4963ea93db7512a623c0cb97eca3b3197f13a8",
+      "Android.mk": "7a5e9b2a048ce3b454ca66d2be7775eaf808c0cdac69b680a5deeb072ca08eb0",
+      "annibale-vendor.mk": "54229a4c9ce6c832b3f75f8f47a9e0940d0f833f8a96f414806dd9f591f47c45",
+      "BoardConfigVendor.mk": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec"
+    },
+    "full_vendor_generated": false,
+    "soong_compiled": false,
+    "elf_symbol_abi_verified": false
+  },
+  "product_remaining_dependency": "UimService.xml refers to qti-telephony-hidl-wrapper-prd; target source owner/linkage and native framework compatibility not validated",
+  "all_partition_counts": {
+    "present": 3872,
+    "missing": 23
+  },
+  "outside_scope": 0,
+  "proprietary_list_sha256": "7daa49edd166e6493b45afbbcfb1e32fd42b6de1386b019a79fddc8bac89ca5f",
+  "scope": [
+    "mi_ext",
+    "odm",
+    "product",
+    "system",
+    "system_ext",
+    "vendor"
+  ],
+  "missing_inputs": [
+    {
+      "source": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "destination": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libSEGModel.so",
+      "destination": "vendor/lib64/libSEGModel.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_core_se.so",
+      "destination": "vendor/lib64/libopencv_core_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_imgproc_se.so",
+      "destination": "vendor/lib64/libopencv_imgproc_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk",
+      "destination": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "section": "Euicc"
+    },
+    {
+      "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "destination": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "destination": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "destination": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "destination": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "destination": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "destination": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qsap_qapeservice",
+      "destination": "vendor/bin/qsap_qapeservice",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "destination": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "destination": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "section": "QSAP"
+    },
+    {
+      "source": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "destination": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "section": "RIL"
+    },
+    {
+      "source": "system_ext/lib64/libimscamera_jni.so",
+      "destination": "system_ext/lib64/libimscamera_jni.so",
+      "section": "RIL"
+    },
+    {
+      "source": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "destination": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "section": "SLA"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "destination": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "section": "SLA"
+    },
+    {
+      "source": "system_ext/lib64/libmmparser_lite.so",
+      "destination": "system_ext/lib64/libmmparser_lite.so",
+      "section": "WiFi Display"
+    }
+  ],
+  "missing_basename_search": "No same basename found across extracted vendor/odm/vendor_dlkm/system_ext/system/mi_ext/product; not a semantic replacement search",
+  "regression_tests": {
+    "passed": 226,
+    "failed": 0,
+    "skipped": 0,
+    "sla_runtime_covered": false
+  },
+  "kernel_image_rebuilt": false,
+  "full_vendor_generated": false,
+  "rom_built": false,
+  "ota_signature_verified": false,
+  "hardware_tested": false,
+  "flashable": false
+}

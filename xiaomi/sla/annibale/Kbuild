@@ -1,0 +1,3 @@
+# Experimental compile target only; not sourced by the production build.
+obj-$(CONFIG_XIAOMI_ANNIBALE_SLA) += sla.o
+sla-y := stats.o
