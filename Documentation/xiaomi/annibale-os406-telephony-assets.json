@@ -1,0 +1,253 @@
+{
+  "firmware": "OS4.0.6.0.XPKCNXM",
+  "inputs": {
+    "proprietary-files.txt": "2f6066842f5f4023225f503211469b64f896117282a24dfef36c56759e49e08c",
+    "device.mk": "bb1326ca5e088b29ae1f603ca4f260a5b799932b3578be5468f6b08ea6571197"
+  },
+  "retired_entry": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+  "retained_entries": [
+    "system_ext/priv-app/QtiTelephony/QtiTelephony.apk;REQUIRED=QtiTelephonyCompat",
+    "system_ext/priv-app/ims/ims.apk;REQUIRED=QtiTelephonyCompat"
+  ],
+  "archives": [
+    {
+      "source": "vendor/app/CACertService/CACertService.apk",
+      "sha256": "b417b98fccad875b2b673adaf96c349c2954cce6757d2a3c56a56a6a163d8a65",
+      "package": "vendor.qti.hardware.cacert.server",
+      "min_sdk": "35",
+      "target_sdk": "35"
+    },
+    {
+      "source": "vendor/framework/androidx.camera.extensions.impl.jar",
+      "sha256": "1887c405fea9523995d8566eef8459716a9903ee5bee8c20e0828c01c9304c3b"
+    },
+    {
+      "source": "vendor/app/CneApp/CneApp.apk",
+      "sha256": "dbf0d57406e561532e2291410621d5846c2aa3c50fffd2ecfdc1a7e76ce31376",
+      "package": "com.qualcomm.qti.cne",
+      "min_sdk": "35",
+      "target_sdk": "35"
+    },
+    {
+      "source": "vendor/app/com.qualcomm.qti.gpudrivers.sun.api35/com.qualcomm.qti.gpudrivers.sun.api35.apk",
+      "sha256": "09b043a051ce53baec7acc4eeec7e62c2f6b28c812038f386236e4075e83b61c",
+      "package": "com.qualcomm.qti.gpudrivers.sun.api35",
+      "min_sdk": "35",
+      "target_sdk": "35"
+    },
+    {
+      "source": "system_ext/app/PowerOffAlarm/PowerOffAlarm.apk",
+      "sha256": "b2dfa7a3a270618bd92bf5578fc9e6ee1aca0d717d9ede8be497f81132b2d870",
+      "package": "com.qualcomm.qti.poweroffalarm",
+      "min_sdk": "37",
+      "target_sdk": "37"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.hardware.alarm-V1.0-java.jar",
+      "sha256": "8f71130b2bd0413dcfcff656c14ee4fb37ddd7d3ec86aca17d202610f06fbddd"
+    },
+    {
+      "source": "system_ext/app/QCC/QCC.apk",
+      "sha256": "37507e1e9f835fc0797115c9b08e322d84df3f478cd915c0fdffa227062fa24e",
+      "package": "com.qti.qcc",
+      "min_sdk": "37",
+      "target_sdk": "37"
+    },
+    {
+      "source": "product/app/uimgbaservice/uimgbaservice.apk",
+      "sha256": "8ebe6868c145023101d780a6ea837d5f0dcec0c6cac175ee1ea0ee8abfc91784",
+      "package": "com.qualcomm.qti.uimGbaApp",
+      "min_sdk": "37",
+      "target_sdk": "36"
+    },
+    {
+      "source": "product/framework/uimgbalibrary.jar",
+      "sha256": "45112ce07c1cc3921258a80d9d19055bc64cf6af13124dcc247f4fce618cc33b"
+    },
+    {
+      "source": "product/framework/uimgbamanagerlibrary.jar",
+      "sha256": "7097f1e0c837e35957d71ee93ce2d9f3f4c4b1de2219a7a55d9c29fd1724fc34"
+    },
+    {
+      "source": "product/framework/uimlpalibrary.jar",
+      "sha256": "0ce1d8c792b2912ee1078abb4b079be5c7df23ee7dc7b4cf3bdac8b763110746"
+    },
+    {
+      "source": "product/framework/uimservicelibrary.jar",
+      "sha256": "728d58f8ff45916092fba0d54823cf293b262951ab7fd67c711833a318010971"
+    },
+    {
+      "source": "system_ext/app/atfwd/atfwd.apk",
+      "sha256": "c7f5b3703b1f0dbbf6f1283c4b4a214c71958a302f633837198d5a356a609c52",
+      "package": "com.qualcomm.atfwd",
+      "min_sdk": "37",
+      "target_sdk": "36"
+    },
+    {
+      "source": "system_ext/framework/qcrilhook.jar",
+      "sha256": "7477df4966897a33d87a85341f82b590162f5eccb206bfb937906c2bafc83dbf"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.connection-V1.0-java.jar",
+      "sha256": "444341f320a29e35bb02961a1d71344b851bb8a2a635bba8a162a7604c6eb6a4"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.connectionaidlservice-V1-java.jar",
+      "sha256": "a20f059a553620837b3ad37292e7730563355f5659414300fa26e1a1d94504d6"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.factory-V2.0-java.jar",
+      "sha256": "2027a118d189f5d1386791eeb5fbd08c76e70f00ec30ba17c9aaeb912bc24f16"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.factory-V2.1-java.jar",
+      "sha256": "cc5fb39e127dad2c47371261cad4dce555fdf23fa80203d79e82457fe796295a"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.factory-V2.2-java.jar",
+      "sha256": "54ffff2e58b79ae19a7ba81a9b1ae0b79b6ce7e28a80c42f25c735ec39b24056"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.factoryaidlservice-V1-java.jar",
+      "sha256": "b0dad59a09c4d2b3b5b5d7f1dcfda1534b366d290d1c70eef15e74b49234bd5f"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcssip-V1.0-java.jar",
+      "sha256": "cd02936d0fc35dd2a53590e5e1c7af1278d1795a1a85c4d8b388152f86d46408"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcssip-V1.1-java.jar",
+      "sha256": "ac8c0394e92159a08e54f47cc3506d492b2d7ce8980d0dd38496969207bb6bbe"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcssip-V1.2-java.jar",
+      "sha256": "b835c77d418c0afcc174c978247a816c7b1595bdcd80d14e11b6646de9055dc7"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcssipaidlservice-V1-java.jar",
+      "sha256": "79dbf97cad54be0816cf775da484ed128c402e72ab96d1de8e75b34091d77c58"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcsuce-V1.0-java.jar",
+      "sha256": "4c898837362bba843d8ca4fe322e0edbe3e051105274ff4dc315a83ed0b404f0"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcsuce-V1.1-java.jar",
+      "sha256": "ca3a560d45f8ac5b5947572d3d8426480eedb1863861bb3fdfd46dd2feb73006"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcsuce-V1.2-java.jar",
+      "sha256": "1fc5d14e913c82b4f36be16d4c607e77bcf44d7829fb40f4b0b4de2bb7d3c861"
+    },
+    {
+      "source": "system_ext/framework/vendor.qti.ims.rcsuceaidlservice-V1-java.jar",
+      "sha256": "0d779a3f248620f463ae7a39f06a8c9ab463034baca4d9bff2386cb75555db4b"
+    },
+    {
+      "source": "system_ext/framework/xiaomi-modem-common.jar",
+      "sha256": "d98837aaead65f1e2381864513b157f9af58c49da7ff62c4fadbf4f488b8b5d4"
+    },
+    {
+      "source": "system_ext/priv-app/QtiTelephony/QtiTelephony.apk",
+      "sha256": "91c2a460bc9cf805f1d0544fcacf0537122ba8e905406ac7fca8d99b122e20e5",
+      "package": "com.qti.phone",
+      "min_sdk": "37",
+      "target_sdk": "36"
+    },
+    {
+      "source": "system_ext/priv-app/ims/ims.apk",
+      "sha256": "14b9fa06004e54312f5f6655bbef8c1834c61cad3c724e5b5e1e71ff65199da9",
+      "package": "org.codeaurora.ims",
+      "min_sdk": "37",
+      "target_sdk": "36"
+    },
+    {
+      "source": "system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk",
+      "sha256": "1ce8e8d0485fd57627a96d4c83b93cdd044bd2f2ebac1581682193c4f8f3d599",
+      "package": "com.qualcomm.qcrilmsgtunnel",
+      "min_sdk": "37",
+      "target_sdk": "36"
+    },
+    {
+      "source": "vendor/app/IWlanService/IWlanService.apk",
+      "sha256": "a28ee8ff12176491be65d9510ba02eecdbce60191b6500e0b3cca1f7d50a85b8",
+      "package": "vendor.qti.iwlan",
+      "min_sdk": "35",
+      "target_sdk": "35"
+    },
+    {
+      "source": "vendor/app/TimeService/TimeService.apk",
+      "sha256": "7eba9afcdb7844e21e5f35765a76d922105f4a1c28907b74618de8a2e43cfc85",
+      "package": "com.qualcomm.timeservice",
+      "min_sdk": "34",
+      "target_sdk": "35"
+    },
+    {
+      "source": "system/framework/WfdCommon.jar",
+      "sha256": "cfbeb5ed77ebc7c8c59a3279aa29d22426db6da26a916e61ca90195423ea886f"
+    },
+    {
+      "source": "system_ext/priv-app/WfdService/WfdService.apk",
+      "sha256": "d3bce2d1bfb07d1b91f6078a4d6828491962d4bbf6ccc01f06c6085774537e86",
+      "package": "com.qualcomm.wfd.service",
+      "min_sdk": "37",
+      "target_sdk": "37"
+    }
+  ],
+  "assets": {
+    "vendor/etc/telephony_packages.xml": "ac770e1f29b8c51f3b52ae01a9a5eb6dc85c4334084433a54bf82c2ab1080f59",
+    "vendor/lib64/libqcrilNr.so": "b393b24b5bc756d7f3c29ef997db931cec3519e56254fc91b6a7e04dd9b4126c",
+    "vendor/build.prop": "371c5f1ddfb09c75918c715867c2ad7aa51c1f7ddd94e367951067f46c7c618c"
+  },
+  "legacy_archive_tokens": [
+    "com.qualcomm.qti.telephonyservice",
+    "com/qualcomm/qti/telephonyservice",
+    "IQtiTelephonyService"
+  ],
+  "minimum_platform_sdk": 37,
+  "required_call_edges": {
+    "Lcom/qti/phone/QtiTelephonyBootReceiver;->onReceive(": [
+      "Landroid/content/Context;->startService("
+    ],
+    "Lcom/qti/phone/ExtTelephonyService;->onCreate(": [
+      "Lcom/qti/phone/ExtTelephonyServiceImpl;-><init>("
+    ],
+    "Lcom/qti/phone/ExtTelephonyServiceImpl;-><init>(": [
+      "Lcom/qti/phone/ExtTelephonyServiceImpl$ExtTelephonyThread;->init("
+    ],
+    "Lcom/qti/phone/ExtTelephonyServiceImpl$WorkerHandler;->handleMessage(": [
+      "Lcom/qti/phone/ExtTelephonyServiceImpl;->-$$Nest$minitQcRilAudioModule("
+    ],
+    "Lcom/qti/phone/ExtTelephonyServiceImpl;->initQcRilAudioModule(": [
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->getInstance(",
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->init("
+    ],
+    "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->init(": [
+      "Landroid/os/Message;->sendToTarget("
+    ],
+    "Lcom/qti/phone/audiocontroller/AudioControllerAgent$AudioAgentHandler;->handleMessage(": [
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->-$$Nest$mcreateAudioServerCallbacks("
+    ],
+    "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->createAudioServerCallbacks(": [
+      "Lcom/qti/phone/audiocontroller/AudioController;-><init>(",
+      "Lcom/qti/phone/audiocontroller/QcRilAudioHalFactory;->newQcRilAudioHal(",
+      "Landroid/telephony/TelephonyManager;->getActiveModemCount("
+    ],
+    "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->handleOnMultiSimConfigChanged(": [
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->switchToMultiSim(",
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->switchToSingleSim("
+    ],
+    "Lcom/qti/phone/audiocontroller/QcRilAudioHalFactory;->newQcRilAudioHal(": [
+      "Lcom/qti/phone/audiocontroller/QcRilAudioAidl;-><init>(",
+      "Lcom/qti/phone/audiocontroller/QcRilAudioHidl;-><init>("
+    ],
+    "Lcom/qti/phone/audiocontroller/QcRilAudioAidl;->initQcRilAudio(": [
+      "Lvendor/qti/hardware/radio/am/IQcRilAudio;->setRequestInterface(",
+      "Landroid/os/IBinder;->linkToDeath("
+    ],
+    "Lcom/qti/phone/audiocontroller/AudioController;-><init>(": [
+      "Landroid/media/AudioManager;->setAudioServerStateCallback("
+    ]
+  },
+  "guard_sha256": "9eb28757f27ab8084300ad15eaa4e6c3e6e62f9842e768192c64cd2c370e75e3"
+}

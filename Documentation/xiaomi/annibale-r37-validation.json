@@ -1,0 +1,314 @@
+{
+  "round": "R37",
+  "resolution": "retain integrated QtiTelephony audio provider, retire legacy APK and require platform API >= 37",
+  "input_sha256": {
+    "proprietary-files.txt": "2f6066842f5f4023225f503211469b64f896117282a24dfef36c56759e49e08c",
+    "device.mk": "bb1326ca5e088b29ae1f603ca4f260a5b799932b3578be5468f6b08ea6571197"
+  },
+  "output_sha256": {
+    "proprietary-files.txt": "4b53d9338ae8a0ce6ebafbbf08f0980cd160ebeb544c3b4848d0ae4c39be4d1e",
+    "device.mk": "f1810ae26e5ba3923dd55706264bd07241a56886ac8e6db5cbf227f03ec4d1df"
+  },
+  "after_counts": {
+    "present": 3879,
+    "missing": 9
+  },
+  "evidence": {
+    "selected_archives_scanned": 36,
+    "legacy_archive_reference_hits": [],
+    "minimum_platform_sdk": 37,
+    "apps_requiring_sdk_37": [
+      {
+        "source": "system_ext/app/PowerOffAlarm/PowerOffAlarm.apk",
+        "package": "com.qualcomm.qti.poweroffalarm",
+        "min_sdk": "37"
+      },
+      {
+        "source": "system_ext/app/QCC/QCC.apk",
+        "package": "com.qti.qcc",
+        "min_sdk": "37"
+      },
+      {
+        "source": "product/app/uimgbaservice/uimgbaservice.apk",
+        "package": "com.qualcomm.qti.uimGbaApp",
+        "min_sdk": "37"
+      },
+      {
+        "source": "system_ext/app/atfwd/atfwd.apk",
+        "package": "com.qualcomm.atfwd",
+        "min_sdk": "37"
+      },
+      {
+        "source": "system_ext/priv-app/QtiTelephony/QtiTelephony.apk",
+        "package": "com.qti.phone",
+        "min_sdk": "37"
+      },
+      {
+        "source": "system_ext/priv-app/ims/ims.apk",
+        "package": "org.codeaurora.ims",
+        "min_sdk": "37"
+      },
+      {
+        "source": "system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk",
+        "package": "com.qualcomm.qcrilmsgtunnel",
+        "min_sdk": "37"
+      },
+      {
+        "source": "system_ext/priv-app/WfdService/WfdService.apk",
+        "package": "com.qualcomm.wfd.service",
+        "min_sdk": "37"
+      }
+    ],
+    "audio_call_edges": {
+      "Lcom/qti/phone/QtiTelephonyBootReceiver;->onReceive(": [
+        "Landroid/content/Context;->startService("
+      ],
+      "Lcom/qti/phone/ExtTelephonyService;->onCreate(": [
+        "Lcom/qti/phone/ExtTelephonyServiceImpl;-><init>("
+      ],
+      "Lcom/qti/phone/ExtTelephonyServiceImpl;-><init>(": [
+        "Lcom/qti/phone/ExtTelephonyServiceImpl$ExtTelephonyThread;->init("
+      ],
+      "Lcom/qti/phone/ExtTelephonyServiceImpl$WorkerHandler;->handleMessage(": [
+        "Lcom/qti/phone/ExtTelephonyServiceImpl;->-$$Nest$minitQcRilAudioModule("
+      ],
+      "Lcom/qti/phone/ExtTelephonyServiceImpl;->initQcRilAudioModule(": [
+        "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->getInstance(",
+        "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->init("
+      ],
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->init(": [
+        "Landroid/os/Message;->sendToTarget("
+      ],
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent$AudioAgentHandler;->handleMessage(": [
+        "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->-$$Nest$mcreateAudioServerCallbacks("
+      ],
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->createAudioServerCallbacks(": [
+        "Lcom/qti/phone/audiocontroller/AudioController;-><init>(",
+        "Lcom/qti/phone/audiocontroller/QcRilAudioHalFactory;->newQcRilAudioHal(",
+        "Landroid/telephony/TelephonyManager;->getActiveModemCount("
+      ],
+      "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->handleOnMultiSimConfigChanged(": [
+        "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->switchToMultiSim(",
+        "Lcom/qti/phone/audiocontroller/AudioControllerAgent;->switchToSingleSim("
+      ],
+      "Lcom/qti/phone/audiocontroller/QcRilAudioHalFactory;->newQcRilAudioHal(": [
+        "Lcom/qti/phone/audiocontroller/QcRilAudioAidl;-><init>(",
+        "Lcom/qti/phone/audiocontroller/QcRilAudioHidl;-><init>("
+      ],
+      "Lcom/qti/phone/audiocontroller/QcRilAudioAidl;->initQcRilAudio(": [
+        "Lvendor/qti/hardware/radio/am/IQcRilAudio;->setRequestInterface(",
+        "Landroid/os/IBinder;->linkToDeath("
+      ],
+      "Lcom/qti/phone/audiocontroller/AudioController;-><init>(": [
+        "Landroid/media/AudioManager;->setAudioServerStateCallback("
+      ]
+    },
+    "audio_permissions_declared": [
+      "android.permission.MODIFY_AUDIO_ROUTING",
+      "android.permission.MODIFY_AUDIO_SETTINGS",
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "permissions_granted_on_device": false
+  },
+  "remaining": [
+    {
+      "source": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk",
+      "section": "Euicc"
+    },
+    {
+      "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    }
+  ],
+  "runtime_verified": false,
+  "rom_built": false,
+  "policy_compiled": false,
+  "flashable": false,
+  "parent_commit": "a5305fbc7d9af46f8d650ad5211510433986bbc8",
+  "before_counts": {
+    "present": 3879,
+    "missing": 10
+  },
+  "outside_scope": 0,
+  "generation": {
+    "status": "scoped_extract_utils_generation_passed",
+    "entries": [
+      "vendor/app/CACertService/CACertService.apk",
+      "vendor/framework/androidx.camera.extensions.impl.jar",
+      "vendor/app/CneApp/CneApp.apk;REQUIRED=CneApp.libvndfwk_detect_jni.qti_vendor_symlink",
+      "vendor/app/com.qualcomm.qti.gpudrivers.sun.api35/com.qualcomm.qti.gpudrivers.sun.api35.apk",
+      "system_ext/app/PowerOffAlarm/PowerOffAlarm.apk",
+      "system_ext/framework/vendor.qti.hardware.alarm-V1.0-java.jar",
+      "system_ext/app/QCC/QCC.apk",
+      "product/app/uimgbaservice/uimgbaservice.apk",
+      "product/framework/uimgbalibrary.jar",
+      "product/framework/uimgbamanagerlibrary.jar",
+      "product/framework/uimlpalibrary.jar",
+      "product/framework/uimservicelibrary.jar",
+      "system_ext/app/atfwd/atfwd.apk",
+      "system_ext/framework/qcrilhook.jar",
+      "system_ext/framework/vendor.qti.ims.connection-V1.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.connectionaidlservice-V1-java.jar",
+      "system_ext/framework/vendor.qti.ims.factory-V2.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.factory-V2.1-java.jar",
+      "system_ext/framework/vendor.qti.ims.factory-V2.2-java.jar",
+      "system_ext/framework/vendor.qti.ims.factoryaidlservice-V1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssip-V1.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssip-V1.1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssip-V1.2-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssipaidlservice-V1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuce-V1.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuce-V1.1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuce-V1.2-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuceaidlservice-V1-java.jar",
+      "system_ext/framework/xiaomi-modem-common.jar",
+      "system_ext/priv-app/QtiTelephony/QtiTelephony.apk;REQUIRED=QtiTelephonyCompat",
+      "system_ext/priv-app/ims/ims.apk;REQUIRED=QtiTelephonyCompat",
+      "system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk",
+      "vendor/app/IWlanService/IWlanService.apk",
+      "vendor/app/TimeService/TimeService.apk",
+      "system/framework/WfdCommon.jar;BOOT_JAR",
+      "system_ext/priv-app/WfdService/WfdService.apk"
+    ],
+    "owner_checks": {
+      "QtiTelephony": {
+        "one_owner": true,
+        "system_ext": true,
+        "privileged": true,
+        "certificate": "platform",
+        "compat_dependency_retained": true
+      },
+      "ims": {
+        "one_owner": true,
+        "system_ext": true,
+        "privileged": true,
+        "certificate": "platform",
+        "compat_dependency_retained": true
+      }
+    },
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "generated_files": {
+      "Android.bp": "ff7efc1f1d438331246ff619d5272613be15c45a54cdc7237781fc41593b0737",
+      "Android.mk": "7a5e9b2a048ce3b454ca66d2be7775eaf808c0cdac69b680a5deeb072ca08eb0",
+      "annibale-vendor.mk": "2625e9b731dbcccbd0f2ff584cb8579854973d0af30d8bb39cabffa0f13704e7",
+      "BoardConfigVendor.mk": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec"
+    },
+    "full_vendor_generated": false,
+    "soong_compiled": false,
+    "elf_symbol_abi_verified": false,
+    "policy_compiled": false
+  },
+  "sdk_guard": {
+    "math_source": "https://github.com/LineageOS/android_build/blob/90d006387398ae6899145e6531a304500cfa0f70/common/math.mk",
+    "math_sha256": "1eda7aa4dd7a5d2442923d2ba176078e93b29d8db53af238990f57410449ff49",
+    "pretty_error": "fatal GNU Make error, matching Android contract",
+    "cases": [
+      {
+        "platform_sdk": "",
+        "expected_pass": false,
+        "passed": false,
+        "diagnostic": "sm8750-modules/tools/templates/os406-telephony/sdk-check.mk:4: *** annibale OS4.0.6 profile requires a defined PLATFORM_SDK_VERSION >= 37.  Stop."
+      },
+      {
+        "platform_sdk": "35",
+        "expected_pass": false,
+        "passed": false,
+        "diagnostic": "sm8750-modules/tools/templates/os406-telephony/sdk-check.mk:7: *** annibale OS4.0.6 APKs require PLATFORM_SDK_VERSION >= 37; use matching older blobs for an older framework.  Stop."
+      },
+      {
+        "platform_sdk": "36",
+        "expected_pass": false,
+        "passed": false,
+        "diagnostic": "sm8750-modules/tools/templates/os406-telephony/sdk-check.mk:7: *** annibale OS4.0.6 APKs require PLATFORM_SDK_VERSION >= 37; use matching older blobs for an older framework.  Stop."
+      },
+      {
+        "platform_sdk": "37",
+        "expected_pass": true,
+        "passed": true,
+        "diagnostic": ""
+      },
+      {
+        "platform_sdk": "38",
+        "expected_pass": true,
+        "passed": true,
+        "diagnostic": ""
+      },
+      {
+        "platform_sdk": "invalid",
+        "expected_pass": false,
+        "passed": false,
+        "diagnostic": "sm8750-modules/tools/templates/os406-telephony/sdk-check.mk:6: *** Only non-negative integers are supported (not invalid).  Stop."
+      }
+    ]
+  },
+  "tests": {
+    "passed": 255,
+    "failed": 0,
+    "skipped": 0,
+    "log_sha256": "569c22ad8c020f5b1f3492fbfa22516f1d270e89bb23144e5a2429706254d7dd"
+  },
+  "patch_applied_and_output_matched": true,
+  "patch_sha256": "d85a8f2bdc94d49f08148064bc7098219599d9d25de7ba8dd81e3ebad5b9fc86",
+  "remaining_qesd_evidence": {
+    "libqms_sha256": "e8005a416b1e2dcd648f33cd052d2afe28503540c5cab4cc16630c1d5eedff41",
+    "libqms_tokens": [
+      "/vendor/bin/qesdk-manager",
+      "/vendor/bin/qesdk-secmanager",
+      "persist.vendor.qesdkenv_verify",
+      "Qesdk_manager exe(%s) not matches"
+    ],
+    "libqesdk_manager_sha256": "f8ddb3d5f0d126f61f7a9f58313a23b55822c5414f7499bfbe99a630048a323f",
+    "libqesdk_manager_tokens": [
+      "/vendor/bin/qesdk-secmanager",
+      "Failed to verify qesdk-securitymanager",
+      "Failed to authenticate the QESDK ONE token."
+    ],
+    "replacement_implemented": false
+  },
+  "tools": {
+    "androguard": "4.1.3"
+  },
+  "kernel_rebuilt": false,
+  "hyperos_device_tested": false,
+  "native_device_tested": false,
+  "reference_interpretation": {
+    "telephony_packages.xml": "modem-less target application-disable list; not a hard dependency declaration",
+    "libqcrilNr.so": "QtiTelephonyService_RILOEMMessage and GBA/IMPI protocol type/symbol names; not an Android service-start call",
+    "legacy_archive_scan_limit": "literal dotted/slash package and IQtiTelephonyService tokens in selected DEX/manifest; dynamic constructions and unrelated packages not excluded",
+    "audio_initialization": "actual invoke instructions checked across 12 methods; property persist.vendor.radio.value_add_rilaudio defaults true in inspected APK, runtime property values unobserved"
+  },
+  "limits": [
+    "SDK >= 37 is necessary but not sufficient for framework/native ABI compatibility.",
+    "QtiTelephony and IMS are unchanged OS4 APKs; no minSdk downgrade or stub added.",
+    "Existing QtiTelephonyCompat build dependency is preserved; target module compilation/runtime unverified.",
+    "No complete ROM, SELinux, radio-audio, IMS calling, eSIM or QESD runtime test."
+  ]
+}

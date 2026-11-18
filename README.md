@@ -2,9 +2,9 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R36 OS4 相机与 QAPE 旧提取项迁移：19 → 10](Documentation/xiaomi/annibale-r36-camera-qape.md)；
-[本轮验证记录](Documentation/xiaomi/annibale-r36-validation.json)。
-本轮保留现有相机及 Perf2/QAPE 实现，清理 9 个旧构建输入；不代表新增 9 个驱动或真机功能已修复。
+当前进度：[R37 OS4 电话服务迁移与原生 API 检查：10 → 9](Documentation/xiaomi/annibale-r37-telephony.md)；
+[本轮验证记录](Documentation/xiaomi/annibale-r37-validation.json)。
+本轮确认现有 QtiTelephony 承接 RIL 音频，清理旧 APK 输入，并为 8 个要求 API 37 的 OS4 APK 加入构建前检查；真机功能仍待验证。
 SLA 已通过 ARM64 对象编译和主机故障注入测试，默认关闭，仍需目标内核运行时及 ABI 验证。
 原生源码方案与澎湃原厂保留方案分开验证，尚未完成 OSS 真机开机验证。
 

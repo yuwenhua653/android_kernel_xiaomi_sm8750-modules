@@ -1,0 +1,28 @@
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -3361,7 +3361,6 @@
+ product/framework/uimservicelibrary.jar
+ system/etc/sysconfig/qti_whitelist.xml
+ system_ext/app/atfwd/atfwd.apk
+-system_ext/app/QtiTelephonyService/QtiTelephonyService.apk
+ system_ext/etc/permissions/qcrilhook.xml
+ system_ext/etc/permissions/qti_permissions.xml
+ system_ext/etc/permissions/telephony_system-ext_privapp-permissions-qti.xml
+--- a/device.mk
++++ b/device.mk
+@@ -2,6 +2,15 @@
+ # SPDX-FileCopyrightText: The LineageOS Project
+ # SPDX-License-Identifier: Apache-2.0
+ #
++
++# OS4.0.6 prebuilt QtiTelephony, IMS and six other apps require API 37.
++# Passing this minimum check does not qualify framework or native ABI support.
++ifeq ($(strip $(PLATFORM_SDK_VERSION)),)
++$(error annibale OS4.0.6 profile requires a defined PLATFORM_SDK_VERSION >= 37)
++endif
++ifneq ($(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),37),true)
++$(error annibale OS4.0.6 APKs require PLATFORM_SDK_VERSION >= 37; use matching older blobs for an older framework)
++endif
+ 
+ # Generic ramdisk allow list
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
