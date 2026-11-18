@@ -1,0 +1,83 @@
+{
+  "firmware_label": "OS4.0.6.0.XPKCNXM",
+  "incremental": "OS4.0.6.0.XPKCN",
+  "input_sha256": {
+    "proprietary-files.txt": "f4f47a9c3e65af1b9e57cc85b1a8c299d1dd9c9d55ad57d472e5c3a509528480",
+    "extract-files.py": "66c76b604dbe5b9a4b36362920c154b28499f191c4944c459415ad9eead8b4a6"
+  },
+  "relocations": {
+    "system_ext/app/AtFwd2/AtFwd2.apk": "system_ext/app/atfwd/atfwd.apk",
+    "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so": "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so"
+  },
+  "add_after": {
+    "odm/lib64/libcameraopt_stub.so": "odm/lib64/libcamximageformatutils.so",
+    "odm/lib64/libdynamicelvss.so": "odm/lib64/libdither.so"
+  },
+  "required_dependencies": {
+    "odm/lib64/libmicamera_hal_core.so": [
+      "libcameraopt_stub.so"
+    ],
+    "odm/lib64/libmicamera_hal_policy.so": [
+      "libcameraopt_stub.so"
+    ],
+    "odm/lib64/hw/displayfeature.default.so": [
+      "libdynamicelvss.so"
+    ],
+    "system_ext/lib64/libwfdservice.so": [
+      "vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so"
+    ],
+    "vendor/bin/wifidisplayhalservice": [
+      "vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so"
+    ]
+  },
+  "files": {
+    "system_ext/app/atfwd/atfwd.apk": {
+      "size": 53662,
+      "sha256": "c7f5b3703b1f0dbbf6f1283c4b4a214c71958a302f633837198d5a356a609c52"
+    },
+    "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so": {
+      "size": 284816,
+      "sha256": "36c59d20fa924cdf66ba05380a90ba80dcad8f149b760f3decb7c15ed0be65d9"
+    },
+    "odm/lib64/libcameraopt_stub.so": {
+      "size": 84664,
+      "sha256": "406fce122e2800f04c1a891f622f6c6c5e5f2677b630b34b814e076dfa376879"
+    },
+    "odm/lib64/libdynamicelvss.so": {
+      "size": 85000,
+      "sha256": "532d411cdde60ed494bb397c787d0e22ed503feca0388f66b7b7d829cdaa8f81"
+    },
+    "odm/lib64/libmicamera_hal_core.so": {
+      "size": 4622840,
+      "sha256": "07e0ba34b30620b412018e4e6f888073d8f1860e2f23a251e270814e361361ea"
+    },
+    "odm/lib64/libmicamera_hal_policy.so": {
+      "size": 1077080,
+      "sha256": "90027ab92dffb3e623ad2dec5a728db18f07a86e4a596fdbea7b1705cc575a94"
+    },
+    "odm/lib64/hw/displayfeature.default.so": {
+      "size": 381616,
+      "sha256": "3385472c06282a6c033eae5570a4a0342dc8137cb6ea0d1f59ea763a3ff4e185"
+    },
+    "system_ext/lib64/libwfdservice.so": {
+      "size": 303288,
+      "sha256": "6b1f1516021d3e0d35a0cacccb91905727dbc630fca7006e8ffe841869667199"
+    },
+    "vendor/bin/wifidisplayhalservice": {
+      "size": 84848,
+      "sha256": "a57504b2398bfe387229f4c071ae76898adb79f0360490c6bb7f7a30a7e00bde"
+    },
+    "vendor/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so": {
+      "size": 317224,
+      "sha256": "132aef07ccc28ec1e7bd265bdf9964df8ad00c82e512a055530cc648b655eab7"
+    }
+  },
+  "fixups": {
+    "odm/lib64/libcameraopt_stub.so": {
+      "libui.so": "libui-xiaomi.so"
+    },
+    "odm/lib64/libdynamicelvss.so": {
+      "android.hardware.sensors-V2-ndk.so": "android.hardware.sensors-V3-ndk.so"
+    }
+  }
+}

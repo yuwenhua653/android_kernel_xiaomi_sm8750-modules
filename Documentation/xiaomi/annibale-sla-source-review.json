@@ -1,0 +1,51 @@
+{
+  "official_source": {
+    "repository": "MiCode/Xiaomi_Kernel_OpenSource",
+    "commit": "0b426219a9a24b56c1593ebc84edb8a3f3b897b0",
+    "path": "xiaomi-modules/mi_net/slm",
+    "files": {
+      "Kbuild": "d3df085178cad82c271a572a289f8496b034a89f047135fc98a8be291543ff62",
+      "stats.c": "16b91771094f06be39ca9467333326330090a45d4232bd48e4d364504e6a3969",
+      "sla_stats.h": "608a058a4e92ddbef8268a71beda3830fb43368a5c8d29da0c0b3835278d18bb"
+    }
+  },
+  "ported_reference": {
+    "repository": "klarnet2009/dada-closed-modules",
+    "commit": "3c6328d3485aa7a630fe39af99f5a7d3e6e4f58e",
+    "path": "ported/sla",
+    "stats_change": "three strlcpy call names replaced by strscpy",
+    "header_identical": true
+  },
+  "annibale_stock": {
+    "sha256": "2ca5a720de3f5dd6c1dfe60ce4c7e35035a38cdeb0d230fe01f179d241d53d03",
+    "data_object_sizes": {
+      "config_data": 268,
+      "voip_state": 8
+    },
+    "command_literals_present": {
+      "enable=": true,
+      "rate_on=": true,
+      "ports=": true,
+      "reset_traffic=": true,
+      "hash_print": true,
+      "hash_clear": true,
+      "max_size=": true,
+      "limit_time=": true,
+      "wlan_interface=": false,
+      "data_interface=": false,
+      "iface=": true,
+      "voip_enable=": true,
+      "voip_uid=": true
+    }
+  },
+  "source_imported_into_build": false,
+  "compiled_for_annibale": false,
+  "packaged": false,
+  "binary_equivalence_verified": false,
+  "review_required": [
+    "strscpy negative return must be handled rather than the inherited > IF_NAME_LEN condition",
+    "stats_map lacks explicit size/offset/permission bounds for the exposed allocation",
+    "proc mappings and interface removal/unload need lifetime review",
+    "Full matching ARM64 6.6 build, CRC/KCFI, runtime and userspace contract checks"
+  ]
+}

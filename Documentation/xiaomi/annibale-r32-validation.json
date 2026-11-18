@@ -1,0 +1,701 @@
+{
+  "round": "R32",
+  "parent_commit": "99f6e88f2272ca2a2595b0209d0c7beed10dc051",
+  "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+  "tests_passed": 226,
+  "tests_skipped": 0,
+  "userspace": {
+    "status": "pinned_userspace_patch_prepared",
+    "input_sha256": {
+      "proprietary-files.txt": "f4f47a9c3e65af1b9e57cc85b1a8c299d1dd9c9d55ad57d472e5c3a509528480",
+      "extract-files.py": "66c76b604dbe5b9a4b36362920c154b28499f191c4944c459415ad9eead8b4a6"
+    },
+    "output_sha256": {
+      "proprietary-files.txt": "7daa49edd166e6493b45afbbcfb1e32fd42b6de1386b019a79fddc8bac89ca5f",
+      "extract-files.py": "ae923fc2f6da26d5d2666b7665fb9e5e3daa5490438ca56f35377012373e06b8"
+    },
+    "assets": {
+      "system_ext/app/atfwd/atfwd.apk": {
+        "size": 53662,
+        "sha256": "c7f5b3703b1f0dbbf6f1283c4b4a214c71958a302f633837198d5a356a609c52"
+      },
+      "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so": {
+        "size": 284816,
+        "sha256": "36c59d20fa924cdf66ba05380a90ba80dcad8f149b760f3decb7c15ed0be65d9"
+      },
+      "odm/lib64/libcameraopt_stub.so": {
+        "size": 84664,
+        "sha256": "406fce122e2800f04c1a891f622f6c6c5e5f2677b630b34b814e076dfa376879"
+      },
+      "odm/lib64/libdynamicelvss.so": {
+        "size": 85000,
+        "sha256": "532d411cdde60ed494bb397c787d0e22ed503feca0388f66b7b7d829cdaa8f81"
+      },
+      "odm/lib64/libmicamera_hal_core.so": {
+        "size": 4622840,
+        "sha256": "07e0ba34b30620b412018e4e6f888073d8f1860e2f23a251e270814e361361ea"
+      },
+      "odm/lib64/libmicamera_hal_policy.so": {
+        "size": 1077080,
+        "sha256": "90027ab92dffb3e623ad2dec5a728db18f07a86e4a596fdbea7b1705cc575a94"
+      },
+      "odm/lib64/hw/displayfeature.default.so": {
+        "size": 381616,
+        "sha256": "3385472c06282a6c033eae5570a4a0342dc8137cb6ea0d1f59ea763a3ff4e185"
+      },
+      "system_ext/lib64/libwfdservice.so": {
+        "size": 303288,
+        "sha256": "6b1f1516021d3e0d35a0cacccb91905727dbc630fca7006e8ffe841869667199"
+      },
+      "vendor/bin/wifidisplayhalservice": {
+        "size": 84848,
+        "sha256": "a57504b2398bfe387229f4c071ae76898adb79f0360490c6bb7f7a30a7e00bde"
+      },
+      "vendor/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so": {
+        "size": 317224,
+        "sha256": "132aef07ccc28ec1e7bd265bdf9964df8ad00c82e512a055530cc648b655eab7"
+      }
+    },
+    "dynamic_dependencies": {
+      "odm/lib64/libmicamera_hal_core.so": {
+        "needed": [
+          "libcutils.so",
+          "libdmabufheap.so",
+          "libcamera_metadata.so",
+          "libcom.xiaomi.debug.so",
+          "libcom.xiaomi.metadatautils.so",
+          "libcom.xiaomi.eventcallback.so",
+          "libcom.xiaomi.grallocutils.so",
+          "libofflinedebugdata.so",
+          "libcamlog.so",
+          "libexif.so",
+          "libjpeg.so",
+          "liblog.so",
+          "libmialgoengine.so",
+          "libmicamera_adapter.so",
+          "libsync.so",
+          "libutils.so",
+          "libui.so",
+          "libhidlbase.so",
+          "libprocessgroup.so",
+          "libcom.xiaomi.attribute.so",
+          "libcom.xiaomi.signaltrigger.so",
+          "libbinder_ndk.so",
+          "libbinder.so",
+          "vendor.xiaomi.hardware.bgservice@1.0.so",
+          "vendor.xiaomi.hardware.bgservice@1.0-impl.so",
+          "vendor.xiaomi.hardware.aidlbgservice-V1-ndk.so",
+          "vendor.xiaomi.hardware.aidlbgservice-V1-impl.so",
+          "vendor.xiaomi.hardware.postprocservice-V1-ndk.so",
+          "vendor.xiaomi.hardware.postprocservice-V1-impl.so",
+          "libcom.xiaomi.ecoenginemonitor.so",
+          "libcom.xiaomi.sensorpolicy.so",
+          "libcom.xiaomi.pluginutils.so",
+          "libtinyxml2.so",
+          "libmicamGlobalPool.so",
+          "libcameraopt_stub.so",
+          "libcameraopt.so",
+          "vendor.xiaomi.hardware.camera.synthetic-V1-ndk.so",
+          "vendor.xiaomi.hardware.camera.synthetic-impl.so",
+          "libvndksupport.so",
+          "android.hardware.graphics.allocator-V2-ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libmicamera_hal_core.so"
+        ]
+      },
+      "odm/lib64/libmicamera_hal_policy.so": {
+        "needed": [
+          "libcutils.so",
+          "libutils.so",
+          "liblog.so",
+          "libcamera_metadata.so",
+          "libsync.so",
+          "libbase.so",
+          "libhidlbase.so",
+          "libhardware.so",
+          "libui.so",
+          "libgralloctypes.so",
+          "libofflinedebugdata.so",
+          "libcamlog.so",
+          "libexif.so",
+          "libjpeg.so",
+          "libbinder.so",
+          "libbinder_ndk.so",
+          "vendor.xiaomi.hardware.aidlbgservice-V1-ndk.so",
+          "vendor.xiaomi.hardware.aidlbgservice-V1-impl.so",
+          "vendor.xiaomi.hardware.postprocservice-V1-ndk.so",
+          "vendor.xiaomi.hardware.postprocservice-V1-impl.so",
+          "libcom.xiaomi.debug.so",
+          "libcom.xiaomi.metadatautils.so",
+          "libcom.xiaomi.signaltrigger.so",
+          "libcom.xiaomi.eventcallback.so",
+          "libcom.xiaomi.grallocutils.so",
+          "libcom.xiaomi.attribute.so",
+          "libcom.xiaomi.ecoenginemonitor.so",
+          "libcom.xiaomi.sensorpolicy.so",
+          "libcom.xiaomi.pluginutils.so",
+          "libmicamera_hal_core.so",
+          "libcameraopt_stub.so",
+          "libvndksupport.so",
+          "android.hardware.graphics.allocator-V2-ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libmicamera_hal_policy.so"
+        ]
+      },
+      "odm/lib64/hw/displayfeature.default.so": {
+        "needed": [
+          "libcutils.so",
+          "liblog.so",
+          "libutils.so",
+          "libbinder.so",
+          "libbase.so",
+          "libbinder_ndk.so",
+          "libxml2.so",
+          "libdrm.so",
+          "libstagefright_foundation.so",
+          "libhidltransport.so",
+          "libhidlbase.so",
+          "libtinyxml2.so",
+          "libhardware.so",
+          "android.hardware.graphics.allocator@2.0.so",
+          "android.hardware.graphics.allocator@3.0.so",
+          "android.hardware.graphics.mapper@3.0.so",
+          "android.hardware.graphics.common@1.2.so",
+          "libmiSensorCtrl.so",
+          "libtruetone.so",
+          "libvideomode.so",
+          "libpaperMode.so",
+          "libmiBrightness.so",
+          "libcolortempmode.so",
+          "libflatmode.so",
+          "libmi_dspp.so",
+          "libMiDispDevManager.so",
+          "libsdr2hdr.so",
+          "libsre.so",
+          "libdither.so",
+          "librhytheyecare.so",
+          "libhistprocess.so",
+          "libdisplaylog.so",
+          "libadaptivehdr.so",
+          "libdynamicelvss.so",
+          "android.frameworks.sensorservice-V1-ndk.so",
+          "android.hardware.sensors-V2-ndk.so",
+          "libframemaster.so",
+          "libframemasterintf.so",
+          "vendor.xiaomi.hardware.framemaster-V1-ndk.so",
+          "libdfintf.so",
+          "vendor.xiaomi.hardware.displayfeature_aidl-V2-ndk.so",
+          "vendor.xiaomi.hardware.displayfeature@1.0.so",
+          "vendor.xiaomi.hardware.framecapturemanager-V1-ndk.so",
+          "libfcmintf.so",
+          "libframecapturemanager.so",
+          "libqservice.so",
+          "libsdm-disp-vndapis.so",
+          "libgrallocutils.so",
+          "libqdMetaData.so",
+          "vendor.qti.hardware.display.mapper@3.0.so",
+          "vendor.qti.hardware.display.allocator@3.0.so",
+          "vendor.qti.hardware.display.mapperextensions@1.0.so",
+          "libmi-stc-HW-modulate.so",
+          "libmiClstc.so",
+          "libdisplayconfig.qti.so",
+          "libfpsmonitor.so",
+          "libdisplaycount.so",
+          "libmiXmlParser.so",
+          "libmieventnodewatch.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "displayfeature.default.so"
+        ]
+      },
+      "system_ext/lib64/libwfdservice.so": {
+        "needed": [
+          "liblog.so",
+          "libutils.so",
+          "libcutils.so",
+          "libbinder.so",
+          "libgui.so",
+          "libwfdsinksm.so",
+          "libmmosal.so",
+          "libwfdcommonutils.so",
+          "libwfdconfigutils.so",
+          "libinput.so",
+          "libwfdmminterface.so",
+          "libmedia_helper.so",
+          "libaudioclient.so",
+          "libaudiobase.so",
+          "libaudiofoundation.so",
+          "audioclient-types-aidl-cpp.so",
+          "android.media.audio.common.types-V4-cpp.so",
+          "libwfdmmsrc_system.so",
+          "libwfdavenhancements.so",
+          "libhidlbase.so",
+          "vendor.qti.hardware.wifidisplaysession@1.0.so",
+          "vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so",
+          "libbinder_ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libwfdservice.so"
+        ]
+      },
+      "vendor/bin/wifidisplayhalservice": {
+        "needed": [
+          "vendor.qti.hardware.wifidisplaysessionl@1.0-halimpl.so",
+          "vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so",
+          "libbinder_ndk.so",
+          "libutils.so",
+          "liblog.so",
+          "libbinder.so",
+          "libavservices_minijail.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": []
+      },
+      "odm/lib64/libcameraopt_stub.so": {
+        "needed": [
+          "libc++.so",
+          "libcutils.so",
+          "liblog.so",
+          "libsync.so",
+          "libhidlbase.so",
+          "libhidltransport.so",
+          "libui.so",
+          "libcamera_metadata.so",
+          "libutils.so",
+          "libcom.xiaomi.debug.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libcameraopt_stub.so"
+        ]
+      },
+      "odm/lib64/libdynamicelvss.so": {
+        "needed": [
+          "libcutils.so",
+          "liblog.so",
+          "libutils.so",
+          "libbinder.so",
+          "libbinder_ndk.so",
+          "libhidltransport.so",
+          "libhidlbase.so",
+          "libmiSensorCtrl.so",
+          "libmiXmlParser.so",
+          "libbase.so",
+          "libstagefright_foundation.so",
+          "android.frameworks.sensorservice-V1-ndk.so",
+          "android.hardware.sensors-V2-ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libdynamicelvss.so"
+        ]
+      },
+      "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so": {
+        "needed": [
+          "libbinder_ndk.so",
+          "android.hardware.common-V2-ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so"
+        ]
+      }
+    },
+    "relocations": {
+      "system_ext/app/AtFwd2/AtFwd2.apk": "system_ext/app/atfwd/atfwd.apk",
+      "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so": "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so"
+    },
+    "added_libraries": [
+      "odm/lib64/libcameraopt_stub.so",
+      "odm/lib64/libdynamicelvss.so"
+    ],
+    "fixups": {
+      "odm/lib64/libcameraopt_stub.so": {
+        "libui.so": "libui-xiaomi.so"
+      },
+      "odm/lib64/libdynamicelvss.so": {
+        "android.hardware.sensors-V2-ndk.so": "android.hardware.sensors-V3-ndk.so"
+      }
+    },
+    "stock_modified": false,
+    "generated_vendor_built": false,
+    "rom_built": false,
+    "hardware_tested": false
+  },
+  "library_fixups": {
+    "odm/lib64/libcameraopt_stub.so": {
+      "input_sha256": "406fce122e2800f04c1a891f622f6c6c5e5f2677b630b34b814e076dfa376879",
+      "output_sha256": "2f23790b1a8e2fd5ab6b990551eb59a312ce31df36457f8fad8973ab204f619e",
+      "before": {
+        "needed": [
+          "libc++.so",
+          "libcutils.so",
+          "liblog.so",
+          "libsync.so",
+          "libhidlbase.so",
+          "libhidltransport.so",
+          "libui.so",
+          "libcamera_metadata.so",
+          "libutils.so",
+          "libcom.xiaomi.debug.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libcameraopt_stub.so"
+        ]
+      },
+      "after": {
+        "needed": [
+          "libc++.so",
+          "libcutils.so",
+          "liblog.so",
+          "libsync.so",
+          "libhidlbase.so",
+          "libhidltransport.so",
+          "libui-xiaomi.so",
+          "libcamera_metadata.so",
+          "libutils.so",
+          "libcom.xiaomi.debug.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libcameraopt_stub.so"
+        ]
+      },
+      "rules_from_generated_script": [
+        [
+          "libui.so",
+          "libui-xiaomi.so"
+        ]
+      ],
+      "all_other_needed_preserved": true,
+      "full_symbol_abi_verified": false
+    },
+    "odm/lib64/libdynamicelvss.so": {
+      "input_sha256": "532d411cdde60ed494bb397c787d0e22ed503feca0388f66b7b7d829cdaa8f81",
+      "output_sha256": "62b7ca7b61402d4732a3d2f8d665ab01e3c14ec15792594c556acb5a39e66de3",
+      "before": {
+        "needed": [
+          "libcutils.so",
+          "liblog.so",
+          "libutils.so",
+          "libbinder.so",
+          "libbinder_ndk.so",
+          "libhidltransport.so",
+          "libhidlbase.so",
+          "libmiSensorCtrl.so",
+          "libmiXmlParser.so",
+          "libbase.so",
+          "libstagefright_foundation.so",
+          "android.frameworks.sensorservice-V1-ndk.so",
+          "android.hardware.sensors-V2-ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libdynamicelvss.so"
+        ]
+      },
+      "after": {
+        "needed": [
+          "libcutils.so",
+          "liblog.so",
+          "libutils.so",
+          "libbinder.so",
+          "libbinder_ndk.so",
+          "libhidltransport.so",
+          "libhidlbase.so",
+          "libmiSensorCtrl.so",
+          "libmiXmlParser.so",
+          "libbase.so",
+          "libstagefright_foundation.so",
+          "android.frameworks.sensorservice-V1-ndk.so",
+          "android.hardware.sensors-V3-ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "libdynamicelvss.so"
+        ]
+      },
+      "rules_from_generated_script": [
+        [
+          "android.hardware.sensors-V2-ndk.so",
+          "android.hardware.sensors-V3-ndk.so"
+        ]
+      ],
+      "all_other_needed_preserved": true,
+      "full_symbol_abi_verified": false
+    }
+  },
+  "scoped_generation": {
+    "status": "scoped_extract_utils_generation_passed",
+    "scope_entries": [
+      "odm/lib64/libcameraopt_stub.so",
+      "odm/lib64/libmicamera_hal_core.so",
+      "odm/lib64/libmicamera_hal_policy.so",
+      "odm/lib64/hw/displayfeature.default.so",
+      "odm/lib64/libdynamicelvss.so",
+      "system_ext/app/atfwd/atfwd.apk",
+      "system_ext/lib64/libwfdservice.so;DISABLE_CHECKELF",
+      "system_ext/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk.so",
+      "vendor/bin/wifidisplayhalservice",
+      "vendor/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so;MODULE_SUFFIX=_vendor"
+    ],
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "patchelf_version": "patchelf 0.17.2",
+    "generated_files": {
+      "Android.bp": "2868ac581c816db59efe050c4af1b629a49adb04c9558c21b3eb29966707a51e",
+      "Android.mk": "7a5e9b2a048ce3b454ca66d2be7775eaf808c0cdac69b680a5deeb072ca08eb0",
+      "annibale-vendor.mk": "79edf46f8daa31320a763f86cccb3fe53974be18f4242075428b6d29d8435c58",
+      "BoardConfigVendor.mk": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec"
+    },
+    "full_vendor_generated": false,
+    "soong_compiled": false,
+    "elf_symbol_abi_verified": false
+  },
+  "generated_owner_checks": {
+    "libcameraopt_stub": {
+      "one_owner": true,
+      "partition_flag": "device_specific: true",
+      "elf_checks_disabled": false
+    },
+    "libdynamicelvss": {
+      "one_owner": true,
+      "partition_flag": "device_specific: true",
+      "elf_checks_disabled": false
+    },
+    "vendor.qti.hardware.wifidisplaysession_aidl-V2-ndk": {
+      "one_owner": true,
+      "partition_flag": "system_ext_specific: true",
+      "elf_checks_disabled": false
+    },
+    "vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk_vendor": {
+      "one_owner": true,
+      "partition_flag": "soc_specific: true",
+      "elf_checks_disabled": false
+    },
+    "atfwd": {
+      "one_owner": true,
+      "partition_flag": "system_ext_specific: true",
+      "elf_checks_disabled": false
+    }
+  },
+  "existing_unqualified_wfd_elf_exception": "system_ext/lib64/libwfdservice.so;DISABLE_CHECKELF",
+  "stock_partitions": {
+    "system": {
+      "size": 977285120,
+      "sha256": "60867c41922aa4fa1b4587bb5e32253a9bdfae5d8df0e50f2d2dc77216cb5d1c",
+      "operations": 467,
+      "operation_hashes_verified": true,
+      "partition_hash_verified": true
+    },
+    "mi_ext": {
+      "size": 170807296,
+      "sha256": "fef5dfe23f62189ec5d0f8965788ab9b9a06eb713c243a3d8a3d2784c8f3af22",
+      "operations": 82,
+      "operation_hashes_verified": true,
+      "partition_hash_verified": true
+    }
+  },
+  "system_image_layout": "system-as-root extracted separately; real inner system directory moved to dump/system for canonical Android paths",
+  "five_partition_scope": [
+    "mi_ext",
+    "odm",
+    "system",
+    "system_ext",
+    "vendor"
+  ],
+  "five_partition_counts": {
+    "present": 3863,
+    "missing": 23,
+    "outside_scope": 9
+  },
+  "three_partition_counts": {
+    "present": 3860,
+    "missing": 22,
+    "outside_scope": 13
+  },
+  "missing_inputs": [
+    {
+      "source": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "destination": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libSEGModel.so",
+      "destination": "vendor/lib64/libSEGModel.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_core_se.so",
+      "destination": "vendor/lib64/libopencv_core_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_imgproc_se.so",
+      "destination": "vendor/lib64/libopencv_imgproc_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk",
+      "destination": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "section": "Euicc"
+    },
+    {
+      "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "destination": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "destination": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "destination": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "destination": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "destination": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "destination": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qsap_qapeservice",
+      "destination": "vendor/bin/qsap_qapeservice",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "destination": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "destination": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "section": "QSAP"
+    },
+    {
+      "source": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "destination": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "section": "RIL"
+    },
+    {
+      "source": "system_ext/lib64/libimscamera_jni.so",
+      "destination": "system_ext/lib64/libimscamera_jni.so",
+      "section": "RIL"
+    },
+    {
+      "source": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "destination": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "section": "SLA"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "destination": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "section": "SLA"
+    },
+    {
+      "source": "system_ext/lib64/libmmparser_lite.so",
+      "destination": "system_ext/lib64/libmmparser_lite.so",
+      "section": "WiFi Display"
+    }
+  ],
+  "unselected_inputs": [
+    "product/app/uimgbaservice/uimgbaservice.apk",
+    "product/etc/permissions/UimGba.xml",
+    "product/etc/permissions/UimGbaManager.xml",
+    "product/etc/permissions/UimService.xml",
+    "product/etc/permissions/lpa.xml",
+    "product/framework/uimgbalibrary.jar",
+    "product/framework/uimgbamanagerlibrary.jar",
+    "product/framework/uimlpalibrary.jar",
+    "product/framework/uimservicelibrary.jar"
+  ],
+  "product_transfer": "interrupted before complete download/partition verification; partial chunks retained, not used for qualification",
+  "clean_reference_patch_chain_applied": true,
+  "final_inputs_equal_to_generated": true,
+  "ota_signature_verified": false,
+  "kernel_rebuilt": false,
+  "modules_rebuilt": false,
+  "rom_built": false,
+  "hardware_tested": false,
+  "flashable": false,
+  "remaining": [
+    "23 missing scoped inputs and 9 unexamined product inputs",
+    "SLA source adaptation/build, bounded mappings/lifetime, module ABI and userspace behavior",
+    "Complete regenerated vendor/odm, native linker/Soong/VINTF/SELinux",
+    "QESD old executable references remain in current consumers",
+    "RMNET lifecycle, factory WLAN and SPSS attach/reload",
+    "Full ROM/images and device validation"
+  ]
+}
