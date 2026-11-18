@@ -1,0 +1,386 @@
+{
+  "round": "R38",
+  "provenance": {
+    "source_repository": "SM8750-AB/vendor_xiaomi_annibale",
+    "source_commit": "5d498c3ffd6260c6b9817aa417f4c44d639a2376",
+    "source_path": "proprietary/product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+    "is_stock_os406_file": false,
+    "sha256": "1d43d68a65c1a43c58e722b6b2f2d5e347f556ce7b601db53c33f0dd6aa994c1",
+    "sha1": "43e31f72f404512df47cd335c40dced8a65e7182",
+    "size": 14625746,
+    "certificate_sha256": "7e26b6d5802a16799448ad635868f0345d6730310634684c0ae44e7e9f7ea764",
+    "package": "com.google.android.euicc",
+    "version_code": "226815",
+    "min_sdk": "29",
+    "target_sdk": "35",
+    "old_entry": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk:product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED",
+    "new_source": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+    "input_sha256": {
+      "proprietary-files.txt": "4b53d9338ae8a0ce6ebafbbf08f0980cd160ebeb544c3b4848d0ae4c39be4d1e",
+      "device.mk": "f1810ae26e5ba3923dd55706264bd07241a56886ac8e6db5cbf227f03ec4d1df",
+      "configs/permissions/privapp-permissions-com.google.android.euicc.xml": "1b808f5acb6b84633d5d85984c1a94e0e8d54a248038229682de782fec174f85",
+      "configs/permissions/default-permissions-com.google.android.euicc.xml": "04ac75de2122996e77eb912fcde761ffb36c96872561553bfc397d03a1059848"
+    },
+    "euicc_service": "com.android.euicc.service.EuiccServiceImpl",
+    "optional_libraries": [
+      "androidx.window.extensions",
+      "androidx.window.sidecar"
+    ],
+    "privileged_permissions": [
+      "android.permission.CHANGE_COMPONENT_ENABLED_STATE",
+      "android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS",
+      "android.permission.MODIFY_PHONE_STATE",
+      "android.permission.READ_PRIVILEGED_PHONE_STATE",
+      "android.permission.REBOOT",
+      "android.permission.START_ACTIVITIES_FROM_BACKGROUND",
+      "android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND",
+      "android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS",
+      "android.permission.WRITE_SECURE_SETTINGS",
+      "com.android.permission.INSTALL_EXISTING_PACKAGES",
+      "com.android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS"
+    ],
+    "target_firmware_profile": "OS4.0.6.0.XPKCNXM"
+  },
+  "evidence": {
+    "lpa_service": "com.android.euicc.service.EuiccServiceImpl",
+    "binding_permission_checked": true,
+    "optional_libraries": [
+      "androidx.window.extensions",
+      "androidx.window.sidecar"
+    ],
+    "privilege_allowlist_checked": true,
+    "signature_verified": true,
+    "certificate_sha256": "7e26b6d5802a16799448ad635868f0345d6730310634684c0ae44e7e9f7ea764",
+    "sha256": "1d43d68a65c1a43c58e722b6b2f2d5e347f556ce7b601db53c33f0dd6aa994c1",
+    "byte_modifications": false
+  },
+  "output_list_sha256": "9e9602821e1b1c59d8dde65d47b937e469b046750afbba64c241b551ff0659b0",
+  "source_files_supplied": 1,
+  "stock_dump_modified": false,
+  "is_stock_os406_file": false,
+  "qesd_inputs_supplied": 0,
+  "rom_built": false,
+  "runtime_verified": false,
+  "input_inventory": {
+    "stock_counts": {
+      "present": 3879,
+      "missing": 9
+    },
+    "combined_counts": {
+      "present": 3880,
+      "missing": 8
+    },
+    "remaining": [
+      {
+        "source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/bin/qesdk-manager",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/bin/qesdk-secmanager",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/etc/init/qesdk-manager.rc",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/etc/init/qesdk-secmanager.rc",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/etc/seccomp_policy/qesdk.policy",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+        "section": "QESD"
+      },
+      {
+        "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+        "section": "QESD"
+      }
+    ],
+    "supplemental_entry": {
+      "line": 2,
+      "section": "Euicc",
+      "source": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "destination": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "flags": [
+        "PRESIGNED"
+      ],
+      "symlinks": [],
+      "source_sha1_pin": "43e31f72f404512df47cd335c40dced8a65e7182",
+      "fixup_sha1_pin": null,
+      "resolved_source": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "source_links": [],
+      "size": 14625746,
+      "sha1": "43e31f72f404512df47cd335c40dced8a65e7182",
+      "sha256": "1d43d68a65c1a43c58e722b6b2f2d5e347f556ce7b601db53c33f0dd6aa994c1",
+      "status": "present"
+    },
+    "stock_dump_modified": false,
+    "runtime_verified": false
+  },
+  "scoped_generation": {
+    "status": "scoped_extract_utils_generation_passed",
+    "entries": [
+      "vendor/app/CACertService/CACertService.apk",
+      "vendor/framework/androidx.camera.extensions.impl.jar",
+      "vendor/app/CneApp/CneApp.apk;REQUIRED=CneApp.libvndfwk_detect_jni.qti_vendor_symlink",
+      "product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED|43e31f72f404512df47cd335c40dced8a65e7182",
+      "vendor/app/com.qualcomm.qti.gpudrivers.sun.api35/com.qualcomm.qti.gpudrivers.sun.api35.apk",
+      "system_ext/app/PowerOffAlarm/PowerOffAlarm.apk",
+      "system_ext/framework/vendor.qti.hardware.alarm-V1.0-java.jar",
+      "system_ext/app/QCC/QCC.apk",
+      "product/app/uimgbaservice/uimgbaservice.apk",
+      "product/framework/uimgbalibrary.jar",
+      "product/framework/uimgbamanagerlibrary.jar",
+      "product/framework/uimlpalibrary.jar",
+      "product/framework/uimservicelibrary.jar",
+      "system_ext/app/atfwd/atfwd.apk",
+      "system_ext/framework/qcrilhook.jar",
+      "system_ext/framework/vendor.qti.ims.connection-V1.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.connectionaidlservice-V1-java.jar",
+      "system_ext/framework/vendor.qti.ims.factory-V2.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.factory-V2.1-java.jar",
+      "system_ext/framework/vendor.qti.ims.factory-V2.2-java.jar",
+      "system_ext/framework/vendor.qti.ims.factoryaidlservice-V1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssip-V1.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssip-V1.1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssip-V1.2-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcssipaidlservice-V1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuce-V1.0-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuce-V1.1-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuce-V1.2-java.jar",
+      "system_ext/framework/vendor.qti.ims.rcsuceaidlservice-V1-java.jar",
+      "system_ext/framework/xiaomi-modem-common.jar",
+      "system_ext/priv-app/QtiTelephony/QtiTelephony.apk;REQUIRED=QtiTelephonyCompat",
+      "system_ext/priv-app/ims/ims.apk;REQUIRED=QtiTelephonyCompat",
+      "system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk",
+      "vendor/app/IWlanService/IWlanService.apk",
+      "vendor/app/TimeService/TimeService.apk",
+      "system/framework/WfdCommon.jar;BOOT_JAR",
+      "system_ext/priv-app/WfdService/WfdService.apk"
+    ],
+    "owner_checks": {
+      "EuiccGoogle": {
+        "one_owner": true,
+        "product": true,
+        "privileged": true,
+        "presigned": true,
+        "preprocessed": true,
+        "byte_identical": true,
+        "no_apk_check_bypass": true
+      },
+      "QtiTelephony": {
+        "one_owner": true,
+        "system_ext": true,
+        "privileged": true,
+        "certificate": "platform",
+        "compat_dependency_retained": true
+      },
+      "ims": {
+        "one_owner": true,
+        "system_ext": true,
+        "privileged": true,
+        "certificate": "platform",
+        "compat_dependency_retained": true
+      }
+    },
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "generated_files": {
+      "Android.bp": "ed130719ee446ce29e94ff3685ff8bdc3b6e67880c09c5842d2474ce349b87cb",
+      "Android.mk": "7a5e9b2a048ce3b454ca66d2be7775eaf808c0cdac69b680a5deeb072ca08eb0",
+      "annibale-vendor.mk": "200b27bfe703b439efa0e4798ed70e74251dec07b2428d764e2d2728d5fb1423",
+      "BoardConfigVendor.mk": "31932b8ede523a06046fb6287bdaf6495bf50508dd849cb619aec7ea7d61bdec"
+    },
+    "full_vendor_generated": false,
+    "soong_compiled": false,
+    "elf_symbol_abi_verified": false,
+    "policy_compiled": false
+  },
+  "section_extraction": {
+    "real_section_extraction": true,
+    "existing_files_preserved": 36,
+    "section": "Euicc",
+    "no_cleanup": true,
+    "sha1_pin_accepted": true,
+    "apk_byte_identical": true
+  },
+  "donor_comparison": [
+    {
+      "path": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+      "stock_present": false,
+      "downloaded": 14625746,
+      "sha256": "1d43d68a65c1a43c58e722b6b2f2d5e347f556ce7b601db53c33f0dd6aa994c1"
+    },
+    {
+      "path": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+      "stock_present": false,
+      "downloaded": 82334,
+      "sha256": "c23513b5caacc16ce7e438389fa58a333d7a3096792853a677b30adf30af89bd"
+    },
+    {
+      "path": "system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml",
+      "stock_present": true,
+      "same_git_blob": true
+    },
+    {
+      "path": "system_ext/lib64/libqesdk_ndk_platform.qti.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/bin/qesdk-manager",
+      "stock_present": false,
+      "downloaded": 52032,
+      "sha256": "9b698f174b0add2aa02700959e2f68be5c0ddec60a782a8d81c92b39a80e5fe3"
+    },
+    {
+      "path": "vendor/bin/qesdk-secmanager",
+      "stock_present": false,
+      "downloaded": 85872,
+      "sha256": "979e8f0002e6295bb598855a047e0f1cda0b437bdb1ab48fd6828551412406b7"
+    },
+    {
+      "path": "vendor/bin/qms",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/etc/init/qesdk-manager.rc",
+      "stock_present": false,
+      "downloaded": 548,
+      "sha256": "b13aa37e3c9ab70daa284da92b4a4bb1fa0971ad0e3356d4ad8ebd11aadee23e"
+    },
+    {
+      "path": "vendor/etc/init/qesdk-secmanager.rc",
+      "stock_present": false,
+      "downloaded": 480,
+      "sha256": "d61c3dba6e54b40a1f8ece5bb91f8b9355dd3830f94337306cb6a8aae5c4059f"
+    },
+    {
+      "path": "vendor/etc/init/qms.rc",
+      "stock_present": true,
+      "same_git_blob": true
+    },
+    {
+      "path": "vendor/etc/seccomp_policy/qesdk.policy",
+      "stock_present": false,
+      "downloaded": 1873,
+      "sha256": "92d82eebd5d5701faf782089b6e1507a9406156fc4fa8a56becfd4ebc3c76ce2"
+    },
+    {
+      "path": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "stock_present": false,
+      "downloaded": 1548,
+      "sha256": "75a2eac23f4475e6da6bcd7c1e6dadc867f43b43331a8d0d6d8d25164299a206"
+    },
+    {
+      "path": "vendor/etc/seccomp_policy/qms.policy",
+      "stock_present": true,
+      "same_git_blob": true
+    },
+    {
+      "path": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "stock_present": false,
+      "downloaded": 298,
+      "sha256": "0d6988ebd029a7be705bd487d9f817da02d95f7dcfa6cff4fe3916c90b70f993"
+    },
+    {
+      "path": "vendor/etc/vintf/manifest/qms-saidl.xml",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/liblocation_qesdk.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/libqesdk2_0.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/libqesdk_manager.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/libqesdoem_query_sys.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/libqms.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/libqms_client.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/libqti-qesdk-secure.so",
+      "stock_present": true,
+      "same_git_blob": true
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdhal-impl.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdhal@1.0.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdhal@1.1.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdhal@1.2.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdhal@1.3.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdhalaidl-V2-ndk.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdsys-V3-ndk.so",
+      "stock_present": true,
+      "same_git_blob": false
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.qesdsys-V4-ndk.so",
+      "stock_present": true,
+      "same_git_blob": false
+    }
+  ],
+  "tests": {
+    "run": 264,
+    "skipped": 0,
+    "failed": 0
+  },
+  "apk_signature_scheme_v3_verified": true,
+  "source_stamp_verified": true,
+  "patch_applied_and_outputs_equal": true,
+  "policy_compiled": false,
+  "full_vendor_generated": false,
+  "flashable": false
+}

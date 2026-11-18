@@ -1,0 +1,11 @@
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -2836,7 +2836,7 @@
+ vendor/lib64/rfs/dsp/libworker_pool.so
+ 
+ # Euicc
+-mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk:product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED
++product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED|43e31f72f404512df47cd335c40dced8a65e7182
+ 
+ # Fingerprint
+ odm/etc/vintf/manifest/fod-aidl.xml

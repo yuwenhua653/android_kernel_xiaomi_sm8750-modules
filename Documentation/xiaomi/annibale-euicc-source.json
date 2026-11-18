@@ -1,0 +1,41 @@
+{
+  "source_repository": "SM8750-AB/vendor_xiaomi_annibale",
+  "source_commit": "5d498c3ffd6260c6b9817aa417f4c44d639a2376",
+  "source_path": "proprietary/product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+  "is_stock_os406_file": false,
+  "sha256": "1d43d68a65c1a43c58e722b6b2f2d5e347f556ce7b601db53c33f0dd6aa994c1",
+  "sha1": "43e31f72f404512df47cd335c40dced8a65e7182",
+  "size": 14625746,
+  "certificate_sha256": "7e26b6d5802a16799448ad635868f0345d6730310634684c0ae44e7e9f7ea764",
+  "package": "com.google.android.euicc",
+  "version_code": "226815",
+  "min_sdk": "29",
+  "target_sdk": "35",
+  "old_entry": "mi_ext/product/priv-app/EuiccGoogle_arm64/EuiccGoogle_arm64.apk:product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED",
+  "new_source": "product/priv-app/EuiccGoogle/EuiccGoogle.apk",
+  "input_sha256": {
+    "proprietary-files.txt": "4b53d9338ae8a0ce6ebafbbf08f0980cd160ebeb544c3b4848d0ae4c39be4d1e",
+    "device.mk": "f1810ae26e5ba3923dd55706264bd07241a56886ac8e6db5cbf227f03ec4d1df",
+    "configs/permissions/privapp-permissions-com.google.android.euicc.xml": "1b808f5acb6b84633d5d85984c1a94e0e8d54a248038229682de782fec174f85",
+    "configs/permissions/default-permissions-com.google.android.euicc.xml": "04ac75de2122996e77eb912fcde761ffb36c96872561553bfc397d03a1059848"
+  },
+  "euicc_service": "com.android.euicc.service.EuiccServiceImpl",
+  "optional_libraries": [
+    "androidx.window.extensions",
+    "androidx.window.sidecar"
+  ],
+  "privileged_permissions": [
+    "android.permission.CHANGE_COMPONENT_ENABLED_STATE",
+    "android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS",
+    "android.permission.MODIFY_PHONE_STATE",
+    "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "android.permission.REBOOT",
+    "android.permission.START_ACTIVITIES_FROM_BACKGROUND",
+    "android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND",
+    "android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS",
+    "android.permission.WRITE_SECURE_SETTINGS",
+    "com.android.permission.INSTALL_EXISTING_PACKAGES",
+    "com.android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS"
+  ],
+  "target_firmware_profile": "OS4.0.6.0.XPKCNXM"
+}
