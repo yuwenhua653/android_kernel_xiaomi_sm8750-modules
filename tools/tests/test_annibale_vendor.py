@@ -4,7 +4,7 @@ import sys
 import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from prepare_annibale_vendor import convert
-from check_annibale_vendor_runtime import check_services, check_firmware, sections, check_import
+from check_annibale_vendor_runtime import check_services, check_firmware, sections, check_import, check_module_actions
 from build_annibale_native_images import check_fstab
 
 
@@ -109,3 +109,47 @@ class FirmwareWiringTests(unittest.TestCase):
             for changed in ('',row.replace(' ro,',' rw,'),row.replace(',slotselect','')):
                 with self.subTest(mount=mount,changed=changed),self.assertRaisesRegex(ValueError,'firmware mount'):
                     check_fstab(self.fstab.replace(row,changed))
+
+
+class ModuleActionTests(unittest.TestCase):
+    def setUp(self):
+        self.inventory = {'rmnet_perf': {'partition': 'vendor_dlkm',
+            'parameters': ['rmnet_perf_knob0'], 'preloaded': True}}
+
+    def check_command(self, command):
+        return check_module_actions({'nicmd.rc': 'on property:vendor.example=1\n    '+command+'\n'}, self.inventory)
+
+    def test_supported_module_parameter(self):
+        result = self.check_command('exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -d /vendor/lib/modules rmnet_perf rmnet_perf_knob0=Y')
+        self.assertEqual(result['issues'], [])
+        self.assertFalse(result['runtime_verified'])
+
+    def test_stock_parameter_missing_in_source(self):
+        result = self.check_command('exec -- /vendor/bin/modprobe -d /vendor/lib/modules rmnet_perf rmnet_perf_opt_mode="udp"')
+        self.assertEqual(result['issues'][0]['kind'], 'unsupported_module_parameter')
+        self.assertEqual(result['issues'][0]['parameter'], 'rmnet_perf_opt_mode')
+
+    def test_direct_missing_module_recorded_with_trigger(self):
+        result = self.check_command('insmod /vendor/lib/modules/sla.ko')
+        self.assertEqual(result['issues'][0]['kind'], 'module_not_packaged')
+        self.assertEqual(result['issues'][0]['trigger'], ['on', 'property:vendor.example=1'])
+
+    def test_preloaded_remove_requires_review(self):
+        result = self.check_command('exec -- /vendor/bin/modprobe -r -d /vendor/lib/modules rmnet_perf')
+        self.assertEqual(result['issues'][0]['kind'], 'preloaded_module_removal_unqualified')
+
+    def test_module_partition_is_checked(self):
+        result = self.check_command('insmod /system/lib/modules/rmnet_perf.ko')
+        self.assertEqual(result['issues'][0]['kind'], 'module_partition_mismatch')
+
+    def test_unsupported_command_is_not_silently_passed(self):
+        result = self.check_command('exec -- /vendor/bin/modprobe --unknown -d /vendor/lib/modules rmnet_perf')
+        self.assertEqual(result['issues'][0]['kind'], 'unreviewed_modprobe_option')
+
+    def test_comments_and_loader_service_start_not_module_actions(self):
+        files = {'init.rc': '# insmod /vendor/lib/modules/sla.ko\non early-init\n    start vendor.modprobe\n'}
+        self.assertEqual(check_module_actions(files, self.inventory)['actions'], [])
+
+    def test_all_modules_with_parameters_is_ambiguous(self):
+        result = self.check_command('exec -- /vendor/bin/modprobe -a -d /vendor/lib/modules rmnet_perf rmnet_perf_knob0=Y')
+        self.assertEqual(result['issues'][0]['kind'], 'ambiguous_module_parameters')

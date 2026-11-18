@@ -63,6 +63,13 @@ class HandoffConversionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             convert(files)
 
+    def test_identical_configuration_duplicates_removed(self):
+        files = reference()
+        files['proprietary-files.txt'] += 'vendor/etc/example.xml\n# other section\nvendor/etc/example.xml\n'
+        files, _ = convert(files)
+        self.assertEqual(files['proprietary-files.txt'].count('vendor/etc/example.xml'), 1)
+        self.assertIn('# other section', files['proprietary-files.txt'])
+
 
 if __name__ == '__main__':
     unittest.main()

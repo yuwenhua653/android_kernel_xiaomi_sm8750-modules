@@ -14,6 +14,7 @@ import shlex
 from annibale_ramdisk import require
 from build_annibale_native_images import check_fstab
 from prepare_annibale_rom_handoff import LOADER_RUNTIME_PACKAGES
+from verify_annibale_modules import module_info
 
 SERVICES = {'gki.modprobe':'system_dlkm_modprobe.sh', 'vendor.modprobe':'vendor_modprobe.sh'}
 
@@ -93,6 +94,95 @@ def check_firmware(ueventd, directories, fstab):
     return {'search_paths':paths[0], 'fstab_rows':len(rows), 'firmware_bytes_verified':False}
 
 
+def module_inventory(handoff):
+    inventory = {}
+    for partition in ('vendor_boot', 'system_dlkm', 'vendor_dlkm'):
+        directory = handoff / 'modules' / partition / 'lib/modules'
+        require(directory.is_dir(), 'missing handoff module directory: '+partition)
+        loaded = (directory / 'modules.load').read_text().splitlines()
+        for path in sorted(directory.glob('*.ko')):
+            info, _ = module_info(path)
+            name = path.stem.replace('-', '_')
+            require(name not in inventory, 'duplicate handoff module: '+name)
+            inventory[name] = {'partition': partition, 'filename': path.name,
+                'parameters': sorted({p.split(':', 1)[0] for p in info.get('parmtype', [])}),
+                'preloaded': path.name in loaded,
+                'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+    return inventory
+
+
+def check_module_actions(files, inventory):
+    """Check explicit init commands, not shell script contents or live triggers."""
+    records, issues = [], []
+    directories = {'/vendor/lib/modules': 'vendor_dlkm',
+                   '/system/vendor/lib/modules': 'vendor_dlkm',
+                   '/vendor_dlkm/lib/modules': 'vendor_dlkm',
+                   '/system/lib/modules': 'system_dlkm',
+                   '/system_dlkm/lib/modules': 'system_dlkm',
+                   '/lib/modules': 'vendor_boot'}
+    for filename, text in files.items():
+        for section in sections(text):
+            for words in section['body']:
+                command = words
+                if words[0] in ('exec', 'exec_background') and '--' in words:
+                    command = words[words.index('--')+1:]
+                if not command or command[0].rsplit('/', 1)[-1] not in ('insmod', 'modprobe', 'rmmod'):
+                    continue
+                action = command[0].rsplit('/', 1)[-1]
+                record = {'file': filename, 'trigger': section['head'], 'command': words,
+                          'action': action, 'modules': [], 'issues': []}
+                def issue(kind, **details):
+                    record['issues'].append({'kind': kind, **details})
+                params, names, directory, remove = [], [], None, action == 'rmmod'
+                args = command[1:]
+                if action == 'modprobe':
+                    i, all_modules = 0, False
+                    while i < len(args):
+                        arg = args[i]
+                        if arg == '-d' and i+1 < len(args):
+                            directory = args[i+1].rstrip('/'); i += 2; continue
+                        if arg in ('-a', '-b', '-r'):
+                            all_modules |= arg == '-a'; remove |= arg == '-r'
+                        elif arg.startswith('-'):
+                            issue('unreviewed_modprobe_option', option=arg)
+                        elif '=' in arg:
+                            params.append(arg.split('=', 1)[0])
+                        else:
+                            names.append(arg.removesuffix('.ko'))
+                        i += 1
+                    if params and (len(names) != 1 or all_modules):
+                        issue('ambiguous_module_parameters')
+                elif args:
+                    path = args[0]
+                    directory = path.rsplit('/', 1)[0] if '/' in path else None
+                    names = [path.rsplit('/', 1)[-1].removesuffix('.ko')]
+                    params = [p.split('=', 1)[0] for p in args[1:]]
+                if not names:
+                    issue('no_explicit_module')
+                if not remove and directory not in directories:
+                    issue('unreviewed_module_directory', directory=directory)
+                for raw_name in names:
+                    name = raw_name.replace('-', '_')
+                    record['modules'].append(name)
+                    module = inventory.get(name)
+                    if module is None:
+                        issue('module_not_packaged', module=name)
+                        continue
+                    if directory in directories and module['partition'] != directories[directory]:
+                        issue('module_partition_mismatch', module=name, packaged=module['partition'])
+                    for param in params:
+                        if param not in module['parameters']:
+                            issue('unsupported_module_parameter', module=name, parameter=param)
+                    if remove and module['preloaded']:
+                        issue('preloaded_module_removal_unqualified', module=name)
+                records.append(record)
+                issues.extend({'file': filename, 'trigger': section['head'], **item}
+                              for item in record['issues'])
+    return {'status': 'module_action_review_required' if issues else 'explicit_module_actions_checked',
+            'actions': records, 'issues': issues, 'scripts_scanned': False,
+            'properties_reached_on_device': False, 'runtime_verified': False}
+
+
 def check_import(text, target):
     lines = [shlex.split(l,comments=True) for l in logical_lines(text)]
     require(lines.count(['import',target]) == 1, 'missing/duplicate init import: '+target)
@@ -111,6 +201,9 @@ def main():
     # Include device-owned hw files in duplicate-service detection.
     for p in (args.rom/'rootdir/etc').glob('init*.rc'):
         files['device/'+p.name]=p.read_text()
+    odm = args.vendor/'proprietary/odm/etc/init'
+    for p in odm.rglob('*.rc'):
+        files['odm/'+str(p.relative_to(odm))]=p.read_text()
     result=check_services(files)
     check_import((args.rom/'rootdir/etc/init.qcom.rc').read_text(),'/vendor/etc/init/hw/init.target.rc')
     check_import((args.rom/'rootdir/etc/init.target.rc').read_text(),'/vendor/etc/init/hw/init.qti.kernel.rc')
@@ -123,9 +216,13 @@ def main():
     result.update(status='scoped_vendor_runtime_passed',runtime_verified=False,rom_built=False,
                   runtime_packages=list(LOADER_RUNTIME_PACKAGES),init_files_checked=len(files),
                   init_sha256={n:hashlib.sha256(t.encode()).hexdigest() for n,t in files.items()})
+    result['module_actions'] = check_module_actions(files, module_inventory(args.handoff))
+    if result['module_actions']['issues']:
+        result['status'] = 'vendor_module_actions_need_review'
     args.report.write_text(json.dumps(result,indent=2)+'\n')
-    print('PASS: scoped loader services, runtime package selection and firmware search/mount wiring; no device execution')
+    print(result['status'] + '; no device execution')
+    return 1 if result['module_actions']['issues'] else 0
 
 
 if __name__=='__main__':
-    main()
+    raise SystemExit(main())

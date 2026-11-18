@@ -15,6 +15,7 @@ import subprocess
 from annibale_ramdisk import require
 from build_annibale_native_images import file_sha, verify_stage
 from stage_annibale_android import loader, write_make_example
+from audit_annibale_vendor_blobs import deduplicate_entries
 
 REFERENCE_COMMIT = '1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe'
 HANDOFF_PATH = 'device/xiaomi/annibale-oss-kernel'
@@ -47,6 +48,10 @@ def convert(files):
     for path in ('vendor/bin/system_dlkm_modprobe.sh', 'vendor/bin/vendor_modprobe.sh'):
         require(proprietary.splitlines().count(path) == 1, 'unexpected proprietary script owner: ' + path)
         proprietary = proprietary.replace(path + '\n', '')
+    # The pinned reference has eight identical duplicate copy entries. Modern
+    # extract-utils rejects duplicate destination paths during regeneration.
+    # Validate loader ownership above before deduplication so its guard survives.
+    proprietary, _ = deduplicate_entries(proprietary)
     files['proprietary-files.txt'] = proprietary
     # Keep the existing recovery fstab untouched; this is normal-boot work.
     patch = ''.join(''.join(difflib.unified_diff(before[p].splitlines(True), files[p].splitlines(True),

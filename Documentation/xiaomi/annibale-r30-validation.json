@@ -1,0 +1,491 @@
+{
+  "round": "R30",
+  "parent_commit": "fb73e7fc5c89c9fe3a78d6c48a64eabf8853af1a",
+  "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+  "kernel_rebuilt": false,
+  "modules_rebuilt": false,
+  "tests_passed": 206,
+  "stock_partitions": {
+    "vendor": {
+      "size": 742670336,
+      "sha256": "2601a8eb5879617858263ae7365dbd1bbbd8db79926ff2565ee950bbe1c676bc",
+      "operations": 355,
+      "operation_hashes_verified": true,
+      "partition_hash_verified": true
+    },
+    "odm": {
+      "size": 3318341632,
+      "sha256": "d03f12309b7a5bb11b1e2acc5e3a30978dfe0f49374c878c4d3f901f4755702b",
+      "operations": 1583,
+      "operation_hashes_verified": true,
+      "partition_hash_verified": true
+    }
+  },
+  "payload_manifest_sha256": "b8e2f34b24b08c6c6f92fdafc8fd2618e282aeaa82671cd217c07eaf6679c39a",
+  "ota_signature_verified": false,
+  "stock_properties": {
+    "vendor": {
+      "ro.vendor.build.fingerprint": "Xiaomi/mivendor/mivendor:15/AQ3A.250226.002/OS4.0.6.0.XPKCN:user/release-keys",
+      "ro.vendor.build.version.incremental": "OS4.0.6.0.XPKCN",
+      "ro.vendor.build.version.sdk": "35"
+    },
+    "odm": {
+      "ro.odm.build.fingerprint": "Redmi/annibale/annibale:15/AQ3A.250226.002/OS4.0.6.0.XPKCN:user/release-keys",
+      "ro.odm.build.version.incremental": "OS4.0.6.0.XPKCN",
+      "ro.odm.build.version.sdk": "35"
+    }
+  },
+  "identical_duplicates_removed": [
+    {
+      "line": 2511,
+      "first_line": 2457,
+      "entry": "vendor/etc/display/advanced_sf_offsets.xml"
+    },
+    {
+      "line": 2520,
+      "first_line": 2458,
+      "entry": "vendor/etc/display/thermallevel_to_fps.xml"
+    },
+    {
+      "line": 2884,
+      "first_line": 2883,
+      "entry": "vendor/etc/apdr.conf"
+    },
+    {
+      "line": 2886,
+      "first_line": 2885,
+      "entry": "vendor/etc/gps.conf"
+    },
+    {
+      "line": 2889,
+      "first_line": 2888,
+      "entry": "vendor/etc/lowi.conf"
+    },
+    {
+      "line": 2891,
+      "first_line": 2890,
+      "entry": "vendor/etc/sap.conf"
+    },
+    {
+      "line": 2893,
+      "first_line": 2892,
+      "entry": "vendor/etc/xtwifi.conf"
+    },
+    {
+      "line": 3919,
+      "first_line": 3856,
+      "entry": "vendor/etc/thermal-engine.conf"
+    }
+  ],
+  "missing_stock_paths": [
+    {
+      "source": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "destination": "vendor/data/model/seg_quantized.serialized.8750.pertensor_512_cls3r.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/decoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "destination": "vendor/etc/encoder.serialized.8750.O3.bin",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libSEGModel.so",
+      "destination": "vendor/lib64/libSEGModel.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_core_se.so",
+      "destination": "vendor/lib64/libopencv_core_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/lib64/libopencv_imgproc_se.so",
+      "destination": "vendor/lib64/libopencv_imgproc_se.so",
+      "section": "Camera"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_1x_y1280x720.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_1x_y1280x720.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_1x_y544x960.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_1x_y544x960.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_1x_y720x1280.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_1x_y720x1280.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_1x_y960x544.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_1x_y960x544.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_2x_y1280x720.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_2x_y1280x720.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_2x_y544x960.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_2x_y544x960.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_2x_y720x1280.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_2x_y720x1280.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_2x_y960x544.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_2x_y960x544.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_3x_y384x640.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_3x_y384x640.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/etc/display/sm8750_sr_3x_y640x384.dlc",
+      "destination": "vendor/etc/display/sm8750_sr_3x_y640x384.dlc",
+      "section": "Displayfeature (Configs)"
+    },
+    {
+      "source": "vendor/bin/qesdk-manager",
+      "destination": "vendor/bin/qesdk-manager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qesdk-secmanager",
+      "destination": "vendor/bin/qesdk-secmanager",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-manager.rc",
+      "destination": "vendor/etc/init/qesdk-manager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/init/qesdk-secmanager.rc",
+      "destination": "vendor/etc/init/qesdk-secmanager.rc",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdk.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdk.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "destination": "vendor/etc/seccomp_policy/qesdksec.policy",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "destination": "vendor/etc/vintf/manifest/qesdk-manager.xml",
+      "section": "QESD"
+    },
+    {
+      "source": "vendor/bin/qsap_qapeservice",
+      "destination": "vendor/bin/qsap_qapeservice",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "destination": "vendor/etc/init/vendor.qsap.qapeservice.rc",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "destination": "vendor/etc/seccomp_policy/qsap_qapeservice.policy",
+      "section": "QSAP"
+    },
+    {
+      "source": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "destination": "vendor/bin/hw/vendor.qti.sla.service@2.0-service",
+      "section": "SLA"
+    },
+    {
+      "source": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "destination": "vendor/etc/init/vendor.qti.sla.service@2.0-service.rc",
+      "section": "SLA"
+    },
+    {
+      "source": "odm/firmware/vpu33_4v.mbn",
+      "destination": "odm/firmware/vpu33_4v.mbn",
+      "section": "VPU"
+    },
+    {
+      "source": "odm/firmware/vpu33_4v_unsigned.mbn",
+      "destination": "odm/firmware/vpu33_4v_unsigned.mbn",
+      "section": "VPU"
+    }
+  ],
+  "native_module_action_audit": {
+    "tfa": {
+      "status": "vendor_module_actions_need_review",
+      "init_files_checked": 101,
+      "module_action_count": 16,
+      "issues": [
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.shs_ko_load=0"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_shs"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=3"
+          ],
+          "kind": "unsupported_module_parameter",
+          "module": "rmnet_perf",
+          "parameter": "rmnet_perf_ingress_deag"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=2"
+          ],
+          "kind": "unsupported_module_parameter",
+          "module": "rmnet_perf",
+          "parameter": "rmnet_perf_opt_mode"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=0"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_perf"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.offload_ko_load=0"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_offload"
+        },
+        {
+          "file": "slad.rc",
+          "trigger": [
+            "on",
+            "post-fs-data"
+          ],
+          "kind": "module_not_packaged",
+          "module": "sla"
+        },
+        {
+          "file": "device/init.qcom.rc",
+          "trigger": [
+            "on",
+            "property:vendor.wifi.ftmd.load=true"
+          ],
+          "kind": "unreviewed_module_directory",
+          "directory": "/system/lib/modules/pronto"
+        },
+        {
+          "file": "device/init.qcom.rc",
+          "trigger": [
+            "on",
+            "property:vendor.wifi.ftmd.load=true"
+          ],
+          "kind": "module_not_packaged",
+          "module": "pronto_wlan"
+        }
+      ]
+    },
+    "sia": {
+      "status": "vendor_module_actions_need_review",
+      "init_files_checked": 101,
+      "module_action_count": 16,
+      "issues": [
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.shs_ko_load=0"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_shs"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=3"
+          ],
+          "kind": "unsupported_module_parameter",
+          "module": "rmnet_perf",
+          "parameter": "rmnet_perf_ingress_deag"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=2"
+          ],
+          "kind": "unsupported_module_parameter",
+          "module": "rmnet_perf",
+          "parameter": "rmnet_perf_opt_mode"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=0"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_perf"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.offload_ko_load=0"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_offload"
+        },
+        {
+          "file": "slad.rc",
+          "trigger": [
+            "on",
+            "post-fs-data"
+          ],
+          "kind": "module_not_packaged",
+          "module": "sla"
+        },
+        {
+          "file": "device/init.qcom.rc",
+          "trigger": [
+            "on",
+            "property:vendor.wifi.ftmd.load=true"
+          ],
+          "kind": "unreviewed_module_directory",
+          "directory": "/system/lib/modules/pronto"
+        },
+        {
+          "file": "device/init.qcom.rc",
+          "trigger": [
+            "on",
+            "property:vendor.wifi.ftmd.load=true"
+          ],
+          "kind": "module_not_packaged",
+          "module": "pronto_wlan"
+        }
+      ]
+    }
+  },
+  "audio_assets": {
+    "tfa": "pinned_assets_and_selected_contracts_passed",
+    "sia": "pinned_assets_and_selected_contracts_passed"
+  },
+  "rom_built": false,
+  "flashable": false,
+  "hardware_tested": false,
+  "unverified": [
+    "Complete generated vendor+odm and 103 entries from other partitions",
+    "30 old extraction paths absent in OS4 after the reviewed AuthSecret list update",
+    "RMNET vendor parameters and removal lifecycle",
+    "SLA source module and factory WLAN property path",
+    "SPSS UEFI attach/reload, firmware/HAL ABI and enforcing SELinux",
+    "Full native Android build, final images and device behavior",
+    "AuthSecret linker/VINTF/policy and eager/lazy service startup"
+  ],
+  "native_blob_counts_before_os4_patch": {
+    "present": 3760,
+    "missing": 32,
+    "outside_scope": 103
+  },
+  "native_blob_counts": {
+    "present": 3762,
+    "missing": 30,
+    "outside_scope": 103
+  },
+  "os4_authsecret": {
+    "status": "exact_stock_assets_and_list_patch_prepared",
+    "firmware_label": "OS4.0.6.0.XPKCNXM",
+    "before_sha256": "37472ee7fb347de7d114acf5de95cfd0a2b4301186beda39a836ffc3d873c89f",
+    "after_sha256": "080b84aaa4a20b410bbf584c24ae36ef151485db913ae963f3d8fc0303e44b03",
+    "files_verified": {
+      "odm/bin/hw/vendor.xiaomi.hardware.authsecretd": {
+        "size": 120288,
+        "sha256": "b8f47e6270fbd5fad3f7b13ef368e8c2b2d65f464b3565c8a4c354d7a0aecbbc"
+      },
+      "odm/etc/init/vendor.xiaomi.hardware.authsecretd.rc": {
+        "size": 477,
+        "sha256": "f79868ad37fad115f004881e2acf0527f4bc832ae9c69ecd79727c3ef90d78ea"
+      },
+      "odm/etc/vintf/manifest/vendor.xiaomi.hardware.miauthsecretd.xml": {
+        "size": 506,
+        "sha256": "e87cdc218a662c453a20369240a52f0c7b0dae4c69f81d6f55cbd5076abd9140"
+      },
+      "odm/lib64/vendor.xiaomi.hardware.miauthsecretd-V1-ndk.so": {
+        "size": 85696,
+        "sha256": "9af06fe77aec0af0d214e99b6b28695f12d3b0ca55364a7c5909de80ca9ad147"
+      },
+      "vendor/lib64/vendor.xiaomi.hardware.oldcredential-V1-ndk.so": {
+        "size": 85288,
+        "sha256": "840fed205987f051f0e2833390a49f742cba1a698c03c83b46e2cb27f112c5d3"
+      }
+    },
+    "hal_abi_verified": false,
+    "service_or_policy_changed": false,
+    "rom_built": false,
+    "remaining": [
+      "Other missing blob paths",
+      "Generated build owners and native linker namespaces",
+      "VINTF compatibility, enforcing SELinux and runtime credential behavior"
+    ],
+    "patch_applied": true,
+    "elf_dependencies": {
+      "odm/bin/hw/vendor.xiaomi.hardware.authsecretd": {
+        "needed": [
+          "vendor.xiaomi.hardware.miauthsecretd-V1-ndk.so",
+          "vendor.xiaomi.hardware.oldcredential-V1-ndk.so",
+          "libbase.so",
+          "liblog.so",
+          "libbinder_ndk.so",
+          "libmisight.so",
+          "libcutils.so",
+          "libGPTEE_vendor.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": []
+      },
+      "vendor/lib64/vendor.xiaomi.hardware.oldcredential-V1-ndk.so": {
+        "needed": [
+          "libbinder_ndk.so",
+          "libc++.so",
+          "libc.so",
+          "libm.so",
+          "libdl.so"
+        ],
+        "soname": [
+          "vendor.xiaomi.hardware.oldcredential-V1-ndk.so"
+        ]
+      }
+    },
+    "stock_boot_complete_start_target_matches_service": false
+  }
+}
