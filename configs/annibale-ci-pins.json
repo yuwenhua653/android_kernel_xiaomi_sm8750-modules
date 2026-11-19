@@ -1,0 +1,44 @@
+{
+  "kernel": {
+    "repository": "yuwenhua653/android_kernel_xiaomi_sm8750",
+    "commit": "c17ffa89f4fe197dd0e83c36cb517b6c0c13dc34"
+  },
+  "devicetrees": {
+    "repository": "yuwenhua653/android_kernel_xiaomi_sm8750-devicetrees",
+    "commit": "efb44ba29a0a847b42519b0e87fed32d30df8904"
+  },
+  "toolchains": {
+    "bison-data": {
+      "name": "bison-data",
+      "repo": "https://android.googlesource.com/platform/prebuilts/build-tools",
+      "revision": "bfa65e7422cc88dc64ef3ca224daf214a77fb4d5",
+      "subdir": "common/bison",
+      "archive_sha256": "acfd552b376274cba856b3e50ab9ac21d23428f3e308a4501843dc24a8333ccd",
+      "bytes": 210844
+    },
+    "build-tools": {
+      "name": "build-tools",
+      "repo": "https://android.googlesource.com/platform/prebuilts/build-tools",
+      "revision": "bfa65e7422cc88dc64ef3ca224daf214a77fb4d5",
+      "subdir": "linux-x86",
+      "archive_sha256": "71e7d9c7cab5e277581aee8beace3532f3ececbda260f544a0e75bf1bda98629",
+      "bytes": 86209444
+    },
+    "clang": {
+      "name": "clang",
+      "repo": "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86",
+      "revision": "62dc563017359bca29c4a08f5f27d8ecae763462",
+      "subdir": "clang-r510928",
+      "archive_sha256": "2571dc183f77ebc72343dd25a1d2bc5bbd338a38911c29f4d9d2c4b78d521202",
+      "bytes": 906476274
+    },
+    "kernel-tools": {
+      "name": "kernel-tools",
+      "repo": "https://android.googlesource.com/kernel/prebuilts/build-tools",
+      "revision": "b46264b70e3cdf70d08c9ae2df6ea3002b242ebc",
+      "subdir": "linux-x86",
+      "archive_sha256": "6c48af6f8baef7923d8f19a9aee680b26c86e512f8a1cefa583b21b541bf206c",
+      "bytes": 89307381
+    }
+  }
+}

@@ -1,0 +1,68 @@
+name: Annibale ARM64 qualification
+on:
+  push:
+    branches: [annibale-r47-build]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          path: sm8750-modules
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Run regression tests before the kernel build
+        working-directory: sm8750-modules
+        run: |
+          git fetch --no-tags --depth=1 origin e0ce4601d9cac01d9007e1ebae5931040c628929
+          for compiler in gcc clang; do
+            CC="$compiler" python3 -m unittest discover -s tools/tests -p test_annibale_offload_flow.py -v
+            CC="$compiler" python3 -m unittest discover -s tools/tests -p test_annibale_network_controls.py -v
+          done
+          python3 -m unittest discover -s tools/tests -p test_annibale_rmnet_lifecycle.py -v
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: yuwenhua653/android_kernel_xiaomi_sm8750
+          ref: c17ffa89f4fe197dd0e83c36cb517b6c0c13dc34
+          path: sm8750
+          persist-credentials: false
+          fetch-depth: 1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: yuwenhua653/android_kernel_xiaomi_sm8750-devicetrees
+          ref: efb44ba29a0a847b42519b0e87fed32d30df8904
+          path: sm8750-devicetrees
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install host build prerequisites
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y bc bison flex libssl-dev libelf-dev cpio rsync
+          df -h .
+      - name: Build pinned Image and full selected module profile
+        run: python3 -u sm8750-modules/tools/ci_annibale_arm64.py --workspace "$GITHUB_WORKSPACE" --jobs 4
+      - name: Save build diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annibale-r47-build-diagnostics
+          path: |
+            out/**/*.log
+            out/provenance.json
+            out/external/*/build.json
+            out/external/*/verification.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Save verified qualification binaries
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annibale-r47-ARM64-NOT-FLASHABLE
+          path: artifacts/annibale-r47-ARM64-NOT-FLASHABLE.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14

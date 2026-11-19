@@ -47,12 +47,17 @@ static void rmnet_offload_state_free(void)
 	rmnet_offload_engine_disable_chain_flush();
 	synchronize_rcu();
 
+	/* Parameter callbacks are not RCU readers. Serialize their flow-table
+	 * access with the final drain and destruction, after waiting for hooks.
+	 */
+	rmnet_offload_lock();
 	/* Flush out before we destroy everything */
 	rmnet_offload_engine_flush_all_flows(&flush_list);
 	rmnet_offload_deliver_descs(&flush_list);
 	rmnet_offload_engine_exit();
 	kfree(rmnet_offload);
 	rmnet_offload = NULL;
+	rmnet_offload_unlock();
 }
 
 /* Conditionally register for DL marker callbacks and powersave notifications

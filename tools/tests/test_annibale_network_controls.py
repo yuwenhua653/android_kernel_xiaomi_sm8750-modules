@@ -2,6 +2,8 @@
 """Execute actual control/cleanup code; mocks do not qualify live kernel races."""
 from pathlib import Path
 import re
+import os
+import shlex
 import subprocess
 import tempfile
 import unittest
@@ -21,7 +23,7 @@ def function(source,name):
 def run(code):
     with tempfile.TemporaryDirectory() as d:
         p=Path(d);(p/'test.c').write_text(code)
-        subprocess.run(['cc','-std=gnu11','-Wall','-Werror','-Wno-misleading-indentation',
+        subprocess.run(shlex.split(os.environ.get('CC', 'cc')) + ['-std=gnu11','-Wall','-Werror','-Wno-misleading-indentation',
                         '-fsanitize=undefined','-fno-sanitize-recover=all',str(p/'test.c'),'-o',str(p/'test')],check=True)
         subprocess.run([str(p/'test')],check=True,timeout=10)
 
@@ -115,30 +117,34 @@ int main(void){for(failure=1;failure<=3;failure++){assert(under_init()==-10-fail
         if prefix:
             names=['rmnet_offload_state_free','rmnet_offload','rmnet_offload_state_deregister_cb',
                    'rmnet_offload_unset_hooks','rmnet_offload_engine_disable_chain_flush','rmnet_offload_engine_flush_all_flows',
-                   'rmnet_offload_deliver_descs','rmnet_offload_engine_exit']
+                   'rmnet_offload_deliver_descs','rmnet_offload_engine_exit',
+                   'rmnet_offload_lock','rmnet_offload_unlock']
         else:
             header=(ROOT/'offload/rmnet_offload_main.h').read_text()
             deliver=re.findall(r'void\s+(DATARMNET\w+)\s*\(struct list_head\s*\*\s*\w*\s*\)',header)[0]
             names=['DATARMNET345f805b34','DATARMNETe05748b000','DATARMNETac9c8c14b1','DATARMNETba38823a2f',
-                   'DATARMNET560e127137','DATARMNETae70636c90',deliver,'DATARMNETb98b78b8e3']
-        aliases=['under_free','state','deregister','unhook','unchain','flush','deliver','engine_exit']
+                   'DATARMNET560e127137','DATARMNETae70636c90',deliver,'DATARMNETb98b78b8e3',
+                   'DATARMNET664568fcd0','DATARMNET6a76048590']
+        aliases=['under_free','state','deregister','unhook','unchain','flush','deliver','engine_exit','state_lock','state_unlock']
         code=r'''
 #include <assert.h>
 #include <stddef.h>
 struct list_head {int count;};
 #define LIST_HEAD(n) struct list_head n={0}
-static int live,step,delivered;static void *state;
+static int live,step,delivered,locked;static void *state;
 static void deregister(void){assert(step++==0);}
 static void unhook(void){assert(step++==1);}
 static void unchain(void){assert(step++==2);}
-static void synchronize_rcu(void){assert(step++==3);}
-static void flush(struct list_head *l){assert(step++==4&&state);l->count=17;}
-static void deliver(struct list_head *l){assert(step++==5&&state&&l->count==17);delivered+=l->count;l->count=0;}
-static void engine_exit(void){assert(step++==6&&delivered==17);}
-static void kfree(void *p){assert(p==state&&step++==7);live=0;}
+static void synchronize_rcu(void){assert(step++==3&&!locked);}
+static void state_lock(void){assert(step++==4&&!locked);locked=1;}
+static void state_unlock(void){assert(step++==9&&locked&&!state&&!live);locked=0;}
+static void flush(struct list_head *l){assert(step++==5&&state&&locked);l->count=17;}
+static void deliver(struct list_head *l){assert(step++==6&&state&&locked&&l->count==17);delivered+=l->count;l->count=0;}
+static void engine_exit(void){assert(step++==7&&locked&&delivered==17);}
+static void kfree(void *p){assert(p==state&&locked&&step++==8);live=0;}
 '''
         code+='\n'.join('#define '+n+' '+a for n,a in zip(names,aliases))+'\n'+function(source,names[0])
-        code+='\nint main(void){for(int i=0;i<100;i++){step=delivered=0;live=1;state=&live;under_free();assert(!state&&!live&&step==8);under_free();assert(step==8);}return 0;}\n'
+        code+='\nint main(void){for(int i=0;i<100;i++){step=delivered=0;live=1;state=&live;under_free();assert(!state&&!live&&!locked&&step==10);under_free();assert(step==10&&!locked);}return 0;}\n'
         run(code)
 
     def test_production_offload_drains(self):self.offload('')
