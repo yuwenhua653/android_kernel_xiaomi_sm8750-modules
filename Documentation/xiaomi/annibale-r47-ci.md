@@ -59,7 +59,37 @@ than 32 bytes before tool acquisition or compilation.
 Artifact collection follows the short root. On failure, the external builder
 prints the first error context as well as the tail. The prior tail omitted
 the shell error. No driver/configuration or strict linking checks are disabled.
-This correction still requires a new complete ARM64 qualification run.
+This correction passed the complete ARM64 qualification described below.
+
+## Successful qualification
+
+[Run 44487958049](https://github.com/yuwenhua653/android_kernel_xiaomi_sm8750-modules/actions/runs/44487958049)
+built module source commit `53e21323104f0ad3f5596a2032b95d676b92ed6d` with the
+unchanged core and device-tree pins. Job 135436063908 completed successfully.
+
+- 25 host test executions passed, including acquisition, flow matching and
+  module lifecycle/teardown checks.
+- Image and 411 in-tree modules linked; all 94 selected external modules linked.
+- All 505 modules passed the same-build ARM64/BTF/vermagic/CRC/dependency checks.
+- The source tree was clean; all recorded kernel inputs remained unchanged
+  during the external build. Source hashes cover 9,447 staged files.
+- Kernel release: `6.6.144-4k-gc17ffa89f4fe`.
+- `rmnet_offload.ko` SHA256:
+  `09aac5dca74bfe09af01378d8a09722709973682d9eb90e36db364e0f12a8747`.
+- Qualification ZIP SHA256 (inner ZIP):
+  `b85e97c9d80e1edab54d6b0d5baae13a1c665dd00d37b58f41e598804742f949`.
+
+[Diagnostics](https://github.com/yuwenhua653/android_kernel_xiaomi_sm8750-modules/actions/runs/44487958049/artifacts/14512618476)
+and [qualification binaries](https://github.com/yuwenhua653/android_kernel_xiaomi_sm8750-modules/actions/runs/44487958049/artifacts/14512543869)
+are retained by this run until 2026-12-03. The diagnostics were downloaded and
+their build, verification and provenance records checked after completion.
+The large binary download could not be completed locally; its content checks
+are the runner's checks, not an additional independent local binary audit.
+
+These RMNET changes reside in external modules. Replacing only boot while
+retaining OEM DLKM partitions does not exercise them. Applying them to HyperOS
+requires a reviewed source/OEM module selection and matching partition/load
+integration; this run does not produce that installation package.
 
 ## Scope
 
