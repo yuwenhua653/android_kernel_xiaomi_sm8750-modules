@@ -110,7 +110,11 @@ static bool rmnet_offload_engine_flow_match(struct rmnet_offload_flow *flow,
 	if (!flow->rof_pkts_held)
 		return flow->rof_hash_key == pkt->roi_hash_key;
 
-	/* Transport protocokk must match */
+	/* A hash bucket can contain flows from either address family. */
+	if (flow_hdr->roh_ip_proto != pkt_hdr->roh_ip_proto)
+		return false;
+
+	/* Transport protocol must match */
 	if (flow_hdr->roh_trans_proto != pkt_hdr->roh_trans_proto)
 		return false;
 

@@ -1,0 +1,42 @@
+name: Annibale RMNET regression
+on:
+  push:
+    branches:
+      - annibale
+      - annibale-r46-offload-fix
+    paths:
+      - 'qcom/opensource/datarmnet-ext/**'
+      - 'tools/tests/test_annibale_offload_flow.py'
+      - 'tools/tests/test_annibale_rmnet_lifecycle.py'
+      - 'tools/tests/test_annibale_network_controls.py'
+      - '.github/workflows/annibale-rmnet-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            qcom/opensource/datarmnet-ext
+            tools/tests
+      - name: Fetch pinned pre-fix baseline
+        run: git fetch --no-tags --depth=1 origin e0ce4601d9cac01d9007e1ebae5931040c628929
+      - name: Compile and run real flow predicates with UBSan
+        env:
+          CC: ${{ matrix.compiler }}
+        run: python3 -m unittest discover -s tools/tests -p test_annibale_offload_flow.py -v
+      - name: Check existing network lifecycle and control regressions
+        if: matrix.compiler == 'gcc'
+        run: |
+          python3 -m unittest discover -s tools/tests -p test_annibale_rmnet_lifecycle.py -v
+          python3 -m unittest discover -s tools/tests -p test_annibale_network_controls.py -v
