@@ -1,0 +1,56 @@
+name: Annibale R47 offline assembly
+on:
+  push:
+    branches: [annibale-r48-assembly]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+jobs:
+  assemble:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          path: modules
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: yuwenhua653/android_kernel_xiaomi_sm8750
+          ref: c17ffa89f4fe197dd0e83c36cb517b6c0c13dc34
+          path: kernel-source
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          artifact-ids: '14512543869'
+          run-id: '44487958049'
+          github-token: ${{ github.token }}
+          path: inputs
+      - name: Restore inputs and stage verified modules
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p diagnostics
+          python3 -u modules/tools/assemble_annibale_r47.py --artifact "$(find inputs -name annibale-r47-ARM64-NOT-FLASHABLE.zip -print -quit)" --kernel-source kernel-source --output assembled 2>&1 | tee diagnostics/assembly.log
+      - name: Save diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annibale-r48-assembly-diagnostics
+          path: |
+            diagnostics/*.log
+            assembled/*.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Save source assembly stages
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annibale-r48-SOURCE-STAGES-NOT-FLASHABLE
+          path: assembled/*.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
