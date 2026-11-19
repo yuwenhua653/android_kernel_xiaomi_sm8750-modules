@@ -1,0 +1,521 @@
+{
+  "round": "R41",
+  "device": "annibale",
+  "target": "kernel/modules/DT/source-native offline images",
+  "source_heads": {
+    "sm8750": "c70ed7c690cc908451daf53c14afa8d3ceb20ca9",
+    "sm8750-modules": "6e3c21785c9a8569fabe3d9a57cd182d03ec13c3",
+    "sm8750-devicetrees": "efb44ba29a0a847b42519b0e87fed32d30df8904"
+  },
+  "toolchains": {
+    "bison-data": {
+      "name": "bison-data",
+      "repo": "https://android.googlesource.com/platform/prebuilts/build-tools",
+      "revision": "bfa65e7422cc88dc64ef3ca224daf214a77fb4d5",
+      "subdir": "common/bison",
+      "archive_sha256": "acfd552b376274cba856b3e50ab9ac21d23428f3e308a4501843dc24a8333ccd",
+      "bytes": 210844
+    },
+    "build-tools": {
+      "name": "build-tools",
+      "repo": "https://android.googlesource.com/platform/prebuilts/build-tools",
+      "revision": "bfa65e7422cc88dc64ef3ca224daf214a77fb4d5",
+      "subdir": "linux-x86",
+      "archive_sha256": "71e7d9c7cab5e277581aee8beace3532f3ececbda260f544a0e75bf1bda98629",
+      "bytes": 86209444
+    },
+    "clang": {
+      "name": "clang",
+      "repo": "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86",
+      "revision": "62dc563017359bca29c4a08f5f27d8ecae763462",
+      "subdir": "clang-r510928",
+      "archive_sha256": "2571dc183f77ebc72343dd25a1d2bc5bbd338a38911c29f4d9d2c4b78d521202",
+      "bytes": 906476274
+    },
+    "kernel-tools": {
+      "name": "kernel-tools",
+      "repo": "https://android.googlesource.com/kernel/prebuilts/build-tools",
+      "revision": "b46264b70e3cdf70d08c9ae2df6ea3002b242ebc",
+      "subdir": "linux-x86",
+      "archive_sha256": "6c48af6f8baef7923d8f19a9aee680b26c86e512f8a1cefa583b21b541bf206c",
+      "bytes": 89307381
+    }
+  },
+  "host": {
+    "system": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu_count": 9,
+    "available_memory_kib": 8724860
+  },
+  "full_rom_available": false,
+  "full_rom_missing": [
+    "build/envsetup.sh",
+    "build/soong/soong_ui.bash",
+    "complete Android 17 platform tree",
+    "complete regenerated OS4 vendor tree"
+  ],
+  "kernel_command": "scripts/xiaomi/compile-annibale-board.sh qualify",
+  "kernel_jobs": 6,
+  "external_profile": "audio",
+  "external_jobs": 6,
+  "runtime_verified": false,
+  "mkbootimg_commit": "d2bb0af5ba6d3198a3e99529c97eda1be0b5a093",
+  "kernel_config_sha256": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+  "status": "kernel_modules_dt_offline_images_passed",
+  "date": "2026-11-19",
+  "release": "6.6.144-4k-gc70ed7c690cc",
+  "full_rom_built": false,
+  "flashable": false,
+  "driver_source_changes_required": false,
+  "kernel": {
+    "fresh_build": true,
+    "module_count": 411,
+    "config_sha256": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "symvers_sha256": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "image_sha256": "966ccd2d397c61316ebb8d508edb8dc54a9e69db8d2a65ff7dbf0b97bc1870ea",
+    "cfi_clang": true,
+    "btf": true,
+    "btf_modules": true,
+    "lto": false,
+    "page_size": 4096,
+    "experimental_empty_gki_unprotected_list": true
+  },
+  "external": {
+    "module_count": 93,
+    "versioned_imports_all_504_modules": 27971,
+    "source_dirty": false,
+    "source_files_hashed": 9441,
+    "kernel_inputs_unchanged": true,
+    "verification": "passed",
+    "scope": "same-build ARM64 ELF, modversions, vermagic and acyclic hard dependency graph only"
+  },
+  "sla": {
+    "full_ko_link": true,
+    "modpost": true,
+    "btf": true,
+    "kcflags": "-Werror",
+    "default_enabled": false,
+    "included_in_images": false,
+    "runtime_verified": false,
+    "sha256": "3b3f308abcc388586ea287a9db18659b68e31c26828e46029cd1c5faac2e9b07"
+  },
+  "tests": {
+    "unique_cases_passed": 315,
+    "module_tools": 285,
+    "devicetree_tools": 15,
+    "kernel_helpers": 15,
+    "initial_module_suite_skipped": 7,
+    "skipped_cases_subsequently_passed_with_real_erofs": 7,
+    "final_image_suite_cases_repeated_not_added_to_total": 17
+  },
+  "dt": {
+    "schema_version": 1,
+    "status": "passed",
+    "flashable": false,
+    "boot_verified": false,
+    "kernel_driver_rebuild": false,
+    "dtb_sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+    "base_order": [
+      "sun-tp-v2",
+      "sun-tp",
+      "sun-v2",
+      "sun",
+      "sunp-tp-v2",
+      "sunp-tp",
+      "sunp-v2",
+      "sunp"
+    ],
+    "source_preprocessor_sha256": {
+      "sun-tp-v2": "b88de6995886b226fb32efb475157c715e50ade49fce969a99d0705fe2b6fb7b",
+      "sun-tp": "d1636702242e2f63e42278439ecc787075bdf7bc5b4cec3453fba7c7cd67f3b8",
+      "sun-v2": "6f2dd0e97382b6b5b352809e1fcaacebcdc1cb63502545b010c55b46d7cdae4f",
+      "sun": "d1728e9ae41fd8c106eb42df0234efb140273b812e89db6bd9b57b79d39de208",
+      "sunp-tp-v2": "5ee3593fe0bc66231d84abe6705f03e2c400c1a50ff8c57874496b04fc8ee120",
+      "sunp-tp": "cb491d5b2dac6cae75e21253e96cfbd207d06906b262b27e27312f3e4c779891",
+      "sunp-v2": "b18b09914dd576ab13b81b5e0e3c34382696331db5a13dcae269be794f74e9b8",
+      "sunp": "f4f215ba4e52761070184a1ba0e3eab28f7ced5344ccb76bdded71828d46ebbd",
+      "annibale-sm8750-overlay": "d1f4a5b54aa8642185628f60c3286c759e02d281eb8c22dd068625b743cc8e04",
+      "audio/sun-audio": "3c34278143c21680315077822eb2340a910b78c6d0b90d1ce27fc82345f8a240",
+      "audio/annibale-audio-tfa-test": "4d11f4556583407525450475a5bc9d8bbbe5ba7af851359ec969f55c70fee673",
+      "camera/sun-camera": "f8a346a72183d29dc418d4300e097df250ba1ef31076f34e64428f9e6de1cb5f",
+      "camera/annibale-sm8750-camera-sensor": "35afc95605c8580c0745fee04614568dc21306566b496c7ccb9891125cb98a59",
+      "display/display/annibale-sde-display-mtp-overlay": "c07dc260fdd55823ad43c20a265994261fb31d9983e879d824204e81715baf8d",
+      "graphics/gpu/sun-gpu": "167e74c6adc0885df485c510a4a9125bfdabfd3dd98c536885f528e59089b6d1",
+      "annibale-multimedia-v1-test": "50610709dff99c27cfd188b512ca47331be3fb3ec1ceb0d71ce6b31bfca4de00",
+      "annibale-wireless-test": "3db6015b4d5c51b03da167eba30d37e6b453bbfec0360ef1703360f15f0fdd6a",
+      "graphics/gpu/sun-v2-gpu": "e8fa0dca3d870b8dbdb874f6594035d6fa9fa892ac7b680413d81f959eaf9772",
+      "annibale-multimedia-v2-test": "327a1ec7c4ed38aa0d49497ae3ab9678b4eef5aecbe004a01dc142efa5bfd7f8",
+      "display/display/annibale-native-panel-test": "02005e4100aa7d9d67364ed98415721dfb7b4f658b7b39a4a44d54b645bcaff2",
+      "audio/annibale-audio-sia-test": "c45ff8ca0cf6dbcf6cd4c0b54d91fdd239fbccad29e6368b78e2f2b1ef615d69"
+    },
+    "previous_report_sha256": "be61d203a51b864669cba5f44b59eb79f4bea9fc9b36511425f1434e8070ab1a",
+    "tools_sha256": {
+      "dtc": "466d746a7923d17af6672cd954b3f308116e76860102f995525352bce2a782d7",
+      "fdtoverlay": "ecb6be1f6118839bf7d0dc613e560128845120b058635c87cd6822c70afa630b",
+      "mkdtimg": "789a06e11c365e8152e56d7d84b0ac07439067c1856a66e92973119cb778ca93"
+    },
+    "ambiguous_table_rejections": 8,
+    "reversed_table_checks": 4,
+    "scope": "Single complete overlay application, full property equivalence with fixup-aware phandle normalization, exact base selector narrowing and DT table integrity. Not bootloader, electrical, AVB or complete device qualification.",
+    "base_dtb_count": 8,
+    "dtbo_container_count": 4,
+    "final_composition_count": 32
+  },
+  "power_dt": {
+    "status": "power_dt_passed",
+    "hardware_verified": false,
+    "final_dtbs_checked": 32
+  },
+  "spu_dt": {
+    "status": "spu_dt_passed",
+    "hardware_verified": false,
+    "firmware_verified": false,
+    "final_dtbs_checked": 32
+  },
+  "variants": {
+    "tfa": {
+      "selected_module_count": 217,
+      "partitions": {
+        "vendor_boot": 78,
+        "system_dlkm": 1,
+        "vendor_dlkm": 138
+      },
+      "policy": "Documentation/xiaomi/annibale-spu-tfa-partitions.json",
+      "images": {
+        "schema_version": 1,
+        "status": "offline_images_passed",
+        "flashable": false,
+        "boot_verified": false,
+        "complete_device": false,
+        "family": "tfa",
+        "display_mode": "native",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "kernel_rebuilt": false,
+        "modules": 217,
+        "fstab_rows": 28,
+        "fstab_sha256": "3ae025a673b5d2f56daabdcf99411ecffa786f8beb09c9fea84dc255c6681634",
+        "stage_validation_sha256": "778806e107b2a3e3fb9451fe8001c86cdeb182fcbdfd09b4e062e6c4904723a6",
+        "fragment_validation_sha256": "cd67470b68194b318d6c2cdc3a3ea51bbefb63ca39c29a4694beeef4934dc91e",
+        "dt_validation_sha256": "de8e3092ed5ec0c2e1f158ad23f29ef01c18ee42c402ab6eeb003dc4eb2d15e5",
+        "vendor_boot_layout": {
+          "version": 4,
+          "page_size": 4096,
+          "ramdisk_size": 1809193,
+          "dtb_size": 3254432,
+          "table_size": 216,
+          "entry_size": 108,
+          "bootconfig_size": 205,
+          "entries": [
+            {
+              "size": 2728,
+              "offset": 0,
+              "type": 1,
+              "name": "",
+              "board_id": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "size": 1806465,
+              "offset": 2728,
+              "type": 3,
+              "name": "dlkm",
+              "board_id": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 erofs.reserved_pages=64 bootconfig"
+        },
+        "images": {
+          "boot": {
+            "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+            "bytes": 36810752
+          },
+          "vendor_boot": {
+            "sha256": "43be2567ac2a3cdb6f87e9ea2ae76e380504bb507aa57c515bdeec06e476822b",
+            "bytes": 5079040
+          },
+          "dtbo": {
+            "sha256": "a1a1ad33fc910f54a63f10f24991d48ce74b0f1ea068c10797be9ec25e297aee",
+            "bytes": 1230989
+          },
+          "dtb": {
+            "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+            "bytes": 3254432
+          }
+        },
+        "filesystems": {
+          "system_dlkm": {
+            "sha256": "a31aec2d7d6cc205ca41f0e1b14bdf10951c6d30c39188cce4f7d4d929ec7d99",
+            "bytes": 155648,
+            "files": 5,
+            "inodes_checked": 8,
+            "selinux": "u:object_r:system_dlkm_file:s0",
+            "file_data_roundtrip": true,
+            "uid_gid_mode_labels_checked": true,
+            "incompatible_features": 1
+          },
+          "vendor_dlkm": {
+            "sha256": "b3e0f698e546c69aaaf4280e83d70e627c114890831172bdaf23ae2ae2db0e83",
+            "bytes": 24731648,
+            "files": 142,
+            "inodes_checked": 145,
+            "selinux": "u:object_r:vendor_file:s0",
+            "file_data_roundtrip": true,
+            "uid_gid_mode_labels_checked": true,
+            "incompatible_features": 1
+          }
+        },
+        "tools_sha256": {
+          "mkbootimg": "37d84b3d162e0bc62e36c1f4e1c63c85ea0caa9f29be023eb2f8efe006ad948c",
+          "unpack_bootimg": "a9d260978a63bd06a24b6347e7dee8a28ff96639793caea15dff6aa491316308",
+          "mkfs_erofs": "523061c036352034da56b76531be13345548a8a6b429c358d4fc94e5c3f30937",
+          "fsck_erofs": "e197beb1c65168cd664dd7801e09f61d00c1174e05d6eb2f022e2bece73bfd60",
+          "mkbootfs": "63839a99c4e30a1492aa70fe7ca8df0cf0008b1dbb3319898760cd0052f20a03",
+          "lz4": "6dc1374017cfe759031a145047961442c4f7dfbad6e9052d7c9db284fb9019f6"
+        },
+        "avb_signatures_added": false,
+        "original_avb_footer_copied": false,
+        "unverified": [
+          "Complete native ROM device tree, init_boot, module-loader owners and enforcing SELinux",
+          "Full device module/firmware/HAL coverage and physical amplifier family",
+          "Final AVB/vbmeta, dynamic partition group sizes, recovery and bootloader behavior",
+          "Actual storage mounts, encrypted data unlock and first OSS boot",
+          "GKI policy and runtime signatures/CFI; experimental empty unprotected list"
+        ]
+      },
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "tfa",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "778806e107b2a3e3fb9451fe8001c86cdeb182fcbdfd09b4e062e6c4904723a6",
+        "image_validation_sha256": "d2f97eaecccbc1e0ef3ad50b590459734ab1cf3b58f6ef9b06322aaf92b2651c",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 217,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      }
+    },
+    "sia": {
+      "selected_module_count": 218,
+      "partitions": {
+        "vendor_boot": 78,
+        "system_dlkm": 1,
+        "vendor_dlkm": 139
+      },
+      "policy": "Documentation/xiaomi/annibale-spu-sia-partitions.json",
+      "images": {
+        "schema_version": 1,
+        "status": "offline_images_passed",
+        "flashable": false,
+        "boot_verified": false,
+        "complete_device": false,
+        "family": "sia",
+        "display_mode": "native",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "kernel_rebuilt": false,
+        "modules": 218,
+        "fstab_rows": 28,
+        "fstab_sha256": "3ae025a673b5d2f56daabdcf99411ecffa786f8beb09c9fea84dc255c6681634",
+        "stage_validation_sha256": "3dec334bb01705290e3fa64f7a34282cc9e13ca38f7bf4dfc26a5b3ca719c21f",
+        "fragment_validation_sha256": "f86c54aa6b44142d60317d7293becccf2552e01585714b2a03ccaac2e77159a7",
+        "dt_validation_sha256": "de8e3092ed5ec0c2e1f158ad23f29ef01c18ee42c402ab6eeb003dc4eb2d15e5",
+        "vendor_boot_layout": {
+          "version": 4,
+          "page_size": 4096,
+          "ramdisk_size": 1809193,
+          "dtb_size": 3254432,
+          "table_size": 216,
+          "entry_size": 108,
+          "bootconfig_size": 205,
+          "entries": [
+            {
+              "size": 2728,
+              "offset": 0,
+              "type": 1,
+              "name": "",
+              "board_id": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "size": 1806465,
+              "offset": 2728,
+              "type": 3,
+              "name": "dlkm",
+              "board_id": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 erofs.reserved_pages=64 bootconfig"
+        },
+        "images": {
+          "boot": {
+            "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+            "bytes": 36810752
+          },
+          "vendor_boot": {
+            "sha256": "43be2567ac2a3cdb6f87e9ea2ae76e380504bb507aa57c515bdeec06e476822b",
+            "bytes": 5079040
+          },
+          "dtbo": {
+            "sha256": "f0293f5dcdf3240251668c2f5d120d27175d776f00eb84015075446906eb3d2f",
+            "bytes": 1231389
+          },
+          "dtb": {
+            "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+            "bytes": 3254432
+          }
+        },
+        "filesystems": {
+          "system_dlkm": {
+            "sha256": "a31aec2d7d6cc205ca41f0e1b14bdf10951c6d30c39188cce4f7d4d929ec7d99",
+            "bytes": 155648,
+            "files": 5,
+            "inodes_checked": 8,
+            "selinux": "u:object_r:system_dlkm_file:s0",
+            "file_data_roundtrip": true,
+            "uid_gid_mode_labels_checked": true,
+            "incompatible_features": 1
+          },
+          "vendor_dlkm": {
+            "sha256": "28127cef1fca3ca62e334ba6ff726b8818076e1ee9a118396523d0e9ba97e7cd",
+            "bytes": 24621056,
+            "files": 143,
+            "inodes_checked": 146,
+            "selinux": "u:object_r:vendor_file:s0",
+            "file_data_roundtrip": true,
+            "uid_gid_mode_labels_checked": true,
+            "incompatible_features": 1
+          }
+        },
+        "tools_sha256": {
+          "mkbootimg": "37d84b3d162e0bc62e36c1f4e1c63c85ea0caa9f29be023eb2f8efe006ad948c",
+          "unpack_bootimg": "a9d260978a63bd06a24b6347e7dee8a28ff96639793caea15dff6aa491316308",
+          "mkfs_erofs": "523061c036352034da56b76531be13345548a8a6b429c358d4fc94e5c3f30937",
+          "fsck_erofs": "e197beb1c65168cd664dd7801e09f61d00c1174e05d6eb2f022e2bece73bfd60",
+          "mkbootfs": "63839a99c4e30a1492aa70fe7ca8df0cf0008b1dbb3319898760cd0052f20a03",
+          "lz4": "6dc1374017cfe759031a145047961442c4f7dfbad6e9052d7c9db284fb9019f6"
+        },
+        "avb_signatures_added": false,
+        "original_avb_footer_copied": false,
+        "unverified": [
+          "Complete native ROM device tree, init_boot, module-loader owners and enforcing SELinux",
+          "Full device module/firmware/HAL coverage and physical amplifier family",
+          "Final AVB/vbmeta, dynamic partition group sizes, recovery and bootloader behavior",
+          "Actual storage mounts, encrypted data unlock and first OSS boot",
+          "GKI policy and runtime signatures/CFI; experimental empty unprotected list"
+        ]
+      },
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "sia",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "3dec334bb01705290e3fa64f7a34282cc9e13ca38f7bf4dfc26a5b3ca719c21f",
+        "image_validation_sha256": "ddfa76ae9bdee009f459645bc67a20cce6f300abf10aeeea22cee6defb421818",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 218,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "No complete Android 17 platform or regenerated vendor tree: no full ROM/Soong/SELinux build.",
+    "No init_boot/recovery/vbmeta/super assembly or bootloader verification.",
+    "No hardware boot, probe, charging, standby, firmware/HAL or HyperOS runtime verification.",
+    "Qualification config uses experimental empty GKI unprotected list; production KMI/signature policy not qualified.",
+    "Source-native artifacts must not be mixed with retained-stock HyperOS modules/partitions.",
+    "TFA/SIA are build variants, not confirmed physical amplifier identification.",
+    "Generated handoff is prebuilt input to ROM assembly, not an in-ROM kernel compilation hook."
+  ],
+  "warnings": [
+    "Inherited duplicate DT make recipes",
+    "Deprecated qseecom header warnings"
+  ]
+}
