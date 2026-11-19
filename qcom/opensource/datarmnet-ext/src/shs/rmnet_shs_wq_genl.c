@@ -789,24 +789,13 @@ int rmnet_shs_wq_genl_init(void)
 
 	rmnet_shs_userspace_connected = 0;
 	ret = genl_register_family(&rmnet_shs_genl_family);
-	if (ret != 0) {
-		rm_err("SHS_GNL: register family failed: %i", ret);
-		genl_unregister_family(&rmnet_shs_genl_family);
-		return -1;
-	}
-
-	rm_err("SHS_GNL: successfully registered generic netlink family: %s",
-	       RMNET_SHS_GENL_FAMILY_NAME);
-
+	if (ret)
+		return ret;
 	ret = genl_register_family(&rmnet_shs_genl_msg_family);
-	if (ret != 0) {
-		rm_err("SHS_MSG_GNL: register family failed: %i", ret);
-		genl_unregister_family(&rmnet_shs_genl_msg_family);
-	} else {
-		rm_err("SHS_MSG_GNL: successfully registered generic netlink family: %s",
-		       RMNET_SHS_GENL_MSG_FAMILY_NAME);
+	if (ret) {
+		genl_unregister_family(&rmnet_shs_genl_family);
+		return ret;
 	}
-
 	return 0;
 }
 

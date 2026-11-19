@@ -15,6 +15,8 @@
 #include <linux/kernel.h>
 #include <linux/netdevice.h>
 #include <linux/module.h>
+#include <linux/rcupdate.h>
+#include <linux/tracepoint.h>
 #include "rmnet_map.h"
 #include "rmnet_private.h"
 #include "rmnet_shs_config.h"
@@ -37,13 +39,18 @@ MODULE_PARM_DESC(DATARMNETbc8418e817,
 "\x56\x65\x72\x73\x69\x6f\x6e\x20\x6f\x66\x20\x73\x68\x73\x20\x64\x72\x69\x76\x65\x72"
 );static const struct rmnet_module_hook_register_info DATARMNETf6217b20b8={.
 hooknum=RMNET_MODULE_HOOK_SHS_SKB_LL_ENTRY,.func=DATARMNETf5821256ad};static int
- DATARMNET2cb9ae589c;int __init DATARMNET163e93649e(void){pr_info(
-"\x25\x73\x28\x29\x3a\x20\x4c\x6f\x61\x64\x65\x64\x20\x72\x6d\x6e\x65\x74\x20\x53\x48\x53\x20\x6d\x6f\x64\x75\x6c\x65\x20" "\n"
-,__func__);trace_rmnet_shs_high(DATARMNET1790979ccf,DATARMNET72cb00fdc0,
-(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),NULL
-,NULL);if(DATARMNET0dbc627e8f()){rm_err("\x25\x73",
-"\x53\x48\x53\x5f\x47\x4e\x4c\x3a\x20\x46\x61\x69\x6c\x65\x64\x20\x74\x6f\x20\x69\x6e\x69\x74\x20\x67\x65\x6e\x65\x72\x69\x63\x20\x6e\x65\x74\x6c\x69\x6e\x6b"
-);}return register_netdevice_notifier(&DATARMNET5fc54f7a13);}void __exit 
+ DATARMNET2cb9ae589c;int __init DATARMNET163e93649e(void)
+{
+	int ret = DATARMNET0dbc627e8f();
+
+	if (ret)
+		return ret;
+	ret = register_netdevice_notifier(&DATARMNET5fc54f7a13);
+	if (ret)
+		DATARMNETeabd69d1ab();
+	return ret;
+}
+void __exit
 DATARMNETf3298dab6f(void){trace_rmnet_shs_high(DATARMNET1790979ccf,
 DATARMNET89958f9b63,(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),
 (0x16e8+787-0xc0c),NULL,NULL);unregister_netdevice_notifier(&DATARMNET5fc54f7a13
@@ -66,9 +73,11 @@ qmi_rmnet_ps_ind_deregister(DATARMNETecc0627c70.port,&DATARMNETecc0627c70.
 rmnet_idl_ind_cb);rmnet_map_dl_ind_deregister(DATARMNETecc0627c70.port,&
 DATARMNETecc0627c70.DATARMNET08dbb5ab35);rmnet_map_pb_ind_deregister(
 DATARMNETecc0627c70.port,&DATARMNETecc0627c70.DATARMNET6b783c98fe);
+if(DATARMNETecc0627c70.DATARMNET9c869c1ec2) {
+DATARMNET7fcf8c178f();tracepoint_synchronize_unregister();}
+synchronize_rcu();
 DATARMNETeacad8334e();DATARMNET90fe3a4b56();DATARMNET9f4bc49c6f=
-DATARMNET02cdd9b125();if(DATARMNETecc0627c70.DATARMNET9c869c1ec2)
-DATARMNET7fcf8c178f();DATARMNETf7dcab9a9e();DATARMNET9297340f58(
+DATARMNET02cdd9b125();DATARMNETf7dcab9a9e();DATARMNET9297340f58(
 DATARMNET9f4bc49c6f);trace_rmnet_shs_high(DATARMNET1790979ccf,
 DATARMNET443dab7031,(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),(0x16e8+787-0xc0c),
 (0x16e8+787-0xc0c),NULL,NULL);}break;case NETDEV_REGISTER:DATARMNET2cb9ae589c++;

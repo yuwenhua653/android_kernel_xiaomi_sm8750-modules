@@ -1,0 +1,183 @@
+{
+  "device_files": {
+    "rootdir/etc/init.qcom.rc": {
+      "input_sha256": "8ff3d9dc5a93a1232b7a26cf371155802eb6d6e05472e515f99d62da73b254cc",
+      "output_sha256": "d314869dcc0399cbafc3d5d7e1b9cf2a33949cf2358d71c519556f97017e786e",
+      "replacements": [
+        [
+          "on property:persist.sys.ssr.enable_debug=*\n    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}\n",
+          "# Retired persist.sys.ssr.enable_debug: legacy subsystem_restart/enable_debug is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.sys.mba_boot_timeout=*\n    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}\n",
+          "# Retired persist.sys.mba_boot_timeout: legacy pil_msa/pbl_mba_boot_timeout_ms is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.sys.modem_auth_timeout=*\n    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}\n",
+          "# Retired persist.sys.modem_auth_timeout: legacy pil_msa/modem_auth_timeout_ms is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.sys.pil_proxy_timeout=*\n    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}\n",
+          "# Retired persist.sys.pil_proxy_timeout: legacy peripheral_loader/proxy_timeout_ms is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0\n",
+          ""
+        ],
+        [
+          "on property:persist.vendor.ssr.enable_ramdumps=0\n",
+          "on property:persist.vendor.ssr.enable_ramdumps=0 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1\n",
+          ""
+        ],
+        [
+          "on property:persist.vendor.ssr.enable_ramdumps=1\n",
+          "on property:persist.vendor.ssr.enable_ramdumps=1 && property:vendor.all.modules.ready=1\n"
+        ]
+      ]
+    },
+    "sepolicy/vendor/genfs_contexts": {
+      "input_sha256": "22a786775ec3f583e2e376af68cb9aec477778f3067098246b5c615aebf7e4c5",
+      "output_sha256": "4e0f815c5f8d290132fee8b284dbf6d81a14afce995489d5d978723674fc4d6d",
+      "replacements": [
+        [
+          "# Battery\ngenfscon sysfs \"/devices/platform/soc/soc:mca_business_battery/power_supply/battery\" u:object_r:vendor_sysfs_battery_supply:s0\ngenfscon sysfs \"/devices/platform/soc/soc:mca_business_charger/power_supply/wireless\" u:object_r:vendor_sysfs_battery_supply:s0\ngenfscon sysfs \"/devices/platform/soc/soc:smart_charge\" u:object_r:vendor_sysfs_qcom_battery:s0\ngenfscon sysfs /class/qcom-battery u:object_r:vendor_sysfs_qcom_battery:s0\n\n# Camera\ngenfscon sysfs /csiphy_umd_paras/csiphy_umd_paras u:object_r:sysfs_csiphy_umd_paras:s0\n\n# Display\ngenfscon sysfs /devices/platform/soc/soc:xiaomi_fingerprint/fingerdown u:object_r:vendor_sysfs_displayfeature:s0\n\n# Fingerprint\ngenfscon sysfs /devices/virtual/touch/touch_dev/fod_press_status u:object_r:sysfs_tp_fodstatus:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/gesture_single_tap_state u:object_r:sysfs_tp_fodstatus:s0\n\n# Info \ngenfscon sysfs /kernel/hardware_info_to_dump/hardw_info u:object_r:vendor_sysfs_hardwareinfo:s0\n\n# MCA\ngenfscon sysfs /devices/platform/soc/soc:mca_bmd u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_charge_interface u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_basic_wireless_class u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_pd_auth u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_quick_charge u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_wireless_revchg_class u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:strategy-fg u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/charger u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/charge_log u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/charge_pump u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/fuelgauge u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/hw_monitor/ u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/mca_event u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/typec u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/wireless_master u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power u:object_r:vendor_sysfs_xm_power:s0\n\n# Memory\ngenfscon proc /mv u:object_r:procfs_memory:s0\n\n# Touchfeature\ngenfscon proc /tp_fw_version u:object_r:proc_tp_file:s0\ngenfscon proc /tp_lockdown_info u:object_r:proc_tp_lockdown:s0\ngenfscon proc /tp_lockdown_info_1 u:object_r:proc_tp_lockdown:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/abnormal_event u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/clicktouch_raw u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/ear_sensor u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/ear_sensor_data u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/enable_touch_delta u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/enable_touch_raw u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/hold_sensor u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor_data u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/suspend_state u:object_r:sysfs_touch_suspend:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_active_status u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_doze_analysis u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_finger_status u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_ic_buffer u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_irq_no u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_sensor_ctrl u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_cmd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_cmd_ready u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_downthd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_dump u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_dump_data u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_ic_cmd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_ic_cmd_data u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_islandthd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_mem_notify u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_movethd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_noisefilter u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_preset_point u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_rx_num u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_smooth u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_testmode u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_testresult u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_tx_num u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_upthd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_x_resolution u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_y_resolution u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/update_rawdata u:object_r:sysfs_touch_hostprocess:s0\n\n# Wakeup\ngenfscon sysfs /devices/platform/soc/8c0000.qcom,qupv3_2_geni_se/88c000.i2c/i2c-11/11-0055/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/8c0000.qcom,qupv3_2_geni_se/88c000.i2c/i2c-11/11-006f/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a90000.spi/spi_master/spi4/spi4.0/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a94000.i2c/i2c-5/5-006b/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-00/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300:pwrkey-bark/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-00/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300:pwrkey-resin-bark/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:xiaomi_fingerprint/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_battery/power_supply/battery/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_qcom_subpmic_proxy/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger/power_supply/usb/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger/power_supply/wireless/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mi_t1_chip/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:qcom,dsi-display-primary/wakeup u:object_r:sysfs_wakeup:s0\n\n# Kiwi factory-mode control; keep similarly prefixed callbacks generic.\ngenfscon sysfs /module/qca_cld3_kiwi_v2/parameters/con_mode u:object_r:vendor_sysfs_annibale_wlan_mode:s0\n# genfscon uses string prefixes; exclude con_mode_ftm and con_mode_epping.\ngenfscon sysfs /module/qca_cld3_kiwi_v2/parameters/con_mode_ u:object_r:sysfs:s0\n",
+          "# Battery\ngenfscon sysfs \"/devices/platform/soc/soc:mca_business_battery/power_supply/battery\" u:object_r:vendor_sysfs_battery_supply:s0\ngenfscon sysfs \"/devices/platform/soc/soc:mca_business_charger/power_supply/wireless\" u:object_r:vendor_sysfs_battery_supply:s0\ngenfscon sysfs \"/devices/platform/soc/soc:smart_charge\" u:object_r:vendor_sysfs_qcom_battery:s0\ngenfscon sysfs /class/qcom-battery u:object_r:vendor_sysfs_qcom_battery:s0\n\n# Camera\ngenfscon sysfs /csiphy_umd_paras/csiphy_umd_paras u:object_r:sysfs_csiphy_umd_paras:s0\n\n# Display\ngenfscon sysfs /devices/platform/soc/soc:xiaomi_fingerprint/fingerdown u:object_r:vendor_sysfs_displayfeature:s0\n\n# Fingerprint\ngenfscon sysfs /devices/virtual/touch/touch_dev/fod_press_status u:object_r:sysfs_tp_fodstatus:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/gesture_single_tap_state u:object_r:sysfs_tp_fodstatus:s0\n\n# Info \ngenfscon sysfs /kernel/hardware_info_to_dump/hardw_info u:object_r:vendor_sysfs_hardwareinfo:s0\n\n# MCA\ngenfscon sysfs /devices/platform/soc/soc:mca_bmd u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_charge_interface u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_basic_wireless_class u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_pd_auth u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_quick_charge u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_strategy_wireless_revchg_class u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/platform/soc/soc:strategy-fg u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/charger u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/charge_log u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/charge_pump u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/fuelgauge u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/hw_monitor/ u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/mca_event u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/typec u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power/wireless_master u:object_r:vendor_sysfs_xm_power:s0\ngenfscon sysfs /devices/virtual/xm_power u:object_r:vendor_sysfs_xm_power:s0\n\n# Memory\ngenfscon proc /mv u:object_r:procfs_memory:s0\n\n# Touchfeature\ngenfscon proc /tp_fw_version u:object_r:proc_tp_file:s0\ngenfscon proc /tp_lockdown_info u:object_r:proc_tp_lockdown:s0\ngenfscon proc /tp_lockdown_info_1 u:object_r:proc_tp_lockdown:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/abnormal_event u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/clicktouch_raw u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/ear_sensor u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/ear_sensor_data u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/enable_touch_delta u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/enable_touch_raw u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/hold_sensor u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor_data u:object_r:sysfs_tp_virtual_prox:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/suspend_state u:object_r:sysfs_touch_suspend:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_active_status u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_doze_analysis u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_finger_status u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_ic_buffer u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_irq_no u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_sensor_ctrl u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_cmd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_cmd_ready u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_downthd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_dump u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_dump_data u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_ic_cmd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_ic_cmd_data u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_islandthd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_mem_notify u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_movethd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_noisefilter u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_preset_point u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_rx_num u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_smooth u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_testmode u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_testresult u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_tx_num u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_upthd u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_x_resolution u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/touch_thp_y_resolution u:object_r:sysfs_touch_hostprocess:s0\ngenfscon sysfs /devices/virtual/touch/touch_dev/update_rawdata u:object_r:sysfs_touch_hostprocess:s0\n\n# Wakeup\ngenfscon sysfs /devices/platform/soc/8c0000.qcom,qupv3_2_geni_se/88c000.i2c/i2c-11/11-0055/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/8c0000.qcom,qupv3_2_geni_se/88c000.i2c/i2c-11/11-006f/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a90000.spi/spi_master/spi4/spi4.0/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a94000.i2c/i2c-5/5-006b/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-00/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300:pwrkey-bark/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-00/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300/c42d000.qcom,spmi:qcom,pmk8550@0:pon_hlos@1300:pwrkey-resin-bark/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:xiaomi_fingerprint/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_battery/power_supply/battery/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_qcom_subpmic_proxy/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger/power_supply/usb/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger/power_supply/wireless/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mca_business_charger/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:mi_t1_chip/wakeup u:object_r:sysfs_wakeup:s0\ngenfscon sysfs /devices/platform/soc/soc:qcom,dsi-display-primary/wakeup u:object_r:sysfs_wakeup:s0\n\n# Kiwi factory-mode control; keep similarly prefixed callbacks generic.\ngenfscon sysfs /module/qca_cld3_kiwi_v2/parameters/con_mode u:object_r:vendor_sysfs_annibale_wlan_mode:s0\n# genfscon uses string prefixes; exclude con_mode_ftm and con_mode_epping.\ngenfscon sysfs /module/qca_cld3_kiwi_v2/parameters/con_mode_ u:object_r:sysfs:s0\n\n# Administrative perf policy remains separate from adaptive quickack knobs.\ngenfscon sysfs /module/rmnet_perf/parameters/rmnet_perf_opt_mode u:object_r:vendor_sysfs_annibale_perf_mode:s0\n"
+        ]
+      ]
+    },
+    "sepolicy/vendor/file.te": {
+      "input_sha256": "cddf27e480fe915bff05866fca09bf5727518efcf7bacfe9a66e251d7a27dfd4",
+      "output_sha256": "b2a65a474db2208f272c359f89536d2b61a65781d09d860ff9bd49a19ac179ca",
+      "replacements": [
+        [
+          "# Audio\ntype audio_socket, file_type;\n\n# Battery\ntype vendor_sysfs_qcom_battery, fs_type, sysfs_type;\n\n# Camera\ntype camera_persist_file, file_type, vendor_persist_type;\ntype camlog_device, dev_type;\ntype micam_sched_device, dev_type;\ntype sys_thermal_flash_state, fs_type, sysfs_type;\ntype sys_thermal_torch_real_level, fs_type, sysfs_type;\ntype sysfs_csiphy_umd_paras, fs_type, sysfs_type;\n\n# Charger\ntype vendor_sysfs_xm_power, fs_type, sysfs_type;\ntype vendor_xm_power_device, dev_type;\n\n# Diag\ntype minidump_data_file, data_file_type, file_type;\ntype vendor_bsp_data_log_file, data_file_type, file_type;\n\n# Display\ntype vendor_sysfs_displayfeature, fs_type, sysfs_type;\n\n# Fingerprint\ntype vendor_fingerprint_data_file, data_file_type, file_type;\ntype vendor_fingerprint_data_file_fpdump, data_file_type, file_type;\ntype sysfs_tp_fodstatus, fs_type, sysfs_type;\n\n# Info\ntype vendor_sysfs_hardwareinfo, fs_type, sysfs_type;\n\n# IR\ntype ir_spi_device, dev_type;\n\n# Metis/Migt\ntype migt_dev, dev_type, mlstrustedobject;\ntype sysfs_migt, fs_type, sysfs_type;\n\n# Memory\ntype procfs_memory, fs_type, proc_type;\n\n# Miev\ntype miev_device, dev_type, mlstrustedobject;\n\n# Sensor\ntype vendor_aon_vendor_data_file, data_file_type, file_type;\n\n# SLA\ntype qti_proc_sla, proc_type;\ntype sla_data_file, data_file_type, file_type;\ntype slad_socket, file_type;\n\n# Thermal\ntype sys_thermal_wifi_limit, fs_type, sysfs_type;\ntype sysfs_power_save, fs_type, sysfs_type;\ntype sysfs_poweraware, fs_type, sysfs_type;\ntype thermal_data_file, data_file_type, file_type;\n\n# Touchfeature\ntype proc_tp_file, fs_type, proc_type;\ntype proc_tp_lockdown, fs_type, proc_type;\ntype sysfs_touch_hostprocess, fs_type, sysfs_type;\ntype sysfs_touch_suspend, fs_type, sysfs_type;\ntype sysfs_tp_virtual_prox, fs_type, sysfs_type;\ntype touchreport_data_file, data_file_type, file_type;\ntype vendor_data_touchreport_file, data_file_type, file_type;\n\n# Wlan\ntype vendor_mac_vendor_data_file, data_file_type, file_type, mlstrustedobject;\n\ntype vendor_sysfs_annibale_wlan_mode, fs_type, sysfs_type;\n",
+          "# Audio\ntype audio_socket, file_type;\n\n# Battery\ntype vendor_sysfs_qcom_battery, fs_type, sysfs_type;\n\n# Camera\ntype camera_persist_file, file_type, vendor_persist_type;\ntype camlog_device, dev_type;\ntype micam_sched_device, dev_type;\ntype sys_thermal_flash_state, fs_type, sysfs_type;\ntype sys_thermal_torch_real_level, fs_type, sysfs_type;\ntype sysfs_csiphy_umd_paras, fs_type, sysfs_type;\n\n# Charger\ntype vendor_sysfs_xm_power, fs_type, sysfs_type;\ntype vendor_xm_power_device, dev_type;\n\n# Diag\ntype minidump_data_file, data_file_type, file_type;\ntype vendor_bsp_data_log_file, data_file_type, file_type;\n\n# Display\ntype vendor_sysfs_displayfeature, fs_type, sysfs_type;\n\n# Fingerprint\ntype vendor_fingerprint_data_file, data_file_type, file_type;\ntype vendor_fingerprint_data_file_fpdump, data_file_type, file_type;\ntype sysfs_tp_fodstatus, fs_type, sysfs_type;\n\n# Info\ntype vendor_sysfs_hardwareinfo, fs_type, sysfs_type;\n\n# IR\ntype ir_spi_device, dev_type;\n\n# Metis/Migt\ntype migt_dev, dev_type, mlstrustedobject;\ntype sysfs_migt, fs_type, sysfs_type;\n\n# Memory\ntype procfs_memory, fs_type, proc_type;\n\n# Miev\ntype miev_device, dev_type, mlstrustedobject;\n\n# Sensor\ntype vendor_aon_vendor_data_file, data_file_type, file_type;\n\n# SLA\ntype qti_proc_sla, proc_type;\ntype sla_data_file, data_file_type, file_type;\ntype slad_socket, file_type;\n\n# Thermal\ntype sys_thermal_wifi_limit, fs_type, sysfs_type;\ntype sysfs_power_save, fs_type, sysfs_type;\ntype sysfs_poweraware, fs_type, sysfs_type;\ntype thermal_data_file, data_file_type, file_type;\n\n# Touchfeature\ntype proc_tp_file, fs_type, proc_type;\ntype proc_tp_lockdown, fs_type, proc_type;\ntype sysfs_touch_hostprocess, fs_type, sysfs_type;\ntype sysfs_touch_suspend, fs_type, sysfs_type;\ntype sysfs_tp_virtual_prox, fs_type, sysfs_type;\ntype touchreport_data_file, data_file_type, file_type;\ntype vendor_data_touchreport_file, data_file_type, file_type;\n\n# Wlan\ntype vendor_mac_vendor_data_file, data_file_type, file_type, mlstrustedobject;\n\ntype vendor_sysfs_annibale_wlan_mode, fs_type, sysfs_type;\n\ntype vendor_sysfs_annibale_perf_mode, fs_type, sysfs_type;\n"
+        ]
+      ]
+    },
+    "sepolicy/vendor/init.te": {
+      "input_sha256": "7df37a3e6b152983ad98e720a6470de413a8d959f18892df10bada42015bccc6",
+      "output_sha256": "4aaf45efa3446b1b0ca2769f2a14fb745c9847b98ab9ee2184d8d8b074aaa2a2",
+      "replacements": [
+        [
+          "set_prop(vendor_init, vendor_camera_prop)\nset_prop(vendor_init, vendor_deviceid_prop)\nset_prop(vendor_init, vendor_displayfeature_prop)\nset_prop(vendor_init, vendor_mischeck_prop)\nset_prop(vendor_init, vendor_qcc_prop)\nset_prop(vendor_init, vendor_radio_prop)\nset_prop(vendor_init, vendor_ssr_prop)\nset_prop(vendor_init, vendor_thermal_normal_prop)\nset_prop(vendor_init, vendor_touchfeature_prop)\n\nallow vendor_init minidump_data_file:dir create_dir_perms;\nallow vendor_init minidump_data_file:file create_file_perms;\n\nallow init nfc:binder call;\n\nallow vendor_init vendor_sysfs_annibale_wlan_mode:file { getattr open write };\n",
+          "set_prop(vendor_init, vendor_camera_prop)\nset_prop(vendor_init, vendor_deviceid_prop)\nset_prop(vendor_init, vendor_displayfeature_prop)\nset_prop(vendor_init, vendor_mischeck_prop)\nset_prop(vendor_init, vendor_qcc_prop)\nset_prop(vendor_init, vendor_radio_prop)\nset_prop(vendor_init, vendor_ssr_prop)\nset_prop(vendor_init, vendor_thermal_normal_prop)\nset_prop(vendor_init, vendor_touchfeature_prop)\n\nallow vendor_init minidump_data_file:dir create_dir_perms;\nallow vendor_init minidump_data_file:file create_file_perms;\n\nallow init nfc:binder call;\n\nallow vendor_init vendor_sysfs_annibale_wlan_mode:file { getattr open write };\n\nallow vendor_init vendor_sysfs_annibale_perf_mode:file { getattr open write };\nallow vendor_init vendor_sysfs_qcom_ramdump:file { getattr open write };\n"
+        ]
+      ]
+    }
+  },
+  "vendor_files": {
+    "vendor/etc/init/hw/init.qti.kernel.rc": {
+      "input_sha256": "77a8019f1382471bfea4753103defb2e19860b5e115e0690e95ac07b25ddf75b",
+      "output_sha256": "c8224e730848b306261cddb19eb68141f8e61b2de78a0da4381a13e576ec48cc",
+      "replacements": [
+        [
+          "on property:persist.sys.ssr.enable_debug=*\n    write /sys/module/subsys_pil_tz/parameters/enable_debug ${persist.sys.ssr.enable_debug}\n",
+          "# Retired persist.sys.ssr.enable_debug: legacy subsys_pil_tz/enable_debug is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.sys.mba_boot_timeout=*\n    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}\n",
+          "# Retired persist.sys.mba_boot_timeout: legacy pil_msa/pbl_mba_boot_timeout_ms is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.sys.modem_auth_timeout=*\n    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}\n",
+          "# Retired persist.sys.modem_auth_timeout: legacy pil_msa/modem_auth_timeout_ms is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.sys.pil_proxy_timeout=*\n    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}\n",
+          "# Retired persist.sys.pil_proxy_timeout: legacy peripheral_loader/proxy_timeout_ms is absent in the native 6.6 kernel.\n"
+        ],
+        [
+          "on property:persist.vendor.ssr.enable_ramdumps=0\n    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0\n",
+          "# Native ramdump collection is owned by device init.qcom.rc.\n"
+        ],
+        [
+          "on property:persist.vendor.ssr.enable_ramdumps=1\n    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1\n",
+          "# Native ramdump collection is owned by device init.qcom.rc.\n"
+        ]
+      ]
+    },
+    "vendor/etc/init/nicmd.rc": {
+      "input_sha256": "70b21193c6c5a0f8692285fd351c06ab15181623c41e46b6ad96188ea209fc15",
+      "output_sha256": "7b310138d40417bd0622a01929ee0c0de6fed63648a5e74f54d65a045c8c7df0",
+      "replacements": [
+        [
+          "on property:persist.vendor.data.shs_ko_load=0\n",
+          "on property:persist.vendor.data.shs_ko_load=0 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.shs_ko_load=1\n",
+          "on property:persist.vendor.data.shs_ko_load=1 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.offload_ko_load=0\n",
+          "on property:persist.vendor.data.offload_ko_load=0 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.offload_ko_load=1\n",
+          "on property:persist.vendor.data.offload_ko_load=1 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=0\n",
+          "on property:persist.vendor.data.perf_ko_load=0 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=1\n",
+          "on property:persist.vendor.data.perf_ko_load=1 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=2\n",
+          "on property:persist.vendor.data.perf_ko_load=2 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=3\n",
+          "on property:persist.vendor.data.perf_ko_load=3 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=3 && property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -d /vendor/lib/modules rmnet_perf rmnet_perf_ingress_deag=N\n",
+          "on property:persist.vendor.data.perf_ko_load=3 && property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules rmnet_perf\n    write /sys/module/rmnet_perf/parameters/rmnet_perf_opt_mode all\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=2 && property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -d /vendor/lib/modules rmnet_perf rmnet_perf_opt_mode=\"udp\"\n",
+          "on property:persist.vendor.data.perf_ko_load=2 && property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules rmnet_perf\n    write /sys/module/rmnet_perf/parameters/rmnet_perf_opt_mode udp\n"
+        ],
+        [
+          "on property:persist.vendor.data.perf_ko_load=1 && property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules rmnet_perf\n",
+          "on property:persist.vendor.data.perf_ko_load=1 && property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules rmnet_perf\n    write /sys/module/rmnet_perf/parameters/rmnet_perf_opt_mode all\n"
+        ]
+      ]
+    },
+    "vendor/etc/init/slad.rc": {
+      "input_sha256": "e4d6cf58b3bcc5923dae800793915b8fb573b55860497e568686fd664b6637d7",
+      "output_sha256": "4b3495d1382d3aef1c2949131a96d5d3edc010a28e8d71cc3d7ae33c9b917e06",
+      "replacements": [
+        [
+          "on property:vendor.sla.enabled=1\n",
+          "on property:vendor.sla.enabled=1 && property:vendor.all.modules.ready=1\n"
+        ],
+        [
+          "    insmod /vendor/lib/modules/sla.ko\n",
+          "\non property:vendor.all.modules.ready=1\n    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules sla\n"
+        ],
+        [
+          "on property:sys.sla.enabled=0\n",
+          "on property:sys.sla.enabled=0 && property:vendor.all.modules.ready=1\n"
+        ]
+      ]
+    }
+  },
+  "extract_input_sha256": "ae923fc2f6da26d5d2666b7665fb9e5e3daa5490438ca56f35377012373e06b8",
+  "retired_parameter_actions": 12,
+  "kept_ramdump_actions": 2,
+  "removal_runtime_qualified": false,
+  "sla_runtime_qualified": false,
+  "notes": [
+    "Retired legacy modem debug/timeout controls have no provider in this kernel; no claim of replacement or feature parity.",
+    "Current rmnet_core always owns QMAP deaggregation; mode 3 selects all protocol optimizations without changing the core.",
+    "Mode 2 is an independent UDP-only administrative mask; setting the quickack knob cannot override it.",
+    "SLA still requires explicit experimental packaging; this fix does not hide a missing module."
+  ]
+}

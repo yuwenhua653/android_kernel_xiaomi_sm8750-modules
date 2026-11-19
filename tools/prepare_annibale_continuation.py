@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-only
-"""Recreate the R40 conversion, R42 init/fstab and R43 factory Wi-Fi adaptation.
+"""Recreate the R40 conversion, R42 init/fstab and R43 Wi-Fi and R44 native network integration.
 
 No proprietary data is fetched, no vendor tree is generated, and no ROM is
 built. Outputs must be new and separate from the clean pinned reference.
@@ -14,6 +14,7 @@ import subprocess
 
 from annibale_ramdisk import require
 from prepare_annibale_rom_handoff import convert as handoff
+from prepare_annibale_native_network import prepare as network
 from prepare_annibale_os4_authsecret import convert as authsecret
 from prepare_annibale_os4_media import convert as media
 from prepare_annibale_os4_userspace import convert as userspace
@@ -64,6 +65,7 @@ def prepare(reference, output):
                     str(docs/'patches/annibale-native-wifi-factory.patch')], check=True)
     for name, hashes in wifi_profile['files'].items():
         require(digest(output/name) == hashes['output_sha256'], 'factory Wi-Fi output differs: '+name)
+    network(output)
     require((output/'rootdir/etc/fstab.qcom').read_bytes() == (reference/'rootdir/etc/fstab.qcom').read_bytes(),
             'recovery fstab changed')
     report = {'status': 'device_source_restored', 'reference_commit': REFERENCE,

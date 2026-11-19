@@ -14,6 +14,7 @@
 #include "qmi_rmnet.h"
 #include "rmnet_offload_state.h"
 #include "rmnet_offload_engine.h"
+#include "rmnet_offload_main.h"
 
 MODULE_LICENSE("GPL v2");
 
@@ -48,6 +49,7 @@ static void rmnet_offload_state_free(void)
 
 	/* Flush out before we destroy everything */
 	rmnet_offload_engine_flush_all_flows(&flush_list);
+	rmnet_offload_deliver_descs(&flush_list);
 	rmnet_offload_engine_exit();
 	kfree(rmnet_offload);
 	rmnet_offload = NULL;

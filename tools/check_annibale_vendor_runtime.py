@@ -147,13 +147,23 @@ def check_module_actions(files, inventory):
                 if words[0] in ('exec', 'exec_background') and '--' in words:
                     command = words[words.index('--')+1:]
                 if command and command[0] == 'write' and len(command) >= 2 and command[1].startswith('/sys/module/') and '/parameters/' in command[1]:
-                    # Only this newly adapted factory interface is qualified here.
-                    # Preserve the other writes as explicitly unreviewed inventory.
-                    target = '/sys/module/qca_cld3_kiwi_v2/parameters/con_mode'
-                    if command[1] != target:
+                    rules = {
+                        '/sys/module/qca_cld3_kiwi_v2/parameters/con_mode': {
+                            'vendor.wifi.ftmd.load=true': '5', 'vendor.wifi.ftmd.load=false': '0'},
+                        '/sys/module/rmnet_perf/parameters/rmnet_perf_opt_mode': {
+                            'persist.vendor.data.perf_ko_load=1': 'all',
+                            'persist.vendor.data.perf_ko_load=2': 'udp',
+                            'persist.vendor.data.perf_ko_load=3': 'all'},
+                        '/sys/module/qcom_ramdump/parameters/enable_dump_collection': {
+                            'persist.vendor.ssr.enable_ramdumps=1': '1',
+                            'persist.vendor.ssr.enable_ramdumps=0': '0'},
+                    }
+                    target = command[1]
+                    if target not in rules:
                         other_parameter_writes.append({'file': filename, 'trigger': section['head'], 'command': words})
+                        issues.append({'file': filename, 'trigger': section['head'], 'kind': 'unreviewed_parameter_write', 'path': target})
                         continue
-                    name, param = 'qca_cld3_kiwi_v2', 'con_mode'
+                    name, param = target.split('/')[3], target.split('/')[5]
                     module = inventory.get(name)
                     errors = []
                     if module is None:
@@ -163,13 +173,12 @@ def check_module_actions(files, inventory):
                         if meta is None or not meta['permission'] & 0o200:
                             errors.append({'kind': 'missing_writable_callback_parameter', 'module': name, 'parameter': param})
                         if not module['preloaded'] or module['partition'] != 'vendor_dlkm':
-                            errors.append({'kind': 'factory_module_not_preloaded'})
-                    triggers = {
-                        ('on', 'property:vendor.wifi.ftmd.load=true', '&&', 'property:vendor.all.modules.ready=1'): '5',
-                        ('on', 'property:vendor.wifi.ftmd.load=false', '&&', 'property:vendor.all.modules.ready=1'): '0'}
+                            errors.append({'kind': 'controlled_module_not_preloaded'})
+                    triggers = {('on', 'property:'+prop, '&&', 'property:vendor.all.modules.ready=1'): value
+                                for prop, value in rules[target].items()}
                     value = triggers.get(tuple(section['head']))
                     if value is None or command != ['write', target, value]:
-                        errors.append({'kind': 'unreviewed_factory_trigger_or_mode'})
+                        errors.append({'kind': 'unreviewed_parameter_trigger_or_value'})
                     records.append({'file': filename, 'trigger': section['head'], 'command': words,
                                     'action': 'write_parameter', 'modules': [name], 'issues': errors})
                     issues.extend({'file': filename, 'trigger': section['head'], **item} for item in errors)

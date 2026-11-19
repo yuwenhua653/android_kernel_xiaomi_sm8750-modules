@@ -1,0 +1,539 @@
+{
+  "round": "R44",
+  "device": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-19",
+  "status": "source_and_offline_build_progress_with_runtime_gates",
+  "base_modules_commit": "c2c3345761d53a6ff3284ca117ea61f7a0325550",
+  "release": "6.6.144-4k-gc70ed7c690cc",
+  "kernel_rebuilt": false,
+  "core_modules_reused": 411,
+  "external_modules_fresh": 94,
+  "versioned_imports_checked": 28033,
+  "compiled_snapshot_matches_current_source": true,
+  "snapshot_file_count": 9447,
+  "changed_driver_sha256": {
+    "qcom/opensource/datarmnet-ext/offload/rmnet_offload_state.c": "60b96799e9278e20afe6451dcf5e853060ad7200875180cb6554057dffc31a92",
+    "qcom/opensource/datarmnet-ext/perf/rmnet_perf_main.c": "de0bcad93d20132f8c40cefcbf225869d97e26933bd436ef769856a5b6c784d4",
+    "qcom/opensource/datarmnet-ext/perf/rmnet_perf_tcp.c": "610cb29cf6d9af8df95f2962f3377c04710e59ecd57a76bef27c47d1b70b6db9",
+    "qcom/opensource/datarmnet-ext/shs/rmnet_shs_config.c": "43d582c5b8f5d34fcce282204e4fe55eecc9f51abc8fa4d9ab8e23874b8ff908",
+    "qcom/opensource/datarmnet-ext/shs/rmnet_shs_wq_genl.c": "22e93fa32fba053730d0744f47778bce4d1ffbd07d24571a19b0adc87a30691b",
+    "qcom/opensource/datarmnet-ext/src/offload/rmnet_offload_state.c": "065b032f7130f77b7cceddcc507e2a513460fd679edd94127429ced4c50fd809",
+    "qcom/opensource/datarmnet-ext/src/perf/rmnet_perf_main.c": "1342b27841351b4ec1e2cf02b5c614722811e3a439aa612a92dda1c0b7e3732a",
+    "qcom/opensource/datarmnet-ext/src/perf/rmnet_perf_tcp.c": "bf26b4d77633b201a7560330ced667a09f95334dfa9776c57dd9d537c4325b3c",
+    "qcom/opensource/datarmnet-ext/src/shs/rmnet_shs_config.c": "69005467e116c58b62312ece53603b80e1e17a6cbe3e8579ed68abe70f3a6d56",
+    "qcom/opensource/datarmnet-ext/src/shs/rmnet_shs_wq_genl.c": "e0fb6532c5719bbf241140d51c99aa2f4f33a6b02c9da3ceed335144481d901c",
+    "qcom/opensource/datarmnet-ext/perf/rmnet_perf_mode.h": "44da10e0e3fde25f96090905b7cd76368119f29da293e14dbe408af36624d061",
+    "qcom/opensource/datarmnet-ext/src/perf/rmnet_perf_mode.h": "44da10e0e3fde25f96090905b7cd76368119f29da293e14dbe408af36624d061"
+  },
+  "changed_module_binaries": {
+    "rmnet_perf": {
+      "sha256": "9688d9f685f1226eda99548c6e69bffbdd364546b32661dae1aee018769fe428",
+      "versioned_imports": 60,
+      "depends": [
+        "rmnet_core"
+      ],
+      "softdep": [],
+      "firmware": []
+    },
+    "rmnet_shs": {
+      "sha256": "5d68c6e74bbcfac098c7a8c1c9df07cea62ccb18948f218054fb607c89e84f15",
+      "versioned_imports": 143,
+      "depends": [
+        "rmnet_core",
+        "sched_walt"
+      ],
+      "softdep": [],
+      "firmware": []
+    },
+    "rmnet_offload": {
+      "sha256": "dcb2cf5697ba833ee541e332ef28f3bbcab0c22c4790333be7d9981064a0382e",
+      "versioned_imports": 32,
+      "depends": [
+        "rmnet_core"
+      ],
+      "softdep": [],
+      "firmware": []
+    },
+    "sla": {
+      "sha256": "14c142547009788f4e5d9f68651e8297ebe3a9a8b2db2b06ca04581a371cce0d",
+      "versioned_imports": 57,
+      "depends": [],
+      "softdep": [],
+      "firmware": []
+    }
+  },
+  "tests": {
+    "count": 322,
+    "skipped": 0,
+    "actual_erofs_fixture": true,
+    "actual_bpfmt_fixture": true,
+    "host_mocks_are_not_kernel_runtime": true
+  },
+  "retired_controls": {
+    "retired_modules_absent_from_linked_inventory": [
+      "subsystem_restart",
+      "subsys_pil_tz",
+      "pil_msa",
+      "peripheral_loader"
+    ],
+    "linked_module_count": 504,
+    "builtin_module_count": 622,
+    "retired_actions": 12,
+    "kept_ramdump_actions": 2,
+    "unreviewed_parameter_writes": 0,
+    "modern_modem_timeout_replacement_implemented": false,
+    "reason": "These legacy debug/timeout interfaces have no provider in selected native kernel; removing their dead init writes does not implement equivalent modern controls."
+  },
+  "local_inputs": {
+    "blueprints": 27,
+    "literal_inputs": 51,
+    "errors": []
+  },
+  "generated_init": {
+    "scoped_entries": 100,
+    "vendor_path": "/workspace/scratch/b72c45bd8860/out/r44-generator-final/vendor/xiaomi/annibale",
+    "complete_vendor": false,
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "applied_real_blob_fixups": true
+  },
+  "variants": {
+    "standard-tfa": {
+      "image_status": "offline_images_passed",
+      "module_count": 217,
+      "images": {
+        "boot": {
+          "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "baf6c82c320adf75a1eb3bf17c5888989a62afd1c65f2aaee931b68b2a532e48",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "a1a1ad33fc910f54a63f10f24991d48ce74b0f1ea068c10797be9ec25e297aee",
+          "bytes": 1230989
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "tfa",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "96f2452b7803d33bcf54fea60f3c35cdff44e3941c91a4b18d0cf48ad11e115c",
+        "image_validation_sha256": "7761facf198fb6bff4cefeb64ec8b632bd70643f7962d08e2b910052e40d60fc",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 217,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      },
+      "runtime_status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "service_count": 199,
+      "module_action_issues": [
+        {
+          "file": "slad.rc",
+          "trigger": [
+            "on",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "module_not_packaged",
+          "module": "sla"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.shs_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_shs"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_perf"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.offload_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_offload"
+        }
+      ],
+      "parameter_write_count": 7,
+      "unreviewed_parameter_writes": [],
+      "runtime_verified": false
+    },
+    "standard-sia": {
+      "image_status": "offline_images_passed",
+      "module_count": 218,
+      "images": {
+        "boot": {
+          "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "baf6c82c320adf75a1eb3bf17c5888989a62afd1c65f2aaee931b68b2a532e48",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "f0293f5dcdf3240251668c2f5d120d27175d776f00eb84015075446906eb3d2f",
+          "bytes": 1231389
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "sia",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "32fae2e242d3d5de11bd7875b01b53237010f303205196796e6d6f09c0783d28",
+        "image_validation_sha256": "6c81ba19c710d595aee68a0ee38edcb297cc4e6330cbf882f6070404d6cd1c1f",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 218,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      },
+      "runtime_status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "service_count": 199,
+      "module_action_issues": [
+        {
+          "file": "slad.rc",
+          "trigger": [
+            "on",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "module_not_packaged",
+          "module": "sla"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.shs_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_shs"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_perf"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.offload_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_offload"
+        }
+      ],
+      "parameter_write_count": 7,
+      "unreviewed_parameter_writes": [],
+      "runtime_verified": false
+    },
+    "sla-tfa": {
+      "image_status": "offline_images_passed",
+      "module_count": 218,
+      "images": {
+        "boot": {
+          "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "baf6c82c320adf75a1eb3bf17c5888989a62afd1c65f2aaee931b68b2a532e48",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "a1a1ad33fc910f54a63f10f24991d48ce74b0f1ea068c10797be9ec25e297aee",
+          "bytes": 1230989
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "tfa",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "dc58d650baeba84cfc36b326fe8ffa67c59a13d23d27ee41506724b08caaf839",
+        "image_validation_sha256": "9ac775bc7df2450616afbfc69467834548b7e6b66dd633838066309efd60c1ba",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 218,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      },
+      "runtime_status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "service_count": 199,
+      "module_action_issues": [
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.shs_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_shs"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_perf"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.offload_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_offload"
+        }
+      ],
+      "parameter_write_count": 7,
+      "unreviewed_parameter_writes": [],
+      "runtime_verified": false
+    },
+    "sla-sia": {
+      "image_status": "offline_images_passed",
+      "module_count": 219,
+      "images": {
+        "boot": {
+          "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "baf6c82c320adf75a1eb3bf17c5888989a62afd1c65f2aaee931b68b2a532e48",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "f0293f5dcdf3240251668c2f5d120d27175d776f00eb84015075446906eb3d2f",
+          "bytes": 1231389
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "handoff": {
+        "schema_version": 1,
+        "status": "handoff_prepared",
+        "flashable": false,
+        "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+        "family": "sia",
+        "release": "6.6.144-4k-gc70ed7c690cc",
+        "stage_validation_sha256": "a382a774c9d066302689316ddf3e7644a4e158f50a35f3e5515a4c8a5fdc9858",
+        "image_validation_sha256": "e8b26242b6aa32a0e54b024eb5df025ef694c0a00829fb3bd61c37466b439e70",
+        "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+        "module_count": 219,
+        "header_count": 1003,
+        "kernel_compilation_hook": false,
+        "rom_built": false,
+        "init_boot_built": false,
+        "unverified": [
+          "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+          "Re-extracted vendor tree must not retain conflicting loader owners",
+          "Actual init service graph, vendor tools and enforcing policy",
+          "Recovery/charger module lists and physical partition/AVB configuration",
+          "Device driver coverage, amplifier identity and first boot"
+        ]
+      },
+      "runtime_status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "service_count": 199,
+      "module_action_issues": [
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.shs_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_shs"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.perf_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_perf"
+        },
+        {
+          "file": "nicmd.rc",
+          "trigger": [
+            "on",
+            "property:persist.vendor.data.offload_ko_load=0",
+            "&&",
+            "property:vendor.all.modules.ready=1"
+          ],
+          "kind": "preloaded_module_removal_unqualified",
+          "module": "rmnet_offload"
+        }
+      ],
+      "parameter_write_count": 7,
+      "unreviewed_parameter_writes": [],
+      "runtime_verified": false
+    }
+  },
+  "make_handoff": {
+    "standard-tfa": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 138
+      },
+      "rejected_old_owners": [
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES=old.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES=old.ko",
+        "BOARD_VENDOR_KERNEL_MODULES=old.ko",
+        "BOARD_PREBUILT_INIT_BOOT_IMAGE=stock.img"
+      ],
+      "kati_soong_executed": false
+    },
+    "standard-sia": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 139
+      },
+      "rejected_old_owners": [
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES=old.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES=old.ko",
+        "BOARD_VENDOR_KERNEL_MODULES=old.ko",
+        "BOARD_PREBUILT_INIT_BOOT_IMAGE=stock.img"
+      ],
+      "kati_soong_executed": false
+    },
+    "sla-tfa": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 139
+      },
+      "rejected_old_owners": [
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES=old.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES=old.ko",
+        "BOARD_VENDOR_KERNEL_MODULES=old.ko",
+        "BOARD_PREBUILT_INIT_BOOT_IMAGE=stock.img"
+      ],
+      "kati_soong_executed": false
+    },
+    "sla-sia": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 140
+      },
+      "rejected_old_owners": [
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES=old.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES=old.ko",
+        "BOARD_VENDOR_KERNEL_MODULES=old.ko",
+        "BOARD_PREBUILT_INIT_BOOT_IMAGE=stock.img"
+      ],
+      "kati_soong_executed": false
+    }
+  },
+  "sla_default_changed": false,
+  "experimental_sla_included_in_only_selected_variants": true,
+  "remaining": [
+    "Three preloaded RMNET removal actions remain blocked pending target traffic/lifecycle qualification.",
+    "Default plans still deliberately exclude experimental SLA; its load action remains reported missing there.",
+    "Experimental SLA needs real MM/proc/netfilter/concurrent-control tests and matching statistics semantics.",
+    "Full Android17 platform/vendor Soong/Kati, assembled VINTF, production SELinux/GKI/signatures, firmware/probe and both ROM hardware validation."
+  ],
+  "full_rom_built": false,
+  "full_vendor_regenerated": false,
+  "selinux_compiled": false,
+  "hyperos_runtime_verified": false,
+  "aosp_runtime_verified": false,
+  "flashable": false
+}

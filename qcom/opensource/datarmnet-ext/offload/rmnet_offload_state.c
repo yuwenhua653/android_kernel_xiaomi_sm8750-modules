@@ -19,6 +19,7 @@
 #include "qmi_rmnet.h"
 #include "rmnet_offload_state.h"
 #include "rmnet_offload_engine.h"
+#include "rmnet_offload_main.h"
 MODULE_LICENSE("\x47\x50\x4c\x20\x76\x32");
 #define DATARMNET1f03ff7987 (0xd2d+202-0xdf7)
 static struct DATARMNET70f3b87b5d*DATARMNETe05748b000;static void 
@@ -31,7 +32,8 @@ DATARMNETc2832b8f85)rmnet_map_dl_ind_deregister(DATARMNETf0d9de7e2f,&
 DATARMNET87b015f76f->DATARMNET8633ae8f1e);}static void DATARMNET345f805b34(void)
 {LIST_HEAD(DATARMNET6f9bfa17e6);if(!DATARMNETe05748b000)return;
 DATARMNETac9c8c14b1();DATARMNETba38823a2f();DATARMNET560e127137();
-synchronize_rcu();DATARMNETae70636c90(&DATARMNET6f9bfa17e6);DATARMNETb98b78b8e3(
+synchronize_rcu();DATARMNETae70636c90(&DATARMNET6f9bfa17e6);
+DATARMNETc70e73c8d4(&DATARMNET6f9bfa17e6);DATARMNETb98b78b8e3(
 );kfree(DATARMNETe05748b000);DATARMNETe05748b000=NULL;}static int 
 DATARMNETd68e3594a7(void){struct rmnet_port*DATARMNETf0d9de7e2f=
 DATARMNETe05748b000->DATARMNET403589239f;struct qmi_rmnet_ps_ind*

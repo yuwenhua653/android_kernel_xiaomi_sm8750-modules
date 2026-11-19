@@ -19,6 +19,7 @@
 
 #include "rmnet_perf_tcp.h"
 #include "rmnet_perf_udp.h"
+#include "rmnet_perf_mode.h"
 
 #include "rmnet_descriptor.h"
 #include "rmnet_map.h"
@@ -229,7 +230,7 @@ int rmnet_perf_ingress_handle(struct sk_buff *skb)
 			return -EINVAL;
 
 		if (iph->protocol == IPPROTO_UDP) {
-			if (enable_udp)
+			if (READ_ONCE(enable_udp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_UDP))
 				rmnet_perf_ingress_handle_udp(skb);
 
 			return rmnet_perf_ingress_handle_quic(skb,
@@ -237,7 +238,7 @@ int rmnet_perf_ingress_handle(struct sk_buff *skb)
 		}
 
 		if (iph->protocol == IPPROTO_TCP) {
-			if (enable_tcp)
+			if (READ_ONCE(enable_tcp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_TCP))
 				rmnet_perf_ingress_handle_tcp(skb);
 
 			/* Don't skip SHS processing for TCP */
@@ -260,14 +261,14 @@ int rmnet_perf_ingress_handle(struct sk_buff *skb)
 			return -EINVAL;
 
 		if (proto == IPPROTO_UDP) {
-			if (enable_udp)
+			if (READ_ONCE(enable_udp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_UDP))
 				rmnet_perf_ingress_handle_udp(skb);
 
 			return rmnet_perf_ingress_handle_quic(skb, ip_len);
 		}
 
 		if (proto == IPPROTO_TCP) {
-			if (enable_tcp)
+			if (READ_ONCE(enable_tcp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_TCP))
 				rmnet_perf_ingress_handle_tcp(skb);
 
 			return -EINVAL;
@@ -287,7 +288,7 @@ void rmnet_perf_ingress_rx_handler(struct sk_buff *skb)
 			return;
 
 		if (iph->protocol == IPPROTO_TCP) {
-			if (enable_tcp)
+			if (READ_ONCE(enable_tcp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_TCP))
 				rmnet_perf_ingress_rx_handler_tcp(skb);
 		}
 	} else if (skb->protocol == htons(ETH_P_IPV6)) {
@@ -307,7 +308,7 @@ void rmnet_perf_ingress_rx_handler(struct sk_buff *skb)
 			return;
 
 		if (proto == IPPROTO_TCP) {
-			if (enable_tcp)
+			if (READ_ONCE(enable_tcp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_TCP))
 				rmnet_perf_ingress_rx_handler_tcp(skb);
 		}
 	}
@@ -332,7 +333,7 @@ void rmnet_perf_egress_handle(struct sk_buff *skb)
 			return;
 
 		if (iph->protocol == IPPROTO_UDP) {
-			if (enable_udp)
+			if (READ_ONCE(enable_udp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_UDP))
 				rmnet_perf_egress_handle_udp(skb);
 
 			rmnet_perf_egress_handle_quic(skb, iph->ihl * 4);
@@ -340,7 +341,7 @@ void rmnet_perf_egress_handle(struct sk_buff *skb)
 		}
 
 		if (iph->protocol == IPPROTO_TCP) {
-			if (enable_tcp)
+			if (READ_ONCE(enable_tcp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_TCP))
 				rmnet_perf_egress_handle_tcp(skb);
 
 			return;
@@ -362,7 +363,7 @@ void rmnet_perf_egress_handle(struct sk_buff *skb)
 			return;
 
 		if (proto == IPPROTO_UDP) {
-			if (enable_udp)
+			if (READ_ONCE(enable_udp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_UDP))
 				rmnet_perf_egress_handle_udp(skb);
 
 			rmnet_perf_egress_handle_quic(skb, ip_len);
@@ -370,7 +371,7 @@ void rmnet_perf_egress_handle(struct sk_buff *skb)
 		}
 
 		if (proto == IPPROTO_TCP) {
-			if (enable_tcp)
+			if (READ_ONCE(enable_tcp) && rmnet_perf_mode_allows(RMNET_PERF_MODE_TCP))
 				rmnet_perf_egress_handle_tcp(skb);
 
 			return;

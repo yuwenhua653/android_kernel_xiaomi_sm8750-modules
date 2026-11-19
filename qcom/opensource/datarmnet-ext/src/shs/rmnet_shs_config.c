@@ -7,6 +7,8 @@
 #include <linux/kernel.h>
 #include <linux/netdevice.h>
 #include <linux/module.h>
+#include <linux/rcupdate.h>
+#include <linux/tracepoint.h>
 #include "rmnet_map.h"
 #include "rmnet_private.h"
 #include "rmnet_shs_config.h"
@@ -52,15 +54,19 @@ static int rmnet_vnd_total;
 /* Enable smart hashing capability upon call to initialize module*/
 int __init rmnet_shs_module_init(void)
 {
+	int ret;
 	pr_info("%s(): Loaded rmnet SHS module \n", __func__);
 	trace_rmnet_shs_high(RMNET_SHS_MODULE, RMNET_SHS_MODULE_INIT,
 			    0xDEF, 0xDEF, 0xDEF, 0xDEF, NULL, NULL);
 
-	if (rmnet_shs_wq_genl_init()) {
-		rm_err("%s", "SHS_GNL: Failed to init generic netlink");
-	}
+	ret = rmnet_shs_wq_genl_init();
+	if (ret)
+		return ret;
 
-	return register_netdevice_notifier(&rmnet_shs_dev_notifier);
+	ret = register_netdevice_notifier(&rmnet_shs_dev_notifier);
+	if (ret)
+		rmnet_shs_wq_genl_deinit();
+	return ret;
 }
 
 /* Remove smart hashing capability upon call to initialize module */
@@ -118,12 +124,15 @@ static int rmnet_shs_dev_notify_cb(struct notifier_block *nb,
 			rmnet_map_pb_ind_deregister(rmnet_shs_cfg.port,
 						    &rmnet_shs_cfg.pb_mrk_ind_cb);
 
+			if (rmnet_shs_cfg.is_reg_dl_mrk_ind) {
+				rmnet_shs_vh_unset();
+				tracepoint_synchronize_unregister();
+			}
+			/* Drain old packet callbacks before releasing SHS state. */
+			synchronize_rcu();
 			rmnet_shs_cancel_table();
 			rmnet_shs_ll_deinit();
 			cpu_switch = rmnet_shs_rx_wq_exit();
-			/* Only Unhook vh if we registered in 1st place */
-			if (rmnet_shs_cfg.is_reg_dl_mrk_ind)
-				rmnet_shs_vh_unset();
 			rmnet_shs_wq_exit();
 			rmnet_shs_exit(cpu_switch);
 			trace_rmnet_shs_high(RMNET_SHS_MODULE,

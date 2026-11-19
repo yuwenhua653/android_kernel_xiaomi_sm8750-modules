@@ -610,9 +610,9 @@ void rmnet_perf_tcp_update_quickack_thresh(u32 hash_key, u32 byte_thresh)
 
 	if (hash_key == 0x0) {
 		if (byte_thresh == 0) {
-			enable_tcp = false;
+			WRITE_ONCE(enable_tcp, false);
 		} else if (byte_thresh == 1) {
-			enable_tcp = true;
+			WRITE_ONCE(enable_tcp, true);
 		}
 		return;
 	}

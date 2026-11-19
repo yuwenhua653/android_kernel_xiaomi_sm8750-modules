@@ -136,6 +136,8 @@ def main():
     parser.add_argument('--jobs', type=int, choices=range(1, 10), default=3)
     parser.add_argument('--profile', choices=('media', 'platform', 'network', 'audio'), default='media',
                         help='platform adds GPU/video/CNSS/BT/SPU; network also adds Kiwi-v2 WLAN and IPA/RMNET; audio adds opt-in Annibale smartpa')
+    parser.add_argument('--experimental-sla', action='store_true',
+                        help='explicit qualification only: build SLA; no default enable or hardware qualification')
     parser.add_argument('--objects', action='store_true',
                         help='compile directories only; no modpost or loadable modules')
     parser.add_argument('--resume-stage', type=Path,
@@ -189,6 +191,8 @@ def main():
     groups = GROUPS + (PLATFORM_GROUPS if args.profile != 'media' else ())
     if args.profile in ('network', 'audio'):
         groups += NETWORK_GROUPS
+    if args.experimental_sla:
+        groups += ('xiaomi/sla/annibale',)
     kbuild = '# SPDX-License-Identifier: GPL-2.0-only\n' + ''.join(f'obj-m += {g}/\n' for g in groups)
     copy_groups = (*groups, 'qcom/opensource/mm-drivers/config')
     if args.profile in ('network', 'audio'):
@@ -223,9 +227,11 @@ def main():
                'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1', 'HOSTCC=gcc', f'-j{args.jobs}']
     command += host_options
     command += build_options(kernel, stage, args.profile)
+    if args.experimental_sla:
+        command += ['CONFIG_XIAOMI_ANNIBALE_SLA=m']
     command += ([f'{g}/' for g in groups] if args.objects else ['modules'])
     inputs = {str(p): sha256(p) for p in required if p != clang / 'clang'}
-    metadata = {'stage': str(stage), 'profile': args.profile,
+    metadata = {'stage': str(stage), 'profile': args.profile, 'experimental_sla': args.experimental_sla,
                 'command': command, 'kernel_inputs': inputs,
                 'objects_only': args.objects,
                 'source_commit': subprocess.check_output(
@@ -274,6 +280,8 @@ def main():
                                    'rmnet_sch', 'rmnet_shs', 'rmnet_wlan'}
             if args.profile == 'audio':
                 required_names |= {'tfa98xx_dlkm', 'sia91xx_dlkm', 'sia91xx_tuning_dlkm'}
+            if args.experimental_sla:
+                required_names.add('sla')
             missing = required_names - report['modules'].keys()
             if missing:
                 raise ValueError(f'missing selected modules: {sorted(missing)}')
