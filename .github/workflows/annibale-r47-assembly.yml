@@ -11,7 +11,7 @@ env:
 jobs:
   assemble:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -48,6 +48,9 @@ jobs:
           path: |
             diagnostics/*.log
             assembled/*.json
+            /tmp/ak.bVlans/out/kernel/include/generated/autoconf.h
+            /tmp/ak.bVlans/out/kernel/include/config/kernel.release
+            /tmp/ak.bVlans/out/kernel/modules.builtin.modinfo
           if-no-files-found: error
           retention-days: 14
       - name: Save source assembly stages

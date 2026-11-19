@@ -78,7 +78,8 @@ def main():
     output.mkdir(exist_ok=False)
     report = {"source_run": 44487958049, "source_commit": SOURCE_COMMIT,
               "status": "started", "flashable": False, "hyperos_installation_ready": False,
-              "kernel_recompiled": False, "profiles": {}}
+              "kernel_image_recompiled": False, "external_modules_recompiled": False,
+              "builtin_metadata_regenerated": False, "profiles": {}}
     report_path = output / "assembly.json"
     def save():
         report_path.write_text(json.dumps(report, indent=2) + "\n")
@@ -149,6 +150,29 @@ def main():
         (output / "verification.json").write_text(json.dumps(verification, indent=2) + "\n")
         report["kernel_module_count"] = verification["kernel_module_count"]
         report["external_module_count"] = verification["external_module_count"]
+        save()
+        print("PASS: original kernel inputs, configuration and 505-module report restored", flush=True)
+        # Final vmlinux discards .modinfo; it cannot supply this omitted file.
+        # Generate it through the pinned kernel's real Kbuild rule, keeping the
+        # qualified Image/modules untouched. Do not synthesize an empty file or
+        # suppress depmod diagnostics.
+        run(cmd[:-2] + ["modules.builtin.modinfo"], env=env)
+        if sha(regen / "modules.builtin") != sha(kout / "modules.builtin"):
+            raise ValueError("regenerated built-in ownership differs from qualified kernel")
+        if sha(regen / ".config") != sha(kout / ".config"):
+            raise ValueError("configuration changed while generating builtin metadata")
+        metadata = regen / "modules.builtin.modinfo"
+        if not metadata.is_file() or not metadata.stat().st_size:
+            raise ValueError("missing/empty real Kbuild builtin metadata")
+        shutil.copyfile(metadata, kout / metadata.name)
+        report["builtin_metadata_regenerated"] = True
+        report["builtin_metadata"] = {
+            "method": "pinned Kbuild modules.builtin.modinfo target",
+            "sha256": sha(metadata), "size": metadata.stat().st_size,
+            "ownership_sha256": sha(regen / "modules.builtin"),
+            "ownership_matches_original": True}
+        save()
+        print("PASS: real Kbuild builtin metadata and original builtin ownership match", flush=True)
         for family in ("tfa", "sia"):
             base_policy = repo / f"Documentation/xiaomi/annibale-spu-{family}-partitions.json"
             for sla in (False, True):
@@ -166,10 +190,12 @@ def main():
                     "partitions": result["partitions"],
                     "archive": target.name, "sha256": write_zip(staged, target)}
                 save()
+                print("PASS: staged", label, result["selected_module_count"], "modules", flush=True)
         portable = BASE / "portable-inputs"
         portable.mkdir()
         for rel in (".config", "Module.symvers", "modules.order", "modules.builtin",
-                    "include/config/kernel.release", "include/generated/autoconf.h", "arch/arm64/boot/Image"):
+                    "modules.builtin.modinfo", "include/config/kernel.release",
+                    "include/generated/autoconf.h", "arch/arm64/boot/Image"):
             dest = portable / "kernel" / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(kout / rel, dest)
