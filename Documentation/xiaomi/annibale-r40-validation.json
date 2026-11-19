@@ -1,0 +1,959 @@
+{
+  "round": "R40",
+  "base_commit": "ccfbe52e1a64b202dd324402a4fd9d2f39b5329f",
+  "device": "annibale",
+  "soc": "SM8750",
+  "kernel_target": "6.6",
+  "supplemental_inputs": 7,
+  "remaining_of_r39_seven_source_inputs": 0,
+  "whole_firmware_inventory_repeated": false,
+  "tests": {
+    "new_manager_and_elf_cases": 13,
+    "source_supplement_cases": 17,
+    "os4_migration_cases": 46,
+    "passed_total": 76
+  },
+  "patch_applied_and_output_matched": true,
+  "prepared_list_sha256": "8b6c22335000b060aaf0303ba10766c6cafeeba7cec03b2a164bc4befec88c9f",
+  "extraction": {
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "scoped_entries": [
+      "vendor/bin/qesdk-manager|83692e65729b1531f523c0d0271b3b350c8aef09",
+      "vendor/bin/qesdk-secmanager|9374d87ab08ce57161d86ab84a02bb41d36cfb4e",
+      "vendor/etc/init/qesdk-manager.rc|d18ce013771aafaefca955fb6e5d10c2004b9990",
+      "vendor/etc/init/qesdk-secmanager.rc|a09609d0f24b82682add17cd911736d8dc79a10c",
+      "vendor/etc/seccomp_policy/qesdk.policy|0363a7fb0ea28555e33a7baa5ce60c522d758beb",
+      "vendor/etc/seccomp_policy/qesdksec.policy|ee9f8c2055b94938e6f37e9bbec752611aeb486c",
+      "vendor/etc/vintf/manifest/qesdk-manager.xml|744a280528294e8cca527b8a50c4889d4e3b4a22"
+    ],
+    "binary_modules": 2,
+    "copied_configuration_files": 4,
+    "vintf_xml_modules": 1,
+    "single_destination_owners": true,
+    "source_hashes_preserved": true,
+    "actual_pinned_extraction": true,
+    "no_cleanup_preserved_existing_input": true,
+    "elf_checks_disabled": false,
+    "rom_built": false
+  },
+  "seccomp": {
+    "compiler_commit": "c46d08600b8b6548809d37be1964396efde1c3ac",
+    "arm64_header_blob": "41b77d7d8dd38467c3ef80fbde334890f068d8a5",
+    "results": {
+      "vendor/etc/seccomp_policy/qesdk.policy": [
+        {
+          "stage": "before",
+          "instructions": 84,
+          "added_syscall_actions": {
+            "sendto": "KILL_THREAD"
+          },
+          "unix_only_socket": true,
+          "wx_denied": true,
+          "unknown_syscall_denied": true,
+          "wrong_arch_denied": true,
+          "nanosleep_allowed": true,
+          "sha256": "92d82eebd5d5701faf782089b6e1507a9406156fc4fa8a56becfd4ebc3c76ce2",
+          "bpf_sha256": "69446c710d07f74fda05516114e6e2d640cebd5f1c79cd4f79af2f2087cabbed"
+        },
+        {
+          "stage": "after",
+          "instructions": 83,
+          "added_syscall_actions": {
+            "sendto": "ALLOW"
+          },
+          "unix_only_socket": true,
+          "wx_denied": true,
+          "unknown_syscall_denied": true,
+          "wrong_arch_denied": true,
+          "nanosleep_allowed": true,
+          "sha256": "f8074c6d888382b4e3dbe7efbffcffbf0eda64aec0a783e51868e4c6947fbb28",
+          "bpf_sha256": "bcb2c19fe3d256984790eb796002815d5e474327e32367fe3268e7c5d1e318ff"
+        }
+      ],
+      "vendor/etc/seccomp_policy/qesdksec.policy": [
+        {
+          "stage": "before",
+          "instructions": 73,
+          "added_syscall_actions": {
+            "sendto": "KILL_THREAD",
+            "lseek": "KILL_THREAD",
+            "exit": "KILL_THREAD",
+            "exit_group": "KILL_THREAD",
+            "rt_sigreturn": "KILL_THREAD",
+            "restart_syscall": "KILL_THREAD"
+          },
+          "unix_only_socket": true,
+          "wx_denied": true,
+          "unknown_syscall_denied": true,
+          "wrong_arch_denied": true,
+          "nanosleep_allowed": true,
+          "sha256": "75a2eac23f4475e6da6bcd7c1e6dadc867f43b43331a8d0d6d8d25164299a206",
+          "bpf_sha256": "79b5ea4e83725c9c3db7b3896af199397cbd1a26a7195a60882520d419c94d64"
+        },
+        {
+          "stage": "after",
+          "instructions": 78,
+          "added_syscall_actions": {
+            "sendto": "ALLOW",
+            "lseek": "ALLOW",
+            "exit": "ALLOW",
+            "exit_group": "ALLOW",
+            "rt_sigreturn": "ALLOW",
+            "restart_syscall": "ALLOW"
+          },
+          "unix_only_socket": true,
+          "wx_denied": true,
+          "unknown_syscall_denied": true,
+          "wrong_arch_denied": true,
+          "nanosleep_allowed": true,
+          "sha256": "bd13a04c3d29b79ce12ed8f5985d2b31ef04ca3fdf91a00d08d55356d0c53065",
+          "bpf_sha256": "0d12a7d095a167113b70f0a13d3a99ac59f7d8c6dc40de02c09193f243f2c5df"
+        }
+      ]
+    },
+    "device_execution": false
+  },
+  "elf": {
+    "results": [
+      {
+        "root": "qesdk-manager",
+        "closure": [
+          "qesdk-manager",
+          "runtime:ld-android.so",
+          "runtime:libc.so",
+          "runtime:libdl.so",
+          "runtime:libdl_android.so",
+          "runtime:libm.so",
+          "system:libapexsupport.so",
+          "system:libbase.so",
+          "system:libbinder.so",
+          "system:libbinder_ndk.so",
+          "system:libc++.so",
+          "system:libcutils.so",
+          "system:liblog.so",
+          "system:libutils.so",
+          "system:libvndksupport.so",
+          "vendor:libavservices_minijail.so",
+          "vendor:libbase.so",
+          "vendor:libbinder.so",
+          "vendor:libc++.so",
+          "vendor:libcap.so",
+          "vendor:libcrypto.so",
+          "vendor:libcutils.so",
+          "vendor:libhidlbase.so",
+          "vendor:libjsoncpp.so",
+          "vendor:liblzma.so",
+          "vendor:libminijail.so",
+          "vendor:libminkdescriptor.so",
+          "vendor:libminksocket_vendor.so",
+          "vendor:libprotobuf-cpp-lite-21.12.so",
+          "vendor:libqcbor.so",
+          "vendor:libqesdk_manager.so",
+          "vendor:libqesdoem_query_sys.so",
+          "vendor:libqrtr.so",
+          "vendor:libsqlite.so",
+          "vendor:libunwindstack.so",
+          "vendor:libutils.so",
+          "vendor:libutilscallstack.so",
+          "vendor:libvmmem.so",
+          "vendor:libz.so",
+          "vendor:vendor.qti.qesdhal-impl.so",
+          "vendor:vendor.qti.qesdhalaidl-V2-ndk.so",
+          "vendor:vendor.qti.qesdsys-V4-ndk.so"
+        ],
+        "imports_checked": 3954,
+        "missing_strong": [],
+        "unresolved_weak": [
+          {
+            "object": "runtime:ld-android.so",
+            "symbol": "__gcov_dump",
+            "version": null
+          },
+          {
+            "object": "runtime:ld-android.so",
+            "symbol": "__gcov_flush",
+            "version": null
+          },
+          {
+            "object": "runtime:libc.so",
+            "symbol": "__scudo_default_options",
+            "version": null
+          },
+          {
+            "object": "system:libbinder.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "system:libbinder.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "system:libbinder.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          },
+          {
+            "object": "system:libutils.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "system:libutils.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "system:libutils.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "OPENSSL_memory_alloc",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "OPENSSL_memory_free",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "sdallocx",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "OPENSSL_memory_get_size",
+            "version": null
+          },
+          {
+            "object": "vendor:libhidlbase.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "vendor:libhidlbase.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "vendor:libhidlbase.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          },
+          {
+            "object": "vendor:libminijail.so",
+            "symbol": "__asan_init",
+            "version": null
+          },
+          {
+            "object": "vendor:libminijail.so",
+            "symbol": "__hwasan_init",
+            "version": null
+          },
+          {
+            "object": "vendor:libutils.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "vendor:libutils.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "vendor:libutils.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          }
+        ]
+      },
+      {
+        "root": "qesdk-secmanager",
+        "closure": [
+          "qesdk-secmanager",
+          "runtime:ld-android.so",
+          "runtime:libc.so",
+          "runtime:libdl.so",
+          "runtime:libdl_android.so",
+          "runtime:libm.so",
+          "system:libapexsupport.so",
+          "system:libbase.so",
+          "system:libbinder.so",
+          "system:libbinder_ndk.so",
+          "system:libc++.so",
+          "system:libcutils.so",
+          "system:liblog.so",
+          "system:libutils.so",
+          "system:libvndksupport.so",
+          "vendor:libavservices_minijail.so",
+          "vendor:libbase.so",
+          "vendor:libbinder.so",
+          "vendor:libc++.so",
+          "vendor:libcap.so",
+          "vendor:libcrypto.so",
+          "vendor:libcutils.so",
+          "vendor:libjsoncpp.so",
+          "vendor:liblzma.so",
+          "vendor:libminijail.so",
+          "vendor:libminkdescriptor.so",
+          "vendor:libminksocket_vendor.so",
+          "vendor:libqcbor.so",
+          "vendor:libqrtr.so",
+          "vendor:libunwindstack.so",
+          "vendor:libutils.so",
+          "vendor:libutilscallstack.so",
+          "vendor:libvmmem.so",
+          "vendor:libz.so",
+          "vendor:vendor.qti.qesdsys-V3-ndk.so"
+        ],
+        "imports_checked": 3167,
+        "missing_strong": [],
+        "unresolved_weak": [
+          {
+            "object": "runtime:ld-android.so",
+            "symbol": "__gcov_dump",
+            "version": null
+          },
+          {
+            "object": "runtime:ld-android.so",
+            "symbol": "__gcov_flush",
+            "version": null
+          },
+          {
+            "object": "runtime:libc.so",
+            "symbol": "__scudo_default_options",
+            "version": null
+          },
+          {
+            "object": "system:libbinder.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "system:libbinder.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "system:libbinder.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          },
+          {
+            "object": "system:libutils.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "system:libutils.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "system:libutils.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "OPENSSL_memory_alloc",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "OPENSSL_memory_free",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "sdallocx",
+            "version": null
+          },
+          {
+            "object": "vendor:libcrypto.so",
+            "symbol": "OPENSSL_memory_get_size",
+            "version": null
+          },
+          {
+            "object": "vendor:libminijail.so",
+            "symbol": "__asan_init",
+            "version": null
+          },
+          {
+            "object": "vendor:libminijail.so",
+            "symbol": "__hwasan_init",
+            "version": null
+          },
+          {
+            "object": "vendor:libutils.so",
+            "symbol": "_ZN7android9CallStack16logStackInternalEPKcPKS0_19android_LogPriority",
+            "version": null
+          },
+          {
+            "object": "vendor:libutils.so",
+            "symbol": "_ZN7android9CallStack18getCurrentInternalEi",
+            "version": null
+          },
+          {
+            "object": "vendor:libutils.so",
+            "symbol": "_ZN7android9CallStack11deleteStackEPS0_",
+            "version": null
+          }
+        ]
+      }
+    ],
+    "objects": {
+      "qesdk-manager": {
+        "sha256": "9b698f174b0add2aa02700959e2f68be5c0ddec60a782a8d81c92b39a80e5fe3",
+        "path": "out/r39-validation/donor/vendor/bin/qesdk-manager",
+        "needed": [
+          "vendor:libqesdk_manager.so",
+          "vendor:vendor.qti.qesdhal-impl.so",
+          "vendor:libhidlbase.so",
+          "system:liblog.so",
+          "vendor:libutils.so",
+          "vendor:libavservices_minijail.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "qesdk-secmanager": {
+        "sha256": "979e8f0002e6295bb598855a047e0f1cda0b437bdb1ab48fd6828551412406b7",
+        "path": "out/r39-validation/donor/vendor/bin/qesdk-secmanager",
+        "needed": [
+          "vendor:libutils.so",
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "vendor:libcrypto.so",
+          "vendor:libjsoncpp.so",
+          "vendor:libminkdescriptor.so",
+          "vendor:libminksocket_vendor.so",
+          "vendor:libqcbor.so",
+          "vendor:libbinder.so",
+          "system:libbinder_ndk.so",
+          "vendor:vendor.qti.qesdsys-V3-ndk.so",
+          "vendor:libavservices_minijail.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "runtime:ld-android.so": {
+        "sha256": "b6dd216b7a775b8f04c825cada286bfe7ddaeecf2c0c10e617287118965abc00",
+        "path": "out/r40-validation/runtime/bin/linker64",
+        "needed": []
+      },
+      "runtime:libc.so": {
+        "sha256": "b963b539545b64aa8fbcaed3228d04bcb6466bfd47055aa16e4ccdcadfdc461e",
+        "path": "out/r40-validation/runtime/lib64/bionic/libc.so",
+        "needed": [
+          "runtime:ld-android.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "runtime:libdl.so": {
+        "sha256": "9805c2a013d994bdefc1c124027c53de81060afc901d2188b6eafdf6783140d4",
+        "path": "out/r40-validation/runtime/lib64/bionic/libdl.so",
+        "needed": [
+          "runtime:ld-android.so"
+        ]
+      },
+      "runtime:libdl_android.so": {
+        "sha256": "6ad8ee8bc0a67a2582f9a9bcc37a40af4aa21236b968a08a895099058066305a",
+        "path": "out/r40-validation/runtime/lib64/bionic/libdl_android.so",
+        "needed": [
+          "runtime:ld-android.so"
+        ]
+      },
+      "runtime:libm.so": {
+        "sha256": "646b2a1cab7cb7b035df3fe9f7beee11ab22d5e6bd6dc7d66e96e2429a05586e",
+        "path": "out/r40-validation/runtime/lib64/bionic/libm.so",
+        "needed": [
+          "runtime:libc.so"
+        ]
+      },
+      "system:libapexsupport.so": {
+        "sha256": "63a33ac9e7455b0834131a6786c81f4ec7a9f0d0432121e19ac0e4e3e8039c95",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libapexsupport.so",
+        "needed": [
+          "runtime:libdl_android.so",
+          "system:liblog.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libbase.so": {
+        "sha256": "12d3935ecf47794b177c9c101ea1f734c41997f13a204beff61900014c28765d",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libbase.so",
+        "needed": [
+          "system:liblog.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libbinder.so": {
+        "sha256": "7e292a21a87f4dd6ca25548465e7fbe6d00ddedb7594134ae5d15ca5cde8a069",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libbinder.so",
+        "needed": [
+          "system:libcutils.so",
+          "system:liblog.so",
+          "system:libutils.so",
+          "system:libapexsupport.so",
+          "system:libvndksupport.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libbinder_ndk.so": {
+        "sha256": "deec4072c13cfcb6421dce9edc9e19496a9fd937447e939976fdfd9edc45ecfe",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libbinder_ndk.so",
+        "needed": [
+          "system:libbinder.so",
+          "system:liblog.so",
+          "system:libutils.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libc++.so": {
+        "sha256": "cb118e98c74d3454858921123b9b51ba13df9cad7dfa141dd892c453661a4d78",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libc++.so",
+        "needed": [
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libcutils.so": {
+        "sha256": "09ea7e79326ee62d7a35a14703456f2285b805dd3854ab35e489415dafb7fa32",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libcutils.so",
+        "needed": [
+          "system:liblog.so",
+          "system:libbase.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:liblog.so": {
+        "sha256": "601494f5b7a4d282eed1effadf8b40097b4182298de7e0bbc6a7ec69bda5667d",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/liblog.so",
+        "needed": [
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libutils.so": {
+        "sha256": "6bc35b75712c4fd262dd4fa2c297de532ad5f0ef0d7ecd3f5f3fa479abdbba57",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libutils.so",
+        "needed": [
+          "system:libcutils.so",
+          "system:liblog.so",
+          "system:libvndksupport.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "system:libvndksupport.so": {
+        "sha256": "24a35b4ca97ebb2fd8cab02baf8d4e3af49ceb7309c93268e5670eda3930d112",
+        "path": "out/r39-validation/stock-selected/system/system/lib64/libvndksupport.so",
+        "needed": [
+          "runtime:libdl_android.so",
+          "system:liblog.so",
+          "system:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libavservices_minijail.so": {
+        "sha256": "427ad84509fb6db3123f8a78927b2b30c045087ba4257122d9608ab16914cacb",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libavservices_minijail.so",
+        "needed": [
+          "vendor:libbase.so",
+          "vendor:libminijail.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libbase.so": {
+        "sha256": "72384b8561df63c41daa55fa987669aca2dfb69eac7b00d4460b0dc8f3ec4bf3",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libbase.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libbinder.so": {
+        "sha256": "ba61881a7bb4fd01f1bba2260eb2aa04b99206d4c4953e7f7281dd82f64024bf",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libbinder.so",
+        "needed": [
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "vendor:libutils.so",
+          "vendor:libutilscallstack.so",
+          "system:libapexsupport.so",
+          "system:libvndksupport.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libc++.so": {
+        "sha256": "794eb8fafd7be35da3725e9ec0b15189c6f4f2544f5b78afd8a647dde5b69195",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libc++.so",
+        "needed": [
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libcap.so": {
+        "sha256": "ce6820bb75979382e05b5942d92a9676cb83d12d2d3e7e624d25bff5427d5681",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libcap.so",
+        "needed": [
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libcrypto.so": {
+        "sha256": "9c4aa5c2e03903585144295ddfb86aa7d35de3c7ae5e29269521dcbf3c61bc4b",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libcrypto.so",
+        "needed": [
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libcutils.so": {
+        "sha256": "e209d69353070bc548d6d265a86ee90f25b9f64a38981b5390429152afcfd3ed",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libcutils.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libbase.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libhidlbase.so": {
+        "sha256": "51d858e830274d4daa3e54555123d36c71282c9eb5e403af43027e359994b5ba",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libhidlbase.so",
+        "needed": [
+          "vendor:libbase.so",
+          "system:liblog.so",
+          "vendor:libutils.so",
+          "vendor:libcutils.so",
+          "system:libvndksupport.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libjsoncpp.so": {
+        "sha256": "ff22b674a818b528978bbceaa25baeaf7d8d5547107e8f6aa3edb23ce584afdf",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libjsoncpp.so",
+        "needed": [
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:liblzma.so": {
+        "sha256": "bbbfa3f689461a43440752a7e1d07fd957ea72e8349a880a8e384c93342fcc99",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/liblzma.so",
+        "needed": [
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libminijail.so": {
+        "sha256": "5f093a217e0ae3b4268ee51ff01e67e3505756c84a59718014c2b6bea3fe32b0",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libminijail.so",
+        "needed": [
+          "vendor:libcap.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libminkdescriptor.so": {
+        "sha256": "175c1d9e790db91b81a6715124b0721e3f7dfc07fe5999f53516eb8a01e4b1b6",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libminkdescriptor.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libutils.so",
+          "vendor:libqcbor.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libminksocket_vendor.so": {
+        "sha256": "280035b9434e7b416172285d8e5dec91fbafc31bdb482ac3ca2c4de3a69e0827",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libminksocket_vendor.so",
+        "needed": [
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "vendor:libqrtr.so",
+          "vendor:libvmmem.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libprotobuf-cpp-lite-21.12.so": {
+        "sha256": "2dddc1f90ff50153bb250761379944217b6a630b036f5fbf1cced07583228f0d",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libprotobuf-cpp-lite-21.12.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libqcbor.so": {
+        "sha256": "c8465439937f4fc019ab2312c4fccf291c6a5cf47b908c5431ee8a685ce219c4",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libqcbor.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libutils.so",
+          "vendor:libcutils.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libqesdk_manager.so": {
+        "sha256": "f8ddb3d5f0d126f61f7a9f58313a23b55822c5414f7499bfbe99a630048a323f",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libqesdk_manager.so",
+        "needed": [
+          "vendor:libutils.so",
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "vendor:libcrypto.so",
+          "vendor:libjsoncpp.so",
+          "vendor:libminkdescriptor.so",
+          "vendor:libminksocket_vendor.so",
+          "vendor:libqcbor.so",
+          "vendor:libbinder.so",
+          "system:libbinder_ndk.so",
+          "vendor:vendor.qti.qesdsys-V4-ndk.so",
+          "vendor:libprotobuf-cpp-lite-21.12.so",
+          "vendor:libqesdoem_query_sys.so",
+          "vendor:libsqlite.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libqesdoem_query_sys.so": {
+        "sha256": "16248837c6f1af351fbb50ac545e9257bb6d9335915615f7d4e2c27e8e514465",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libqesdoem_query_sys.so",
+        "needed": [
+          "vendor:libutils.so",
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "vendor:libjsoncpp.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libqrtr.so": {
+        "sha256": "ffde130127e6e237dbefa59400c9f6a715a42d1593398cca49e4512d80cdd731",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libqrtr.so",
+        "needed": [
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libsqlite.so": {
+        "sha256": "4a9ee1d060941afdd9ffb9e30ef72d445942569cd26ad7c8236cf602cf58db11",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libsqlite.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libunwindstack.so": {
+        "sha256": "f742674090cf50615cd708734800457fa43bb9633d80cf9633a0c4d76040c1d1",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libunwindstack.so",
+        "needed": [
+          "vendor:libbase.so",
+          "system:liblog.so",
+          "vendor:liblzma.so",
+          "vendor:libz.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libutils.so": {
+        "sha256": "3d121a708556d9889dedf3de29d2987c5cbf36cdbfb64dcd33cbc5bfc3c5b603",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libutils.so",
+        "needed": [
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "system:libvndksupport.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libutilscallstack.so": {
+        "sha256": "17b31225c8d8297a58e7d55c225695c2d55ed5477f1f71411545137cd03245c8",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libutilscallstack.so",
+        "needed": [
+          "vendor:libcutils.so",
+          "system:liblog.so",
+          "vendor:libutils.so",
+          "vendor:libunwindstack.so",
+          "system:libvndksupport.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libvmmem.so": {
+        "sha256": "834938f12eeb8828d396acfa980381bad52d85054ecb7bf1f7c29dc41e7cf6d1",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libvmmem.so",
+        "needed": [
+          "system:liblog.so",
+          "vendor:libbase.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:libz.so": {
+        "sha256": "e0564cf6e58a31b9bc7cc23d03b3dab2cc962b76b657f30eda7352b1fc65ccbb",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/libz.so",
+        "needed": [
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:vendor.qti.qesdhal-impl.so": {
+        "sha256": "9856b6a3de832bb183e96c2b8664634d13c4c57b1d986ba7c30a9de86453be18",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/vendor.qti.qesdhal-impl.so",
+        "needed": [
+          "vendor:libbase.so",
+          "vendor:libutils.so",
+          "vendor:vendor.qti.qesdhalaidl-V2-ndk.so",
+          "system:liblog.so",
+          "vendor:libcutils.so",
+          "vendor:libcrypto.so",
+          "vendor:libjsoncpp.so",
+          "system:libbinder_ndk.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:vendor.qti.qesdhalaidl-V2-ndk.so": {
+        "sha256": "e5d3f78358b7f7ab409cee66b085bc2a75393f40ba4b1e60207a6779767dd9cc",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/vendor.qti.qesdhalaidl-V2-ndk.so",
+        "needed": [
+          "system:libbinder_ndk.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:vendor.qti.qesdsys-V3-ndk.so": {
+        "sha256": "10ced1d74a963d32761d6449df81f1a7fa14697a30c82146bb77e5c192dab0d4",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/vendor.qti.qesdsys-V3-ndk.so",
+        "needed": [
+          "system:libbinder_ndk.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      },
+      "vendor:vendor.qti.qesdsys-V4-ndk.so": {
+        "sha256": "847a793136f46fb87aea08b8001a24d1be0da540948e953cf79016d889ba9ebd",
+        "path": "out/r39-validation/stock-selected/vendor/lib64/vendor.qti.qesdsys-V4-ndk.so",
+        "needed": [
+          "system:libbinder_ndk.so",
+          "vendor:libc++.so",
+          "runtime:libc.so",
+          "runtime:libm.so",
+          "runtime:libdl.so"
+        ]
+      }
+    },
+    "runtime_verified": false,
+    "linker_namespaces_verified": false
+  },
+  "scope_model": "Explicit vendor-local providers, missing shared providers in system, system dependencies stay in system, Bionic/ld-android from the OS4 runtime APEX. Selected offline graph; generated device linker configuration not verified.",
+  "runtime_apex_sha256": "021646695ba127260ea9cc96df6c924edfeb86ba783781a9cc276db232443fc4",
+  "symbol_model_limitations": [
+    "No claim of C++ object layout, callback, CFI, dlopen or actual namespace compatibility",
+    "OS4 system providers are evidence; a native ROM replaces framework libraries and must pass its own check_elf_file build checks"
+  ],
+  "unchanged_security": [
+    "Manager executables byte-identical to pinned donor",
+    "No auth/token/provisioning changes",
+    "No permissive domain or ELF-check bypass",
+    "Original AF_UNIX and W^X filter predicates retained"
+  ],
+  "rom_built": false,
+  "selinux_compiled": false,
+  "vintf_assembled": false,
+  "device_execution": false,
+  "flashable": false,
+  "stock_hyperos_installation_modified": false
+}

@@ -1,0 +1,57 @@
+{
+  "donor_repository": "SM8750-AB/vendor_xiaomi_annibale",
+  "donor_commit": "5d498c3ffd6260c6b9817aa417f4c44d639a2376",
+  "input_sha256": {
+    "proprietary-files.txt": "fa9d0614227b438580833017ac9ba2966a5709c510e085c52906d1b95889c0f6",
+    "BoardConfig.mk": "1b1746944ac9668de1438d708a687c3ab9bbc8a5da32db744f6014f2ddff7cba",
+    "vintf/manifest.xml": "2fa54e3a729ab2ab9f3bc3fbf227a662ab196195f417879921ed531049e750d4"
+  },
+  "donor_sha256": {
+    "vendor/bin/qesdk-manager": "9b698f174b0add2aa02700959e2f68be5c0ddec60a782a8d81c92b39a80e5fe3",
+    "vendor/bin/qesdk-secmanager": "979e8f0002e6295bb598855a047e0f1cda0b437bdb1ab48fd6828551412406b7",
+    "vendor/etc/init/qesdk-manager.rc": "b13aa37e3c9ab70daa284da92b4a4bb1fa0971ad0e3356d4ad8ebd11aadee23e",
+    "vendor/etc/init/qesdk-secmanager.rc": "d61c3dba6e54b40a1f8ece5bb91f8b9355dd3830f94337306cb6a8aae5c4059f",
+    "vendor/etc/seccomp_policy/qesdk.policy": "92d82eebd5d5701faf782089b6e1507a9406156fc4fa8a56becfd4ebc3c76ce2",
+    "vendor/etc/seccomp_policy/qesdksec.policy": "75a2eac23f4475e6da6bcd7c1e6dadc867f43b43331a8d0d6d8d25164299a206",
+    "vendor/etc/vintf/manifest/qesdk-manager.xml": "0d6988ebd029a7be705bd487d9f817da02d95f7dcfa6cff4fe3916c90b70f993"
+  },
+  "stock_contract_sha256": {
+    "vendor/lib64/libqesdk_manager.so": "f8ddb3d5f0d126f61f7a9f58313a23b55822c5414f7499bfbe99a630048a323f",
+    "vendor/lib64/vendor.qti.qesdhal-impl.so": "9856b6a3de832bb183e96c2b8664634d13c4c57b1d986ba7c30a9de86453be18",
+    "vendor/lib64/vendor.qti.qesdsys-V3-ndk.so": "10ced1d74a963d32761d6449df81f1a7fa14697a30c82146bb77e5c192dab0d4",
+    "vendor/lib64/vendor.qti.qesdsys-V4-ndk.so": "847a793136f46fb87aea08b8001a24d1be0da540948e953cf79016d889ba9ebd",
+    "vendor/etc/init/ssgtzd.rc": "a47de1559b7b90ff173a1adf346beffd9d90ff45d98b0499312d5f084acc6e2e"
+  },
+  "qcom_policy_commit": "19dd1d9a3ce4ac8d993203edac1ec05749a8d60b",
+  "policy_sha256": {
+    "SEPolicy.mk": "fb973baa2cbe698135a225dddd6543ab8806fbda58e96b51ce9f0f04f03b75d1",
+    "qva/vendor/common/file_contexts": "55a9f70f894866ec2d7b2909a3e29cb2ae0599ed4adab6bfab6f6ce6b609869a",
+    "qva/vendor/common/service_contexts": "ffb00a441181da5578bbeb3995c8ee6511c6a9405cc1add88f86fc349058c22b",
+    "qva/vendor/common/property_contexts": "b30aac8f40d6a62b4ab60718f13a0942f48545d736726eef4cb19f9921db23f6",
+    "qva/vendor/common/qesdhal.te": "c70a1a1e63c12797f772ed2f0bba1f79111de3250d6d2642d3301555ea31d6a3",
+    "qva/vendor/common/qesdsecurity.te": "b2e25713fb6486f6713b5efc892191e1d95d8ee70733f1241cfb52cf5429b3e0",
+    "qva/vendor/common/ssgtzd.te": "27381376ffe805fe20f07cc653d96301d2b2e6cbb65362b06b653b13159d7be2"
+  },
+  "seccomp_additions": {
+    "vendor/etc/seccomp_policy/qesdk.policy": [
+      "sendto"
+    ],
+    "vendor/etc/seccomp_policy/qesdksec.policy": [
+      "sendto",
+      "lseek",
+      "exit",
+      "exit_group",
+      "rt_sigreturn",
+      "restart_syscall"
+    ]
+  },
+  "output_sha256": {
+    "vendor/bin/qesdk-manager": "9b698f174b0add2aa02700959e2f68be5c0ddec60a782a8d81c92b39a80e5fe3",
+    "vendor/bin/qesdk-secmanager": "979e8f0002e6295bb598855a047e0f1cda0b437bdb1ab48fd6828551412406b7",
+    "vendor/etc/init/qesdk-manager.rc": "b13aa37e3c9ab70daa284da92b4a4bb1fa0971ad0e3356d4ad8ebd11aadee23e",
+    "vendor/etc/init/qesdk-secmanager.rc": "d61c3dba6e54b40a1f8ece5bb91f8b9355dd3830f94337306cb6a8aae5c4059f",
+    "vendor/etc/seccomp_policy/qesdk.policy": "f8074c6d888382b4e3dbe7efbffcffbf0eda64aec0a783e51868e4c6947fbb28",
+    "vendor/etc/seccomp_policy/qesdksec.policy": "bd13a04c3d29b79ce12ed8f5985d2b31ef04ca3fdf91a00d08d55356d0c53065",
+    "vendor/etc/vintf/manifest/qesdk-manager.xml": "0d6988ebd029a7be705bd487d9f817da02d95f7dcfa6cff4fe3916c90b70f993"
+  }
+}

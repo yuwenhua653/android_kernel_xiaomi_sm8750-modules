@@ -1,0 +1,28 @@
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -3249,16 +3249,18 @@
+ # QESD system service
+ system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk:system_ext/priv-app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk|cea8d76abb1e5d2543d345a8cdeaec093e9e33f0
+ 
++# QESD manager supplement
++vendor/bin/qesdk-manager|83692e65729b1531f523c0d0271b3b350c8aef09
++vendor/bin/qesdk-secmanager|9374d87ab08ce57161d86ab84a02bb41d36cfb4e
++vendor/etc/init/qesdk-manager.rc|d18ce013771aafaefca955fb6e5d10c2004b9990
++vendor/etc/init/qesdk-secmanager.rc|a09609d0f24b82682add17cd911736d8dc79a10c
++vendor/etc/seccomp_policy/qesdk.policy|0363a7fb0ea28555e33a7baa5ce60c522d758beb
++vendor/etc/seccomp_policy/qesdksec.policy|ee9f8c2055b94938e6f37e9bbec752611aeb486c
++vendor/etc/vintf/manifest/qesdk-manager.xml|744a280528294e8cca527b8a50c4889d4e3b4a22
++
+ # QESD
+ system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml
+ system_ext/lib64/libqesdk_ndk_platform.qti.so
+-vendor/bin/qesdk-manager
+-vendor/bin/qesdk-secmanager
+-vendor/etc/init/qesdk-manager.rc
+-vendor/etc/init/qesdk-secmanager.rc
+-vendor/etc/seccomp_policy/qesdk.policy
+-vendor/etc/seccomp_policy/qesdksec.policy
+-vendor/etc/vintf/manifest/qesdk-manager.xml
+ vendor/lib64/liblocation_qesdk.so
+ vendor/lib64/libqesdk2_0.so
+ vendor/lib64/libqesdk_manager.so

@@ -2,10 +2,10 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R39 QESD 系统服务接入与特权安装修正：剩余输入 8 → 7](Documentation/xiaomi/annibale-r39-qesdsys.md)；
-[本轮验证记录](Documentation/xiaomi/annibale-r39-validation.json)。
-本轮补充 QESD 系统 APK 来源，将原生安装位置修正为 system_ext/priv-app，保留平台签名规则；APK 与原厂 V4 库的接口哈希一致，剩余 7 项管理器相关输入尚未接入。完整原生 ROM、SELinux 编译和真机功能仍待验证。
-R38 的独立 eSIM 补充来源仍需应用；上述数字为输入缺口，不是已验证驱动数。
+当前进度：[R40 QESD 管理器整组接入：上一轮剩余 7 项输入全部补齐](Documentation/xiaomi/annibale-r40-qesd-managers.md)；
+[本轮验证记录](Documentation/xiaomi/annibale-r40-validation.json)。
+两份管理器、两份 init、两份 seccomp 和一份 VINTF 一起接入；修正 socket 回复及线程/信号生命周期所需的 seccomp 规则，保留 UNIX socket 与 W^X 限制。76 项相关测试及整组实际提取通过；OS4 选定依赖的版本化强符号离线检查通过。完整原生 ROM、SELinux 编译和真机功能仍待验证。
+R38 的独立 eSIM 补充和 R39 的特权 QESD APK/平台签名规则仍需应用；7 → 0 指上一轮剩余输入，不是全部驱动或硬件缺陷已修复。
 R37 的电话音频迁移和 OS4 APK 要求 API 37 的构建前检查保留。
 SLA 已通过 ARM64 对象编译和主机故障注入测试，默认关闭，仍需目标内核运行时及 ABI 验证。
 原生源码方案与澎湃原厂保留方案分开验证，尚未完成 OSS 真机开机验证。
