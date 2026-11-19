@@ -1,0 +1,57 @@
+{
+  "target_firmware_profile": "OS4.0.6.0.XPKCNXM",
+  "source_repository": "SM8750-AB/vendor_xiaomi_annibale",
+  "source_commit": "5d498c3ffd6260c6b9817aa417f4c44d639a2376",
+  "source_path": "proprietary/system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+  "apk_source": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+  "apk_destination": "system_ext/priv-app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+  "apk_sha256": "c23513b5caacc16ce7e438389fa58a333d7a3096792853a677b30adf30af89bd",
+  "apk_sha1": "cea8d76abb1e5d2543d345a8cdeaec093e9e33f0",
+  "old_entry": "system_ext/app/FrameworksUtilsSysService/FrameworksUtilsSysService.apk",
+  "input_sha256": {
+    "proprietary-files.txt": "9e9602821e1b1c59d8dde65d47b937e469b046750afbba64c241b551ff0659b0",
+    "BoardConfig.mk": "1b1746944ac9668de1438d708a687c3ab9bbc8a5da32db744f6014f2ddff7cba"
+  },
+  "stock_sha256": {
+    "vendor/lib64/vendor.qti.qesdsys-V4-ndk.so": "847a793136f46fb87aea08b8001a24d1be0da540948e953cf79016d889ba9ebd",
+    "system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml": "f85d88ae972197fae6796a899baaf2572bc899e179d628d6ffac9cb5675e6127",
+    "system_ext/etc/selinux/system_ext_seapp_contexts": "f70c125e8d98de5d7bae0537a8f1c2997d2ffd376b29a38cfa588182816d1b6a",
+    "system_ext/etc/selinux/system_ext_service_contexts": "43eaf48e5dfe31a7b1bd813776f50356728d689d4295ff3fd07078446b78baa1"
+  },
+  "policy_repository": "LineageOS/android_device_qcom_sepolicy",
+  "policy_commit": "a8385f33b31aac5ba7f001413f4d67c7c9bf632e",
+  "policy_sha256": {
+    "generic/private/seapp_contexts": "44a4ac4ad70735d99ebd4a603a0b82f31324be8d2943d3e28fd54b5de41a7c38",
+    "generic/private/service_contexts": "4eb8c4347cecce7e8190f754e00bfaa274a33fffdc82f5c6dcb234806c3757fb",
+    "generic/private/qesdkSystem.te": "a8aa62db9af916514316844c149374040c21100a4ffba2f568f64f8aee431293"
+  },
+  "package": "vendor.qti.frameworks.utils",
+  "service": "vendor.qti.frameworks.utils.QesdkSysService",
+  "receiver": "vendor.qti.frameworks.utils.QesdkSysReceiver",
+  "binder_instance": "vendor.qti.qesdsys.IQesdSys/default",
+  "interface_version": 4,
+  "interface_hash": "60370da086910c28180728ea367e33077d921e8f",
+  "api_provider": "vendor/lib64/vendor.qti.qesdsys-V4-ndk.so",
+  "return_methods": {
+    "Lvendor/qti/frameworks/utils/QesdkSysServiceImpl;->getInterfaceVersion()I": [
+      "const/4 v0, 4",
+      "return v0"
+    ],
+    "Lvendor/qti/frameworks/utils/QesdkSysServiceImpl;->getInterfaceHash()Ljava/lang/String;": [
+      "const-string v0, \"60370da086910c28180728ea367e33077d921e8f\"",
+      "return-object v0"
+    ]
+  },
+  "required_call_edges": {
+    "Lvendor/qti/frameworks/utils/QesdkSysReceiver;->onReceive(": [
+      "Landroid/content/Context;->startService("
+    ],
+    "Lvendor/qti/frameworks/utils/QesdkSysService;->onCreate()": [
+      "Lvendor/qti/frameworks/utils/QesdkSysServiceImpl;-><init>(",
+      "Landroid/os/ServiceManager;->addService("
+    ],
+    "Lvendor/qti/frameworks/utils/QesdkSysServiceImpl;-><init>(": [
+      "Lvendor/qti/qesdsys/IQesdSys$Stub;-><init>("
+    ]
+  }
+}

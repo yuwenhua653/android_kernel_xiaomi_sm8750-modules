@@ -2,9 +2,10 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R38 eSIM 独立来源接入：合并输入缺口 9 → 8](Documentation/xiaomi/annibale-r38-euicc.md)；
-[本轮验证记录](Documentation/xiaomi/annibale-r38-validation.json)。
-本轮补充经过签名校验的 EuiccGoogle 输入，保留原签名与独立来源记录；原厂 CN dump 本身仍缺 9 项，加入补充来源后剩余 QESD 8 项，真机 eSIM 与完整原生 ROM 仍待验证。
+当前进度：[R39 QESD 系统服务接入与特权安装修正：剩余输入 8 → 7](Documentation/xiaomi/annibale-r39-qesdsys.md)；
+[本轮验证记录](Documentation/xiaomi/annibale-r39-validation.json)。
+本轮补充 QESD 系统 APK 来源，将原生安装位置修正为 system_ext/priv-app，保留平台签名规则；APK 与原厂 V4 库的接口哈希一致，剩余 7 项管理器相关输入尚未接入。完整原生 ROM、SELinux 编译和真机功能仍待验证。
+R38 的独立 eSIM 补充来源仍需应用；上述数字为输入缺口，不是已验证驱动数。
 R37 的电话音频迁移和 OS4 APK 要求 API 37 的构建前检查保留。
 SLA 已通过 ARM64 对象编译和主机故障注入测试，默认关闭，仍需目标内核运行时及 ABI 验证。
 原生源码方案与澎湃原厂保留方案分开验证，尚未完成 OSS 真机开机验证。
