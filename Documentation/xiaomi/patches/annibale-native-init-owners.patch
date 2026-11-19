@@ -1,0 +1,40 @@
+--- a/rootdir/etc/init.qcom.rc
++++ b/rootdir/etc/init.qcom.rc
+@@ -657,11 +657,6 @@
+     group gps
+     socket mlid stream 0666 gps gps
+ 
+-service loc_launcher /system/vendor/bin/loc_launcher
+-    class late_start
+-    user gps
+-    group gps
+-
+ service qcom-sh /vendor/bin/init.qcom.sh
+     class late_start
+     user root
+@@ -784,12 +779,6 @@
+     oneshot
+ 
+ service vm_bms /vendor/bin/vm_bms
+-    user root
+-    group root
+-    disabled
+-
+-service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
+-    class core
+     user root
+     group root
+     disabled
+@@ -847,12 +836,6 @@
+     group graphics audio
+     disabled
+     oneshot
+-
+-service time_daemon /vendor/bin/time_daemon
+-    class main
+-    user system
+-    group system
+-    capabilities SYS_TIME
+ 
+ # Set vendor-ril lib path based on Meta version
+ on property:vendor.rild.libpath=*

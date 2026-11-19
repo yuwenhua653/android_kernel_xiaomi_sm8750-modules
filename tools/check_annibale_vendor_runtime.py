@@ -19,6 +19,23 @@ from verify_annibale_modules import module_info
 SERVICES = {'gki.modprobe':'system_dlkm_modprobe.sh', 'vendor.modprobe':'vendor_modprobe.sh'}
 
 
+def check_service_owners(files):
+    """Report all selected owners; an override is not silently accepted as safe."""
+    owners = {}
+    for filename, text in files.items():
+        for section in sections(text):
+            head = section['head']
+            if head[0] != 'service':
+                continue
+            require(len(head) >= 3, 'incomplete service declaration')
+            owners.setdefault(head[1], []).append({
+                'file': filename, 'command': head[2:],
+                'override': ['override'] in section['body']})
+    duplicates = {name: entries for name, entries in owners.items() if len(entries) > 1}
+    return {'service_count': len(owners), 'duplicates': duplicates,
+            'scope': 'Selected files only; complete platform init imports remain unverified'}
+
+
 def logical_lines(text):
     pending = ''
     for line in text.splitlines():
@@ -217,11 +234,14 @@ def main():
                   runtime_packages=list(LOADER_RUNTIME_PACKAGES),init_files_checked=len(files),
                   init_sha256={n:hashlib.sha256(t.encode()).hexdigest() for n,t in files.items()})
     result['module_actions'] = check_module_actions(files, module_inventory(args.handoff))
+    result['all_service_owners'] = check_service_owners(files)
     if result['module_actions']['issues']:
         result['status'] = 'vendor_module_actions_need_review'
+    if result['all_service_owners']['duplicates']:
+        result['status'] = 'duplicate_init_services_need_review'
     args.report.write_text(json.dumps(result,indent=2)+'\n')
     print(result['status'] + '; no device execution')
-    return 1 if result['module_actions']['issues'] else 0
+    return int(bool(result['module_actions']['issues'] or result['all_service_owners']['duplicates']))
 
 
 if __name__=='__main__':

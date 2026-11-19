@@ -2,12 +2,13 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R41 实际构建验证](Documentation/xiaomi/annibale-r41-build.md)；
-[验证记录](Documentation/xiaomi/annibale-r41-validation.json)。
-Linux 6.6.144 内核、411 个内核模块和 93 个外部模块实际构建通过；
-TFA/SIA 分别选取 217/218 个模块完成离线镜像与回读检查，32 组最终 DT 检查通过。
-315 项独立测试通过。SLA 已单独完成 .ko 链接、modpost 和 BTF 验证，仍默认关闭且不装入镜像。
-完整 Android 17 ROM、生产 KMI/签名策略及真机功能尚未验证；这些离线产物不可直接刷机。
+当前进度：[R42 集成验证与接续修复](Documentation/xiaomi/annibale-r42-integration.md)；
+[验证记录](Documentation/xiaomi/annibale-r42-validation.json)。
+补齐接续设备树漏掉的原生 fstab，消除 3 个重复 init 服务声明；298 项工具测试通过。
+105 份 init、199 个服务和两套 R41 模块清单已联合检查；8 条模块动作记录仍需处理。
+澎湃正常启动的 629 个模块名称通过有条件的静态 ABI 检查，签名/CFI/真机行为未验证。
+完整 Android 17 ROM 尚未构建，当前仍不可直接刷机。
+内核编译结果见 [R41](Documentation/xiaomi/annibale-r41-build.md)。
 
 上一轮：[R40 QESD 管理器整组接入](Documentation/xiaomi/annibale-r40-qesd-managers.md)。
 历史记录：[R40 QESD 管理器整组接入：上一轮剩余 7 项输入全部补齐](Documentation/xiaomi/annibale-r40-qesd-managers.md)；

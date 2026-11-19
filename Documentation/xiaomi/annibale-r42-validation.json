@@ -1,0 +1,1215 @@
+{
+  "round": "R42",
+  "device": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-19",
+  "status": "integration_checks_completed_with_remaining_gates",
+  "modules_base_commit": "dfe4b65ba51cfcfdc2a7abc7b07ca32195eeae8c",
+  "kernel_inputs": {
+    "release": "6.6.144-4k-gc70ed7c690cc",
+    "vermagic": "6.6.144-4k-gc70ed7c690cc SMP preempt mod_unload modversions aarch64",
+    "config_sha256": "04f55d1074dd81275dc5e636421f4525a0342bdbc1f294b61e9a78c18acefd67",
+    "symvers_sha256": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02"
+  },
+  "kernel_or_modules_rebuilt": false,
+  "full_rom_built": false,
+  "flashable": false,
+  "device_execution": false,
+  "fixed": {
+    "restored_native_fstab": true,
+    "cause": "Earlier continuation called convert() but omitted the new file emitted by the full R26 CLI patch",
+    "source_tree_files_reproduced": 242,
+    "duplicate_init_service_owners_removed": [
+      "loc_launcher",
+      "time_daemon",
+      "vendor.msm_irqbalance"
+    ],
+    "init_service_options_unchanged": true
+  },
+  "local_inputs": {
+    "status": "scoped_local_inputs_passed",
+    "blueprints_parsed": 27,
+    "literal_local_references_checked": 51,
+    "errors": [],
+    "unverified_references": [
+      {
+        "file": "qcril-database/Android.bp",
+        "property": "srcs",
+        "value": "//vendor/xiaomi/annibale:proprietary_rildb_other_sql_files",
+        "reason": "module reference"
+      },
+      {
+        "file": "qcril-database/Android.bp",
+        "property": "srcs",
+        "value": "//vendor/xiaomi/annibale:proprietary_rildb_config_sql_files",
+        "reason": "module reference"
+      },
+      {
+        "file": "qcril-database/Android.bp",
+        "property": "srcs",
+        "value": ":rildb_config_sql_files",
+        "reason": "module reference"
+      },
+      {
+        "file": "qcril-database/Android.bp",
+        "property": "src",
+        "value": ":qcril_config_database",
+        "reason": "module reference"
+      }
+    ]
+  },
+  "make_handoff": {
+    "tfa": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 138
+      },
+      "conflicting_owners_rejected": 4
+    },
+    "sia": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 139
+      },
+      "conflicting_owners_rejected": 4
+    }
+  },
+  "generated_vendor_scope": {
+    "scoped_entries": 100,
+    "complete_vendor": false,
+    "extract_utils_commit": "44e3b07397a339c2721c637e40cb73159c78ad46",
+    "applied_real_blob_fixups": true
+  },
+  "native_init": {
+    "tfa": {
+      "status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "all_service_owners": {
+        "service_count": 199,
+        "duplicates": {},
+        "scope": "Selected files only; complete platform init imports remain unverified"
+      },
+      "module_actions": {
+        "status": "module_action_review_required",
+        "actions": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/sla.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "sla"
+            ],
+            "issues": [
+              {
+                "kind": "module_not_packaged",
+                "module": "sla"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_shs"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_ingress_deag=N"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_ingress_deag"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_opt_mode=udp"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_opt_mode"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_perf"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_offload"
+              }
+            ]
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_pdr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_pdr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_notifier_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_notifier_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/snd_event_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "snd_event_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/gpr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "gpr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/spf_core_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "spf_core_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/adsp_loader_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "adsp_loader_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true"
+            ],
+            "command": [
+              "insmod",
+              "/system/lib/modules/pronto/pronto_wlan.ko",
+              "con_mode=5"
+            ],
+            "action": "insmod",
+            "modules": [
+              "pronto_wlan"
+            ],
+            "issues": [
+              {
+                "kind": "unreviewed_module_directory",
+                "directory": "/system/lib/modules/pronto"
+              },
+              {
+                "kind": "module_not_packaged",
+                "module": "pronto_wlan"
+              }
+            ]
+          }
+        ],
+        "issues": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "kind": "module_not_packaged",
+            "module": "sla"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_shs"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_ingress_deag"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_opt_mode"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_perf"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_offload"
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true"
+            ],
+            "kind": "unreviewed_module_directory",
+            "directory": "/system/lib/modules/pronto"
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true"
+            ],
+            "kind": "module_not_packaged",
+            "module": "pronto_wlan"
+          }
+        ],
+        "scripts_scanned": false,
+        "properties_reached_on_device": false,
+        "runtime_verified": false
+      }
+    },
+    "sia": {
+      "status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "all_service_owners": {
+        "service_count": 199,
+        "duplicates": {},
+        "scope": "Selected files only; complete platform init imports remain unverified"
+      },
+      "module_actions": {
+        "status": "module_action_review_required",
+        "actions": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/sla.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "sla"
+            ],
+            "issues": [
+              {
+                "kind": "module_not_packaged",
+                "module": "sla"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_shs"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_ingress_deag=N"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_ingress_deag"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_opt_mode=udp"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_opt_mode"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_perf"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_offload"
+              }
+            ]
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_pdr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_pdr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_notifier_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_notifier_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/snd_event_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "snd_event_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/gpr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "gpr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/spf_core_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "spf_core_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/adsp_loader_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "adsp_loader_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true"
+            ],
+            "command": [
+              "insmod",
+              "/system/lib/modules/pronto/pronto_wlan.ko",
+              "con_mode=5"
+            ],
+            "action": "insmod",
+            "modules": [
+              "pronto_wlan"
+            ],
+            "issues": [
+              {
+                "kind": "unreviewed_module_directory",
+                "directory": "/system/lib/modules/pronto"
+              },
+              {
+                "kind": "module_not_packaged",
+                "module": "pronto_wlan"
+              }
+            ]
+          }
+        ],
+        "issues": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "kind": "module_not_packaged",
+            "module": "sla"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_shs"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_ingress_deag"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_opt_mode"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_perf"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_offload"
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true"
+            ],
+            "kind": "unreviewed_module_directory",
+            "directory": "/system/lib/modules/pronto"
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true"
+            ],
+            "kind": "module_not_packaged",
+            "module": "pronto_wlan"
+          }
+        ],
+        "scripts_scanned": false,
+        "properties_reached_on_device": false,
+        "runtime_verified": false
+      }
+    }
+  },
+  "stock_partitions": {
+    "partitions": [
+      {
+        "partition": "vendor_dlkm",
+        "size": 55910400,
+        "sha256": "2f156bb8b714b142c6751149655bd3de90842c388b9e4d931696964f2752c6a7",
+        "operations": 27,
+        "download_bytes": 31614120,
+        "whole_partition_hash_verified": true,
+        "source_image": "/workspace/scratch/b72c45bd8860/out/r39-validation/vendor_dlkm-partial.img"
+      },
+      {
+        "partition": "system_dlkm",
+        "size": 15294464,
+        "sha256": "b482d56f25c66fe622f017bf7296b2426f934e6c2c2097a16b555c642e18e168",
+        "operations": 8,
+        "download_bytes": 12493748,
+        "whole_partition_hash_verified": true,
+        "source_image": "/workspace/scratch/b72c45bd8860/out/r39-validation/system_dlkm-partial.img"
+      },
+      {
+        "partition": "init_boot",
+        "size": 8388608,
+        "sha256": "9843ab332341e49cf061a0e7f261ff2412bada2bbcaa248b1c2b8a48863ff575",
+        "operations": 4,
+        "download_bytes": 2011343,
+        "whole_partition_hash_verified": true,
+        "source_image": "/workspace/scratch/b72c45bd8860/out/r39-validation/init_boot-partial.img"
+      }
+    ],
+    "ota_signature_verified": false,
+    "runtime_verified": false
+  },
+  "hyperos_normal_boot": {
+    "status": "conditional_abi_pass",
+    "selected_names": 629,
+    "modules_with_detected_blockers": 0,
+    "conditional_first_stage_ownership": [
+      {
+        "name": "zram",
+        "selected_sha256": "84badd8b32f66aea10cd1eda7ff09fe96ea78ba6f5e82987d3a77f04fa044fb9",
+        "later_sha256": "fded465785cfefdfebfef56470f3fc60b97567511015faec72433fbf9be70ca0",
+        "condition": "vendor_boot first-stage load succeeds before system_dlkm"
+      },
+      {
+        "name": "zsmalloc",
+        "selected_sha256": "c3d3ea51f2f74b27bc9be353b89a7153ef2eb614e8b7413a4c51389392b8a357",
+        "later_sha256": "6d2a05dc76f9564c5b613a97ac4898446dcbb148876429cf50f86a9295c43c34",
+        "condition": "vendor_boot first-stage load succeeds before system_dlkm"
+      }
+    ],
+    "selection_errors": [],
+    "invalid_modules": [],
+    "duplicate_selected_exports": {},
+    "first_stage": {
+      "load_list_sha256": "5aa2631dc44beaed4b63173b0768ff01b555aff8bc1ebc6196532dc0fa1e0ade",
+      "roots": 150,
+      "hard_dependency_closure": [
+        "arm_smmu",
+        "bcl_pmic5",
+        "binder_gki",
+        "bootinfo",
+        "boottime",
+        "cambistmclkcc_sun",
+        "cambistmclkcc_tuna",
+        "camcc_kera",
+        "camcc_sun",
+        "camcc_tuna",
+        "clk_dummy",
+        "clk_qcom",
+        "clk_rpmh",
+        "cmd_db",
+        "cpq",
+        "cpu_hotplug",
+        "cpu_phys_log_map",
+        "cpucp_fast",
+        "cqhci",
+        "crm_v2",
+        "dcc_v2",
+        "dcvs_fp",
+        "debug_ext",
+        "debug_regulator",
+        "debug_symbol",
+        "dispcc_sun",
+        "dispcc_tuna",
+        "dynamic_readahead",
+        "evacc_sun",
+        "gcc_kera",
+        "gcc_sun",
+        "gcc_tuna",
+        "gdsc_regulator",
+        "gh_arm_drv",
+        "gh_dbl",
+        "gh_msgq",
+        "gh_rm_drv",
+        "gh_virt_wdt",
+        "gic_intr_routing",
+        "gpucc_kera",
+        "gpucc_sun",
+        "gpucc_tuna",
+        "gunyah_loader",
+        "hwid",
+        "icc_bcm_voter",
+        "icc_debug",
+        "icc_rpmh",
+        "io_monitor",
+        "iommu_logger",
+        "ipclite",
+        "kshrink_slabd",
+        "llcc_qcom",
+        "lz4asm",
+        "mdt_loader",
+        "mem_buf",
+        "mem_buf_dev",
+        "mem_buf_msgq",
+        "memory_dump_v2",
+        "mi_game",
+        "mi_memory",
+        "mi_power",
+        "mi_rmap_efficiency",
+        "mi_ubt",
+        "mi_wq_dynamic_priority",
+        "miev",
+        "millet_binder",
+        "millet_core",
+        "millet_hs",
+        "millet_oem_cgroup",
+        "millet_pkg",
+        "millet_sig",
+        "minidump",
+        "mist",
+        "msm_dma_iommu_mapping",
+        "msm_qmp",
+        "node_cache",
+        "ntsync",
+        "nvmem_qcom_spmi_sdam",
+        "perf_actuator",
+        "perf_helper",
+        "phy_qcom_ufs",
+        "phy_qcom_ufs_qmp_v4_niobe",
+        "phy_qcom_ufs_qmp_v4_sun",
+        "phy_qcom_ufs_qrbtc_sdm845",
+        "pinctrl_kera",
+        "pinctrl_msm",
+        "pinctrl_sun",
+        "pinctrl_tuna",
+        "plat_common",
+        "pmic_pon_log",
+        "printk_enhance",
+        "proxy_consumer",
+        "qcom_aoss",
+        "qcom_cpu_vendor_hooks",
+        "qcom_cpucp",
+        "qcom_cpufreq_hw",
+        "qcom_cpufreq_thermal",
+        "qcom_dcvs",
+        "qcom_dload_mode",
+        "qcom_dma_heaps",
+        "qcom_hwspinlock",
+        "qcom_ice",
+        "qcom_iommu_util",
+        "qcom_ipc_logging",
+        "qcom_ipcc",
+        "qcom_llcc_pmu",
+        "qcom_logbuf_boot_log",
+        "qcom_logbuf_vendor_hooks",
+        "qcom_pdc",
+        "qcom_pmu_lib",
+        "qcom_reboot_reason",
+        "qcom_rpmh",
+        "qcom_scm",
+        "qcom_scmi_client",
+        "qcom_scmi_vendor",
+        "qcom_spmi_pmic",
+        "qcom_tsens",
+        "qcom_wdt_core",
+        "qnoc_kera",
+        "qnoc_qos",
+        "qnoc_sun",
+        "qnoc_tuna",
+        "qrtr",
+        "qrtr_gunyah",
+        "qti_regmap_debugfs",
+        "qti_thermal_vendor_hooks",
+        "rpmh_regulator",
+        "rtc_pm8xxx",
+        "rtg",
+        "sched_penalty",
+        "sched_walt",
+        "sdhci_msm",
+        "secure_buffer",
+        "sg",
+        "smem",
+        "socinfo",
+        "spmi_pmic_arb",
+        "stub_regulator",
+        "tcsrcc_sun",
+        "tcsrcc_tuna",
+        "thermal_pause",
+        "ufs_qcom",
+        "ufshcd_crypto_qti",
+        "videocc_sun",
+        "vip_sched",
+        "xm_power",
+        "xr_qi",
+        "xr_qs",
+        "zram",
+        "zsmalloc"
+      ],
+      "failures": []
+    },
+    "unverified": [
+      "Actual first-stage success and OEM duplicate-load behavior",
+      "Soft dependencies, parameters, namespaces, licenses and probe order",
+      "Signature trust, CFI and runtime structure compatibility",
+      "Live userdata filesystem and verified boot policy",
+      "Native ROM: source module integration remains a separate candidate",
+      "Hardware operation and recovery path"
+    ]
+  },
+  "hyperos_checks": {
+    "stock_module_files": 1009,
+    "unique_binaries": 631,
+    "builtin_crc_checks": 29169,
+    "retained_provider_crc_checks": 4901
+  },
+  "combined_all_inventory_status": "incomplete_inventory",
+  "combined_reason": "All-inventory audit deliberately leaves zram/zsmalloc variants unresolved; normal-boot audit separately assumes successful early providers.",
+  "tests": {
+    "module_tool_cases": 298,
+    "skipped": 0,
+    "real_erofs_fixture": true,
+    "real_bpfmt_fixture": true
+  },
+  "remaining": [
+    "SLA default-off module versus stock post-fs-data insmod action",
+    "RMNET two unsupported parameter actions and three unload actions require lifecycle/trigger qualification",
+    "Pronto factory Wi-Fi action does not match current Kiwi-v2 source profile",
+    "Full Android 17 platform, complete generated vendor, Soong/Kati, SELinux and assembled VINTF validation",
+    "Production module-signature/GKI policy, runtime CFI/BTF, firmware/HAL and first boot",
+    "AVB/recovery/userdata behavior and hardware regression tests on both ROM paths"
+  ],
+  "scope_notes": [
+    "100 init inputs generated with real pinned extract-utils; not a complete generated vendor tree",
+    "105 init files and 199 distinct service names inspected; complete platform import graph not verified",
+    "Eight module-action rows are unchanged from the earlier review, not eight newly missing drivers",
+    "Vendor and odm were only selectively recovered; no whole vendor/odm partition claim",
+    "R41 kernel/module output and offline images unchanged; R42 modifies device-source init ownership only"
+  ]
+}

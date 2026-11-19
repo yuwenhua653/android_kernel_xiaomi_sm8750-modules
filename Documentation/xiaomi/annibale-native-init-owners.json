@@ -1,0 +1,164 @@
+{
+  "input_sha256": "5795437902c4d2f696d39b4aa5429c032ef017bfb9c2d5e37acc1d97773d4761",
+  "output_sha256": "ebc4d38c342d065ad96a6044ab43dad06765bb68431bcec34cff09268eea8a32",
+  "owners": {
+    "loc_launcher": {
+      "removed_device_service": {
+        "head": [
+          "service",
+          "loc_launcher",
+          "/system/vendor/bin/loc_launcher"
+        ],
+        "body": [
+          [
+            "class",
+            "late_start"
+          ],
+          [
+            "user",
+            "gps"
+          ],
+          [
+            "group",
+            "gps"
+          ]
+        ]
+      },
+      "retained_service": {
+        "head": [
+          "service",
+          "loc_launcher",
+          "/vendor/bin/loc_launcher"
+        ],
+        "body": [
+          [
+            "class",
+            "late_start"
+          ],
+          [
+            "user",
+            "gps"
+          ],
+          [
+            "group",
+            "gps"
+          ]
+        ]
+      },
+      "retained_file": "loc-launcher.rc",
+      "stock_file_sha256": "b5eb6991452dbcec9e4e6bfe35ac1e2f33178caae60b22bb129d3dafbad1b183"
+    },
+    "time_daemon": {
+      "removed_device_service": {
+        "head": [
+          "service",
+          "time_daemon",
+          "/vendor/bin/time_daemon"
+        ],
+        "body": [
+          [
+            "class",
+            "main"
+          ],
+          [
+            "user",
+            "system"
+          ],
+          [
+            "group",
+            "system"
+          ],
+          [
+            "capabilities",
+            "SYS_TIME"
+          ]
+        ]
+      },
+      "retained_service": {
+        "head": [
+          "service",
+          "time_daemon",
+          "/vendor/bin/time_daemon"
+        ],
+        "body": [
+          [
+            "class",
+            "main"
+          ],
+          [
+            "user",
+            "system"
+          ],
+          [
+            "group",
+            "system"
+          ],
+          [
+            "capabilities",
+            "SYS_TIME"
+          ]
+        ]
+      },
+      "retained_file": "init.time_daemon.rc",
+      "stock_file_sha256": "59e1d3352a6151d6217b03d1e7214dbcedbc63cce4870d68ae6f73d713a93761"
+    },
+    "vendor.msm_irqbalance": {
+      "removed_device_service": {
+        "head": [
+          "service",
+          "vendor.msm_irqbalance",
+          "/vendor/bin/msm_irqbalance",
+          "-f",
+          "/system/vendor/etc/msm_irqbalance.conf"
+        ],
+        "body": [
+          [
+            "class",
+            "core"
+          ],
+          [
+            "user",
+            "root"
+          ],
+          [
+            "group",
+            "root"
+          ],
+          [
+            "disabled"
+          ]
+        ]
+      },
+      "retained_service": {
+        "head": [
+          "service",
+          "vendor.msm_irqbalance",
+          "/vendor/bin/msm_irqbalance",
+          "-f",
+          "/system/vendor/etc/msm_irqbalance.conf"
+        ],
+        "body": [
+          [
+            "class",
+            "core"
+          ],
+          [
+            "user",
+            "root"
+          ],
+          [
+            "group",
+            "root"
+          ],
+          [
+            "disabled"
+          ]
+        ]
+      },
+      "retained_file": "hw/init.qti.kernel.rc",
+      "stock_file_sha256": "77a8019f1382471bfea4753103defb2e19860b5e115e0690e95ac07b25ddf75b"
+    }
+  },
+  "scope": "Native source ROM only; no HyperOS modification",
+  "runtime_verified": false
+}
