@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "milestone": "R45 HyperOS OS4.0.6 temporary-boot candidate",
+  "flash_ready": false,
+  "hardware_boot_observed": false,
+  "kernel_commit": "c17ffa89f4fe197dd0e83c36cb517b6c0c13dc34",
+  "build_local_commit": "e7af0d4f1111",
+  "kernel_tree": "4540277f23746c417d0de314505c2a2ccbc49a72",
+  "kernel_release": "6.6.144-4k-ge7af0d4f1111",
+  "candidate": {
+    "schema_version": 1,
+    "status": "offline_unqualified",
+    "flash_ready": false,
+    "stock_boot_sha256": "37484274a4c91b2fec88e1ae4e9483631c6e96207eac6761a17aaeb6cbf1c47e",
+    "kernel_sha256": "ca23bf4d375f7562af3a533f7df60aacfb380551084c488046a95ab6d3aedbda",
+    "candidate_sha256": "7734eb703e5fb608a45cfc07afd5cf1b5189e903cb9981bce9daa44485475680",
+    "candidate_bytes": 36876288,
+    "partition_bytes": 100663296,
+    "header_version": 4,
+    "ramdisk_size": 0,
+    "boot_signature_size": 0,
+    "avb_footer_present": false,
+    "preserve_stock": [
+      "init_boot",
+      "vendor_boot",
+      "dtbo",
+      "recovery",
+      "vendor_dlkm",
+      "system_dlkm",
+      "vbmeta",
+      "vbmeta_system"
+    ],
+    "unverified": [
+      "Bootloader accepts unsigned candidate",
+      "Live device/build and rollback policy",
+      "Modules/signature/CFI/runtime ABI",
+      "Actual userdata filesystem",
+      "Recoverable installation method"
+    ],
+    "scope": "Tests the kernel baseline with retained OEM drivers; does not test source display/touch modules"
+  },
+  "normal_boot": {
+    "selected_names": 629,
+    "blocked": 0,
+    "kernel_imports_checked": 29169,
+    "retained_provider_imports": 4901,
+    "first_stage_roots": 150
+  },
+  "loader": {
+    "status": "no_detected_loader_metadata_blocker",
+    "namespace_license_failures": [],
+    "signature_status": {
+      "pkcs7_syntax_checked_trust_unverified": 94,
+      "unsigned": 535
+    },
+    "kcfi": {
+      "comparable_import_typeids": 974,
+      "imports_without_comparable_typeids": 33096,
+      "mismatches": [],
+      "scope": "Available declared import/provider type IDs only, not runtime callbacks"
+    },
+    "softdep_missing": [
+      {
+        "module": "dwc3_msm",
+        "phase": "pre",
+        "dependency": "phy_msm_snps_hs"
+      },
+      {
+        "module": "ipam",
+        "phase": "pre",
+        "dependency": "subsys_pil_tz"
+      },
+      {
+        "module": "ipam",
+        "phase": "pre",
+        "dependency": "qcom_arm_smmu_mod"
+      },
+      {
+        "module": "msm_video",
+        "phase": "pre",
+        "dependency": "subsys_pil_tz"
+      },
+      {
+        "module": "pinctrl_kera",
+        "phase": "pre",
+        "dependency": "qcom_tlmm_vm_irqchip"
+      },
+      {
+        "module": "pinctrl_tuna",
+        "phase": "pre",
+        "dependency": "qcom_tlmm_vm_irqchip"
+      }
+    ],
+    "empty_gki_allowlist": true
+  },
+  "native_build": {
+    "core_modules": 411,
+    "external_modules": 94,
+    "versioned_imports": 28033,
+    "flash_ready": false
+  },
+  "tests": {
+    "run": 338,
+    "failures": 0,
+    "skipped": 0
+  },
+  "independent_boot_unpack_image_match": true,
+  "remaining": [
+    "OEM bootloader temporary-boot support",
+    "Actual candidate boot, module load and hardware operation",
+    "Production signature trust / KMI policy / all runtime CFI",
+    "Native ROM vendor and SELinux qualification remains separate"
+  ]
+}

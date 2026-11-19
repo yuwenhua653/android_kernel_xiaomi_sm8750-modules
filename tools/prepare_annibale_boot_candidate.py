@@ -12,7 +12,7 @@ from pathlib import Path
 import struct
 
 STOCK_SHA = '37484274a4c91b2fec88e1ae4e9483631c6e96207eac6761a17aaeb6cbf1c47e'
-KERNEL_SHA = '9cbcb7a3e7fbd65cc6e13424ec8dd089fc6d0e09ead56201868b612c1432d503'
+KERNEL_SHA = 'ca23bf4d375f7562af3a533f7df60aacfb380551084c488046a95ab6d3aedbda'
 PAGE = 4096
 
 
