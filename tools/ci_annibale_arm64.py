@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import time
 import zipfile
 
 def digest(path):
@@ -17,6 +18,18 @@ def digest(path):
 def run(command, **kwargs):
     print("+", " ".join(map(str, command)), flush=True)
     subprocess.run(list(map(str, command)), check=True, **kwargs)
+
+def transfer(command, **kwargs):
+    """Retry interrupted Git transfers while retaining the exact commit pin."""
+    for attempt in range(3):
+        try:
+            run(command, **kwargs)
+            return
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            if attempt == 2:
+                raise
+            print(f"Retrying pinned Git transfer ({attempt + 2}/3)", flush=True)
+            time.sleep(2 ** (attempt + 1))
 
 def toolchain(root, spec):
     # Gitiles tar.gz bytes are not our content identity. Fetch Git objects for
@@ -35,10 +48,11 @@ def toolchain(root, spec):
     run([*git, "remote", "add", "origin", spec["repo"]])
     run([*git, "sparse-checkout", "init", "--cone"])
     run([*git, "sparse-checkout", "set", spec["subdir"]])
-    run([*git, "-c", "http.lowSpeedLimit=1024", "-c", "http.lowSpeedTime=120",
+    transfer([*git, "-c", "http.lowSpeedLimit=1024", "-c", "http.lowSpeedTime=120",
          "fetch", "--no-tags", "--depth=1", "--filter=blob:none", "origin", revision],
         timeout=1800)
-    run([*git, "checkout", "--detach", revision], timeout=1800)
+    transfer([*git, "-c", "http.lowSpeedLimit=1024", "-c", "http.lowSpeedTime=120",
+              "checkout", "--detach", revision], timeout=1800)
     observed = subprocess.check_output([*git, "rev-parse", "HEAD"], text=True).strip()
     if observed != revision:
         raise ValueError("toolchain commit mismatch: " + spec["name"])
@@ -115,7 +129,8 @@ def main():
     target = destination / "annibale-r47-ARM64-NOT-FLASHABLE.zip"
     selected = {out / "provenance.json": "provenance.json"}
     for rel in (".config", "Module.symvers", "modules.order", "modules.builtin",
-                "vmlinux", "arch/arm64/boot/Image"):
+                "modules.builtin.modinfo", "include/generated/autoconf.h",
+                "include/config/kernel.release", "vmlinux", "arch/arm64/boot/Image"):
         selected[out / "kernel" / rel] = "kernel/" + rel
     for rel in (out / "kernel/modules.order").read_text().splitlines():
         module = (out / "kernel" / rel).with_suffix(".ko").resolve()

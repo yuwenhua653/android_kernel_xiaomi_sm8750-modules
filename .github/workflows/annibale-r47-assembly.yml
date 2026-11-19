@@ -17,6 +17,11 @@ jobs:
         with:
           path: modules
           persist-credentials: false
+      - name: Verify pinned tool transfer regressions
+        run: |
+          mkdir -p diagnostics
+          set -o pipefail
+          python3 -m unittest discover -s modules/tools/tests -p test_annibale_ci_toolchain.py -v 2>&1 | tee diagnostics/toolchain-tests.log
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: yuwenhua653/android_kernel_xiaomi_sm8750
