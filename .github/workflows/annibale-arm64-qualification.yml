@@ -5,6 +5,8 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
 jobs:
   qualify:
     runs-on: ubuntu-24.04
@@ -24,6 +26,7 @@ jobs:
             CC="$compiler" python3 -m unittest discover -s tools/tests -p test_annibale_network_controls.py -v
           done
           python3 -m unittest discover -s tools/tests -p test_annibale_rmnet_lifecycle.py -v
+          python3 -m unittest discover -s tools/tests -p test_annibale_ci_toolchain.py -v
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: yuwenhua653/android_kernel_xiaomi_sm8750
@@ -39,18 +42,24 @@ jobs:
           persist-credentials: false
           fetch-depth: 1
       - name: Install host build prerequisites
+        timeout-minutes: 10
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y bc bison flex libssl-dev libelf-dev cpio rsync
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update -qq
+          sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install -y bc bison flex libssl-dev libelf-dev cpio rsync
           df -h .
       - name: Build pinned Image and full selected module profile
-        run: python3 -u sm8750-modules/tools/ci_annibale_arm64.py --workspace "$GITHUB_WORKSPACE" --jobs 4
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p ci-logs
+          python3 -u sm8750-modules/tools/ci_annibale_arm64.py --workspace "$GITHUB_WORKSPACE" --jobs 4 2>&1 | tee ci-logs/qualification.log
       - name: Save build diagnostics
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: annibale-r47-build-diagnostics
           path: |
+            ci-logs/*.log
             out/**/*.log
             out/provenance.json
             out/external/*/build.json

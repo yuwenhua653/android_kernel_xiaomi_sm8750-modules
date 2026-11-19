@@ -6,10 +6,8 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import shutil
+import re
 import subprocess
-import tarfile
-import urllib.request
 import zipfile
 
 def digest(path):
@@ -21,20 +19,34 @@ def run(command, **kwargs):
     subprocess.run(list(map(str, command)), check=True, **kwargs)
 
 def toolchain(root, spec):
-    destination = root / spec["name"]
-    archive = root / (spec["name"] + ".tar.gz")
-    url = spec["repo"] + "/+archive/" + spec["revision"] + "/" + spec["subdir"] + ".tar.gz"
-    if not archive.exists():
-        print("Downloading pinned", spec["name"], flush=True)
-        request = urllib.request.Request(url, headers={"User-Agent": "annibale-build"})
-        with urllib.request.urlopen(request, timeout=120) as response, archive.open("xb") as output:
-            shutil.copyfileobj(response, output, 1024 * 1024)
-    if archive.stat().st_size != spec["bytes"] or digest(archive) != spec["archive_sha256"]:
-        raise ValueError("toolchain size/hash differs: " + spec["name"])
-    destination.mkdir()
-    with tarfile.open(archive, "r:gz") as source:
-        source.extractall(destination, filter="data")
-    print("Verified and extracted", spec["name"], flush=True)
+    # Gitiles tar.gz bytes are not our content identity. Fetch Git objects for
+    # the exact reviewed commit and materialize only the required subtree.
+    revision = spec["revision"]
+    subdir = Path(spec["subdir"])
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("toolchain requires a full commit ID")
+    if subdir.is_absolute() or ".." in subdir.parts:
+        raise ValueError("toolchain subtree must be relative")
+    checkout = root / spec["name"]
+    checkout.mkdir()
+    git = ["git", "-C", checkout]
+    run([*git, "init", "--quiet"])
+    run([*git, "config", "transfer.fsckObjects", "true"])
+    run([*git, "remote", "add", "origin", spec["repo"]])
+    run([*git, "sparse-checkout", "init", "--cone"])
+    run([*git, "sparse-checkout", "set", spec["subdir"]])
+    run([*git, "-c", "http.lowSpeedLimit=1024", "-c", "http.lowSpeedTime=120",
+         "fetch", "--no-tags", "--depth=1", "--filter=blob:none", "origin", revision],
+        timeout=1800)
+    run([*git, "checkout", "--detach", revision], timeout=1800)
+    observed = subprocess.check_output([*git, "rev-parse", "HEAD"], text=True).strip()
+    if observed != revision:
+        raise ValueError("toolchain commit mismatch: " + spec["name"])
+    destination = checkout / subdir
+    if not destination.is_dir() or not destination.resolve().is_relative_to(checkout.resolve()):
+        raise ValueError("missing/invalid toolchain subtree: " + spec["name"])
+    tree = subprocess.check_output([*git, "rev-parse", f"HEAD:{spec['subdir']}"], text=True).strip()
+    print("Verified Git toolchain", spec["name"], "commit", observed, "tree", tree, flush=True)
     return destination
 
 def main():
@@ -103,7 +115,10 @@ def main():
                 "vmlinux", "arch/arm64/boot/Image"):
         selected[out / "kernel" / rel] = "kernel/" + rel
     for rel in (out / "kernel/modules.order").read_text().splitlines():
-        selected[out / "kernel" / rel] = "kernel/" + rel
+        module = (out / "kernel" / rel).with_suffix(".ko").resolve()
+        if not module.is_relative_to((out / "kernel").resolve()):
+            raise ValueError("module path escapes kernel output: " + rel)
+        selected[module] = "kernel/" + module.relative_to((out / "kernel").resolve()).as_posix()
     for path in stage.rglob("*.ko"):
         selected[path] = "external/" + path.relative_to(stage).as_posix()
     for path in out.rglob("*.log"):
