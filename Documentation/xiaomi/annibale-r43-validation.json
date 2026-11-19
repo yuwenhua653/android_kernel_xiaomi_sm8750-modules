@@ -1,0 +1,1820 @@
+{
+  "round": "R43",
+  "device": "Redmi K90 / annibale / SM8750",
+  "date": "2026-11-19",
+  "modules_base_commit": "b81787f7109b4a26ec1915628b63acddafb0f7ce",
+  "status": "source_fixes_and_offline_builds_completed_with_remaining_gates",
+  "kernel_rebuilt": false,
+  "kernel_release": "6.6.144-4k-gc70ed7c690cc",
+  "compiled_source_hashes": {
+    "qcom/opensource/datarmnet-ext/perf/rmnet_perf_main.c": "1427ea27720d6490b168b25f6fe50beaf19c1e3a9798b5e88ed69b2767de3e72",
+    "qcom/opensource/datarmnet-ext/src/perf/rmnet_perf_main.c": "5cf38508747925c0d0dde6c1b81961dbc3d035ac394f92b198b7a02ec88e5e84",
+    "xiaomi/sla/annibale/stats.c": "50999936bb0d536a3c6de6ceb0d49719627456d9ea60666627a04234dc3c2548"
+  },
+  "staged_source_files_match_current": true,
+  "compiled_source_file_count": 9441,
+  "rmnet_perf": {
+    "fix": "Return after successful hook registration; preserve TCP/UDP contexts. Error unwinds unchanged.",
+    "readable_and_production_sources_fixed": true,
+    "host_fixture": "Actual init/exit functions, three failures and 100 balanced cycles for each source; UBSan. Async traffic and unload are not qualified.",
+    "module": {
+      "path": "/workspace/scratch/b72c45bd8860/out/r43-external/modules-lh1rfn_u/qcom/opensource/datarmnet-ext/perf/rmnet_perf.ko",
+      "sha256": "c489477a81c0190fd72e123431d9ba9cb00d2781473a9f53680ac7e8fb76b493",
+      "versioned_imports": 58,
+      "depends": [
+        "rmnet_core"
+      ],
+      "softdep": [],
+      "firmware": []
+    }
+  },
+  "sla": {
+    "fix": "Accept VM_MAYSHARE for the actual read-only shared mmap; no write or exec permission promotion.",
+    "consumer_sha256": "1486b3882f6abf796d77cec5d686a59aa68464031e0d0090a795c6958f6815b6",
+    "consumer_mapping": {
+      "open_flags": 64,
+      "mmap_length": 20480,
+      "mmap_prot": 1,
+      "mmap_flags": 1,
+      "mmap_offset": 0,
+      "mmap_call_virtual_address": "0x137f4",
+      "fd_closed_after_mmap": true
+    },
+    "module": {
+      "path": "/workspace/scratch/b72c45bd8860/out/r43-sla/sla.ko",
+      "sha256": "1918377b233b9d91f2620c0519334bc92d4df713ade6884eff5c2d6d97f8d2ff",
+      "versioned_imports": 57,
+      "depends": [],
+      "softdep": [],
+      "firmware": []
+    },
+    "default_enabled": false,
+    "included_in_images": false,
+    "runtime_verified": false
+  },
+  "wifi_factory": {
+    "module": "qca_cld3_kiwi_v2",
+    "callback_parameter": "con_mode",
+    "compiled_with_QCA_WIFI_FTM": true,
+    "permission_octal": "0644",
+    "ftm_mode": 5,
+    "mission_mode": 0,
+    "requires_modules_ready": true,
+    "selinux_prefix_siblings_excluded": true,
+    "selinux_compiled": false,
+    "firmware_or_radio_verified": false
+  },
+  "build": {
+    "external_modules": 93,
+    "core_modules_reused": 411,
+    "versioned_imports_checked": 27971,
+    "isolated_sla_imports": 57,
+    "pipeline": [
+      {
+        "stage": "external-build",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/b72c45bd8860/sm8750-modules/tools/build_annibale_modules.py",
+          "--kernel",
+          "/workspace/scratch/b72c45bd8860/sm8750",
+          "--kernel-out",
+          "/workspace/scratch/b72c45bd8860/out/r41-kernel",
+          "--clang-bin",
+          "/workspace/scratch/b72c45bd8860/out/r41-tools/clang/bin",
+          "--kernel-tools-bin",
+          "/workspace/scratch/b72c45bd8860/out/r41-tools/kernel-tools/bin",
+          "--profile",
+          "audio",
+          "--jobs",
+          "6",
+          "--output",
+          "/workspace/scratch/b72c45bd8860/out/r43-external"
+        ],
+        "returncode": 0,
+        "seconds": 303.06
+      },
+      {
+        "stage": "sla-build",
+        "command": [
+          "make",
+          "-C",
+          "/workspace/scratch/b72c45bd8860/sm8750",
+          "O=/workspace/scratch/b72c45bd8860/out/r41-kernel",
+          "ARCH=arm64",
+          "LLVM=1",
+          "HOSTCC=gcc",
+          "-j6",
+          "HOSTCFLAGS=-I/workspace/scratch/b72c45bd8860/out/r41-tools/kernel-tools/include",
+          "HOSTLDFLAGS=-L/workspace/scratch/b72c45bd8860/out/r41-tools/kernel-tools/lib64 -Wl,-rpath,/workspace/scratch/b72c45bd8860/out/r41-tools/kernel-tools/lib64",
+          "M=/workspace/scratch/b72c45bd8860/out/r43-sla",
+          "CONFIG_XIAOMI_ANNIBALE_SLA=m",
+          "KCFLAGS=-Werror",
+          "modules"
+        ],
+        "returncode": 0,
+        "seconds": 2.05
+      },
+      {
+        "stage": "sla-verify",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/b72c45bd8860/sm8750-modules/tools/verify_annibale_modules.py",
+          "--kernel-out",
+          "/workspace/scratch/b72c45bd8860/out/r41-kernel",
+          "--module-stage",
+          "/workspace/scratch/b72c45bd8860/out/r43-sla",
+          "--report",
+          "/workspace/scratch/b72c45bd8860/out/r43-validation/sla-verification.json"
+        ],
+        "returncode": 0,
+        "seconds": 0.47
+      },
+      {
+        "stage": "android-stage-tfa",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/b72c45bd8860/sm8750-modules/tools/stage_annibale_android.py",
+          "--kernel-out",
+          "/workspace/scratch/b72c45bd8860/out/r41-kernel",
+          "--module-stage",
+          "/workspace/scratch/b72c45bd8860/out/r43-external/modules-lh1rfn_u",
+          "--policy",
+          "/workspace/scratch/b72c45bd8860/sm8750-modules/Documentation/xiaomi/annibale-spu-tfa-partitions.json",
+          "--output",
+          "/workspace/scratch/b72c45bd8860/out/r43-android-tfa",
+          "--depmod",
+          "/workspace/scratch/b72c45bd8860/out/r41-tools/kernel-tools/bin/depmod",
+          "--strip",
+          "/workspace/scratch/b72c45bd8860/out/r41-tools/clang/bin/llvm-strip"
+        ],
+        "returncode": 0,
+        "seconds": 7.14
+      },
+      {
+        "stage": "android-stage-sia",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/b72c45bd8860/sm8750-modules/tools/stage_annibale_android.py",
+          "--kernel-out",
+          "/workspace/scratch/b72c45bd8860/out/r41-kernel",
+          "--module-stage",
+          "/workspace/scratch/b72c45bd8860/out/r43-external/modules-lh1rfn_u",
+          "--policy",
+          "/workspace/scratch/b72c45bd8860/sm8750-modules/Documentation/xiaomi/annibale-spu-sia-partitions.json",
+          "--output",
+          "/workspace/scratch/b72c45bd8860/out/r43-android-sia",
+          "--depmod",
+          "/workspace/scratch/b72c45bd8860/out/r41-tools/kernel-tools/bin/depmod",
+          "--strip",
+          "/workspace/scratch/b72c45bd8860/out/r41-tools/clang/bin/llvm-strip"
+        ],
+        "returncode": 0,
+        "seconds": 6.49
+      }
+    ]
+  },
+  "images": {
+    "tfa": {
+      "schema_version": 1,
+      "status": "offline_images_passed",
+      "flashable": false,
+      "boot_verified": false,
+      "complete_device": false,
+      "family": "tfa",
+      "display_mode": "native",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "kernel_rebuilt": false,
+      "modules": 217,
+      "fstab_rows": 28,
+      "fstab_sha256": "3ae025a673b5d2f56daabdcf99411ecffa786f8beb09c9fea84dc255c6681634",
+      "stage_validation_sha256": "b38e9da592aabf7d07a2bcc5e32d3f33534f44d50280b7ddbaf1af57de6dd1bb",
+      "fragment_validation_sha256": "fcff9870770d3b2cd46df23139ee40e78789d31e821fdd115f83e6ba6dc315f4",
+      "dt_validation_sha256": "de8e3092ed5ec0c2e1f158ad23f29ef01c18ee42c402ab6eeb003dc4eb2d15e5",
+      "vendor_boot_layout": {
+        "version": 4,
+        "page_size": 4096,
+        "ramdisk_size": 1809193,
+        "dtb_size": 3254432,
+        "table_size": 216,
+        "entry_size": 108,
+        "bootconfig_size": 205,
+        "entries": [
+          {
+            "size": 2728,
+            "offset": 0,
+            "type": 1,
+            "name": "",
+            "board_id": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "size": 1806465,
+            "offset": 2728,
+            "type": 3,
+            "name": "dlkm",
+            "board_id": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 erofs.reserved_pages=64 bootconfig"
+      },
+      "images": {
+        "boot": {
+          "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "560eef0017732b4356f116fc75a785f40f9275af31cb784630d56eebf2c3d081",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "a1a1ad33fc910f54a63f10f24991d48ce74b0f1ea068c10797be9ec25e297aee",
+          "bytes": 1230989
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "filesystems": {
+        "system_dlkm": {
+          "sha256": "a31aec2d7d6cc205ca41f0e1b14bdf10951c6d30c39188cce4f7d4d929ec7d99",
+          "bytes": 155648,
+          "files": 5,
+          "inodes_checked": 8,
+          "selinux": "u:object_r:system_dlkm_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        },
+        "vendor_dlkm": {
+          "sha256": "830768c494b8e052513cdd230fd3ec96ae3f2a3d3c3a208d52ecc1d46de11129",
+          "bytes": 24731648,
+          "files": 142,
+          "inodes_checked": 145,
+          "selinux": "u:object_r:vendor_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        }
+      },
+      "tools_sha256": {
+        "mkbootimg": "37d84b3d162e0bc62e36c1f4e1c63c85ea0caa9f29be023eb2f8efe006ad948c",
+        "unpack_bootimg": "a9d260978a63bd06a24b6347e7dee8a28ff96639793caea15dff6aa491316308",
+        "mkfs_erofs": "523061c036352034da56b76531be13345548a8a6b429c358d4fc94e5c3f30937",
+        "fsck_erofs": "e197beb1c65168cd664dd7801e09f61d00c1174e05d6eb2f022e2bece73bfd60",
+        "mkbootfs": "63839a99c4e30a1492aa70fe7ca8df0cf0008b1dbb3319898760cd0052f20a03",
+        "lz4": "6dc1374017cfe759031a145047961442c4f7dfbad6e9052d7c9db284fb9019f6"
+      },
+      "avb_signatures_added": false,
+      "original_avb_footer_copied": false,
+      "unverified": [
+        "Complete native ROM device tree, init_boot, module-loader owners and enforcing SELinux",
+        "Full device module/firmware/HAL coverage and physical amplifier family",
+        "Final AVB/vbmeta, dynamic partition group sizes, recovery and bootloader behavior",
+        "Actual storage mounts, encrypted data unlock and first OSS boot",
+        "GKI policy and runtime signatures/CFI; experimental empty unprotected list"
+      ]
+    },
+    "sia": {
+      "schema_version": 1,
+      "status": "offline_images_passed",
+      "flashable": false,
+      "boot_verified": false,
+      "complete_device": false,
+      "family": "sia",
+      "display_mode": "native",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "kernel_rebuilt": false,
+      "modules": 218,
+      "fstab_rows": 28,
+      "fstab_sha256": "3ae025a673b5d2f56daabdcf99411ecffa786f8beb09c9fea84dc255c6681634",
+      "stage_validation_sha256": "3ba260d7548ae389c266561e7b7f48ffadf210ce222e9d8cbdd395be66afdd9d",
+      "fragment_validation_sha256": "5ae95f2b88d29c912d1592026bd02debf14c7edb51fe0136d7145b8daa64775e",
+      "dt_validation_sha256": "de8e3092ed5ec0c2e1f158ad23f29ef01c18ee42c402ab6eeb003dc4eb2d15e5",
+      "vendor_boot_layout": {
+        "version": 4,
+        "page_size": 4096,
+        "ramdisk_size": 1809193,
+        "dtb_size": 3254432,
+        "table_size": 216,
+        "entry_size": 108,
+        "bootconfig_size": 205,
+        "entries": [
+          {
+            "size": 2728,
+            "offset": 0,
+            "type": 1,
+            "name": "",
+            "board_id": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "size": 1806465,
+            "offset": 2728,
+            "type": 3,
+            "name": "dlkm",
+            "board_id": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 erofs.reserved_pages=64 bootconfig"
+      },
+      "images": {
+        "boot": {
+          "sha256": "bfa9c615951bace7a1ff6645648fb23eec2a66577a917da6a986fcf82a35b7e6",
+          "bytes": 36810752
+        },
+        "vendor_boot": {
+          "sha256": "560eef0017732b4356f116fc75a785f40f9275af31cb784630d56eebf2c3d081",
+          "bytes": 5079040
+        },
+        "dtbo": {
+          "sha256": "f0293f5dcdf3240251668c2f5d120d27175d776f00eb84015075446906eb3d2f",
+          "bytes": 1231389
+        },
+        "dtb": {
+          "sha256": "42d732168bdecf06b84adc73f643af7f8e00d3c708056ab6a97fc63b5fc2d3e3",
+          "bytes": 3254432
+        }
+      },
+      "filesystems": {
+        "system_dlkm": {
+          "sha256": "a31aec2d7d6cc205ca41f0e1b14bdf10951c6d30c39188cce4f7d4d929ec7d99",
+          "bytes": 155648,
+          "files": 5,
+          "inodes_checked": 8,
+          "selinux": "u:object_r:system_dlkm_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        },
+        "vendor_dlkm": {
+          "sha256": "28fae41b11ddcc42c53f6a10185006842579a2cbb1dcbc4f6e958ffe2314c386",
+          "bytes": 24621056,
+          "files": 143,
+          "inodes_checked": 146,
+          "selinux": "u:object_r:vendor_file:s0",
+          "file_data_roundtrip": true,
+          "uid_gid_mode_labels_checked": true,
+          "incompatible_features": 1
+        }
+      },
+      "tools_sha256": {
+        "mkbootimg": "37d84b3d162e0bc62e36c1f4e1c63c85ea0caa9f29be023eb2f8efe006ad948c",
+        "unpack_bootimg": "a9d260978a63bd06a24b6347e7dee8a28ff96639793caea15dff6aa491316308",
+        "mkfs_erofs": "523061c036352034da56b76531be13345548a8a6b429c358d4fc94e5c3f30937",
+        "fsck_erofs": "e197beb1c65168cd664dd7801e09f61d00c1174e05d6eb2f022e2bece73bfd60",
+        "mkbootfs": "63839a99c4e30a1492aa70fe7ca8df0cf0008b1dbb3319898760cd0052f20a03",
+        "lz4": "6dc1374017cfe759031a145047961442c4f7dfbad6e9052d7c9db284fb9019f6"
+      },
+      "avb_signatures_added": false,
+      "original_avb_footer_copied": false,
+      "unverified": [
+        "Complete native ROM device tree, init_boot, module-loader owners and enforcing SELinux",
+        "Full device module/firmware/HAL coverage and physical amplifier family",
+        "Final AVB/vbmeta, dynamic partition group sizes, recovery and bootloader behavior",
+        "Actual storage mounts, encrypted data unlock and first OSS boot",
+        "GKI policy and runtime signatures/CFI; experimental empty unprotected list"
+      ]
+    }
+  },
+  "handoffs": {
+    "tfa": {
+      "schema_version": 1,
+      "status": "handoff_prepared",
+      "flashable": false,
+      "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+      "family": "tfa",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "stage_validation_sha256": "b38e9da592aabf7d07a2bcc5e32d3f33534f44d50280b7ddbaf1af57de6dd1bb",
+      "image_validation_sha256": "3bd6ddbeca7f5438783e711e5ec1a3b36c2e1ff80e0ebf7736b35615611ca3f5",
+      "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+      "module_count": 217,
+      "header_count": 1003,
+      "kernel_compilation_hook": false,
+      "rom_built": false,
+      "init_boot_built": false,
+      "unverified": [
+        "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+        "Re-extracted vendor tree must not retain conflicting loader owners",
+        "Actual init service graph, vendor tools and enforcing policy",
+        "Recovery/charger module lists and physical partition/AVB configuration",
+        "Device driver coverage, amplifier identity and first boot"
+      ]
+    },
+    "sia": {
+      "schema_version": 1,
+      "status": "handoff_prepared",
+      "flashable": false,
+      "rom_reference_commit": "1ed1eccfa3f68e1ec440b7f5e87ac97dc89475fe",
+      "family": "sia",
+      "release": "6.6.144-4k-gc70ed7c690cc",
+      "stage_validation_sha256": "3ba260d7548ae389c266561e7b7f48ffadf210ce222e9d8cbdd395be66afdd9d",
+      "image_validation_sha256": "db5aadc0e0b7d0c9c1ae6dbb51eecdc00ca5d2908e8fc858855f1a9f98e7271c",
+      "loader_template_sha256": "e19a533f097b09cca16366ca11c5880e515c513f2c333155834980a901fd1652",
+      "module_count": 218,
+      "header_count": 1003,
+      "kernel_compilation_hook": false,
+      "rom_built": false,
+      "init_boot_built": false,
+      "unverified": [
+        "Full native Android 17 ROM and proprietary firmware/HAL compatibility",
+        "Re-extracted vendor tree must not retain conflicting loader owners",
+        "Actual init service graph, vendor tools and enforcing policy",
+        "Recovery/charger module lists and physical partition/AVB configuration",
+        "Device driver coverage, amplifier identity and first boot"
+      ]
+    }
+  },
+  "native_init": {
+    "tfa": {
+      "status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "all_service_owners": {
+        "service_count": 199,
+        "duplicates": {},
+        "scope": "Selected files only; complete platform init imports remain unverified"
+      },
+      "module_actions": {
+        "status": "module_action_review_required",
+        "actions": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/sla.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "sla"
+            ],
+            "issues": [
+              {
+                "kind": "module_not_packaged",
+                "module": "sla"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_shs"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_ingress_deag=N"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_ingress_deag"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_opt_mode=udp"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_opt_mode"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_perf"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_offload"
+              }
+            ]
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_pdr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_pdr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_notifier_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_notifier_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/snd_event_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "snd_event_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/gpr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "gpr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/spf_core_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "spf_core_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/adsp_loader_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "adsp_loader_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true",
+              "&&",
+              "property:vendor.all.modules.ready=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qca_cld3_kiwi_v2/parameters/con_mode",
+              "5"
+            ],
+            "action": "write_parameter",
+            "modules": [
+              "qca_cld3_kiwi_v2"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=false",
+              "&&",
+              "property:vendor.all.modules.ready=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qca_cld3_kiwi_v2/parameters/con_mode",
+              "0"
+            ],
+            "action": "write_parameter",
+            "modules": [
+              "qca_cld3_kiwi_v2"
+            ],
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "kind": "module_not_packaged",
+            "module": "sla"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_shs"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_ingress_deag"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_opt_mode"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_perf"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_offload"
+          }
+        ],
+        "scripts_scanned": false,
+        "other_parameter_writes_unreviewed": [
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.ssr.enable_debug=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsys_pil_tz/parameters/enable_debug",
+              "${persist.sys.ssr.enable_debug}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.mba_boot_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms",
+              "${persist.sys.mba_boot_timeout}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.modem_auth_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/modem_auth_timeout_ms",
+              "${persist.sys.modem_auth_timeout}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.pil_proxy_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/peripheral_loader/parameters/proxy_timeout_ms",
+              "${persist.sys.pil_proxy_timeout}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "1"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=0"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "0"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.ssr.enable_debug=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_debug",
+              "${persist.sys.ssr.enable_debug}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.mba_boot_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms",
+              "${persist.sys.mba_boot_timeout}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.modem_auth_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/modem_auth_timeout_ms",
+              "${persist.sys.modem_auth_timeout}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.pil_proxy_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/peripheral_loader/parameters/proxy_timeout_ms",
+              "${persist.sys.pil_proxy_timeout}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "1"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qcom_ramdump/parameters/enable_dump_collection",
+              "1"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=0"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "0"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=0"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qcom_ramdump/parameters/enable_dump_collection",
+              "0"
+            ]
+          }
+        ],
+        "properties_reached_on_device": false,
+        "runtime_verified": false
+      }
+    },
+    "sia": {
+      "status": "vendor_module_actions_need_review",
+      "init_files_checked": 105,
+      "all_service_owners": {
+        "service_count": 199,
+        "duplicates": {},
+        "scope": "Selected files only; complete platform init imports remain unverified"
+      },
+      "module_actions": {
+        "status": "module_action_review_required",
+        "actions": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/sla.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "sla"
+            ],
+            "issues": [
+              {
+                "kind": "module_not_packaged",
+                "module": "sla"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_shs"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_shs"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_shs"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_ingress_deag=N"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_ingress_deag"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf",
+              "rmnet_perf_opt_mode=udp"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "unsupported_module_parameter",
+                "module": "rmnet_perf",
+                "parameter": "rmnet_perf_opt_mode"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_perf"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_perf"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_perf"
+              }
+            ]
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=1"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-a",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": []
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "command": [
+              "exec",
+              "u:r:vendor_modprobe:s0",
+              "--",
+              "/vendor/bin/modprobe",
+              "-r",
+              "-d",
+              "/vendor/lib/modules",
+              "rmnet_offload"
+            ],
+            "action": "modprobe",
+            "modules": [
+              "rmnet_offload"
+            ],
+            "issues": [
+              {
+                "kind": "preloaded_module_removal_unqualified",
+                "module": "rmnet_offload"
+              }
+            ]
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_pdr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_pdr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/q6_notifier_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "q6_notifier_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/snd_event_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "snd_event_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/gpr_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "gpr_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/spf_core_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "spf_core_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.recovery.qcom.rc",
+            "trigger": [
+              "on",
+              "early-init"
+            ],
+            "command": [
+              "insmod",
+              "/vendor/lib/modules/adsp_loader_dlkm.ko"
+            ],
+            "action": "insmod",
+            "modules": [
+              "adsp_loader_dlkm"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=true",
+              "&&",
+              "property:vendor.all.modules.ready=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qca_cld3_kiwi_v2/parameters/con_mode",
+              "5"
+            ],
+            "action": "write_parameter",
+            "modules": [
+              "qca_cld3_kiwi_v2"
+            ],
+            "issues": []
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:vendor.wifi.ftmd.load=false",
+              "&&",
+              "property:vendor.all.modules.ready=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qca_cld3_kiwi_v2/parameters/con_mode",
+              "0"
+            ],
+            "action": "write_parameter",
+            "modules": [
+              "qca_cld3_kiwi_v2"
+            ],
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "file": "slad.rc",
+            "trigger": [
+              "on",
+              "post-fs-data"
+            ],
+            "kind": "module_not_packaged",
+            "module": "sla"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.shs_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_shs"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=3"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_ingress_deag"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=2"
+            ],
+            "kind": "unsupported_module_parameter",
+            "module": "rmnet_perf",
+            "parameter": "rmnet_perf_opt_mode"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.perf_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_perf"
+          },
+          {
+            "file": "nicmd.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.data.offload_ko_load=0"
+            ],
+            "kind": "preloaded_module_removal_unqualified",
+            "module": "rmnet_offload"
+          }
+        ],
+        "scripts_scanned": false,
+        "other_parameter_writes_unreviewed": [
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.ssr.enable_debug=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsys_pil_tz/parameters/enable_debug",
+              "${persist.sys.ssr.enable_debug}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.mba_boot_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms",
+              "${persist.sys.mba_boot_timeout}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.modem_auth_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/modem_auth_timeout_ms",
+              "${persist.sys.modem_auth_timeout}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.pil_proxy_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/peripheral_loader/parameters/proxy_timeout_ms",
+              "${persist.sys.pil_proxy_timeout}"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "1"
+            ]
+          },
+          {
+            "file": "hw/init.qti.kernel.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=0"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "0"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.ssr.enable_debug=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_debug",
+              "${persist.sys.ssr.enable_debug}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.mba_boot_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms",
+              "${persist.sys.mba_boot_timeout}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.modem_auth_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/pil_msa/parameters/modem_auth_timeout_ms",
+              "${persist.sys.modem_auth_timeout}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.sys.pil_proxy_timeout=*"
+            ],
+            "command": [
+              "write",
+              "/sys/module/peripheral_loader/parameters/proxy_timeout_ms",
+              "${persist.sys.pil_proxy_timeout}"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "1"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=1"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qcom_ramdump/parameters/enable_dump_collection",
+              "1"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=0"
+            ],
+            "command": [
+              "write",
+              "/sys/module/subsystem_restart/parameters/enable_ramdumps",
+              "0"
+            ]
+          },
+          {
+            "file": "device/init.qcom.rc",
+            "trigger": [
+              "on",
+              "property:persist.vendor.ssr.enable_ramdumps=0"
+            ],
+            "command": [
+              "write",
+              "/sys/module/qcom_ramdump/parameters/enable_dump_collection",
+              "0"
+            ]
+          }
+        ],
+        "properties_reached_on_device": false,
+        "runtime_verified": false
+      }
+    }
+  },
+  "tests": {
+    "cases": 309,
+    "skipped": 0,
+    "real_erofs": true,
+    "real_bpfmt": true,
+    "status": "passed"
+  },
+  "local_inputs": {
+    "blueprints_parsed": 27,
+    "literal_references": 51,
+    "errors": []
+  },
+  "make_handoff": {
+    "tfa": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 138
+      },
+      "values": {
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES": "device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cmd-db.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cpu_phys_log_map.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug_symbol.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_arm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_dbl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_msgq.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_rm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-debug.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/iommu-logger.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/llcc-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_dma_iommu_mapping.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/nvmem_qcom-spmi-sdam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs-qmp-v4-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/proxy-consumer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gdsc-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_cpucp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-cpufreq-thermal.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_hwspinlock.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ipclite.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-ipcc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_llcc_pmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-scm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mdt_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_iommu_util.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/arm_smmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_vendor.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_client.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pmu-lib.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-vadc-common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-qos.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-regmap-debugfs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-pmic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_thermal_vendor_hooks.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_cpufreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/secure_buffer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gunyah_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mem_buf_dev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_dma_heaps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/memory_dump_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ipc_logging.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/crm-v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dispcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gpucc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_aoss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dcvs_fp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-bcm-voter.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-dcvs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_stats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_tsens.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/rpmh-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/socinfo.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ddr_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/sched-walt.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_lpm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/spmi-pmic-arb.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-adc5-gen3.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-temp-alarm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-ocp-notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tcsrcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/thermal_pause.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tmecom-intf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ice.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufshcd-crypto-qti.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufs-qcom.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES": "device/xiaomi/annibale-oss-kernel/modules/system_dlkm/lib/modules/rfkill.ko",
+        "BOARD_VENDOR_KERNEL_MODULES": "device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audpkt_ion_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bam_dma.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cambistmclkcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cfg80211.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_nl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_prealloc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/drm_display_helper.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/eud.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/evacc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_irq_lend.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_mem_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_gpubw_mon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_msm_adreno_tz.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/leds-qti-flash.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_ext_display.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_geni_serial.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_gpi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/i2c-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-mmrm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_performance.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_sysstats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nvmem_qfprom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nxp-nci.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/panel_event_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pcie-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-generic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-ssusb-qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl-spmi-gpio.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pm8941-pwrkey.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pil_info.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_ramdump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_smd.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_va_minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gsim.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qmi_helpers.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_plat_ipc_qmi_svc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pdr_msg.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qseecom_proxy.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/redriver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-snps-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater-qti-pmic-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-m31-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_mem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_sch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rproc_qcom_common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfmcodec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pci-msm-drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mhi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pdr_interface.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/frpc-adsprpc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_pdr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom-hv-haptics.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_sysmon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5_pas.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_hw_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_notifier_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_pmic_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/altmode-glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/si_core_module.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mem_object.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slimbus.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slim-qcom-ngd-ctrl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smcinvoke_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/hdcp_qseecom_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smem-mailbox.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btpower.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfm_slim_codec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smmu_proxy_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/snd_event_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gpr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spf_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/adsp_loader_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_pkt_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_prm_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_tx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl_lpi_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spi-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/stub_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bt_fm_swr.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_ctrl_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_haptics_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sync_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/synx-driver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camera.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-eva.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_kgsl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_devfreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/tfa98xx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ucsi_qti_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/fsa4480-i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/videocc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_video.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_slave_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9xxx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_bt_swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_rx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_va_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa2_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_usbss_i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/dwc3-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mbhc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_drm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/usb_f_gsi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipanetm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_ctl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_core.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_aps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_offload.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf_tether.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_shs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_wlan.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9378_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dmic_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wlan_firmware_service.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qca_cld3_kiwi_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa883x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa884x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/machine_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/xiaomi_touch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/goodix_core.ko",
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD": "device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cmd-db.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cpu_phys_log_map.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug_symbol.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_arm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_dbl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_msgq.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_rm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-debug.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/iommu-logger.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/llcc-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_dma_iommu_mapping.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/nvmem_qcom-spmi-sdam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs-qmp-v4-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/proxy-consumer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gdsc-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_cpucp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-cpufreq-thermal.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_hwspinlock.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ipclite.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-ipcc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_llcc_pmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-scm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mdt_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_iommu_util.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/arm_smmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_vendor.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_client.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pmu-lib.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-vadc-common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-qos.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-regmap-debugfs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-pmic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_thermal_vendor_hooks.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_cpufreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/secure_buffer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gunyah_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mem_buf_dev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_dma_heaps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/memory_dump_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ipc_logging.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/crm-v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dispcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gpucc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_aoss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dcvs_fp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-bcm-voter.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-dcvs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_stats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_tsens.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/rpmh-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/socinfo.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ddr_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/sched-walt.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_lpm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/spmi-pmic-arb.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-adc5-gen3.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-temp-alarm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-ocp-notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tcsrcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/thermal_pause.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tmecom-intf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ice.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufshcd-crypto-qti.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufs-qcom.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES_LOAD": "device/xiaomi/annibale-oss-kernel/modules/system_dlkm/lib/modules/rfkill.ko",
+        "BOARD_VENDOR_KERNEL_MODULES_LOAD": "device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audpkt_ion_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bam_dma.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cambistmclkcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cfg80211.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_nl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_prealloc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/drm_display_helper.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/eud.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/evacc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_irq_lend.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_mem_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_gpubw_mon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_msm_adreno_tz.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/leds-qti-flash.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_ext_display.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_geni_serial.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_gpi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/i2c-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-mmrm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_performance.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_sysstats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nvmem_qfprom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nxp-nci.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/panel_event_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pcie-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-generic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-ssusb-qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl-spmi-gpio.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pm8941-pwrkey.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pil_info.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_ramdump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_smd.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_va_minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gsim.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qmi_helpers.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_plat_ipc_qmi_svc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pdr_msg.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qseecom_proxy.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/redriver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-snps-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater-qti-pmic-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-m31-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_mem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_sch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rproc_qcom_common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfmcodec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pci-msm-drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mhi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pdr_interface.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/frpc-adsprpc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_pdr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom-hv-haptics.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_sysmon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5_pas.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_hw_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_notifier_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_pmic_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/altmode-glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/si_core_module.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mem_object.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slimbus.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slim-qcom-ngd-ctrl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smcinvoke_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/hdcp_qseecom_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smem-mailbox.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btpower.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfm_slim_codec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smmu_proxy_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/snd_event_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gpr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spf_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/adsp_loader_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_pkt_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_prm_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_tx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl_lpi_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spi-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/stub_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bt_fm_swr.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_ctrl_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_haptics_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sync_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/synx-driver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camera.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-eva.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_kgsl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_devfreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/tfa98xx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ucsi_qti_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/fsa4480-i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/videocc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_video.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_slave_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9xxx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_bt_swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_rx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_va_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa2_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_usbss_i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/dwc3-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mbhc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_drm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/usb_f_gsi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipanetm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_ctl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_core.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_aps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_offload.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf_tether.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_shs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_wlan.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9378_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dmic_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wlan_firmware_service.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qca_cld3_kiwi_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa883x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa884x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/machine_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/xiaomi_touch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/goodix_core.ko",
+        "BOARD_VENDOR_RAMDISK_FRAGMENTS": "dlkm",
+        "BOARD_VENDOR_RAMDISK_FRAGMENT.dlkm.KERNEL_MODULE_DIRS": "top",
+        "BOARD_VENDOR_RAMDISK_FRAGMENT.dlkm.MKBOOTIMG_ARGS": "--ramdisk_type DLKM",
+        "PRODUCT_BUILD_INIT_BOOT_IMAGE": "true",
+        "PRODUCT_COPY_FILES": "device/xiaomi/annibale-oss-kernel/Image:kernel",
+        "BOARD_PREBUILT_DTBOIMAGE": "device/xiaomi/annibale-oss-kernel/dtbo.img",
+        "BOARD_PREBUILT_DTBIMAGE_DIR": "device/xiaomi/annibale-oss-kernel/dtbs"
+      },
+      "rejected_old_owners": [
+        {
+          "input": "BOARD_VENDOR_RAMDISK_KERNEL_MODULES=old.ko",
+          "stderr": "device/xiaomi/annibale-oss-kernel/Modules.mk:9: *** Existing VENDOR_RAMDISK module owner must be reviewed and removed.  Stop."
+        },
+        {
+          "input": "BOARD_SYSTEM_KERNEL_MODULES=old.ko",
+          "stderr": "device/xiaomi/annibale-oss-kernel/Modules.mk:92: *** Existing SYSTEM module owner must be reviewed and removed.  Stop."
+        },
+        {
+          "input": "BOARD_VENDOR_KERNEL_MODULES=old.ko",
+          "stderr": "device/xiaomi/annibale-oss-kernel/Modules.mk:98: *** Existing VENDOR module owner must be reviewed and removed.  Stop."
+        },
+        {
+          "input": "BOARD_PREBUILT_INIT_BOOT_IMAGE=stock.img",
+          "stderr": "device/xiaomi/annibale-oss-kernel/BoardConfig.mk:17: *** Remove the prebuilt init_boot owner before enabling the native handoff.  Stop."
+        }
+      ]
+    },
+    "sia": {
+      "status": "make_handoff_passed",
+      "module_counts": {
+        "VENDOR_RAMDISK": 78,
+        "SYSTEM": 1,
+        "VENDOR": 139
+      },
+      "values": {
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES": "device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cmd-db.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cpu_phys_log_map.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug_symbol.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_arm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_dbl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_msgq.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_rm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-debug.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/iommu-logger.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/llcc-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_dma_iommu_mapping.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/nvmem_qcom-spmi-sdam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs-qmp-v4-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/proxy-consumer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gdsc-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_cpucp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-cpufreq-thermal.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_hwspinlock.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ipclite.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-ipcc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_llcc_pmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-scm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mdt_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_iommu_util.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/arm_smmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_vendor.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_client.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pmu-lib.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-vadc-common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-qos.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-regmap-debugfs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-pmic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_thermal_vendor_hooks.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_cpufreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/secure_buffer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gunyah_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mem_buf_dev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_dma_heaps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/memory_dump_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ipc_logging.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/crm-v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dispcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gpucc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_aoss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dcvs_fp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-bcm-voter.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-dcvs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_stats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_tsens.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/rpmh-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/socinfo.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ddr_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/sched-walt.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_lpm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/spmi-pmic-arb.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-adc5-gen3.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-temp-alarm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-ocp-notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tcsrcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/thermal_pause.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tmecom-intf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ice.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufshcd-crypto-qti.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufs-qcom.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES": "device/xiaomi/annibale-oss-kernel/modules/system_dlkm/lib/modules/rfkill.ko",
+        "BOARD_VENDOR_KERNEL_MODULES": "device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audpkt_ion_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bam_dma.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cambistmclkcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cfg80211.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_nl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_prealloc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/drm_display_helper.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/eud.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/evacc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_irq_lend.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_mem_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_gpubw_mon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_msm_adreno_tz.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/leds-qti-flash.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_ext_display.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_geni_serial.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_gpi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/i2c-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-mmrm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_performance.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_sysstats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nvmem_qfprom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nxp-nci.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/panel_event_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pcie-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-generic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-ssusb-qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl-spmi-gpio.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pm8941-pwrkey.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pil_info.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_ramdump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_smd.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_va_minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gsim.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qmi_helpers.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_plat_ipc_qmi_svc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pdr_msg.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qseecom_proxy.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/redriver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-snps-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater-qti-pmic-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-m31-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_mem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_sch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rproc_qcom_common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfmcodec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pci-msm-drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mhi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pdr_interface.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/frpc-adsprpc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_pdr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom-hv-haptics.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_sysmon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5_pas.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_hw_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_notifier_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_pmic_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/altmode-glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/si_core_module.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mem_object.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sia91xx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sia91xx_tuning_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slimbus.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slim-qcom-ngd-ctrl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smcinvoke_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/hdcp_qseecom_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smem-mailbox.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btpower.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfm_slim_codec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smmu_proxy_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/snd_event_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gpr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spf_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/adsp_loader_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_pkt_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_prm_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_tx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl_lpi_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spi-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/stub_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bt_fm_swr.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_ctrl_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_haptics_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sync_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/synx-driver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camera.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-eva.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_kgsl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_devfreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ucsi_qti_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/fsa4480-i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/videocc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_video.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_slave_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9xxx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_bt_swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_rx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_va_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa2_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_usbss_i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/dwc3-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mbhc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_drm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/usb_f_gsi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipanetm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_ctl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_core.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_aps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_offload.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf_tether.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_shs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_wlan.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9378_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dmic_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wlan_firmware_service.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qca_cld3_kiwi_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa883x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa884x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/machine_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/xiaomi_touch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/goodix_core.ko",
+        "BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD": "device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cmd-db.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/cpu_phys_log_map.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/debug_symbol.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_arm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_dbl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_msgq.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gh_rm_drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-debug.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/iommu-logger.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/llcc-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_dma_iommu_mapping.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/nvmem_qcom-spmi-sdam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/phy-qcom-ufs-qmp-v4-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/proxy-consumer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gdsc-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_cpucp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-cpufreq-thermal.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_hwspinlock.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ipclite.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-ipcc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_llcc_pmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-scm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mdt_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_iommu_util.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/arm_smmu.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_vendor.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_scmi_client.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pmu-lib.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-vadc-common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-qos.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-regmap-debugfs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-pmic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_thermal_vendor_hooks.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti_cpufreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/secure_buffer.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gunyah_loader.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/mem_buf_dev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_dma_heaps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/memory_dump_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ipc_logging.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/crm-v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-qcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dispcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/gpucc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_aoss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/msm_qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/pinctrl-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/clk-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/dcvs_fp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-bcm-voter.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-dcvs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_stats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_tsens.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/rpmh-regulator.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/socinfo.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/icc-rpmh.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qnoc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ddr_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/sched-walt.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_lpm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/spmi-pmic-arb.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-adc5-gen3.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom-spmi-temp-alarm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qti-ocp-notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tcsrcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/thermal_pause.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/tmecom-intf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/qcom_ice.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufshcd-crypto-qti.ko device/xiaomi/annibale-oss-kernel/modules/vendor_boot/lib/modules/ufs-qcom.ko",
+        "BOARD_SYSTEM_KERNEL_MODULES_LOAD": "device/xiaomi/annibale-oss-kernel/modules/system_dlkm/lib/modules/rfkill.ko",
+        "BOARD_VENDOR_KERNEL_MODULES_LOAD": "device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audpkt_ion_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bam_dma.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cambistmclkcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camcc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cfg80211.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_nl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_prealloc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/drm_display_helper.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/eud.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/evacc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_irq_lend.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gh_mem_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_gpubw_mon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/governor_msm_adreno_tz.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/leds-qti-flash.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_ext_display.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_geni_serial.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_gpi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/i2c-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-mmrm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_performance.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_sysstats.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nvmem_qfprom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/nxp-nci.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/panel_event_notifier.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pcie-pdc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-generic.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-ssusb-qmp.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl-spmi-gpio.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pm8941-pwrkey.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_smem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_glink_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pil_info.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_ramdump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_smd.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_va_minidump.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gsim.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qmi_helpers.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_plat_ipc_qmi_svc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_pdr_msg.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qseecom_proxy.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/redriver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-snps-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/repeater-qti-pmic-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/phy-msm-m31-eusb2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_mem.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_sch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rproc_qcom_common.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfmcodec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pci-msm-drv.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mhi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pdr_interface.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/frpc-adsprpc.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_pdr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom-hv-haptics.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_sysmon.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_q6v5_pas.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_hw_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/q6_notifier_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qcom_spss.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_pmic_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/altmode-glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/si_core_module.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mem_object.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sia91xx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sia91xx_tuning_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slimbus.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/slim-qcom-ngd-ctrl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smcinvoke_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/hdcp_qseecom_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smem-mailbox.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btpower.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/btfm_slim_codec.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/smmu_proxy_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/snd_event_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/gpr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spf_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/adsp_loader_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_pkt_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/audio_prm_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_tx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/pinctrl_lpi_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spi-msm-geni.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spss_utils.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/spcom.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/stub_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/bt_fm_swr.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_ctrl_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_haptics_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/sync_fence.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/synx-driver.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/camera.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm-eva.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_kgsl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qti_devfreq_cdev.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ucsi_qti_glink.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/fsa4480-i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/videocc-sun.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_video.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_slave_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9xxx_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_core_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_bt_swr_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_rx_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_va_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa2_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/lpass_cdc_wsa_macro_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd_usbss_i2c.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/dwc3-msm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/mbhc_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/msm_drm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/usb_f_gsi.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipam.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/ipanetm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_ctl.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_core.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_aps.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_offload.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_perf_tether.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_shs.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/rmnet_wlan.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd9378_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wcd939x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/swr_dmic_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wlan_firmware_service.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/cnss2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/qca_cld3_kiwi_v2.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa883x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/wsa884x_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/machine_dlkm.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/xiaomi_touch.ko device/xiaomi/annibale-oss-kernel/modules/vendor_dlkm/lib/modules/goodix_core.ko",
+        "BOARD_VENDOR_RAMDISK_FRAGMENTS": "dlkm",
+        "BOARD_VENDOR_RAMDISK_FRAGMENT.dlkm.KERNEL_MODULE_DIRS": "top",
+        "BOARD_VENDOR_RAMDISK_FRAGMENT.dlkm.MKBOOTIMG_ARGS": "--ramdisk_type DLKM",
+        "PRODUCT_BUILD_INIT_BOOT_IMAGE": "true",
+        "PRODUCT_COPY_FILES": "device/xiaomi/annibale-oss-kernel/Image:kernel",
+        "BOARD_PREBUILT_DTBOIMAGE": "device/xiaomi/annibale-oss-kernel/dtbo.img",
+        "BOARD_PREBUILT_DTBIMAGE_DIR": "device/xiaomi/annibale-oss-kernel/dtbs"
+      },
+      "rejected_old_owners": [
+        {
+          "input": "BOARD_VENDOR_RAMDISK_KERNEL_MODULES=old.ko",
+          "stderr": "device/xiaomi/annibale-oss-kernel/Modules.mk:9: *** Existing VENDOR_RAMDISK module owner must be reviewed and removed.  Stop."
+        },
+        {
+          "input": "BOARD_SYSTEM_KERNEL_MODULES=old.ko",
+          "stderr": "device/xiaomi/annibale-oss-kernel/Modules.mk:92: *** Existing SYSTEM module owner must be reviewed and removed.  Stop."
+        },
+        {
+          "input": "BOARD_VENDOR_KERNEL_MODULES=old.ko",
+          "stderr": "device/xiaomi/annibale-oss-kernel/Modules.mk:98: *** Existing VENDOR module owner must be reviewed and removed.  Stop."
+        },
+        {
+          "input": "BOARD_PREBUILT_INIT_BOOT_IMAGE=stock.img",
+          "stderr": "device/xiaomi/annibale-oss-kernel/BoardConfig.mk:17: *** Remove the prebuilt init_boot owner before enabling the native handoff.  Stop."
+        }
+      ]
+    },
+    "full_boardconfig_evaluated": false,
+    "kati_soong_executed": false,
+    "rom_built": false
+  },
+  "scope": {
+    "full_rom_built": false,
+    "full_vendor_regenerated": false,
+    "hyperos_runtime_tested": false,
+    "aosp_runtime_tested": false,
+    "flashable": false,
+    "boot_verified": false
+  },
+  "remaining": [
+    "SLA default-off versus post-fs-data insmod",
+    "Two obsolete RMNET parameters require semantic/userspace adaptation",
+    "Three preloaded RMNET removal actions require traffic/lifecycle qualification",
+    "Fourteen other sysfs parameter writes are inventoried but outside this scoped qualification",
+    "Full Android17 vendor/platform Soong/Kati, SELinux, VINTF, signatures/KMI and hardware validation"
+  ]
+}

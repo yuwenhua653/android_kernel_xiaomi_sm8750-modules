@@ -1,0 +1,44 @@
+--- a/rootdir/etc/init.qcom.rc
++++ b/rootdir/etc/init.qcom.rc
+@@ -629,8 +629,12 @@
+     disabled
+     oneshot
+ 
+-on property:vendor.wifi.ftmd.load=true
+-    insmod /system/lib/modules/pronto/pronto_wlan.ko con_mode=5
++# Kiwi is preloaded by vendor.modprobe. Use its serialized mode-change callback.
++on property:vendor.wifi.ftmd.load=true && property:vendor.all.modules.ready=1
++    write /sys/module/qca_cld3_kiwi_v2/parameters/con_mode 5
++
++on property:vendor.wifi.ftmd.load=false && property:vendor.all.modules.ready=1
++    write /sys/module/qca_cld3_kiwi_v2/parameters/con_mode 0
+ 
+ service cnss-daemon /system/vendor/bin/cnss-daemon -n -l --max_file_count 3 --max_file_size 20
+     class late_start
+--- a/sepolicy/vendor/genfs_contexts
++++ b/sepolicy/vendor/genfs_contexts
+@@ -96,3 +96,8 @@
+ genfscon sysfs /devices/platform/soc/soc:mca_business_charger/wakeup u:object_r:sysfs_wakeup:s0
+ genfscon sysfs /devices/platform/soc/soc:mi_t1_chip/wakeup u:object_r:sysfs_wakeup:s0
+ genfscon sysfs /devices/platform/soc/soc:qcom,dsi-display-primary/wakeup u:object_r:sysfs_wakeup:s0
++
++# Kiwi factory-mode control; keep similarly prefixed callbacks generic.
++genfscon sysfs /module/qca_cld3_kiwi_v2/parameters/con_mode u:object_r:vendor_sysfs_annibale_wlan_mode:s0
++# genfscon uses string prefixes; exclude con_mode_ftm and con_mode_epping.
++genfscon sysfs /module/qca_cld3_kiwi_v2/parameters/con_mode_ u:object_r:sysfs:s0
+--- a/sepolicy/vendor/file.te
++++ b/sepolicy/vendor/file.te
+@@ -69,3 +69,5 @@
+ 
+ # Wlan
+ type vendor_mac_vendor_data_file, data_file_type, file_type, mlstrustedobject;
++
++type vendor_sysfs_annibale_wlan_mode, fs_type, sysfs_type;
+--- a/sepolicy/vendor/init.te
++++ b/sepolicy/vendor/init.te
+@@ -12,3 +12,5 @@
+ allow vendor_init minidump_data_file:file create_file_perms;
+ 
+ allow init nfc:binder call;
++
++allow vendor_init vendor_sysfs_annibale_wlan_mode:file { getattr open write };

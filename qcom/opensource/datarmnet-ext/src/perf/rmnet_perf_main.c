@@ -877,6 +877,7 @@ static int __init rmnet_perf_init(void)
 	}
 
 	rmnet_perf_set_hooks();
+	return 0;
 
 err2:
 	rmnet_perf_udp_exit();

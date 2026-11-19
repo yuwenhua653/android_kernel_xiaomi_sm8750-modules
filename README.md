@@ -2,15 +2,15 @@
 
 Redmi K90 (`annibale`) OSS 内核的外部模块工作仓库。
 
-当前进度：[R42 集成验证与接续修复](Documentation/xiaomi/annibale-r42-integration.md)；
-[验证记录](Documentation/xiaomi/annibale-r42-validation.json)。
-补齐接续设备树漏掉的原生 fstab，消除 3 个重复 init 服务声明；298 项工具测试通过。
-105 份 init、199 个服务和两套 R41 模块清单已联合检查；8 条模块动作记录仍需处理。
-澎湃正常启动的 629 个模块名称通过有条件的静态 ABI 检查，签名/CFI/真机行为未验证。
-完整 Android 17 ROM 尚未构建，当前仍不可直接刷机。
-内核编译结果见 [R41](Documentation/xiaomi/annibale-r41-build.md)。
+当前进度：[R43 网络驱动与工厂 Wi-Fi 补全](Documentation/xiaomi/annibale-r43-network.md)；
+[验证记录](Documentation/xiaomi/annibale-r43-validation.json)。
+修复 RMNET 成功初始化后误清理、SLA 拒绝只读共享映射；接入 Kiwi 工厂模式回调。
+93 个外置模块与独立 SLA 重新构建通过，TFA/SIA 两套离线镜像验证通过；309 项测试通过。
+原有 8 条模块动作记录降至 6 条，另有 14 条旧 sysfs 写入尚未审定。
+SLA 仍默认关闭；完整 ROM、SELinux 与真机验证未完成，当前不可直接刷机。
+内核核心沿用 [R41 构建](Documentation/xiaomi/annibale-r41-build.md)。
 
-上一轮：[R40 QESD 管理器整组接入](Documentation/xiaomi/annibale-r40-qesd-managers.md)。
+上一轮：[R42 集成验证与接续修复](Documentation/xiaomi/annibale-r42-integration.md)。
 历史记录：[R40 QESD 管理器整组接入：上一轮剩余 7 项输入全部补齐](Documentation/xiaomi/annibale-r40-qesd-managers.md)；
 [本轮验证记录](Documentation/xiaomi/annibale-r40-validation.json)。
 两份管理器、两份 init、两份 seccomp 和一份 VINTF 一起接入；修正 socket 回复及线程/信号生命周期所需的 seccomp 规则，保留 UNIX socket 与 W^X 限制。76 项相关测试及整组实际提取通过；OS4 选定依赖的版本化强符号离线检查通过。完整原生 ROM、SELinux 编译和真机功能仍待验证。

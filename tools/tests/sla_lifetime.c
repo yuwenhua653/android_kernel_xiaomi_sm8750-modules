@@ -85,6 +85,9 @@ struct vm_area_struct {
 #define VM_MAYEXEC 4
 #define VM_DONTEXPAND 8
 #define VM_DONTDUMP 16
+#define VM_MAYSHARE 32
+#define VM_WRITE 64
+#define VM_MAYWRITE 128
 #define vm_flags_set(v,f) ((v)->vm_flags|=(f))
 #define vm_flags_clear(v,f) ((v)->vm_flags&=~(f))
 #define THIS_MODULE NULL
@@ -120,7 +123,7 @@ static struct proc_dir_entry *proc_create_data(const char *name,int mode,
     if(inject_open_map && proc_calls==1) {
         struct inode inode={data};stats_open(&inode,&injected_file);
         p->opened[p->count++]=&injected_file;
-        injected_map=(struct vm_area_struct){.vm_start=4096,.vm_end=24576,.vm_flags=VM_SHARED};
+        injected_map=(struct vm_area_struct){.vm_start=4096,.vm_end=24576,.vm_flags=VM_SHARED|VM_MAYSHARE};
         assert(!stats_map(&injected_file,&injected_map));
     }
     return p;
@@ -167,14 +170,17 @@ int main(void)
     assert(!sla_interface_start("wlan0"));
     assert(sla_interface_start("wlan0")==-EEXIST);
     struct sla_interface *old=first();struct file a={0},b={0};open_file(old,&a);open_file(old,&b);
-    struct vm_area_struct v={.vm_start=4096,.vm_end=24576,.vm_flags=VM_SHARED|VM_MAYEXEC};
+    /* Linux 6.6 mmap clears VM_SHARED and VM_MAYWRITE for O_RDONLY, while
+     * preserving VM_MAYSHARE. This matches slad's PROT_READ/MAP_SHARED call. */
+    struct vm_area_struct v={.vm_start=4096,.vm_end=24576,.vm_flags=VM_MAYSHARE|VM_MAYEXEC};
     v.vm_pgoff=1;assert(stats_map(&a,&v)==-EINVAL);v.vm_pgoff=0;
     v.vm_end+=4096;assert(stats_map(&a,&v)==-EINVAL);v.vm_end-=4096;
     v.vm_flags|=VM_EXEC;assert(stats_map(&a,&v)==-EPERM);v.vm_flags&=~VM_EXEC;
-    v.vm_flags&=~VM_SHARED;assert(stats_map(&a,&v)==-EINVAL);v.vm_flags|=VM_SHARED;
+    v.vm_flags&=~VM_MAYSHARE;assert(stats_map(&a,&v)==-EINVAL);v.vm_flags|=VM_MAYSHARE;
     module_live=false;assert(stats_map(&a,&v)==-ENODEV);module_live=true;
     map_error=-ENOMEM;assert(stats_map(&a,&v)==-ENOMEM&&!module_refs);map_error=0;
     assert(!stats_map(&a,&v));assert(!(v.vm_flags&VM_MAYEXEC));
+    assert(!(v.vm_flags&(VM_SHARED|VM_WRITE|VM_MAYWRITE)));
     struct vm_area_struct child=v;child.vm_ops->open(&child);
     assert(old->ref.count==5&&module_refs==2);
     /* Disable before enable must still remove interfaces. Proc rundown drops

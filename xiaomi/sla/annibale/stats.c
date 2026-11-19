@@ -509,8 +509,12 @@ static int stats_map(struct file *file, struct vm_area_struct *vma)
 
     if (!iface)
         return -ENODEV;
+    /* mmap clears VM_SHARED for MAP_SHARED on an O_RDONLY descriptor.
+     * VM_MAYSHARE retains the mapping type; do not promote it to writable.
+     * Annibale slad uses precisely that read-only shared mapping.
+     */
     if (vma->vm_pgoff || !size || size > STATS_BUF_SIZE ||
-        !(vma->vm_flags & VM_SHARED))
+        !(vma->vm_flags & VM_MAYSHARE))
         return -EINVAL;
     if (vma->vm_flags & VM_EXEC)
         return -EPERM;

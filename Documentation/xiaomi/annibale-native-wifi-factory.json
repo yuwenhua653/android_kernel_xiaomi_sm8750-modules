@@ -1,0 +1,29 @@
+{
+  "files": {
+    "rootdir/etc/init.qcom.rc": {
+      "input_sha256": "ebc4d38c342d065ad96a6044ab43dad06765bb68431bcec34cff09268eea8a32",
+      "output_sha256": "8ff3d9dc5a93a1232b7a26cf371155802eb6d6e05472e515f99d62da73b254cc"
+    },
+    "sepolicy/vendor/genfs_contexts": {
+      "input_sha256": "42f9b2093fe255824a0b98dbc419d738e4f11c6fea276aff9d14c5df91947915",
+      "output_sha256": "22a786775ec3f583e2e376af68cb9aec477778f3067098246b5c615aebf7e4c5"
+    },
+    "sepolicy/vendor/file.te": {
+      "input_sha256": "3f919a18aada94361902999196c3c8e0c272d7b853afb9e90a807e8ef500a04c",
+      "output_sha256": "cddf27e480fe915bff05866fca09bf5727518efcf7bacfe9a66e251d7a27dfd4"
+    },
+    "sepolicy/vendor/init.te": {
+      "input_sha256": "7609883c7856bcf2053969102496f9de1b60bc06ccb014767c12c97c5883667f",
+      "output_sha256": "7df37a3e6b152983ad98e720a6470de413a8d959f18892df10bada42015bccc6"
+    }
+  },
+  "module": "qca_cld3_kiwi_v2",
+  "parameter": "con_mode",
+  "modes": {
+    "mission": 0,
+    "ftm": 5
+  },
+  "firmware_verified": false,
+  "selinux_compiled": false,
+  "runtime_verified": false
+}

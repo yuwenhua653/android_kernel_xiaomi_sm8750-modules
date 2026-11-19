@@ -15,6 +15,7 @@ from annibale_ramdisk import require
 from build_annibale_native_images import check_fstab
 from prepare_annibale_rom_handoff import LOADER_RUNTIME_PACKAGES
 from verify_annibale_modules import module_info
+from annibale_module_parameters import module_parameters
 
 SERVICES = {'gki.modprobe':'system_dlkm_modprobe.sh', 'vendor.modprobe':'vendor_modprobe.sh'}
 
@@ -121,8 +122,10 @@ def module_inventory(handoff):
             info, _ = module_info(path)
             name = path.stem.replace('-', '_')
             require(name not in inventory, 'duplicate handoff module: '+name)
+            parameters = module_parameters(path)
             inventory[name] = {'partition': partition, 'filename': path.name,
-                'parameters': sorted({p.split(':', 1)[0] for p in info.get('parmtype', [])}),
+                'parameters': sorted(parameters),
+                'parameter_metadata': parameters,
                 'preloaded': path.name in loaded,
                 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
     return inventory
@@ -130,7 +133,7 @@ def module_inventory(handoff):
 
 def check_module_actions(files, inventory):
     """Check explicit init commands, not shell script contents or live triggers."""
-    records, issues = [], []
+    records, issues, other_parameter_writes = [], [], []
     directories = {'/vendor/lib/modules': 'vendor_dlkm',
                    '/system/vendor/lib/modules': 'vendor_dlkm',
                    '/vendor_dlkm/lib/modules': 'vendor_dlkm',
@@ -143,6 +146,34 @@ def check_module_actions(files, inventory):
                 command = words
                 if words[0] in ('exec', 'exec_background') and '--' in words:
                     command = words[words.index('--')+1:]
+                if command and command[0] == 'write' and len(command) >= 2 and command[1].startswith('/sys/module/') and '/parameters/' in command[1]:
+                    # Only this newly adapted factory interface is qualified here.
+                    # Preserve the other writes as explicitly unreviewed inventory.
+                    target = '/sys/module/qca_cld3_kiwi_v2/parameters/con_mode'
+                    if command[1] != target:
+                        other_parameter_writes.append({'file': filename, 'trigger': section['head'], 'command': words})
+                        continue
+                    name, param = 'qca_cld3_kiwi_v2', 'con_mode'
+                    module = inventory.get(name)
+                    errors = []
+                    if module is None:
+                        errors.append({'kind': 'module_not_packaged', 'module': name})
+                    else:
+                        meta = module.get('parameter_metadata', {}).get(param)
+                        if meta is None or not meta['permission'] & 0o200:
+                            errors.append({'kind': 'missing_writable_callback_parameter', 'module': name, 'parameter': param})
+                        if not module['preloaded'] or module['partition'] != 'vendor_dlkm':
+                            errors.append({'kind': 'factory_module_not_preloaded'})
+                    triggers = {
+                        ('on', 'property:vendor.wifi.ftmd.load=true', '&&', 'property:vendor.all.modules.ready=1'): '5',
+                        ('on', 'property:vendor.wifi.ftmd.load=false', '&&', 'property:vendor.all.modules.ready=1'): '0'}
+                    value = triggers.get(tuple(section['head']))
+                    if value is None or command != ['write', target, value]:
+                        errors.append({'kind': 'unreviewed_factory_trigger_or_mode'})
+                    records.append({'file': filename, 'trigger': section['head'], 'command': words,
+                                    'action': 'write_parameter', 'modules': [name], 'issues': errors})
+                    issues.extend({'file': filename, 'trigger': section['head'], **item} for item in errors)
+                    continue
                 if not command or command[0].rsplit('/', 1)[-1] not in ('insmod', 'modprobe', 'rmmod'):
                     continue
                 action = command[0].rsplit('/', 1)[-1]
@@ -197,6 +228,7 @@ def check_module_actions(files, inventory):
                               for item in record['issues'])
     return {'status': 'module_action_review_required' if issues else 'explicit_module_actions_checked',
             'actions': records, 'issues': issues, 'scripts_scanned': False,
+            'other_parameter_writes_unreviewed': other_parameter_writes,
             'properties_reached_on_device': False, 'runtime_verified': False}
 
 

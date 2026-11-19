@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-only
-"""Recreate the R40 source conversion plus R42 init-owner correction and fstab.
+"""Recreate the R40 conversion, R42 init/fstab and R43 factory Wi-Fi adaptation.
 
 No proprietary data is fetched, no vendor tree is generated, and no ROM is
 built. Outputs must be new and separate from the clean pinned reference.
@@ -57,6 +57,13 @@ def prepare(reference, output):
     require(digest(listing) == expected, 'final R40 extraction list differs')
     owner_profile = json.loads((docs/'annibale-native-init-owners.json').read_text())
     require(digest(output/'rootdir/etc/init.qcom.rc') == owner_profile['output_sha256'], 'init-owner correction differs')
+    wifi_profile = json.loads((docs/'annibale-native-wifi-factory.json').read_text())
+    for name, hashes in wifi_profile['files'].items():
+        require(digest(output/name) == hashes['input_sha256'], 'factory Wi-Fi input changed: '+name)
+    subprocess.run(['git', '-C', str(output), 'apply',
+                    str(docs/'patches/annibale-native-wifi-factory.patch')], check=True)
+    for name, hashes in wifi_profile['files'].items():
+        require(digest(output/name) == hashes['output_sha256'], 'factory Wi-Fi output differs: '+name)
     require((output/'rootdir/etc/fstab.qcom').read_bytes() == (reference/'rootdir/etc/fstab.qcom').read_bytes(),
             'recovery fstab changed')
     report = {'status': 'device_source_restored', 'reference_commit': REFERENCE,
