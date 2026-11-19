@@ -35,6 +35,32 @@ The Windows sandbox did not permit creating the test fixture's .git/config;
 only Python syntax validation was completed locally. The Git integration
 fixture and ARM64 build must pass on the Linux runner before claiming success.
 
+## Subsequent run and long-path fix
+
+Run 44481852464 completed all 25 host test executions, verified all four AOSP
+Git toolchain commits, and linked Image plus the in-tree modules. It then
+failed during external WLAN compilation. The complete build.log in diagnostic
+artifact 14510781537 identifies the first failure:
+
+```
+make[4]: /bin/sh: Argument list too long
+.../qcacld-3.0/core/hdd/src/wlan_hdd_assoc.o] Error 127
+```
+
+The standard Actions workspace repeats the long repository name twice.
+Repeated absolute WLAN include paths make the shell command exceed its
+argument limit. CI now creates fresh local shared Git clones at a short
+physical /tmp/ak.XXXXXX root, verifies every copied HEAD, and builds there.
+The original checkouts remain intact for Actions cleanup and Git object
+storage. This is a real short source/output path, not a symlink subsequently
+expanded by Path.resolve(). The entry point rejects physical roots longer
+than 32 bytes before tool acquisition or compilation.
+
+Artifact collection follows the short root. On failure, the external builder
+prints the first error context as well as the tail. The prior tail omitted
+the shell error. No driver/configuration or strict linking checks are disabled.
+This correction still requires a new complete ARM64 qualification run.
+
 ## Scope
 
 The qualification includes Image, in-tree modules and the selected external

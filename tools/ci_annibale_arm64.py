@@ -55,6 +55,9 @@ def main():
     parser.add_argument("--jobs", type=int, default=4, choices=range(1, 9))
     args = parser.parse_args()
     workspace = args.workspace.resolve()
+    if len(os.fsencode(workspace)) > 32:
+        parser.error("use a short physical build root (at most 32 bytes), e.g. /tmp/ak.XXXXXX; "
+                     "long repeated WLAN include paths can exceed the shell argument limit")
     modules = Path(__file__).resolve().parents[1]
     pins = json.loads((modules / "configs/annibale-ci-pins.json").read_text())
     kernel = workspace / "sm8750"

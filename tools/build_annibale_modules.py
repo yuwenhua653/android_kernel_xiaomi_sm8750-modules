@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -254,7 +255,17 @@ def main():
     (stage / 'build.json').write_text(json.dumps(metadata, indent=2) + '\n')
     print('Build log:', stage / 'build.log', flush=True)
     if result.returncode:
-        print((stage / 'build.log').read_text()[-10000:], flush=True)
+        failed_log = (stage / 'build.log').read_text()
+        lines = failed_log.splitlines()
+        failures = [i for i, line in enumerate(lines) if re.search(
+            r'error:|fatal error|Argument list too long|No such file|not found|Killed|\*\*\*',
+            line, re.IGNORECASE)]
+        if failures:
+            print('First build failure context:', flush=True)
+            first = failures[0]
+            print('\n'.join(lines[max(0, first - 5):first + 16]), flush=True)
+        print('Build log tail:', flush=True)
+        print(failed_log[-10000:], flush=True)
     if not metadata['kernel_inputs_unchanged']:
         print('FAIL: kernel inputs changed during the build', flush=True)
         metadata['returncode'] = 1
@@ -300,3 +311,4 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
+

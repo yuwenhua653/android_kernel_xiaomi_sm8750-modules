@@ -41,6 +41,18 @@ jobs:
           path: sm8750-devicetrees
           persist-credentials: false
           fetch-depth: 1
+      - name: Prepare short physical build paths
+        shell: bash
+        run: |
+          build_root=$(mktemp -d /tmp/ak.XXXXXX)
+          echo "ANNIBALE_BUILD_ROOT=$build_root" >> "$GITHUB_ENV"
+          for repo in sm8750 sm8750-modules sm8750-devicetrees; do
+            revision=$(git -C "$GITHUB_WORKSPACE/$repo" rev-parse HEAD)
+            git clone --shared --no-checkout "$GITHUB_WORKSPACE/$repo" "$build_root/$repo"
+            git -C "$build_root/$repo" checkout --detach "$revision"
+            test "$(git -C "$build_root/$repo" rev-parse HEAD)" = "$revision"
+          done
+          echo "Physical build root: $(realpath "$build_root")"
       - name: Install host build prerequisites
         timeout-minutes: 10
         run: |
@@ -51,19 +63,20 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          cd "$ANNIBALE_BUILD_ROOT"
           mkdir -p ci-logs
-          python3 -u sm8750-modules/tools/ci_annibale_arm64.py --workspace "$GITHUB_WORKSPACE" --jobs 4 2>&1 | tee ci-logs/qualification.log
+          python3 -u sm8750-modules/tools/ci_annibale_arm64.py --workspace "$ANNIBALE_BUILD_ROOT" --jobs 4 2>&1 | tee ci-logs/qualification.log
       - name: Save build diagnostics
-        if: always()
+        if: always() && env.ANNIBALE_BUILD_ROOT != ''
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: annibale-r47-build-diagnostics
           path: |
-            ci-logs/*.log
-            out/**/*.log
-            out/provenance.json
-            out/external/*/build.json
-            out/external/*/verification.json
+            ${{ env.ANNIBALE_BUILD_ROOT }}/ci-logs/*.log
+            ${{ env.ANNIBALE_BUILD_ROOT }}/out/**/*.log
+            ${{ env.ANNIBALE_BUILD_ROOT }}/out/provenance.json
+            ${{ env.ANNIBALE_BUILD_ROOT }}/out/external/*/build.json
+            ${{ env.ANNIBALE_BUILD_ROOT }}/out/external/*/verification.json
           if-no-files-found: warn
           retention-days: 14
       - name: Save verified qualification binaries
@@ -71,7 +84,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: annibale-r47-ARM64-NOT-FLASHABLE
-          path: artifacts/annibale-r47-ARM64-NOT-FLASHABLE.zip
+          path: ${{ env.ANNIBALE_BUILD_ROOT }}/artifacts/annibale-r47-ARM64-NOT-FLASHABLE.zip
           if-no-files-found: error
           compression-level: 0
           retention-days: 14
