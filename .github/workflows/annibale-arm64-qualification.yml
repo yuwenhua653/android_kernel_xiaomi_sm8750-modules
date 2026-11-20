@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: yuwenhua653/android_kernel_xiaomi_sm8750
-          ref: c17ffa89f4fe197dd0e83c36cb517b6c0c13dc34
+          ref: 19ddf94a9513d4996e513decaa1d0d69430487c4
           path: sm8750
           persist-credentials: false
           fetch-depth: 1

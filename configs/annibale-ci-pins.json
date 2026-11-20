@@ -1,7 +1,7 @@
 {
   "kernel": {
     "repository": "yuwenhua653/android_kernel_xiaomi_sm8750",
-    "commit": "c17ffa89f4fe197dd0e83c36cb517b6c0c13dc34"
+    "commit": "19ddf94a9513d4996e513decaa1d0d69430487c4"
   },
   "devicetrees": {
     "repository": "yuwenhua653/android_kernel_xiaomi_sm8750-devicetrees",
