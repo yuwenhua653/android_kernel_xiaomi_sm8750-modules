@@ -1,0 +1,160 @@
+{
+  "source_run": 44487958049,
+  "source_commit": "53e21323104f0ad3f5596a2032b95d676b92ed6d",
+  "status": "source_stages_verified",
+  "flashable": false,
+  "hyperos_installation_ready": false,
+  "kernel_image_recompiled": false,
+  "external_modules_recompiled": false,
+  "builtin_metadata_regenerated": true,
+  "profiles": {
+    "tfa": {
+      "selected_module_count": 217,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 78,
+          "dependency_references": 488,
+          "installed_module_count": 78,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 139,
+          "dependency_references": 883,
+          "installed_module_count": 138,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "archive": "annibale-r48-tfa-SOURCE-STAGE-NOT-FLASHABLE.zip",
+      "sha256": "9d18df76db0d5048454d9c1b9a74ae5e3baedb245fa0096e6e3513fcfc63cd01"
+    },
+    "tfa-sla-experimental": {
+      "selected_module_count": 218,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 78,
+          "dependency_references": 488,
+          "installed_module_count": 78,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 140,
+          "dependency_references": 883,
+          "installed_module_count": 139,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "archive": "annibale-r48-tfa-sla-experimental-SOURCE-STAGE-NOT-FLASHABLE.zip",
+      "sha256": "23ad633d0a6ad0018b80ff09803f2ecbacd588959aa61b3a1bfd723a4516740b"
+    },
+    "sia": {
+      "selected_module_count": 218,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 78,
+          "dependency_references": 488,
+          "installed_module_count": 78,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 140,
+          "dependency_references": 883,
+          "installed_module_count": 139,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "archive": "annibale-r48-sia-SOURCE-STAGE-NOT-FLASHABLE.zip",
+      "sha256": "7f51f2a647a87e2963b50d56a5d0efbb820b3bdb06822c8292d1b8f799094b63"
+    },
+    "sia-sla-experimental": {
+      "selected_module_count": 219,
+      "partitions": {
+        "vendor_boot": {
+          "module_records": 78,
+          "dependency_references": 488,
+          "installed_module_count": 78,
+          "runtime_directory": "/lib/modules"
+        },
+        "system_dlkm": {
+          "module_records": 1,
+          "dependency_references": 0,
+          "installed_module_count": 1,
+          "runtime_directory": "/system/lib/modules"
+        },
+        "vendor_dlkm": {
+          "module_records": 141,
+          "dependency_references": 883,
+          "installed_module_count": 140,
+          "runtime_directory": "/vendor/lib/modules"
+        }
+      },
+      "archive": "annibale-r48-sia-sla-experimental-SOURCE-STAGE-NOT-FLASHABLE.zip",
+      "sha256": "d62a9e963bb7b816eabe06c02fa0b8c7abc1e8e87bc0baf15876834c0c65983c"
+    }
+  },
+  "archive_members_verified": 548,
+  "restored_header_matches_original_sha256": "1c27829bbf61204eae7b3423ccba60cfcbe04c9a34b492be1c72ef5e3c6ecdea",
+  "kernel_inputs": {
+    ".config": "b6d5e0f7ca79e50caea9cd5a7fcea00181a8ee8710b60f4151658e6b90eb8262",
+    "include/generated/autoconf.h": "1c27829bbf61204eae7b3423ccba60cfcbe04c9a34b492be1c72ef5e3c6ecdea",
+    "include/config/kernel.release": "53ffed0f514485d6ef748bd0321090a75510f1bf3bff0e0b160a0f367a11295e",
+    "Module.symvers": "e1d94bb010eb5df3241aced06f2a94d927d11565e0e6e554af6d070ac5e15e02",
+    "vmlinux": "51ecdbad1ca0d1438a60d9ad5df8549422d9468a69408b10bc76fbd18fdfd656",
+    "arch/arm64/boot/Image": "96c5ffded4f70f00e80b28bf1daca9484293e2953cb8cc8301350a1e89857d8f",
+    "modules.order": "0fb8da872eecbf478966acc4e4e76c2cee33c772680111bf3928b74405d89757"
+  },
+  "kernel_module_count": 411,
+  "external_module_count": 94,
+  "builtin_metadata": {
+    "method": "pinned Kbuild modules.builtin.modinfo target",
+    "sha256": "382bb172a8cb2ed43ca6ba3edfd262a9903b92a41ba9cf861351d7525dc91b41",
+    "size": 142572,
+    "ownership_sha256": "dacb31fc5109d5b9a943a642c8b613205eb2247b00ba784d2194f9a09dc09183",
+    "ownership_matches_original": true
+  },
+  "kernel_inputs_zip": {
+    "file": "annibale-r48-kernel-inputs-NOT-FLASHABLE.zip",
+    "sha256": "dacdef25630eeb9747307de4d1999e7c458c72eb5dd8e7cc46f73cc5297a432b"
+  },
+  "remaining": [
+    "Exact HyperOS original partition inputs are unavailable in this execution context",
+    "HyperOS source/OEM module ownership and mixed ABI/loader audit",
+    "Matching DT, firmware, init/SELinux, AVB, recovery and runtime validation"
+  ],
+  "assembly_run": 44500802394,
+  "assembly_commit": "092d6cb2a09f950b26aed6d6cb96f58dde9e45f7",
+  "host_regression_tests": 5,
+  "artifacts": [
+    {
+      "id": 14518113682,
+      "name": "annibale-r48-assembly-diagnostics",
+      "size": 144535,
+      "sha256": "sha256:5a24450c78a5bc661492543a62afaa05c0e82376b1757cc231b312816cc9942b",
+      "expires_at": "2026-12-03T10:16:11Z"
+    },
+    {
+      "id": 14518103748,
+      "name": "annibale-r48-SOURCE-STAGES-NOT-FLASHABLE",
+      "size": 87935294,
+      "sha256": "sha256:265ab3ade55075a0b16454bba7a93d24c448a18574dcae16ab4d38587df608cc",
+      "expires_at": "2026-12-03T10:16:12Z"
+    }
+  ]
+}

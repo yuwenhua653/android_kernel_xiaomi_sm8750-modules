@@ -103,6 +103,11 @@ def capture(adb, serial):
         ('panel_id', ('cat', '/sys/class/drm/card0-DSI-1/panel_id')),
     ):
         report['queries'][name] = shell(*command)
+    # The disk hashes identify the staged network modules; presence and hashes
+    # alone do not prove successful probe or packet processing.
+    for module in ('rmnet_offload', 'rmnet_core', 'rmnet_shs'):
+        report['queries'][module + '_file_sha256'] = shell(
+            'sha256sum', '/vendor/lib/modules/' + module + '.ko')
     mounts = shell('cat', '/proc/mounts')
     report['mounts'] = filtered_mounts(mounts.pop('stdout'))
     report['queries']['mounts'] = mounts

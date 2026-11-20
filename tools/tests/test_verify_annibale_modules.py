@@ -53,6 +53,16 @@ class QualificationTests(unittest.TestCase):
         self.assertLess(report['dependency_order'].index('provider'),
                         report['dependency_order'].index('consumer'))
 
+    def test_kernel_only_retains_crc_and_dependency_checks(self):
+        report = verify(self.kernel)
+        self.assertEqual(report['external_module_count'], 0)
+        elf_module(self.kernel / 'provider.ko', 'provider', crc=0x87654321)
+        with self.assertRaisesRegex(ValueError, 'CRC'):
+            verify(self.kernel)
+        elf_module(self.kernel / 'provider.ko', 'provider', depends='absent')
+        with self.assertRaisesRegex(ValueError, 'unresolved module dependencies'):
+            verify(self.kernel)
+
     def test_multiple_softdeps_and_firmware_preserved(self):
         elf_module(self.stage / 'consumer.ko', 'consumer', depends='provider',
                    extra_info='softdep=pre: phy\0softdep=post: monitor\0firmware=radio.bin\0')

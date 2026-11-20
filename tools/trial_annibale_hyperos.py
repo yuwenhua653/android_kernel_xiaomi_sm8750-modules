@@ -15,8 +15,8 @@ import zipfile
 import capture_annibale_boot_readiness as capture
 
 STOCK_RELEASE = '6.6.118-android15-8-g0908354dac1b-ab16143355-4k'
-TEST_RELEASE = '6.6.144-4k-ge7af0d4f1111'
-IMAGE_SHA = '7734eb703e5fb608a45cfc07afd5cf1b5189e903cb9981bce9daa44485475680'
+TEST_RELEASE = '6.6.144-4k-gc17ffa89f4fe'
+IMAGE_SHA = 'af2afea012b7f019ace52ab2215579a8104458df2f217ed06c6185b3268f4428'
 IMAGE_BYTES = 36876288
 PARTITION_BYTES = 100663296
 SYSTEM_FP = 'Redmi/annibale/annibale:17/CP2A.260605.016/OS4.0.6.0.XPKCNXM:user/release-keys'
@@ -132,7 +132,7 @@ def bootloader(fastboot, serial, slot=None):
 def save(report, output):
     output.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
-    target = output / ('annibale-r45-trial-' + stamp + '.zip')
+    target = output / ('annibale-r49-trial-' + stamp + '.zip')
     with zipfile.ZipFile(target, 'x', compression=zipfile.ZIP_DEFLATED) as z:
         z.writestr('trial.json', json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print('SEND THIS ZIP: ' + str(target.resolve()), flush=True)
@@ -174,6 +174,8 @@ def observe(adb, serial, report, seconds):
 
 
 def trial(adb, fastboot, image, report, seconds):
+    if (image.parent / 'state-r49.json').exists():
+        raise ValueError('Installation state exists; use the R49 restore action before temporary boot testing.')
     verify_image(image)
     serial = one_device(adb, 'adb')
     report['before'] = capture.capture(adb, serial)
@@ -204,6 +206,8 @@ def trial(adb, fastboot, image, report, seconds):
 
 
 def return_stock(adb, fastboot, report):
+    if (Path(__file__).resolve().parent / 'state-r49.json').exists():
+        raise ValueError('Persistent installation state exists: use install_annibale_hyperos.py restore, not normal reboot.')
     # Temporary boot changes no boot image. A normal reboot selects the existing stock image.
     try:
         serial = one_device(adb, 'adb')

@@ -6,11 +6,12 @@ fsck.erofs independently checks and extracts compressed file data.
 Format reference: matching kernel fs/erofs/erofs_fs.h.
 """
 import stat
+import re
 import struct
 from annibale_ramdisk import require
 
 
-def inspect(data, label):
+def inspect(data, label, *, shared_xattrs=False):
     data = bytes(data)
     require(len(data) >= 1152, 'truncated EROFS header')
     def get(fmt, at):
@@ -37,19 +38,29 @@ def inspect(data, label):
         xlen = 12 + (count - 1) * 4 if count else 0
         require(xlen >= 12 and at + ilen + xlen <= len(data), 'missing/truncated inline xattrs')
         xat, end = at + ilen, at + ilen + xlen
-        require(data[xat + 4] == 0, 'shared xattrs are outside this qualification profile')
-        xat += 12
+        shared_count = data[xat + 4]
+        require(shared_xattrs or shared_count == 0, 'shared xattrs are outside this qualification profile')
         attrs = {}
-        while xat < end:
-            nlen, index, vlen = get('<BBH', xat)
-            require(nlen > 0 and xat + 4 + nlen + vlen <= end, 'invalid inline xattr entry')
-            name = data[xat + 4:xat + 4 + nlen]
+        def attribute(start, limit):
+            nlen, index, vlen = get('<BBH', start)
+            require(nlen > 0 and start + 4 + nlen + vlen <= limit, 'invalid xattr entry')
+            name = data[start + 4:start + 4 + nlen]
             key = (index, name)
             require(key not in attrs, 'duplicate xattr')
-            attrs[key] = data[xat + 4 + nlen:xat + 4 + nlen + vlen]
-            xat += (4 + nlen + vlen + 3) & ~3
+            attrs[key] = data[start + 4 + nlen:start + 4 + nlen + vlen]
+            return start + ((4 + nlen + vlen + 3) & ~3)
+        xat += 12
+        require(xat + shared_count * 4 <= end, 'truncated shared xattr IDs')
+        shared_block = get('<I', 1068)[0] * 4096
+        for index in range(shared_count):
+            xid = get('<I', xat)[0]
+            attribute(shared_block + xid * 4, blocks * 4096)
+            xat += 4
+        while xat < end:
+            xat = attribute(xat, end)
+        require(set(attrs) == {(6, b'selinux')}, 'unreviewed extra xattrs: ' + path)
         context = attrs.get((6, b'selinux'), b'').removesuffix(b'\0')
-        require(context == label.encode(), 'wrong/missing SELinux label: ' + path)
+        require(bool(re.fullmatch(rb'u:object_r:[A-Za-z0-9_]+:s0', context)) if label is None else context == label.encode(), 'wrong/missing SELinux label: ' + path)
         require(uid == gid == 0, 'non-root image owner')
         directory = stat.S_ISDIR(mode)
         require(directory or stat.S_ISREG(mode), 'unexpected EROFS member type')

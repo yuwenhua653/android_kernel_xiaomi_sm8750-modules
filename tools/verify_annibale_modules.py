@@ -87,15 +87,16 @@ def read_symvers(paths):
     return symbols
 
 
-def verify(kernel_out, module_stage):
+def verify(kernel_out, module_stage=None):
     config = (kernel_out / '.config').read_text().splitlines()
     if 'CONFIG_MODVERSIONS=y' not in config:
         raise ValueError('this verifier requires CONFIG_MODVERSIONS=y')
     release = (kernel_out / 'include/config/kernel.release').read_text().strip()
-    symbols = read_symvers([kernel_out / 'Module.symvers', module_stage / 'Module.symvers'])
+    roots = (kernel_out, module_stage) if module_stage is not None else (kernel_out,)
+    symbols = read_symvers([root / 'Module.symvers' for root in roots])
     # modules.order is authoritative: do not pick up obsolete .ko files in caches.
     paths = []
-    for root in (kernel_out, module_stage):
+    for root in roots:
         order = (root / 'modules.order').read_text().splitlines()
         if not order:
             raise ValueError(f'{root}: empty modules.order')
@@ -144,7 +145,8 @@ def verify(kernel_out, module_stage):
         raise ValueError('cyclic module dependencies: ' + ' -> '.join(error.args[1])) from error
     return {'release': release, 'vermagic': next(iter(vermagics)),
             'kernel_module_count': sum(p.is_relative_to(kernel_out.resolve()) for p in paths),
-            'external_module_count': sum(p.is_relative_to(module_stage.resolve()) for p in paths),
+            'external_module_count': (sum(p.is_relative_to(module_stage.resolve()) for p in paths)
+                                      if module_stage is not None else 0),
             'modules': modules,
             'dependency_order': dependency_order,
             'dependency_order_scope': 'Hard dependencies only; not a device modules.load list, softdep policy or probe ordering',
@@ -154,11 +156,15 @@ def verify(kernel_out, module_stage):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel-out', type=Path, required=True)
-    parser.add_argument('--module-stage', type=Path, required=True)
+    selection = parser.add_mutually_exclusive_group(required=True)
+    selection.add_argument('--module-stage', type=Path)
+    selection.add_argument('--kernel-only', action='store_true',
+                           help='Check only the authoritative in-tree modules.order')
     parser.add_argument('--report', type=Path, required=True)
     args = parser.parse_args()
     try:
-        report = verify(args.kernel_out.resolve(), args.module_stage.resolve())
+        report = verify(args.kernel_out.resolve(),
+                        args.module_stage.resolve() if args.module_stage else None)
     except (ValueError, OSError, UnicodeError, struct.error) as error:
         parser.exit(1, f'FAIL: {error}\n')
     args.report.write_text(json.dumps(report, indent=2) + '\n')

@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SOURCE = Path(__file__).resolve().parents[1] / "ci_annibale_arm64.py"
 SPEC = importlib.util.spec_from_file_location("ci_annibale_arm64", SOURCE)
@@ -46,6 +47,27 @@ class ToolchainTests(unittest.TestCase):
         path = CI.toolchain(self.tools, self.spec)
         self.assertEqual((path / "skeleton.m4").read_bytes(), b"reviewed content\n")
         self.assertFalse((self.tools / "bison-data/unselected").exists())
+
+    def test_checkout_retry_retains_pinned_content(self):
+        original = CI.run
+        interruptions = []
+        def interrupted(command, **kwargs):
+            if "checkout" in command and not interruptions:
+                interruptions.append(command)
+                raise subprocess.CalledProcessError(128, command)
+            return original(command, **kwargs)
+        with patch.object(CI, "run", side_effect=interrupted), patch.object(CI.time, "sleep"):
+            path = CI.toolchain(self.tools, self.spec)
+        self.assertEqual(len(interruptions), 1)
+        self.assertEqual((path / "skeleton.m4").read_bytes(), b"reviewed content\n")
+
+    def test_transfer_stops_after_three_failures(self):
+        command = ["git", "fetch", "unavailable"]
+        with patch.object(CI, "run", side_effect=subprocess.CalledProcessError(128, command)) as run:
+            with patch.object(CI.time, "sleep"):
+                with self.assertRaises(subprocess.CalledProcessError):
+                    CI.transfer(command, timeout=10)
+        self.assertEqual(run.call_count, 3)
 
     def test_rejects_missing_subtree(self):
         self.spec["subdir"] = "does-not-exist"

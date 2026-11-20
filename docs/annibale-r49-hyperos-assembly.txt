@@ -1,0 +1,59 @@
+Redmi K90 / annibale / HyperOS OS4.0.6.0.XPKCNXM — R49 候选测试包
+2026-11-20
+
+适用范围
+仅 Redmi K90（annibale），不是 K90 Pro Max / myron，也不是 Xiaomi 17。
+底包必须为 OS4.0.6.0.XPKCNXM，已解锁 Bootloader，原厂内核
+6.6.118-android15-8-g0908354dac1b-ab16143355-4k，SELinux Enforcing、/data 为 F2FS。
+脚本会检查这些条件；不满足就停止，不要修改常量绕过。
+这是离线验证完成、尚未实机验证的候选包，不是已经证明可日用的正式版。
+
+实际装配内容
+- 内核 6.6.144-4k-gc17ffa89f4fe，使用 R47 成功构建的原始 Image。
+- 原厂 vendor_dlkm 395 个文件中，仅替换 rmnet_offload、rmnet_core、rmnet_shs。
+  单独替换 offload 会产生 5 个 CRC 冲突，必须同时替换以上三个模块。
+- 其他驱动继续使用这份原厂包的模块，不是完整驱动全部 OSS 替换版。
+- candidate/ 下的 boot.img、vendor_dlkm.img、vbmeta.img 必须作为配套组合使用。
+- stock-rollback/ 是同一 OS4.0.6 原厂包的上述三个原始镜像。
+- vendor_boot、init_boot、dtbo、recovery、system_dlkm、vbmeta_system 保持原厂。
+- 保留 dm-verity、FEC 2、AVB flags=0 和 rollback index；不扩容、不清数据、不切槽。
+- boot / vbmeta 使用本轮测试密钥签名，不是小米官方签名。
+  不要重新锁定 Bootloader。测试密钥不代表已通过实机启动认证。
+
+Windows 使用
+1. 完整解压 ZIP，不能直接在压缩包里运行。电脑安装 Python 3，PATH 中有 adb 和 fastboot。
+   不需要手机 root。只连接一台设备，在 Android 中开启 USB 调试并授权电脑。
+2. 运行 R49.cmd，选 1 校验六个候选/回退镜像。
+3. 推荐先选 2 临时启动本轮内核。这不写分区；三个网络模块仍然是原厂版本。
+   临时启动失败时不要改用刷入来绕过失败；选 6 或长按电源回到原系统。
+   临时启动成功也不能证明下面的三模块安装可启动。
+4. 选 6 恢复正常原厂内核启动后，选 3 才是完整安装测试：
+   先核对 Android 底包和当前槽位，再进入 fastbootd 写 vendor_dlkm，回 Bootloader
+   写 boot 和 vbmeta，全部成功后重启。只写识别到的当前槽位。
+   这一操作会实际写入三个分区。脚本没有在手机上运行过，只完成了离线与模拟故障测试。
+5. 启动后选 5 采集，发送 results/ 中最新 annibale-r49-trial-*.zip。
+   确认 uname 为 6.6.144-4k-gc17ffa89f4fe，并测试 SIM/移动数据、Wi-Fi、待机、
+   屏幕触控、声音、相机、充电。磁盘模块哈希与模块出现不等于功能已经正常。
+
+安装失败或开不了机
+保留同一解压目录，尤其 state-r49.json，里面记录原设备和槽位。
+进入 Bootloader fastboot（通常电源+音量下），运行 R49.cmd 选 4。
+它会按原槽位恢复原厂 vendor_dlkm、boot、vbmeta，然后重启；不会碰 userdata。
+已经刷入后，普通重启不会自动恢复原厂，因此不能把菜单 6 当成刷入后的回退。
+脚本停止时不要自行切槽、删除状态文件、反复选 3、取消 OTA 快照或扩大分区。
+fastbootd 无法进入、USB 驱动错误、snapshot-update-status 不为 none、查询不受支持，
+都会停止；此时发送屏幕上的完整 STOP 错误。该回退路径也尚未经本设备实测。
+不要在保留本次安装状态的同时做系统 OTA 或换底包；本包回退镜像仅匹配上述版本。
+
+已完成的验证
+- 629 个正常启动候选模块的符号提供者、依赖、CRC 和 vermagic 标志检查无检测阻塞。
+- 974 个可比较 CFI 导入类型 ID 一致；不能比较的部分和运行时回调仍未验证。
+- vendor_dlkm 回读字节一致；399 个 inode 的权限、uid/gid、SELinux 标签保持原厂。
+- boot 哈希、签名与父链公钥匹配；DLKM hashtree 和重新计算的 FEC 匹配。
+- 顶层 35 个 AVB 描述符中 33 个逐字节保留，仅更新 boot 链公钥和 DLKM 哈希树。
+- 38 个相关离线测试通过，包括写入失败、错机型、错槽位、锁定与快照状态保护。
+- 原厂大分区未重新下载/逐一哈希；保留其原厂 AVB 描述符，不声称整机签名链已实测。
+- 原成功构建的 GKI allowlist 为空；已结合 vmlinux 机器码核对，并非本次新改内核策略。
+  签名信任、所有间接调用/结构布局、实际模块加载、探测和硬件功能仍需实机验证。
+
+报告在 reports/。测试密钥私钥不随包提供；此包没有自动上传手机采集信息的行为。
